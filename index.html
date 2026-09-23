@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="zh-TW" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>高中物理拋體運動 · 互動解題中心 (1~72題精解)</title>
+  <meta name="description" content="專為高中物理打造的拋體運動互動刷題網站。先看題目審題，需要時一鍵展開破題思維與詳細算式推導，字體清晰大方，支援KaTeX數學排版與深色模式。">
+  
+  <!-- Google Fonts: Plus Jakarta Sans & Noto Sans TC -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Noto+Sans+TC:wght@400;500;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- KaTeX for crisp LaTeX Math rendering -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" crossorigin="anonymous"></script>
+
+  <!-- Application Stylesheet -->
+  <link rel="stylesheet" href="core/style.css">
+</head>
+<body>
+
+  <!-- 頂部導覽列 (Sticky Header) -->
+  <header class="app-header">
+    <div class="header-inner">
+      <div class="brand-section">
+        <div class="brand-logo" id="app-logo" aria-hidden="true">⚛️</div>
+        <div class="brand-text">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <h1 style="font-size:1.15rem; font-weight:800;">高中學習中心</h1>
+            <!-- 科目切換選單 -->
+            <select class="subject-select" id="subject-select" title="切換學習科目">
+              <option value="physics">⚛️ 物理科</option>
+              <option value="chemistry" disabled>🧪 化學科 (籌備中)</option>
+              <option value="math" disabled>📐 數學科 (籌備中)</option>
+            </select>
+            <!-- 單元切換選單 -->
+            <select class="unit-select" id="unit-select" title="切換學習單元">
+              <option value="01_projectile">🎯 二維拋體運動 (1~72題)</option>
+            </select>
+          </div>
+          <p id="app-subtitle">二維拋體運動 · 第 1 ~ 72 題 全功能互動精解指南</p>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <!-- 做題模式切換 -->
+        <div class="control-pill-group" role="group" aria-label="做題模式切換">
+          <button class="pill-btn active" id="mode-focus-btn" title="一次專注一題，適合自行刷題模擬">🎯 單題專注</button>
+          <button class="pill-btn" id="mode-list-btn" title="連續滾動瀏覽所有題目與解析">📜 清單連續</button>
+        </div>
+
+        <!-- 字級縮放控制器 -->
+        <div class="font-size-control" title="調節字體大小">
+          <button class="font-size-btn" id="font-dec-btn" title="縮小字體" aria-label="縮小字體">A-</button>
+          <span class="font-size-indicator" id="font-indicator">115%</span>
+          <button class="font-size-btn" id="font-inc-btn" title="放大字體" aria-label="放大字體">A+</button>
+        </div>
+
+        <!-- 深淺色主題切換 -->
+        <button class="theme-toggle-btn" id="theme-toggle-btn" title="切換深色/淺色主題" aria-label="切換主題">
+          🌙
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- 主要版面 (Main Grid Container) -->
+  <main class="app-container" id="app-container">
+    
+    <!-- 側邊欄：單元分類、題號矩陣與搜尋 -->
+    <aside class="sidebar-panel">
+      <!-- 搜尋欄 -->
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" class="search-input" id="search-input" placeholder="搜尋題號或題目關鍵字...">
+      </div>
+
+      <!-- 分類標籤 -->
+      <nav class="filter-tabs" aria-label="單元分類導覽">
+        <button class="filter-tab active" data-filter="all">
+          <span>全部習題</span>
+          <span class="filter-count" id="count-all">72</span>
+        </button>
+        <button class="filter-tab" data-filter="1-27">
+          <span>水平拋體運動 (1~27)</span>
+          <span class="filter-count" id="count-1-27">27</span>
+        </button>
+        <button class="filter-tab" data-filter="28-60">
+          <span>斜向拋體運動 (28~60)</span>
+          <span class="filter-count" id="count-28-60">33</span>
+        </button>
+        <button class="filter-tab" data-filter="61-72">
+          <span>斜面拋體與相對運動 (61~72)</span>
+          <span class="filter-count" id="count-61-72">12</span>
+        </button>
+        <button class="filter-tab" data-filter="bookmarked">
+          <span>⭐ 我的複習標記</span>
+          <span class="filter-count" id="count-bookmarked">0</span>
+        </button>
+      </nav>
+
+      <hr style="border: none; border-top: 1px solid var(--border-light); margin: 0.2rem 0;">
+
+      <!-- 快速題號矩陣 -->
+      <div>
+        <div class="section-title">
+          <span>題號快速跳轉</span>
+          <span style="font-size: 0.75rem; text-transform: none; color: var(--text-muted);">點擊直達</span>
+        </div>
+        <div class="question-grid" id="question-grid" style="margin-top: 0.75rem;">
+          <!-- 由 JS 動態生成 1~72 題號徽章 -->
+        </div>
+      </div>
+    </aside>
+
+    <!-- 題目主展示卡片區 -->
+    <section class="main-content" id="main-content">
+      <!-- 由 JS 動態插入題目卡片 -->
+    </section>
+
+  </main>
+
+  <!-- 底部固定換題操作列 (專注模式下顯示) -->
+  <footer class="focus-bottom-nav" id="focus-bottom-nav">
+    <button class="nav-btn" id="prev-question-btn">
+      <span>←</span> 上一題
+    </button>
+    <div class="focus-hotkey-hints">
+      <span id="current-nav-indicator" style="font-weight: 800; color: var(--text-primary);">第 1 / 72 題</span>
+      <span>•</span>
+      <span>按 <span class="kbd-badge">Space</span> 快速掀牌解析</span>
+      <span>•</span>
+      <span>按 <span class="kbd-badge">←</span> <span class="kbd-badge">→</span> 快速換題</span>
+    </div>
+    <button class="nav-btn" id="next-question-btn">
+      下一題 <span>→</span>
+    </button>
+  </footer>
+
+  <!-- 資料與核心模組腳本 -->
+  <script src="core/subjects_config.js"></script>
+  <script src="subjects/physics/01_拋體運動/data.js"></script>
+  <script src="core/app.js"></script>
+</body>
+</html>
