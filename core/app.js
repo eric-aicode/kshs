@@ -4,8 +4,12 @@
 
 document.addEventListener('DOMContentLoaded', () => {
   // 1. 狀態初始化
+  const urlParams = new URLSearchParams(window.location.search);
+  const qParam = parseInt(urlParams.get('q'), 10);
+  const initialCurrentId = (qParam && qParam >= 1 && qParam <= 72) ? qParam : 1;
+
   const state = {
-    currentId: 1,
+    currentId: initialCurrentId,
     mode: 'focus', // 'focus' | 'list'
     fontScale: parseFloat(localStorage.getItem('phy_font_scale')) || 1.15,
     theme: localStorage.getItem('phy_theme') || 'light',

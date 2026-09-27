@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>【A4列印講義】高中物理·二維拋體運動公式變形與題型攻略寶典</title>
+  <meta name="description" content="專為A4紙張列印與PDF匯出優化的高中物理二維拋體運動精編講義：公式變形庫、8大題型矩陣與條件反射思維導航。">
+
+  <!-- Google Fonts: Noto Sans TC & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Noto+Sans+TC:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- KaTeX for crisp LaTeX Math rendering -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" crossorigin="anonymous"></script>
+
+  <style>
+    /* ==========================================================================
+       A4 紙張列印專用版面排版系統 (High Density Print Layout)
+       ========================================================================== */
+    :root {
+      --text-main: #111827;
+      --text-sub: #374151;
+      --text-muted: #4b5563;
+      --border-dark: #9ca3af;
+      --border-light: #d1d5db;
+      --bg-box: #f9fafb;
+      --accent-color: #1e3a8a; /* 深海軍藍，黑白/彩色黑白列印皆沉穩清晰 */
+      --accent-badge: #047857;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Noto Sans TC', system-ui, -apple-system, sans-serif;
+      font-size: 9.5pt;
+      line-height: 1.5;
+      color: var(--text-main);
+      background-color: #f3f4f6;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    /* 螢幕預覽模式下的 A4 模擬紙張容器 */
+    .print-sheet {
+      width: 210mm;
+      min-height: 297mm;
+      margin: 1.5rem auto;
+      padding: 14mm 16mm;
+      background: #ffffff;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
+      border-radius: 4px;
+      position: relative;
+    }
+
+    /* 頂部浮動列印控制列 (螢幕顯示，列印自動隱藏) */
+    .screen-control-bar {
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      background: rgba(17, 24, 39, 0.95);
+      backdrop-filter: blur(8px);
+      color: #ffffff;
+      padding: 0.75rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 0.75rem;
+      align-items: center;
+    }
+
+    .action-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.5rem 1.1rem;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 0.92rem;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.15s ease;
+      border: 1px solid transparent;
+    }
+
+    .btn-print {
+      background: #2563eb;
+      color: #ffffff;
+    }
+
+    .btn-print:hover {
+      background: #1d4ed8;
+      transform: translateY(-1px);
+    }
+
+    .btn-back {
+      background: #374151;
+      color: #e5e7eb;
+      border-color: #4b5563;
+    }
+
+    .btn-back:hover {
+      background: #4b5563;
+      color: #ffffff;
+    }
+
+    /* 講義表頭 */
+    .doc-header {
+      border-bottom: 2px solid var(--text-main);
+      padding-bottom: 0.5rem;
+      margin-bottom: 0.75rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    .doc-title-main {
+      font-size: 15pt;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      color: var(--accent-color);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .doc-subtitle {
+      font-size: 8.5pt;
+      color: var(--text-muted);
+      margin-top: 2px;
+      font-weight: 500;
+    }
+
+    .student-info-box {
+      display: flex;
+      gap: 1.25rem;
+      font-size: 9pt;
+      font-weight: 600;
+      color: var(--text-sub);
+    }
+
+    .info-line {
+      border-bottom: 1px solid var(--border-dark);
+      display: inline-block;
+      min-width: 48px;
+    }
+
+    /* 章節大標題 */
+    .part-title {
+      font-size: 11pt;
+      font-weight: 800;
+      color: #ffffff;
+      background: var(--accent-color);
+      padding: 0.25rem 0.6rem;
+      margin: 0.85rem 0 0.5rem 0;
+      border-radius: 3px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      break-after: avoid;
+      page-break-after: avoid;
+    }
+
+    .part-title span:last-child {
+      font-size: 8pt;
+      font-weight: 500;
+      opacity: 0.9;
+    }
+
+    /* 兩欄網格公式區 */
+    .print-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    /* 三欄網格 */
+    .print-grid-3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 0.45rem;
+      margin-bottom: 0.5rem;
+    }
+
+    /* 公式卡片 (防止被分頁切斷) */
+    .formula-box {
+      border: 1px solid var(--border-light);
+      background: #ffffff;
+      border-radius: 4px;
+      padding: 0.45rem 0.6rem;
+      font-size: 8.8pt;
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+
+    .formula-box-header {
+      font-weight: 800;
+      font-size: 9pt;
+      color: var(--accent-color);
+      border-bottom: 1px dashed var(--border-light);
+      padding-bottom: 0.2rem;
+      margin-bottom: 0.25rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .box-tag {
+      font-size: 7pt;
+      font-weight: 700;
+      padding: 1px 4px;
+      border-radius: 2px;
+      border: 1px solid var(--border-dark);
+      background: var(--bg-box);
+      color: var(--text-sub);
+    }
+
+    .math-center {
+      text-align: center;
+      margin: 0.25rem 0;
+      font-size: 9.5pt;
+    }
+
+    .formula-note {
+      font-size: 8pt;
+      color: var(--text-sub);
+      line-height: 1.4;
+    }
+
+    .highlight-rule {
+      color: #991b1b;
+      font-weight: 700;
+    }
+
+    /* 表格樣式 (列印緊湊型) */
+    .print-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 8.5pt;
+      margin: 0.4rem 0 0.75rem 0;
+      border: 1px solid var(--border-dark);
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+
+    .print-table th {
+      background: var(--bg-box);
+      border: 1px solid var(--border-dark);
+      padding: 0.35rem 0.5rem;
+      font-weight: 800;
+      text-align: left;
+      color: var(--accent-color);
+    }
+
+    .print-table td {
+      border: 1px solid var(--border-light);
+      padding: 0.35rem 0.5rem;
+      vertical-align: top;
+      color: var(--text-sub);
+    }
+
+    .print-table tr:nth-child(even) td {
+      background: #fafafa;
+    }
+
+    .model-badge {
+      display: inline-block;
+      background: var(--accent-color);
+      color: #ffffff;
+      font-weight: 800;
+      font-size: 7.5pt;
+      padding: 1px 5px;
+      border-radius: 2px;
+      margin-right: 0.25rem;
+    }
+
+    .q-ids {
+      font-family: 'JetBrains Mono', Consolas, monospace;
+      font-weight: 700;
+      color: var(--accent-badge);
+    }
+
+    /* 分頁控制 */
+    .page-break {
+      page-break-before: always;
+      break-before: page;
+      margin-top: 1.5rem;
+      border-top: 1px dashed #cbd5e1;
+      padding-top: 1.5rem;
+    }
+
+    /* 列印媒體查詢 (@media print) */
+    @media print {
+      body {
+        background: #ffffff !important;
+        font-size: 9pt;
+      }
+
+      .screen-control-bar {
+        display: none !important;
+      }
+
+      .print-sheet {
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        box-shadow: none !important;
+        border-radius: 0 !important;
+      }
+
+      .page-break {
+        page-break-before: always !important;
+        break-before: page !important;
+        margin-top: 0 !important;
+        border-top: none !important;
+        padding-top: 0 !important;
+      }
+
+      /* 防止任何卡片被硬生生切斷在兩頁中間 */
+      .formula-box, .print-table, .model-item, .trap-box {
+        break-inside: avoid !important;
+        page-break-inside: avoid !important;
+      }
+
+      @page {
+        size: A4 portrait;
+        margin: 12mm 14mm 14mm 14mm;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 頂部操作列 (僅在電腦/手機螢幕顯示，列印時自動隱藏) -->
+  <aside class="screen-control-bar" aria-label="列印操作列">
+    <div style="display:flex; align-items:center; gap:0.6rem;">
+      <span style="font-size:1.2rem;">🖨️</span>
+      <div>
+        <div style="font-weight:800; font-size:1rem;">A4 講義專用列印與 PDF 匯出版面</div>
+        <div style="font-size:0.8rem; color:#9ca3af;">已優化分頁排版、去背除框、雙欄對照，按下方按鈕即可直接列印或另存為 PDF。</div>
+      </div>
+    </div>
+    <div class="btn-group">
+      <a href="guide.html" class="action-btn btn-back">← 回攻略寶典</a>
+      <a href="index.html" class="action-btn btn-back">🎯 回刷題中心</a>
+      <button onclick="window.print()" class="action-btn btn-print">🖨️ 立即列印 / 存為 PDF</button>
+    </div>
+  </aside>
+
+  <!-- 模擬 A4 紙張 (Sheet 1) -->
+  <main class="print-sheet">
+
+    <!-- 講義文件頭 -->
+    <header class="doc-header">
+      <div>
+        <div class="doc-title-main">
+          <span>⚛️ 高中物理：二維拋體運動總複習</span>
+          <span style="font-size:9pt; background:#eff6ff; color:#1d4ed8; padding:2px 8px; border-radius:3px; border:1px solid #bfdbfe;">精編講義</span>
+        </div>
+        <div class="doc-subtitle">核心公式推導 · 極致變形庫 · 8大實戰題型矩陣 · 條件反射思維導航</div>
+      </div>
+      <div class="student-info-box">
+        <span>班級：<span class="info-line"></span></span>
+        <span>座號：<span class="info-line"></span></span>
+        <span>姓名：<span class="info-line" style="min-width:70px;"></span></span>
+      </div>
+    </header>
+
+    <!-- 第一單元：水平拋體運動 -->
+    <section>
+      <div class="part-title">
+        <span>第一部分：水平拋體運動 (Horizontal Projectile)</span>
+        <span>題庫涵蓋：第 1 ~ 27 題</span>
+      </div>
+
+      <div class="print-grid-3">
+        <!-- 基礎分解 -->
+        <div class="formula-box">
+          <div class="formula-box-header">
+            <span>基礎運動分解</span>
+            <span class="box-tag">運動獨立性</span>
+          </div>
+          <div class="math-center">
+            $$v_x = v_0, \quad v_y = gt$$
+            $$x = v_0 t, \quad y = \frac{1}{2}gt^2$$
+          </div>
+          <div class="formula-note">
+            • 合速度：$v = \sqrt{v_0^2 + g^2 t^2}$<br>
+            • 合位移：$S = \sqrt{x^2 + y^2}$
+          </div>
+        </div>
+
+        <!-- 變形1：時間高度律 -->
+        <div class="formula-box">
+          <div class="formula-box-header">
+            <span>時間與射程變形</span>
+            <span class="box-tag">秒殺必背</span>
+          </div>
+          <div class="math-center">
+            $$t = \sqrt{\frac{2h}{g}}, \quad R = v_0 \sqrt{\frac{2h}{g}}$$
+            $$v_0 = R \sqrt{\frac{g}{2h}}$$
+          </div>
+          <div class="formula-note">
+            <span class="highlight-rule">飛行時間由高度 $h$ 單獨決定！</span> 與初速 $v_0$ 完全無關（第 1, 2 題）。
+          </div>
+        </div>
+
+        <!-- 變形2：正切2倍定理 -->
+        <div class="formula-box" style="border-left: 3px solid #1e3a8a;">
+          <div class="formula-box-header">
+            <span>速度角 vs 位移角 2 倍定理</span>
+            <span class="box-tag" style="background:#dbeafe; color:#1e3a8a;">常考大招</span>
+          </div>
+          <div class="math-center">
+            $$\tan\theta = \frac{v_y}{v_x} = \frac{gt}{v_0}$$
+            $$\tan\phi = \frac{y}{x} = \frac{gt}{2v_0} \implies \mathbf{\tan\theta = 2\tan\phi}$$
+          </div>
+          <div class="formula-note">
+            幾何意義：速度延長線必精確交於水平位移的<strong>中點 $(\frac{x}{2}, 0)$</strong>（第 4~6 題）。
+          </div>
+        </div>
+
+        <!-- 變形3：軌跡方程 -->
+        <div class="formula-box">
+          <div class="formula-box-header">
+            <span>軌跡方程式</span>
+            <span class="box-tag">消去時間 t</span>
+          </div>
+          <div class="math-center">
+            $$y = \frac{g}{2v_0^2}x^2$$
+          </div>
+          <div class="formula-note">
+            已知落點坐標 $(x_1, y_1)$，初速為：<br>
+            $$v_0 = x_1 \sqrt{\frac{g}{2y_1}} \quad (\text{第 22~24 題})$$
+          </div>
+        </div>
+
+        <!-- 變形4：切法向加速度 -->
+        <div class="formula-box">
+          <div class="formula-box-header">
+            <span>切線與法線加速度</span>
+            <span class="box-tag">重力投影</span>
+          </div>
+          <div class="math-center">
+            $$a_T = g\sin\theta = \frac{g^2 t}{\sqrt{v_0^2 + g^2 t^2}}$$
+            $$a_N = g\cos\theta = \frac{g v_0}{\sqrt{v_0^2 + g^2 t^2}}$$
+          </div>
+          <div class="formula-note">
+            • $a_T$ 改變速率，$a_N$ 改變方向。<br>
+            • $\vec{a} = \vec{a}_T + \vec{a}_N = \vec{g}$（恆為 $g$ 下壓）。
+          </div>
+        </div>
+
+        <!-- 變形5：曲率半徑 -->
+        <div class="formula-box">
+          <div class="formula-box-header">
+            <span>曲率半徑 $\rho$</span>
+            <span class="box-tag">向心加速度</span>
+          </div>
+          <div class="math-center">
+            $$\rho = \frac{v^2}{a_N} = \frac{(v_0^2 + g^2 t^2)^{3/2}}{g v_0}$$
+            $$\text{拋出頂點：} \rho_0 = \frac{v_0^2}{g}$$
+          </div>
+          <div class="formula-note">
+            頂點處曲率半徑最小，之後隨時間增加而迅速擴大（第 12~15 題）。
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 第二單元：斜向拋體運動 -->
+    <section style="margin-top:0.6rem;">
+      <div class="part-title">
+        <span>第二部分：斜向拋體運動 (Oblique Projectile)</span>
+        <span>題庫涵蓋：第 28 ~ 60 題</span>
+      </div>
+
+      <div class="print-grid-3">
+        <!-- 三大基準量 -->
+        <div class="formula-box">
+          <div class="formula-box-header">
+            <span>同高地面三大基準定量</span>
+            <span class="box-tag">基石公式</span>
+          </div>
+          <div class="math-center">
+            $$T = \frac{2v_0\sin\theta}{g}, \ H = \frac{v_0^2\sin^2\theta}{2g}$$
+            $$R = \frac{v_0^2\sin 2\theta}{g} = \frac{2v_{0x}v_{0y}}{g}$$
+          </div>
+          <div class="formula-note">
+            • $T$ 與 $H$ 只與鉛直分速 $v_{0y}$ 相關。<br>
+            • 水平射程 $R$ 與兩分速乘積成正比。
+          </div>
+        </div>
+
+        <!-- 變形1：射程與高度比 -->
+        <div class="formula-box" style="border-left: 3px solid #047857;">
+          <div class="formula-box-header">
+            <span>射程與最大高度連鎖比</span>
+            <span class="box-tag" style="background:#d1fae5; color:#047857;">秒殺神技</span>
+          </div>
+          <div class="math-center">
+            $$\frac{H}{R} = \frac{1}{4}\tan\theta \iff R = 4H\cot\theta$$
+          </div>
+          <div class="formula-note">
+            • $\theta = 45^\circ$ 時最大射程：$\mathbf{R_{\max} = 4H}$。<br>
+            • $R = H$ 時：$\tan\theta = 4 \implies \mathbf{\theta \approx 76^\circ}$。
+          </div>
+        </div>
+
+        <!-- 變形2：互餘角 -->
+        <div class="formula-box">
+          <div class="formula-box-header">
+            <span>互餘角定理 ($\theta$ 與 $90^\circ-\theta$)</span>
+            <span class="box-tag">對稱特性</span>
+          </div>
+          <div class="math-center">
+            $$R_1 = R_2, \quad T_1 T_2 = \frac{2R}{g}$$
+            $$H_1 + H_2 = \frac{v_0^2}{2g}, \ R = 4\sqrt{H_1 H_2}$$
+          </div>
+          <div class="formula-note">
+            同初速同射程必為互餘角發射！高度和即為鉛直上拋高度（第 39~42 題）。
+          </div>
+        </div>
+
+        <!-- 變形3：因式分解軌跡方程 -->
+        <div class="formula-box" style="border-left: 3px solid #0891b2;">
+          <div class="formula-box-header">
+            <span>因式分解軌跡方程 (過障礙)</span>
+            <span class="box-tag" style="background:#cffafe; color:#0891b2;">解題神器</span>
+          </div>
+          <div class="math-center">
+            $$y = x \tan\theta \left(1 - \frac{x}{R}\right)$$
+          </div>
+          <div class="formula-note">
+            題目已知通過距離 $x$、高 $y$ 的障礙並落在 $R$ 處，代入本式<strong>一秒得 $\tan\theta$</strong>！
+          </div>
+        </div>
+
+        <!-- 變形4：對稱過高點 -->
+        <div class="formula-box">
+          <div class="formula-box-header">
+            <span>兩度通過高度 $h$ 之時間乘積</span>
+            <span class="box-tag">韋達定理</span>
+          </div>
+          <div class="math-center">
+            $$t_1 + t_2 = T, \quad t_1 t_2 = \frac{2h}{g}$$
+            $$\mathbf{h = \frac{1}{2}g t_1 t_2}$$
+          </div>
+          <div class="formula-note">
+            高度 $h$ 直接由兩通過時間相乘決定，<strong>完全不需知道初速或仰角</strong>。
+          </div>
+        </div>
+
+        <!-- 變形5：頂點曲率半徑 -->
+        <div class="formula-box">
+          <div class="formula-box-header">
+            <span>最高頂點之曲率半徑</span>
+            <span class="box-tag">頂點向心</span>
+          </div>
+          <div class="math-center">
+            $$\rho_{\text{頂}} = \frac{v_{\text{頂}}^2}{g} = \frac{v_0^2\cos^2\theta}{g}$$
+            $$\vec{v}_{\text{avg}} = v_0\cos\theta \ \hat{i}$$
+          </div>
+          <div class="formula-note">
+            最高點速率為 $v_0\cos\theta$；全程（回到同高）平均速度等於水平分速。
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 第三單元：斜面拋體與相對運動 -->
+    <section style="margin-top:0.6rem;">
+      <div class="part-title">
+        <span>第三部分：斜面拋體與相對運動 (Incline & Relative Motion)</span>
+        <span>題庫涵蓋：第 61 ~ 72 題</span>
+      </div>
+
+      <div class="print-grid-3">
+        <!-- 旋轉坐標 -->
+        <div class="formula-box" style="border-left: 3px solid #1e3a8a;">
+          <div class="formula-box-header">
+            <span>旋轉坐標系分解法 (斜角 $\alpha$)</span>
+            <span class="box-tag">通用首選</span>
+          </div>
+          <div class="math-center">
+            $$a_{x'} = -g\sin\alpha, \ a_{y'} = -g\cos\alpha$$
+            $$T = \frac{2v_0\sin\beta}{g\cos\alpha}, \ H_{\perp} = \frac{v_0^2\sin^2\beta}{2g\cos\alpha}$$
+          </div>
+          <div class="formula-note">
+            $\beta$ 為與斜面夾角。垂直斜面為類鉛直上拋，求滯空時間與垂直距最快。
+          </div>
+        </div>
+
+        <!-- 最大射程角 -->
+        <div class="formula-box">
+          <div class="formula-box-header">
+            <span>斜面最大射程之平分角定理</span>
+            <span class="box-tag">極值條件</span>
+          </div>
+          <div class="math-center">
+            $$\beta = \frac{90^\circ - \alpha}{2} = 45^\circ - \frac{\alpha}{2}$$
+            $$S_{\max} = \frac{v_0^2}{g(1 + \sin\alpha)}$$
+          </div>
+          <div class="formula-note">
+            初速度向量方向必須<strong>平分「斜面」與「鉛垂線」之夾角</strong>（第 65 題）。
+          </div>
+        </div>
+
+        <!-- 垂直撞擊斜面 -->
+        <div class="formula-box" style="border-left: 3px solid #b45309;">
+          <div class="formula-box-header">
+            <span>垂直撞擊斜面判定條件</span>
+            <span class="box-tag" style="background:#fef3c7; color:#b45309;">壓軸大招</span>
+          </div>
+          <div class="math-center">
+            $$v_{x'} = 0 \implies v_{0x'} - (g\sin\alpha) T = 0$$
+            $$\mathbf{\cot\beta = 2\tan\alpha}$$
+          </div>
+          <div class="formula-note">
+            垂直撞擊斜面代表著地時沿斜面分速減為 0（第 70 題）。
+          </div>
+        </div>
+
+        <!-- 相對運動 -->
+        <div class="formula-box">
+          <div class="formula-box-header">
+            <span>空中相遇相撞 (相對運動)</span>
+            <span class="box-tag">相對等速</span>
+          </div>
+          <div class="math-center">
+            $$\vec{a}_{\text{相對}} = \vec{g} - \vec{g} = \vec{0}$$
+            $$\text{空中拋體相對運動必為「等速直線」}$$
+          </div>
+          <div class="formula-note">
+            相撞充要條件：初相對速度 $\vec{v}_1 - \vec{v}_2$ 必指向初始位置連線（第 71 題）。
+          </div>
+        </div>
+
+        <!-- 車載拋體 -->
+        <div class="formula-box">
+          <div class="formula-box-header">
+            <span>車載拋體 (慣性系轉換)</span>
+            <span class="box-tag">時間不變</span>
+          </div>
+          <div class="math-center">
+            $$T_{\text{車內}} = T_{\text{地面}} = \frac{2v_0}{g}$$
+            $$H_{\text{車內}} = H_{\text{地面}} = \frac{v_0^2}{2g}$$
+          </div>
+          <div class="formula-note">
+            車內鉛直上拋，地面看為斜拋。<strong>停留時間與最大高度量測完全相同</strong>（第 72 題）。
+          </div>
+        </div>
+
+        <!-- 向量三角形 -->
+        <div class="formula-box">
+          <div class="formula-box-header">
+            <span>大三角形正弦定理法</span>
+            <span class="box-tag">向量閉合</span>
+          </div>
+          <div class="math-center">
+            $$\vec{r} = \vec{v}_0 t + \frac{1}{2}\vec{g}t^2$$
+            $$\frac{s}{\sin\angle 1} = \frac{v_0 t}{\sin\angle 2} = \frac{\frac{1}{2}gt^2}{\sin\angle 3}$$
+          </div>
+          <div class="formula-note">
+            位移分解為慣性位移與自由落體位移，免坐標投影求解幾何關係（第 66~68 題）。
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 分頁線：換到 Sheet 2 (題型地圖與技巧) -->
+    <div class="page-break"></div>
+
+    <!-- 講義第二頁表頭 -->
+    <header class="doc-header">
+      <div>
+        <div class="doc-title-main">
+          <span>🎯 二維拋體 8 大經典實戰題型矩陣與思維導航</span>
+        </div>
+        <div class="doc-subtitle">高中題庫 1~72 題題型分類 · 破題SOP · 條件反射速查 · 四大避坑指南</div>
+      </div>
+      <div style="font-size:8.5pt; color:var(--text-muted); font-weight:700;">第 2 頁 / 共 2 頁</div>
+    </header>
+
+    <!-- 8大題型矩陣表格 -->
+    <section>
+      <div class="part-title">
+        <span>第四部分：全單元 72 題型分類歸納矩陣</span>
+        <span>8 大題型模型速查</span>
+      </div>
+
+      <table class="print-table">
+        <thead>
+          <tr>
+            <th style="width:13%;">題型模型</th>
+            <th style="width:12%;">題號涵蓋</th>
+            <th style="width:25%;">物理情境與題目特徵</th>
+            <th style="width:30%;">核心破題 SOP</th>
+            <th style="width:20%;">秒殺秘訣 / 公式</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="model-badge">模型 1</span><strong>平拋定量</strong></td>
+            <td><span class="q-ids">01, 02, 07</span></td>
+            <td>給高度求時間、射程、飛機投彈轟擊相向運動船隻。</td>
+            <td>① $t = \sqrt{2h/g}$ 求下落時間；② 水平射距 $x = (v_{\text{機}}+v_{\text{船}})t$。</td>
+            <td>時間高度獨力決定；相對前進速率相加。</td>
+          </tr>
+          <tr>
+            <td><span class="model-badge">模型 2</span><strong>夾角變換</strong></td>
+            <td><span class="q-ids">03~06, 31, 35, 36</span></td>
+            <td>出現「速度夾角 $\theta$」、「位移夾角 $\phi$」或求通過兩不同傾角點高度差。</td>
+            <td>① 水平分速 $v_0$ 永不變，$v_y = v_0\tan\theta$；② 兩點高度差 $h = \frac{v_0^2(\tan^2\theta_2 - \tan^2\theta_1)}{2g}$。</td>
+            <td><strong>$\tan\theta = 2\tan\phi$</strong>（速度角正切是位移角的 2 倍）。</td>
+          </tr>
+          <tr>
+            <td><span class="model-badge">模型 3</span><strong>加速度/曲率</strong></td>
+            <td><span class="q-ids">09~15, 37</span></td>
+            <td>求任意時刻之切向 $a_T$、法向 $a_N$ 或軌跡曲率半徑 $\rho$。</td>
+            <td>① 求該時刻速度夾角 $\theta$；② $g$ 向下投影：$a_T = g\sin\theta, a_N = g\cos\theta$；③ $\rho = \frac{v^2}{a_N}$。</td>
+            <td>拋出點/頂點曲率半徑最小：$\rho = \frac{v^2}{g}$。</td>
+          </tr>
+          <tr>
+            <td><span class="model-badge">模型 4</span><strong>斜面階梯</strong></td>
+            <td><span class="q-ids">08, 16~21</span></td>
+            <td>自斜坡頂拋出落回斜面、小球在階梯台階逐階彈落。</td>
+            <td>① 落回斜面位移比 $\frac{y}{x} = \tan\alpha \implies t = \frac{2v_0\tan\alpha}{g}$；② 階梯邊緣連線視為斜坡，階數向上取整。</td>
+            <td>離斜面最遠處瞬時速度平行於斜面（半程時間）。</td>
+          </tr>
+          <tr>
+            <td><span class="model-badge">模型 5</span><strong>障礙物通關</strong></td>
+            <td><span class="q-ids">22~24, 32, 33</span></td>
+            <td>求軌跡拋物線方程、小球恰越過球網或高牆落於底線。</td>
+            <td>① 平拋用 $y = \frac{g}{2v_0^2}x^2$；② 斜拋越過高牆必用因式分解型：$y = x\tan\theta(1 - x/R)$。</td>
+            <td>切勿列時間 $t$ 聯立，直接用因式分解型一步得角度。</td>
+          </tr>
+          <tr>
+            <td><span class="model-badge">模型 6</span><strong>斜拋三大極值</strong></td>
+            <td><span class="q-ids">28~30, 34, 38~45, 50, 51</span></td>
+            <td>同初速不同仰角同射程、射程與最大高度比值、兩度過高度 $h$。</td>
+            <td>① 同初速同射程必為互餘角（$\theta_1+\theta_2 = 90^\circ$）；② $H/R = \frac{1}{4}\tan\theta$；③ 兩度過高度 $h = \frac{1}{2}gt_1 t_2$。</td>
+            <td>$45^\circ$ 時 $R_{\max} = 4H$；$R=H$ 時 $\theta \approx 76^\circ$。</td>
+          </tr>
+          <tr>
+            <td><span class="model-badge">模型 7</span><strong>斜面斜拋著陸</strong></td>
+            <td><span class="q-ids">46~49, 61~70</span></td>
+            <td>沿斜面上拋求最大射程、要求拋體以垂直方向砸入斜面。</td>
+            <td>① 旋轉坐標軸分解重力 $g\sin\alpha, g\cos\alpha$；② 最大射程發射角平分夾角；③ 垂直撞擊沿斜面分速為 0。</td>
+            <td>垂直著陸判定：<strong>$\cot\beta = 2\tan\alpha$</strong>。</td>
+          </tr>
+          <tr>
+            <td><span class="model-badge">模型 8</span><strong>相對運動/車載</strong></td>
+            <td><span class="q-ids">25~27, 71, 72</span></td>
+            <td>空中雙球同時相遇、獵人打猴子、等速前進車內鉛直上拋。</td>
+            <td>① 相對加速度為 0，相對運動必為「等速直線」；② 車載拋體滯空時間與上升高度在車內車外測量完全一致。</td>
+            <td>空中相撞瞄準初始連線方向即可命中。</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- 第五單元：條件反射思維與四大避坑指南 -->
+    <section>
+      <div class="part-title">
+        <span>第五部分：條件反射思維導航與四大致命避坑警示</span>
+        <span>考場秒殺心法</span>
+      </div>
+
+      <div class="print-grid-2">
+        <!-- 條件反射速查 -->
+        <div class="formula-box">
+          <div class="formula-box-header">
+            <span>⚡ 題目關鍵字 $\rightarrow$ 條件反射速查</span>
+            <span class="box-tag">大腦第一反應</span>
+          </div>
+          <div class="formula-note" style="font-size:8.3pt; line-height:1.6;">
+            • <strong>見高度 $h$</strong> $\implies$ 自由落體求時間 $t = \sqrt{2h/g}$，不理會水平初速。<br>
+            • <strong>見速度夾角 $\theta$</strong> $\implies$ 水平 $v_0$ 永不變，$v_y = v_0\tan\theta$。<br>
+            • <strong>見位移夾角與速度夾角</strong> $\implies$ 立刻反射 $\tan\theta_{\text{速}} = 2\tan\phi_{\text{位}}$。<br>
+            • <strong>見切向/法向加速度</strong> $\implies$ 重力下壓向量分解 $a_T = g\sin\theta, a_N = g\cos\theta$。<br>
+            • <strong>見越過障礙落地</strong> $\implies$ 必用 $y = x\tan\theta(1 - x/R)$ 一步得仰角。<br>
+            • <strong>見同初速同射程</strong> $\implies$ 互餘角 $\theta$ 與 $90^\circ-\theta$，$T_1 T_2 = 2R/g$。<br>
+            • <strong>見斜面上拋</strong> $\implies$ 旋轉坐標軸分解，垂直斜面為等減速上拋。
+          </div>
+        </div>
+
+        <!-- 四大避坑陷阱 -->
+        <div class="formula-box" style="border-left: 3px solid #dc2626;">
+          <div class="formula-box-header">
+            <span>🚫 高中生考場常踩四大致命失分陷阱</span>
+            <span class="box-tag" style="background:#fee2e2; color:#dc2626;">嚴防丟分</span>
+          </div>
+          <div class="formula-note" style="font-size:8.3pt; line-height:1.55;">
+            <strong>1. 混淆「速度夾角」與「位移夾角」</strong>：<br>
+            位移角是位置比（$y/x$），速度角是分速比（$v_y/v_x$），兩者正切值永遠相差 2 倍！題目問「落地速度夾角」絕不能用高度除以射程。<br>
+            <strong>2. 誤以為「最高頂點加速度為 0」</strong>：<br>
+            最高點鉛直速度為 0，但合加速度恆為重力加速度 $\vec{g}$（鉛直向下）。<br>
+            <strong>3. 斜面問題死板使用水平/鉛直分解</strong>：<br>
+            會產生聯立高階二次方程；旋轉坐標軸（垂直與沿斜面）為唯一降維解法。<br>
+            <strong>4. 空中雙球相遇死算時間聯立</strong>：<br>
+            立即切換為相對運動視角，相對加速度為 0，等速直線連線一目了然。
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 底部版權註記 -->
+    <footer style="margin-top:0.75rem; border-top:1px solid var(--border-light); padding-top:0.35rem; display:flex; justify-content:space-between; align-items:center; font-size:7.5pt; color:var(--text-muted);">
+      <div>高中學習中心 · 互動題庫系統 (High School Study Center) · 二維拋體運動全單元講義</div>
+      <div>建議列印設定：A4 尺寸 · 邊界建議「預設」或「無」· 勾選「背景圖形」以保留精美邊框標籤</div>
+    </footer>
+
+  </main>
+
+  <script>
+    // 渲染 KaTeX 公式
+    document.addEventListener('DOMContentLoaded', () => {
+      if (window.katex) {
+        renderMath();
+      } else {
+        const timer = setInterval(() => {
+          if (window.katex) {
+            clearInterval(timer);
+            renderMath();
+          }
+        }, 100);
+      }
+
+      function renderMath() {
+        const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false);
+        const textNodes = [];
+        let node;
+        while (node = walker.nextNode()) {
+          if (node.nodeValue.includes('$')) {
+            textNodes.push(node);
+          }
+        }
+
+        textNodes.forEach(textNode => {
+          const parent = textNode.parentNode;
+          if (!parent || parent.tagName === 'SCRIPT' || parent.tagName === 'STYLE' || parent.closest('.katex')) return;
+
+          const raw = textNode.nodeValue;
+          const parts = raw.split(/(\$\$[\s\S]*?\$\$|\$[^\$]+?\$)/g);
+          if (parts.length <= 1) return;
+
+          const tempSpan = document.createElement('span');
+          parts.forEach(part => {
+            if (part.startsWith('$$') && part.endsWith('$$')) {
+              const math = part.slice(2, -2).trim();
+              const div = document.createElement('div');
+              try {
+                katex.render(math, div, { displayMode: true, throwOnError: false });
+                tempSpan.appendChild(div);
+              } catch (e) {
+                tempSpan.appendChild(document.createTextNode(part));
+              }
+            } else if (part.startsWith('$') && part.endsWith('$')) {
+              const math = part.slice(1, -1).trim();
+              const span = document.createElement('span');
+              try {
+                katex.render(math, span, { displayMode: false, throwOnError: false });
+                tempSpan.appendChild(span);
+              } catch (e) {
+                tempSpan.appendChild(document.createTextNode(part));
+              }
+            } else if (part) {
+              tempSpan.appendChild(document.createTextNode(part));
+            }
+          });
+
+          parent.replaceChild(tempSpan, textNode);
+        });
+      }
+    });
+  </script>
+</body>
+</html>
