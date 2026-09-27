@@ -181,7 +181,7 @@
 
     .formula-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
       gap: 1.25rem;
       margin-top: 1.25rem;
     }
@@ -602,88 +602,146 @@
       color: #ffffff;
     }
 
-    /* 遮蔽元素 (Mask Elements) */
-    .recall-target {
+    /* ==========================================================================
+       細粒度克漏字填空 (Granular Cloze & Active Recall)
+       ========================================================================== */
+    .formula-cloze-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+      margin: 0.75rem 0;
+    }
+
+    .cloze-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      padding: 0.35rem 0.65rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-sm);
+      transition: all var(--transition-fast);
+      min-height: 40px;
+      box-sizing: border-box;
+      overflow-x: auto;
+    }
+
+    .cloze-row:hover {
+      border-color: var(--border-focus);
+      background: var(--bg-tertiary);
+    }
+
+    .cloze-prompt {
+      font-weight: 750;
+      font-size: 0.91rem;
+      color: var(--text-primary);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      flex-shrink: 0;
+      white-space: nowrap;
+    }
+
+    .cloze-pill {
+      flex: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       position: relative;
       cursor: pointer;
+      min-width: 80px;
+      min-height: 32px;
+      padding: 0.15rem 0.6rem;
       border-radius: var(--radius-sm);
-      transition: all 0.2s ease;
+      border: 1px solid transparent;
+      transition: all var(--transition-fast);
+      user-select: none;
     }
 
-    /* 遮蔽狀態：磨砂暗影 + 掀牌提示 */
-    body.recall-active .recall-target.is-masked {
-      position: relative;
-      user-select: none;
-      min-height: 52px;
+    /* 緊湊化 KaTeX 在膠囊內的垂直外邊距與字體大小 */
+    .cloze-pill .katex-display,
+    .cloze-pill .katex-display-box {
+      margin: 0 !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      vertical-align: middle !important;
+    }
+
+    .cloze-pill .katex {
+      font-size: 1.05em !important;
+      line-height: 1.15 !important;
+    }
+
+    /* 遮蔽狀態：細粒度膠囊 + 明確問號提問 (左側題目/待求量清晰可見) */
+    body.recall-active .cloze-pill.is-masked {
       background: repeating-linear-gradient(
         -45deg,
-        rgba(79, 70, 229, 0.04),
-        rgba(79, 70, 229, 0.04) 10px,
-        rgba(79, 70, 229, 0.08) 10px,
-        rgba(79, 70, 229, 0.08) 20px
+        rgba(79, 70, 229, 0.05),
+        rgba(79, 70, 229, 0.05) 8px,
+        rgba(79, 70, 229, 0.12) 8px,
+        rgba(79, 70, 229, 0.12) 16px
       ) !important;
-      border: 2px dashed var(--accent-primary) !important;
-      overflow: hidden;
+      border: 1.5px dashed var(--accent-primary) !important;
+      justify-content: center !important;
+      color: transparent !important;
+      cursor: pointer;
     }
 
-    body.recall-active .recall-target.is-masked > * {
+    body.recall-active .cloze-pill.is-masked * {
       opacity: 0 !important;
       visibility: hidden !important;
       pointer-events: none !important;
     }
 
-    body.recall-active .recall-target.is-masked::before {
-      content: '🧠 點擊掀開 · 自我回想公式';
+    body.recall-active .cloze-pill.is-masked::before {
+      content: '❓ [ 掀開答案 ]';
       position: absolute;
       inset: 0;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: var(--accent-primary);
       font-weight: 800;
-      font-size: 0.92rem;
+      font-size: 0.78rem;
+      color: var(--accent-primary);
       letter-spacing: 0.02em;
-      background: rgba(255, 255, 255, 0.55);
-      backdrop-filter: blur(4px);
-      z-index: 5;
-      transition: all 0.2s ease;
+      pointer-events: none;
+      white-space: nowrap;
     }
 
-    [data-theme="dark"] body.recall-active .recall-target.is-masked::before {
-      background: rgba(17, 24, 39, 0.65);
-    }
-
-    body.recall-active .recall-target.is-masked:hover::before {
-      background: rgba(79, 70, 229, 0.15);
+    body.recall-active .cloze-pill.is-masked:hover {
+      background: rgba(79, 70, 229, 0.18) !important;
+      border-color: var(--accent-primary-hover) !important;
       transform: scale(1.02);
     }
 
-    /* 已掀開狀態 (Revealed in Recall Mode) */
-    body.recall-active .recall-target.is-revealed {
-      border: 2px solid var(--accent-emerald) !important;
-      position: relative;
-      animation: flashGreen 0.35s ease;
+    /* 掀開狀態 */
+    body.recall-active .cloze-pill.is-revealed {
+      background: rgba(5, 150, 105, 0.06) !important;
+      border: 1.5px solid var(--accent-emerald) !important;
+      animation: popPill 0.25s ease;
+      cursor: pointer;
     }
 
-    @keyframes flashGreen {
-      0% { transform: scale(0.98); }
-      50% { transform: scale(1.01); }
+    @keyframes popPill {
+      0% { transform: scale(0.96); }
+      50% { transform: scale(1.02); }
       100% { transform: scale(1); }
     }
 
-    body.recall-active .recall-target.is-revealed::after {
-      content: '✓ 已掀開 (點擊遮蔽)';
+    body.recall-active .cloze-pill.is-revealed::after {
+      content: '✓ 掀開中';
       position: absolute;
-      top: -11px;
-      right: 12px;
-      font-size: 0.68rem;
-      font-weight: 800;
-      padding: 1px 7px;
-      border-radius: var(--radius-full);
+      top: -9px;
+      right: 8px;
       background: var(--accent-emerald);
-      color: #ffffff;
-      z-index: 10;
-      box-shadow: 0 2px 4px rgba(5, 150, 105, 0.25);
+      color: #fff;
+      font-size: 0.62rem;
+      font-weight: 800;
+      padding: 0.5px 5px;
+      border-radius: var(--radius-full);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+      pointer-events: none;
     }
 
     /* ==========================================================================
@@ -694,6 +752,28 @@
         background: #ffffff !important;
         color: #111827 !important;
         font-size: 10pt !important;
+      }
+
+      /* 列印時強制解除所有遮蔽與提示框 */
+      .cloze-pill,
+      body.recall-active .cloze-pill.is-masked,
+      body.recall-active .cloze-pill.is-revealed {
+        background: transparent !important;
+        border: none !important;
+        color: inherit !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+      }
+
+      body.recall-active .cloze-pill.is-masked *,
+      body.recall-active .cloze-pill.is-revealed * {
+        opacity: 1 !important;
+        visibility: visible !important;
+      }
+
+      body.recall-active .cloze-pill.is-masked::before,
+      body.recall-active .cloze-pill.is-revealed::after {
+        display: none !important;
       }
 
       .app-header,
@@ -911,9 +991,23 @@
                 <span>基本運動學分解</span>
                 <span class="formula-badge">基石</span>
               </div>
-              <div class="formula-latex-box">
-                $$v_x = v_0, \quad v_y = gt$$
-                $$x = v_0 t, \quad y = \frac{1}{2}gt^2$$
+              <div class="formula-cloze-group">
+                <div class="cloze-row">
+                  <span class="cloze-prompt">水平分速 $v_x =$</span>
+                  <span class="cloze-pill">$$v_0$$</span>
+                </div>
+                <div class="cloze-row">
+                  <span class="cloze-prompt">鉛直分速 $v_y =$</span>
+                  <span class="cloze-pill">$$gt$$</span>
+                </div>
+                <div class="cloze-row">
+                  <span class="cloze-prompt">水平位移 $x =$</span>
+                  <span class="cloze-pill">$$v_0 t$$</span>
+                </div>
+                <div class="cloze-row">
+                  <span class="cloze-prompt">鉛直下落 $y =$</span>
+                  <span class="cloze-pill">$$\frac{1}{2}gt^2$$</span>
+                </div>
               </div>
               <div class="formula-desc">
                 瞬時合速度量值：$v = \sqrt{v_0^2 + (gt)^2}$<br>
@@ -930,9 +1024,19 @@
                 <span>時間與射程變形公式</span>
                 <span class="formula-badge">高頻變形</span>
               </div>
-              <div class="formula-latex-box">
-                $$t = \sqrt{\frac{2h}{g}}, \quad R = v_0 \sqrt{\frac{2h}{g}}$$
-                $$v_0 = R \sqrt{\frac{g}{2h}}$$
+              <div class="formula-cloze-group">
+                <div class="cloze-row">
+                  <span class="cloze-prompt">下落時間 $t =$</span>
+                  <span class="cloze-pill">$$\sqrt{\frac{2h}{g}}$$</span>
+                </div>
+                <div class="cloze-row">
+                  <span class="cloze-prompt">水平射程 $R =$</span>
+                  <span class="cloze-pill">$$v_0 \sqrt{\frac{2h}{g}}$$</span>
+                </div>
+                <div class="cloze-row">
+                  <span class="cloze-prompt">反求水平初速 $v_0 =$</span>
+                  <span class="cloze-pill">$$R \sqrt{\frac{g}{2h}}$$</span>
+                </div>
               </div>
               <div class="formula-desc">
                 * 飛行時間 $t \propto \sqrt{h}$（高度變4倍，時間變2倍）。<br>
@@ -949,10 +1053,19 @@
                 <span>速度角與位移角「正切 2 倍定理」</span>
                 <span class="formula-badge" style="background:var(--accent-amber); color:#fff;">秒殺神技</span>
               </div>
-              <div class="formula-latex-box">
-                $$\tan\theta = \frac{v_y}{v_x} = \frac{gt}{v_0}$$
-                $$\tan\phi = \frac{y}{x} = \frac{\frac{1}{2}gt^2}{v_0 t} = \frac{gt}{2v_0}$$
-                $$\mathbf{\tan\theta = 2 \tan\phi}$$
+              <div class="formula-cloze-group">
+                <div class="cloze-row">
+                  <span class="cloze-prompt">速度角 $\tan\theta =$</span>
+                  <span class="cloze-pill">$$\frac{v_y}{v_x} = \frac{gt}{v_0}$$</span>
+                </div>
+                <div class="cloze-row">
+                  <span class="cloze-prompt">位移角 $\tan\phi =$</span>
+                  <span class="cloze-pill">$$\frac{y}{x} = \frac{gt}{2v_0}$$</span>
+                </div>
+                <div class="cloze-row" style="background:rgba(217, 119, 6, 0.05); border-color:var(--border-amber);">
+                  <span class="cloze-prompt" style="color:var(--accent-amber);">🌟 正切關係 $\tan\theta =$</span>
+                  <span class="cloze-pill" style="font-weight:800;">$$2 \tan\phi$$</span>
+                </div>
               </div>
               <div class="formula-desc">
                 速度與水平夾角為 $\theta$，位移與水平夾角為 $\phi$。<br>
@@ -970,13 +1083,19 @@
                 <span>軌跡方程式 (消去時間 t)</span>
                 <span class="formula-badge">代數變形</span>
               </div>
-              <div class="formula-latex-box">
-                $$y = \frac{g}{2v_0^2} x^2$$
+              <div class="formula-cloze-group">
+                <div class="cloze-row">
+                  <span class="cloze-prompt">軌跡方程 $y =$</span>
+                  <span class="cloze-pill">$$\frac{g}{2v_0^2} x^2$$</span>
+                </div>
+                <div class="cloze-row">
+                  <span class="cloze-prompt">已知 $(x_1, y_1)$ 求 $v_0 =$</span>
+                  <span class="cloze-pill">$$x_1 \sqrt{\frac{g}{2y_1}}$$</span>
+                </div>
               </div>
               <div class="formula-desc">
                 軌跡為開口向下的拋物線。<br>
-                若已知落點位置座標 $(x_1, y_1)$，初速度可直接表示為：
-                $$v_0 = x_1 \sqrt{\frac{g}{2y_1}}$$
+                若已知落點位置座標 $(x_1, y_1)$，初速度可直接表示。
               </div>
             </div>
             <div class="formula-tip">💡 命中題目：第 22, 23 題（求拋物線軌跡方程與特定坐標代入）</div>
@@ -989,9 +1108,15 @@
                 <span>切線加速度與法線加速度</span>
                 <span class="formula-badge">向量投影</span>
               </div>
-              <div class="formula-latex-box">
-                $$a_T = g \sin\theta = \frac{g^2 t}{\sqrt{v_0^2 + g^2 t^2}}$$
-                $$a_N = g \cos\theta = \frac{g v_0}{\sqrt{v_0^2 + g^2 t^2}}$$
+              <div class="formula-cloze-group">
+                <div class="cloze-row">
+                  <span class="cloze-prompt">切向加速度 $a_T =$</span>
+                  <span class="cloze-pill">$$g \sin\theta = \frac{g^2 t}{\sqrt{v_0^2 + g^2 t^2}}$$</span>
+                </div>
+                <div class="cloze-row">
+                  <span class="cloze-prompt">法向加速度 $a_N =$</span>
+                  <span class="cloze-pill">$$g \cos\theta = \frac{g v_0}{\sqrt{v_0^2 + g^2 t^2}}$$</span>
+                </div>
               </div>
               <div class="formula-desc">
                 重力加速度 $\vec{g}$（鉛直向下）在速度切線與法線方向的投影：<br>
@@ -1009,9 +1134,15 @@
                 <span>曲率半徑 (Radius of Curvature)</span>
                 <span class="formula-badge">高等變形</span>
               </div>
-              <div class="formula-latex-box">
-                $$\rho = \frac{v^2}{a_N} = \frac{(v_0^2 + g^2 t^2)^{3/2}}{g v_0}$$
-                $$\text{拋出頂點：} \rho_0 = \frac{v_0^2}{g}$$
+              <div class="formula-cloze-group">
+                <div class="cloze-row">
+                  <span class="cloze-prompt">任意點 $\rho =$</span>
+                  <span class="cloze-pill">$$\frac{v^2}{a_N} = \frac{(v_0^2 + g^2 t^2)^{3/2}}{g v_0}$$</span>
+                </div>
+                <div class="cloze-row">
+                  <span class="cloze-prompt">頂點處 $\rho_0 =$</span>
+                  <span class="cloze-pill">$$\frac{v_0^2}{g}$$</span>
+                </div>
               </div>
               <div class="formula-desc">
                 軌跡上任一點的曲率半徑，等於該處之「瞬時速率平方」除以「法線（向心）加速度」。
@@ -1032,17 +1163,26 @@
         </p>
 
         <div class="formula-grid">
-          <!-- 卡片 1 -->
+          <!-- 卡片 7 -->
           <div class="formula-card">
             <div>
               <div class="formula-card-title">
                 <span>三大基準公式 (同高地面)</span>
                 <span class="formula-badge">高考必背</span>
               </div>
-              <div class="formula-latex-box">
-                $$T = \frac{2v_0 \sin\theta}{g} = \frac{2v_{0y}}{g}$$
-                $$H = \frac{v_0^2 \sin^2\theta}{2g} = \frac{v_{0y}^2}{2g} = \frac{1}{8}g T^2$$
-                $$R = \frac{v_0^2 \sin 2\theta}{g} = \frac{2 v_{0x} v_{0y}}{g}$$
+              <div class="formula-cloze-group">
+                <div class="cloze-row">
+                  <span class="cloze-prompt">飛行時間 $T =$</span>
+                  <span class="cloze-pill">$$\frac{2v_0 \sin\theta}{g} = \frac{2v_{0y}}{g}$$</span>
+                </div>
+                <div class="cloze-row">
+                  <span class="cloze-prompt">最大高度 $H =$</span>
+                  <span class="cloze-pill">$$\frac{v_0^2 \sin^2\theta}{2g} = \frac{v_{0y}^2}{2g} = \frac{1}{8}g T^2$$</span>
+                </div>
+                <div class="cloze-row">
+                  <span class="cloze-prompt">水平射程 $R =$</span>
+                  <span class="cloze-pill">$$\frac{v_0^2 \sin 2\theta}{g} = \frac{2 v_{0x} v_{0y}}{g}$$</span>
+                </div>
               </div>
               <div class="formula-desc">
                 * $T$ 與 $H$ 只由**鉛直分速 $v_{0y}$** 決定！<br>
@@ -1052,15 +1192,26 @@
             <div class="formula-tip">💡 命中題目：第 28, 29, 30 題</div>
           </div>
 
-          <!-- 卡片 2: 極限比值 -->
+          <!-- 卡片 8: 極限比值 -->
           <div class="formula-card" style="border-left: 4px solid var(--accent-emerald);">
             <div>
               <div class="formula-card-title">
                 <span>射程與最大高度連鎖比值式</span>
                 <span class="formula-badge" style="background:var(--accent-emerald); color:#fff;">秒殺神技</span>
               </div>
-              <div class="formula-latex-box">
-                $$\frac{H}{R} = \frac{1}{4} \tan\theta \iff R = 4H \cot\theta$$
+              <div class="formula-cloze-group">
+                <div class="cloze-row">
+                  <span class="cloze-prompt">高與射程比 $\frac{H}{R} =$</span>
+                  <span class="cloze-pill">$$\frac{1}{4} \tan\theta$$</span>
+                </div>
+                <div class="cloze-row">
+                  <span class="cloze-prompt">$\theta = 45^\circ$ 時 $R_{\max} =$</span>
+                  <span class="cloze-pill">$$4H$$</span>
+                </div>
+                <div class="cloze-row">
+                  <span class="cloze-prompt">$R = H$ 時 $\tan\theta =$</span>
+                  <span class="cloze-pill">$$4 \implies \theta \approx 76^\circ$$</span>
+                </div>
               </div>
               <div class="formula-desc">
                 <strong>兩大特殊角度黃金結論：</strong><br>
@@ -1071,17 +1222,30 @@
             <div class="formula-tip">💡 命中題目：第 34, 38, 41 題（快速由幾何比值求角度）</div>
           </div>
 
-          <!-- 卡片 3: 互餘角 -->
+          <!-- 卡片 9: 互餘角 -->
           <div class="formula-card">
             <div>
               <div class="formula-card-title">
                 <span>互餘角定理 (Complementary Angles)</span>
                 <span class="formula-badge">常考對稱</span>
               </div>
-              <div class="formula-latex-box">
-                $$R(\theta) = R(90^\circ - \theta)$$
-                $$T_1 T_2 = \frac{2R}{g}, \quad H_1 + H_2 = \frac{v_0^2}{2g}$$
-                $$R = 4 \sqrt{H_1 H_2}$$
+              <div class="formula-cloze-group">
+                <div class="cloze-row">
+                  <span class="cloze-prompt">互餘射程 $R_1 =$</span>
+                  <span class="cloze-pill">$$R_2$$</span>
+                </div>
+                <div class="cloze-row">
+                  <span class="cloze-prompt">時間乘積 $T_1 T_2 =$</span>
+                  <span class="cloze-pill">$$\frac{2R}{g}$$</span>
+                </div>
+                <div class="cloze-row">
+                  <span class="cloze-prompt">高度之和 $H_1 + H_2 =$</span>
+                  <span class="cloze-pill">$$\frac{v_0^2}{2g}$$</span>
+                </div>
+                <div class="cloze-row">
+                  <span class="cloze-prompt">兩高求射程 $R =$</span>
+                  <span class="cloze-pill">$$4 \sqrt{H_1 H_2}$$</span>
+                </div>
               </div>
               <div class="formula-desc">
                 同初速 $v_0$ 下，以 $\theta$ 與 $90^\circ - \theta$ 拋出：<br>
@@ -1093,34 +1257,47 @@
             <div class="formula-tip">💡 命中題目：第 39, 40, 42 題（同射程不同軌跡聯立）</div>
           </div>
 
-          <!-- 卡片 4: 軌跡方程因式分解型 -->
+          <!-- 卡片 10: 軌跡方程因式分解型 -->
           <div class="formula-card" style="border-left: 4px solid var(--accent-cyan);">
             <div>
               <div class="formula-card-title">
                 <span>軌跡方程因式分解型 (過障礙神器)</span>
                 <span class="formula-badge" style="background:var(--accent-cyan); color:#fff;">解題神器</span>
               </div>
-              <div class="formula-latex-box">
-                $$y = x \tan\theta \left(1 - \frac{x}{R}\right)$$
+              <div class="formula-cloze-group">
+                <div class="cloze-row">
+                  <span class="cloze-prompt">因式分解 $y =$</span>
+                  <span class="cloze-pill">$$x \tan\theta \left(1 - \frac{x}{R}\right)$$</span>
+                </div>
+                <div class="cloze-row">
+                  <span class="cloze-prompt">過障礙仰角 $\tan\theta =$</span>
+                  <span class="cloze-pill">$$\frac{y}{x (1 - x/R)}$$</span>
+                </div>
               </div>
               <div class="formula-desc">
                 當題目給出「物體恰好越過距離拋出點 $x$、高度為 $y$ 的網子或牆壁，且落在距離 $R$ 處」時，<strong>切勿使用傳統公式聯立 $t$！</strong><br>
-                直接代入此式，一秒求出發射仰角 $\tan\theta = \frac{y}{x (1 - x/R)}$！
+                直接代入此式，一秒求出發射仰角！
               </div>
             </div>
             <div class="formula-tip">💡 命中題目：第 32, 33 題（跨越障礙物與球網）</div>
           </div>
 
-          <!-- 卡片 5: 對稱過高點 -->
+          <!-- 卡片 11: 對稱過高點 -->
           <div class="formula-card">
             <div>
               <div class="formula-card-title">
                 <span>兩度通過特定高度的對稱公式</span>
                 <span class="formula-badge">時間對稱</span>
               </div>
-              <div class="formula-latex-box">
-                $$t_1 + t_2 = T = \frac{2v_{0y}}{g}$$
-                $$t_1 t_2 = \frac{2h}{g} \implies h = \frac{1}{2}g t_1 t_2$$
+              <div class="formula-cloze-group">
+                <div class="cloze-row">
+                  <span class="cloze-prompt">時刻之和 $t_1 + t_2 =$</span>
+                  <span class="cloze-pill">$$T = \frac{2v_{0y}}{g}$$</span>
+                </div>
+                <div class="cloze-row">
+                  <span class="cloze-prompt">兩時刻求高 $h =$</span>
+                  <span class="cloze-pill">$$\frac{1}{2}g t_1 t_2$$</span>
+                </div>
               </div>
               <div class="formula-desc">
                 拋體在上升與下降階段分別於 $t_1$ 與 $t_2$ 通過高度 $h$：<br>
@@ -1130,16 +1307,22 @@
             <div class="formula-tip">💡 命中題目：第 35, 43 題</div>
           </div>
 
-          <!-- 卡片 6: 頂點曲率半徑 -->
+          <!-- 卡片 12: 頂點曲率半徑 -->
           <div class="formula-card">
             <div>
               <div class="formula-card-title">
                 <span>頂點曲率半徑與全程平均速度</span>
                 <span class="formula-badge">概念精要</span>
               </div>
-              <div class="formula-latex-box">
-                $$\rho_{\text{頂}} = \frac{v_{\text{頂}}^2}{g} = \frac{v_0^2 \cos^2\theta}{g}$$
-                $$\vec{v}_{\text{avg}} = \frac{\vec{R}}{T} = v_0 \cos\theta \ \hat{i}$$
+              <div class="formula-cloze-group">
+                <div class="cloze-row">
+                  <span class="cloze-prompt">頂點曲率半徑 $\rho_{\text{頂}} =$</span>
+                  <span class="cloze-pill">$$\frac{v_{\text{頂}}^2}{g} = \frac{v_0^2 \cos^2\theta}{g}$$</span>
+                </div>
+                <div class="cloze-row">
+                  <span class="cloze-prompt">全程平均速度 $\vec{v}_{\text{avg}} =$</span>
+                  <span class="cloze-pill">$$\frac{\vec{R}}{T} = v_0 \cos\theta \ \hat{i}$$</span>
+                </div>
               </div>
               <div class="formula-desc">
                 * 最高點處速度純為水平分速 $v_0 \cos\theta$，加速度全為法向加速度 $g$。<br>
@@ -1160,17 +1343,30 @@
         </p>
 
         <div class="formula-grid">
-          <!-- 卡片 1 -->
+          <!-- 卡片 13 -->
           <div class="formula-card" style="border-left: 4px solid var(--accent-primary);">
             <div>
               <div class="formula-card-title">
                 <span>旋轉坐標系分解法 (最強通用解法)</span>
                 <span class="formula-badge" style="background:var(--accent-primary); color:#fff;">核心必修</span>
               </div>
-              <div class="formula-latex-box">
-                $$a_{x'} = -g \sin\alpha \quad (\text{沿斜面向下等減速})$$
-                $$a_{y'} = -g \cos\alpha \quad (\text{垂直斜面等減速})$$
-                $$T = \frac{2 v_0 \sin\beta}{g \cos\alpha}, \quad H_{\perp} = \frac{v_0^2 \sin^2\beta}{2g \cos\alpha}$$
+              <div class="formula-cloze-group">
+                <div class="cloze-row">
+                  <span class="cloze-prompt">沿斜面 $a_{x'} =$</span>
+                  <span class="cloze-pill">$$-g \sin\alpha$$</span>
+                </div>
+                <div class="cloze-row">
+                  <span class="cloze-prompt">垂直斜面 $a_{y'} =$</span>
+                  <span class="cloze-pill">$$-g \cos\alpha$$</span>
+                </div>
+                <div class="cloze-row">
+                  <span class="cloze-prompt">滯空時間 $T =$</span>
+                  <span class="cloze-pill">$$\frac{2 v_0 \sin\beta}{g \cos\alpha}$$</span>
+                </div>
+                <div class="cloze-row">
+                  <span class="cloze-prompt">最大距斜面 $H_{\perp} =$</span>
+                  <span class="cloze-pill">$$\frac{v_0^2 \sin^2\beta}{2g \cos\alpha}$$</span>
+                </div>
               </div>
               <div class="formula-desc">
                 以斜面為 $x'$ 軸、垂直斜面為 $y'$ 軸。<br>
@@ -1181,16 +1377,22 @@
             <div class="formula-tip">💡 命中題目：第 46~49, 61~69 題</div>
           </div>
 
-          <!-- 卡片 2 -->
+          <!-- 卡片 14 -->
           <div class="formula-card">
             <div>
               <div class="formula-card-title">
                 <span>沿斜面最大射程之「平分夾角定理」</span>
                 <span class="formula-badge">極值公式</span>
               </div>
-              <div class="formula-latex-box">
-                $$\beta = \frac{90^\circ - \alpha}{2} = 45^\circ - \frac{\alpha}{2}$$
-                $$S_{\max} = \frac{v_0^2}{g(1 + \sin\alpha)}$$
+              <div class="formula-cloze-group">
+                <div class="cloze-row">
+                  <span class="cloze-prompt">最佳射角 $\beta =$</span>
+                  <span class="cloze-pill">$$\frac{90^\circ - \alpha}{2} = 45^\circ - \frac{\alpha}{2}$$</span>
+                </div>
+                <div class="cloze-row">
+                  <span class="cloze-prompt">斜面最大射程 $S_{\max} =$</span>
+                  <span class="cloze-pill">$$\frac{v_0^2}{g(1 + \sin\alpha)}$$</span>
+                </div>
               </div>
               <div class="formula-desc">
                 要想在斜面上拋出最遠距離，最佳速度向量方向必須<strong>精確平分「斜面」與「鉛垂線」的夾角</strong>！<br>
@@ -1200,16 +1402,22 @@
             <div class="formula-tip">💡 命中題目：第 50, 51, 65 題</div>
           </div>
 
-          <!-- 卡片 3: 垂直撞擊 -->
+          <!-- 卡片 15: 垂直撞擊 -->
           <div class="formula-card" style="border-left: 4px solid var(--accent-amber);">
             <div>
               <div class="formula-card-title">
                 <span>垂直撞擊斜面判定條件</span>
                 <span class="formula-badge" style="background:var(--accent-amber); color:#fff;">壓軸常考</span>
               </div>
-              <div class="formula-latex-box">
-                $$v_{x'} = 0 \implies v_0 \cos\beta - (g\sin\alpha) T = 0$$
-                $$\mathbf{\cot\beta = 2 \tan\alpha}$$
+              <div class="formula-cloze-group">
+                <div class="cloze-row">
+                  <span class="cloze-prompt">著地沿斜面分速 $v_{x'} =$</span>
+                  <span class="cloze-pill">$$0$$</span>
+                </div>
+                <div class="cloze-row" style="background:rgba(217, 119, 6, 0.05); border-color:var(--border-amber);">
+                  <span class="cloze-prompt" style="color:var(--accent-amber);">🌟 垂直著陸 $\cot\beta =$</span>
+                  <span class="cloze-pill" style="font-weight:800;">$$2 \tan\alpha$$</span>
+                </div>
               </div>
               <div class="formula-desc">
                 物體垂直擊中斜面，代表著地瞬間沿斜面方向的分速度 $v_{x'}$ 恰好減速至零。<br>
@@ -1219,16 +1427,26 @@
             <div class="formula-tip">💡 命中題目：第 70 題（垂直撞擊斜面）</div>
           </div>
 
-          <!-- 卡片 4: 相對運動 -->
+          <!-- 卡片 16: 相對運動 -->
           <div class="formula-card" style="border-left: 4px solid var(--accent-emerald);">
             <div>
               <div class="formula-card-title">
                 <span>空中相撞與相對運動定理</span>
                 <span class="formula-badge" style="background:var(--accent-emerald); color:#fff;">物理精髓</span>
               </div>
-              <div class="formula-latex-box">
-                $$\vec{a}_{\text{相對}} = \vec{g}_A - \vec{g}_B = \vec{0}$$
-                $$\implies \text{空中拋體相對運動必為「等速直線運動」！}$$
+              <div class="formula-cloze-group">
+                <div class="cloze-row">
+                  <span class="cloze-prompt">相對加速度 $\vec{a}_{\text{相對}} =$</span>
+                  <span class="cloze-pill">$$\vec{g}_A - \vec{g}_B = \vec{0}$$</span>
+                </div>
+                <div class="cloze-row">
+                  <span class="cloze-prompt">相對運動性質：</span>
+                  <span class="cloze-pill">等速直線運動</span>
+                </div>
+                <div class="cloze-row">
+                  <span class="cloze-prompt">相撞充要條件：</span>
+                  <span class="cloze-pill">初相對速度正對初始位置連線</span>
+                </div>
               </div>
               <div class="formula-desc">
                 只要都在空中只受重力，兩拋體之間的相對加速度必為零。<br>
@@ -1239,16 +1457,22 @@
             <div class="formula-tip">💡 命中題目：第 25, 26, 71 題</div>
           </div>
 
-          <!-- 卡片 5: 車載拋體 -->
+          <!-- 卡片 17: 車載拋體 -->
           <div class="formula-card">
             <div>
               <div class="formula-card-title">
                 <span>車載拋體與慣性系獨立性</span>
                 <span class="formula-badge">參考系轉換</span>
               </div>
-              <div class="formula-latex-box">
-                $$T_{\text{車內}} = T_{\text{地面}} = \frac{2v_0}{g}$$
-                $$H_{\text{車內}} = H_{\text{地面}} = \frac{v_0^2}{2g}$$
+              <div class="formula-cloze-group">
+                <div class="cloze-row">
+                  <span class="cloze-prompt">地面停留時間 $T_{\text{地}} =$</span>
+                  <span class="cloze-pill">$$T_{\text{車內}} = \frac{2v_0}{g}$$</span>
+                </div>
+                <div class="cloze-row">
+                  <span class="cloze-prompt">地面最大高度 $H_{\text{地}} =$</span>
+                  <span class="cloze-pill">$$H_{\text{車內}} = \frac{v_0^2}{2g}$$</span>
+                </div>
               </div>
               <div class="formula-desc">
                 在以等速度 $u$ 前進的車廂內鉛直上拋一球：<br>
@@ -1260,16 +1484,22 @@
             <div class="formula-tip">💡 命中題目：第 72 題</div>
           </div>
 
-          <!-- 卡片 6: 大三角形正弦定理 -->
+          <!-- 卡片 18: 大三角形正弦定理 -->
           <div class="formula-card">
             <div>
               <div class="formula-card-title">
                 <span>位移封閉大三角形 (正弦定理法)</span>
                 <span class="formula-badge">向量幾何</span>
               </div>
-              <div class="formula-latex-box">
-                $$\vec{r} = \vec{v}_0 t + \frac{1}{2}\vec{g}t^2$$
-                $$\frac{s}{\sin\angle 1} = \frac{v_0 t}{\sin\angle 2} = \frac{\frac{1}{2}gt^2}{\sin\angle 3}$$
+              <div class="formula-cloze-group">
+                <div class="cloze-row">
+                  <span class="cloze-prompt">位移向量合成 $\vec{r} =$</span>
+                  <span class="cloze-pill">$$\vec{v}_0 t + \frac{1}{2}\vec{g}t^2$$</span>
+                </div>
+                <div class="cloze-row">
+                  <span class="cloze-prompt">正弦比值關係：</span>
+                  <span class="cloze-pill">$$\frac{s}{\sin\angle 1} = \frac{v_0 t}{\sin\angle 2} = \frac{\frac{1}{2}gt^2}{\sin\angle 3}$$</span>
+                </div>
               </div>
               <div class="formula-desc">
                 將拋體位移分解為「慣性直線位移 $\vec{v}_0 t$」與「重力自由下落位移 $\frac{1}{2}\vec{g}t^2$」。
@@ -1323,8 +1553,9 @@
           </div>
           <div class="model-box">
             <div class="model-box-title" style="color:var(--accent-amber);">🎯 秒殺口訣</div>
-            <div style="font-size:0.9rem; color:var(--text-secondary); line-height:1.7;">
-              「時間看高度，水平跑等速；飛機炸敵艦，速度相對加。」
+            <div style="font-size:0.9rem; color:var(--text-secondary); line-height:1.7; display:flex; align-items:center; gap:0.5rem; flex-wrap:wrap;">
+              <span class="cloze-prompt" style="font-size:0.85rem; color:var(--text-muted);">核心口訣：</span>
+              <span class="cloze-pill" style="text-align:left; justify-content:flex-start; min-width:180px;">「時間看高度，水平跑等速；飛機炸敵艦，速度相對加。」</span>
             </div>
           </div>
         </div>
@@ -1362,8 +1593,9 @@
           </div>
           <div class="model-box">
             <div class="model-box-title" style="color:var(--accent-amber);">🎯 秒殺口訣</div>
-            <div style="font-size:0.9rem; color:var(--text-secondary); line-height:1.7;">
-              「速度分速找 tan，位移正切是它半；兩倍定理一現身，選項直接秒出來。」
+            <div style="font-size:0.9rem; color:var(--text-secondary); line-height:1.7; display:flex; align-items:center; gap:0.5rem; flex-wrap:wrap;">
+              <span class="cloze-prompt" style="font-size:0.85rem; color:var(--text-muted);">核心口訣：</span>
+              <span class="cloze-pill" style="text-align:left; justify-content:flex-start; min-width:180px;">「速度分速找 tan，位移正切是它半；兩倍定理一現身，選項直接秒出來。」</span>
             </div>
           </div>
         </div>
@@ -1402,8 +1634,9 @@
           </div>
           <div class="model-box">
             <div class="model-box-title" style="color:var(--accent-amber);">🎯 秒殺口訣</div>
-            <div style="font-size:0.9rem; color:var(--text-secondary); line-height:1.7;">
-              「切向改變速度值，法向轉向是心馳；曲率半徑找 aN，v方除它莫遲疑。」
+            <div style="font-size:0.9rem; color:var(--text-secondary); line-height:1.7; display:flex; align-items:center; gap:0.5rem; flex-wrap:wrap;">
+              <span class="cloze-prompt" style="font-size:0.85rem; color:var(--text-muted);">核心口訣：</span>
+              <span class="cloze-pill" style="text-align:left; justify-content:flex-start; min-width:180px;">「切向改變速度值，法向轉向是心馳；曲率半徑找 aN，v方除它莫遲疑。」</span>
             </div>
           </div>
         </div>
@@ -1441,8 +1674,9 @@
           </div>
           <div class="model-box">
             <div class="model-box-title" style="color:var(--accent-amber);">🎯 秒殺口訣</div>
-            <div style="font-size:0.9rem; color:var(--text-secondary); line-height:1.7;">
-              「落回斜面 y/x 是斜率，最遠點速度平行即半程；階梯連線變斜坡，虛擬求點向上整。」
+            <div style="font-size:0.9rem; color:var(--text-secondary); line-height:1.7; display:flex; align-items:center; gap:0.5rem; flex-wrap:wrap;">
+              <span class="cloze-prompt" style="font-size:0.85rem; color:var(--text-muted);">核心口訣：</span>
+              <span class="cloze-pill" style="text-align:left; justify-content:flex-start; min-width:180px;">「落回斜面 y/x 是斜率，最遠點速度平行即半程；階梯連線變斜坡，虛擬求點向上整。」</span>
             </div>
           </div>
         </div>
@@ -1478,8 +1712,9 @@
           </div>
           <div class="model-box">
             <div class="model-box-title" style="color:var(--accent-amber);">🎯 秒殺口訣</div>
-            <div style="font-size:0.9rem; color:var(--text-secondary); line-height:1.7;">
-              「通關過網莫列 t，因式分解 y 公式；x乘 tan 乘 (1-x/R)，代入直接定乾坤。」
+            <div style="font-size:0.9rem; color:var(--text-secondary); line-height:1.7; display:flex; align-items:center; gap:0.5rem; flex-wrap:wrap;">
+              <span class="cloze-prompt" style="font-size:0.85rem; color:var(--text-muted);">核心口訣：</span>
+              <span class="cloze-pill" style="text-align:left; justify-content:flex-start; min-width:180px;">「通關過網莫列 t，因式分解 y 公式；x乘 tan 乘 (1-x/R)，代入直接定乾坤。」</span>
             </div>
           </div>
         </div>
@@ -1521,8 +1756,9 @@
           </div>
           <div class="model-box">
             <div class="model-box-title" style="color:var(--accent-amber);">🎯 秒殺口訣</div>
-            <div style="font-size:0.9rem; color:var(--text-secondary); line-height:1.7;">
-              「四五度射程稱霸四倍高，互餘兩角同射程跑；時間相乘2R除g，高度相加正好是上拋。」
+            <div style="font-size:0.9rem; color:var(--text-secondary); line-height:1.7; display:flex; align-items:center; gap:0.5rem; flex-wrap:wrap;">
+              <span class="cloze-prompt" style="font-size:0.85rem; color:var(--text-muted);">核心口訣：</span>
+              <span class="cloze-pill" style="text-align:left; justify-content:flex-start; min-width:180px;">「四五度射程稱霸四倍高，互餘兩角同射程跑；時間相乘2R除g，高度相加正好是上拋。」</span>
             </div>
           </div>
         </div>
@@ -1561,8 +1797,9 @@
           </div>
           <div class="model-box">
             <div class="model-box-title" style="color:var(--accent-amber);">🎯 秒殺口訣</div>
-            <div style="font-size:0.9rem; color:var(--text-secondary); line-height:1.7;">
-              「軸線旋轉靠斜面，g 拆垂直與沿線；垂直著陸切向零，cot等於2倍tan。」
+            <div style="font-size:0.9rem; color:var(--text-secondary); line-height:1.7; display:flex; align-items:center; gap:0.5rem; flex-wrap:wrap;">
+              <span class="cloze-prompt" style="font-size:0.85rem; color:var(--text-muted);">核心口訣：</span>
+              <span class="cloze-pill" style="text-align:left; justify-content:flex-start; min-width:180px;">「軸線旋轉靠斜面，g 拆垂直與沿線；垂直著陸切向零，cot等於2倍tan。」</span>
             </div>
           </div>
         </div>
@@ -1599,8 +1836,9 @@
           </div>
           <div class="model-box">
             <div class="model-box-title" style="color:var(--accent-amber);">🎯 秒殺口訣</div>
-            <div style="font-size:0.9rem; color:var(--text-secondary); line-height:1.7;">
-              「空中兩球相對看，重力抵消等速走；瞄準初態連線衝，猴子掉落必被中。」
+            <div style="font-size:0.9rem; color:var(--text-secondary); line-height:1.7; display:flex; align-items:center; gap:0.5rem; flex-wrap:wrap;">
+              <span class="cloze-prompt" style="font-size:0.85rem; color:var(--text-muted);">核心口訣：</span>
+              <span class="cloze-pill" style="text-align:left; justify-content:flex-start; min-width:180px;">「空中兩球相對看，重力抵消等速走；瞄準初態連線衝，猴子掉落必被中。」</span>
             </div>
           </div>
         </div>
@@ -1635,57 +1873,57 @@
             <tr>
               <td><span class="reflex-trigger">🔍 給定高度 $h$ 求時間</span></td>
               <td>鉛直方向自由落體獨立運算</td>
-              <td>$t = \sqrt{2h/g}$，切勿管水平初速多快。</td>
+              <td><span class="cloze-prompt" style="display:inline; font-size:0.85rem;">下落時間：</span><span class="cloze-pill" style="min-width:90px; padding:2px 6px;">$t = \sqrt{2h/g}$</span></td>
             </tr>
             <tr>
               <td><span class="reflex-trigger">🔍 速度與水平夾角 $\theta$</span></td>
               <td>水平分速 $v_0$ 永不變！</td>
-              <td>$\tan\theta = \frac{v_y}{v_0} \implies v_y = v_0 \tan\theta$。</td>
+              <td><span class="cloze-prompt" style="display:inline; font-size:0.85rem;">鉛直分速：</span><span class="cloze-pill" style="min-width:120px; padding:2px 6px;">$v_y = v_0 \tan\theta$</span></td>
             </tr>
             <tr>
               <td><span class="reflex-trigger">🔍 位移角與速度角同時問</span></td>
               <td>正切 2 倍神定理</td>
-              <td>$\tan\theta_{\text{速}} = 2\tan\phi_{\text{位}}$，幾何交於中點。</td>
+              <td><span class="cloze-prompt" style="display:inline; font-size:0.85rem;">角關係：</span><span class="cloze-pill" style="min-width:140px; padding:2px 6px; font-weight:800;">$\tan\theta = 2\tan\phi$</span></td>
             </tr>
             <tr>
               <td><span class="reflex-trigger">🔍 求切線 / 法線加速度</span></td>
               <td>重力向量分解，不用微分</td>
-              <td>$a_T = g\sin\theta$，$a_N = g\cos\theta$。</td>
+              <td><span class="cloze-prompt" style="display:inline; font-size:0.85rem;">分解式：</span><span class="cloze-pill" style="min-width:150px; padding:2px 6px;">$a_T = g\sin\theta, a_N = g\cos\theta$</span></td>
             </tr>
             <tr>
               <td><span class="reflex-trigger">🔍 求軌跡曲率半徑 $\rho$</span></td>
               <td>必走向心加速度公式</td>
-              <td>$\rho = \frac{v^2}{a_N}$（頂點為 $\frac{v_{\text{頂}}^2}{g}$）。</td>
+              <td><span class="cloze-prompt" style="display:inline; font-size:0.85rem;">半徑公式：</span><span class="cloze-pill" style="min-width:110px; padding:2px 6px;">$\rho = \frac{v^2}{a_N}$</span></td>
             </tr>
             <tr>
               <td><span class="reflex-trigger">🔍 自斜面頂端拋出落回斜面</span></td>
               <td>位移比值即斜面坡度</td>
-              <td>$\tan\alpha = \frac{y}{x} = \frac{gt}{2v_0}$。</td>
+              <td><span class="cloze-prompt" style="display:inline; font-size:0.85rem;">落回時間：</span><span class="cloze-pill" style="min-width:130px; padding:2px 6px;">$t = \frac{2v_0\tan\alpha}{g}$</span></td>
             </tr>
             <tr>
               <td><span class="reflex-trigger">🔍 階梯台階逐階彈落</span></td>
               <td>邊緣連線視為斜坡</td>
-              <td>連續求落點座標後，階數向上取整 $\lceil x/w \rceil$。</td>
+              <td><span class="cloze-prompt" style="display:inline; font-size:0.85rem;">階數判定：</span><span class="cloze-pill" style="min-width:110px; padding:2px 6px;">$n = \lceil x/w \rceil$</span></td>
             </tr>
             <tr>
               <td><span class="reflex-trigger">🔍 越過高牆或網子落在 $R$</span></td>
               <td>切勿列時間 $t$，用因式分解</td>
-              <td>$y = x\tan\theta (1 - \frac{x}{R})$ 一步解出 $\tan\theta$。</td>
+              <td><span class="cloze-prompt" style="display:inline; font-size:0.85rem;">過網方程：</span><span class="cloze-pill" style="min-width:160px; padding:2px 6px;">$y = x\tan\theta (1 - \frac{x}{R})$</span></td>
             </tr>
             <tr>
               <td><span class="reflex-trigger">🔍 初速相同、射程相同</span></td>
               <td>必為互餘角發射</td>
-              <td>$\theta_1 + \theta_2 = 90^\circ$，$T_1 T_2 = \frac{2R}{g}$。</td>
+              <td><span class="cloze-prompt" style="display:inline; font-size:0.85rem;">時間乘積：</span><span class="cloze-pill" style="min-width:120px; padding:2px 6px;">$T_1 T_2 = \frac{2R}{g}$</span></td>
             </tr>
             <tr>
               <td><span class="reflex-trigger">🔍 拋體垂直砸入斜面</span></td>
               <td>沿斜面分速減速至 0</td>
-              <td>$v_{x'} = 0 \implies \cot\beta = 2\tan\alpha$。</td>
+              <td><span class="cloze-prompt" style="display:inline; font-size:0.85rem;">著陸條件：</span><span class="cloze-pill" style="min-width:130px; padding:2px 6px; font-weight:800;">$\cot\beta = 2\tan\alpha$</span></td>
             </tr>
             <tr>
               <td><span class="reflex-trigger">🔍 空中兩物體相撞 / 追逐</span></td>
               <td>切換參考系，相對等速直線</td>
-              <td>$\vec{a}_{\text{相對}} = 0$，相對速度直指初始連線。</td>
+              <td><span class="cloze-prompt" style="display:inline; font-size:0.85rem;">相撞判據：</span><span class="cloze-pill" style="min-width:160px; padding:2px 6px;">$\vec{a}_{\text{相對}} = 0 \ (\text{正對初始連線})$</span></td>
             </tr>
           </tbody>
         </table>
@@ -1829,20 +2067,16 @@
       const countText = document.getElementById('recall-count-text');
       const fillBar = document.getElementById('recall-progress-fill');
 
-      // 選取所有需要進行「精熟回想」的目標元素：
-      // (1) 所有公式卡片中的 LaTeX 公式盒 (.formula-latex-box)
-      // (2) 題型模型中的秒殺口訣盒 (.model-box:nth-child(2) > div)
-      // (3) 條件反射速查表中的必備公式與避坑欄位 (.reflex-table td:nth-child(3))
-      const targets = document.querySelectorAll(
-        '.formula-latex-box, .model-grid .model-box:nth-child(2) > div, .reflex-table td:nth-child(3)'
-      );
+      // 選取所有細粒度遮蔽膠囊元素 (.cloze-pill)，保留左側提示/待求量，只遮蔽核心公式答案
+      const targets = document.querySelectorAll('.cloze-pill');
 
       targets.forEach(el => {
         el.classList.add('recall-target');
         el.classList.add('is-masked');
 
-        el.addEventListener('click', () => {
+        el.addEventListener('click', (e) => {
           if (!document.body.classList.contains('recall-active')) return;
+          e.stopPropagation();
           if (el.classList.contains('is-masked')) {
             el.classList.remove('is-masked');
             el.classList.add('is-revealed');
@@ -1856,7 +2090,7 @@
 
       function updateProgress() {
         const total = targets.length;
-        const revealed = document.querySelectorAll('.recall-target.is-revealed').length;
+        const revealed = document.querySelectorAll('.cloze-pill.is-revealed').length;
         countText.textContent = `${revealed} / ${total}`;
         const pct = total > 0 ? (revealed / total) * 100 : 0;
         fillBar.style.width = pct + '%';
