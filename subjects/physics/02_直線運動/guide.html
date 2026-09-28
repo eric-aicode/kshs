@@ -1,0 +1,1343 @@
+<!DOCTYPE html>
+<html lang="zh-TW" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>直線運動 · 核心公式大全、三大圖形解析與解題思維寶典 (回想自測)</title>
+  <meta name="description" content="高中物理直線運動完整攻略：位置位移、三大運動圖形物理意義、等加速度三大核心公式、特殊比例推論、四大重力模型、一維相對運動與打點計時器數據分析。">
+
+  <!-- Google Fonts: Plus Jakarta Sans & Noto Sans TC -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Noto+Sans+TC:wght@400;500;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- KaTeX for crisp LaTeX Math rendering -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" crossorigin="anonymous"></script>
+
+  <!-- Application Stylesheet -->
+  <link rel="stylesheet" href="../../../core/style.css">
+
+  <style>
+    /* Guide 專屬自定義樣式 */
+    .guide-container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 1.5rem 1.25rem 4rem 1.25rem;
+    }
+
+    .hero-banner {
+      background: linear-gradient(135deg, rgba(79, 70, 229, 0.08) 0%, rgba(16, 185, 129, 0.08) 100%);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-lg);
+      padding: 2rem 2.25rem;
+      margin-bottom: 2rem;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .hero-banner::after {
+      content: '⚡';
+      position: absolute;
+      right: 1.5rem;
+      bottom: -1rem;
+      font-size: 7rem;
+      opacity: 0.12;
+      pointer-events: none;
+    }
+
+    .hero-title {
+      font-size: 1.95rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .hero-badge {
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 0.25rem 0.75rem;
+      border-radius: var(--radius-full);
+      background: var(--accent-primary);
+      color: #ffffff;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .hero-desc {
+      color: var(--text-secondary);
+      font-size: 1.05rem;
+      max-width: 880px;
+      line-height: 1.7;
+    }
+
+    /* 頂部導航按鈕列 */
+    .top-action-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .back-home-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 700;
+      padding: 0.5rem 1.1rem;
+      border-radius: var(--radius-full);
+      background: var(--accent-primary);
+      color: #ffffff;
+      text-decoration: none;
+      transition: all var(--transition-fast);
+      box-shadow: 0 2px 6px var(--accent-primary-glow);
+    }
+
+    .back-home-btn:hover {
+      background: var(--accent-primary-hover);
+      transform: translateX(-3px);
+    }
+
+    /* 主導航切換 Tab */
+    .guide-nav-tabs {
+      display: flex;
+      gap: 0.75rem;
+      margin-bottom: 1.75rem;
+      border-bottom: 2px solid var(--border-light);
+      padding-bottom: 0.75rem;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .guide-nav-tabs::-webkit-scrollbar {
+      display: none;
+    }
+
+    .guide-tab-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.65rem 1.25rem;
+      border-radius: var(--radius-full);
+      border: 1px solid var(--border-light);
+      background: var(--bg-card);
+      color: var(--text-secondary);
+      font-weight: 700;
+      font-size: 0.98rem;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      white-space: nowrap;
+      text-decoration: none;
+    }
+
+    .guide-tab-btn:hover {
+      background: var(--bg-tertiary);
+      color: var(--text-primary);
+      border-color: var(--border-focus);
+    }
+
+    .guide-tab-btn.active {
+      background: var(--accent-primary);
+      color: #ffffff;
+      border-color: var(--accent-primary);
+      box-shadow: 0 4px 12px var(--accent-primary-glow);
+    }
+
+    /* 遮蔽回想控制列 */
+    .recall-control-panel {
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-left: 5px solid var(--accent-primary);
+      border-radius: var(--radius-lg);
+      padding: 1.1rem 1.5rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .recall-panel-left {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .recall-mode-indicator {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+    }
+
+    .recall-status-icon {
+      font-size: 1.85rem;
+      width: 48px;
+      height: 48px;
+      border-radius: var(--radius-md);
+      background: rgba(79, 70, 229, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(79, 70, 229, 0.2);
+    }
+
+    .recall-badge {
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 0.15rem 0.6rem;
+      border-radius: var(--radius-full);
+      background: var(--accent-primary);
+      color: #ffffff;
+      letter-spacing: 0.05em;
+    }
+
+    .recall-panel-right {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+    }
+
+    .recall-progress-box {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: var(--bg-tertiary);
+      padding: 0.35rem 0.85rem;
+      border-radius: var(--radius-full);
+      border: 1px solid var(--border-light);
+    }
+
+    .recall-progress-bar {
+      width: 90px;
+      height: 8px;
+      background: var(--bg-card);
+      border-radius: var(--radius-full);
+      overflow: hidden;
+      border: 1px solid var(--border-light);
+    }
+
+    .recall-progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent-primary) 0%, var(--accent-emerald) 100%);
+      transition: width 0.3s ease;
+    }
+
+    .recall-btn-group {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+    }
+
+    .recall-btn {
+      padding: 0.45rem 0.95rem;
+      border-radius: var(--radius-full);
+      font-weight: 700;
+      font-size: 0.88rem;
+      border: 1px solid var(--border-light);
+      background: var(--bg-card);
+      color: var(--text-primary);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      user-select: none;
+    }
+
+    .recall-btn:hover {
+      background: var(--bg-tertiary);
+      border-color: var(--border-focus);
+      transform: translateY(-1px);
+    }
+
+    .recall-btn-primary {
+      background: var(--accent-primary);
+      color: #ffffff;
+      border-color: var(--accent-primary);
+      box-shadow: 0 2px 8px var(--accent-primary-glow);
+    }
+
+    .recall-btn-primary:hover {
+      background: var(--accent-primary-hover);
+      color: #ffffff;
+    }
+
+    /* 內容區塊卡片系統 */
+    .formula-section-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem 2rem;
+      margin-bottom: 2rem;
+      box-shadow: var(--shadow-sm);
+      transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+    }
+
+    .formula-section-card:hover {
+      box-shadow: var(--shadow-md);
+    }
+
+    .section-header-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.3rem 0.85rem;
+      border-radius: var(--radius-full);
+      font-size: 0.82rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+    }
+
+    .tag-blue { background: rgba(79, 70, 229, 0.1); color: var(--accent-primary); border: 1px solid rgba(79, 70, 229, 0.2); }
+    .tag-green { background: rgba(5, 150, 105, 0.1); color: var(--accent-emerald); border: 1px solid rgba(5, 150, 105, 0.2); }
+    .tag-amber { background: rgba(217, 119, 6, 0.1); color: var(--accent-amber); border: 1px solid rgba(217, 119, 6, 0.2); }
+    .tag-cyan { background: rgba(8, 145, 178, 0.1); color: var(--accent-cyan); border: 1px solid rgba(8, 145, 178, 0.2); }
+
+    .formula-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 1.25rem;
+      margin-top: 1.25rem;
+    }
+
+    .formula-card {
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-md);
+      padding: 1.25rem 1.4rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+    }
+
+    .formula-card-title {
+      font-weight: 800;
+      font-size: 1.05rem;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .formula-badge {
+      font-size: 0.7rem;
+      padding: 0.15rem 0.5rem;
+      border-radius: var(--radius-sm);
+      font-weight: 700;
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+    }
+
+    .formula-latex-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-sm);
+      padding: 0.85rem 1rem;
+      margin: 0.65rem 0;
+      text-align: center;
+      font-size: 1.15rem;
+      overflow-x: auto;
+    }
+
+    .formula-desc {
+      font-size: 0.92rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .formula-tip {
+      font-size: 0.86rem;
+      color: var(--accent-amber);
+      font-weight: 600;
+      margin-top: 0.4rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.35rem;
+    }
+
+    /* 細粒度克漏字填空 (Granular Cloze & Active Recall) */
+    .formula-cloze-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+      margin: 0.75rem 0;
+    }
+
+    .cloze-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      padding: 0.35rem 0.65rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-sm);
+      transition: all var(--transition-fast);
+      min-height: 42px;
+      box-sizing: border-box;
+      overflow-x: auto;
+    }
+
+    .cloze-row:hover {
+      border-color: var(--border-focus);
+      background: var(--bg-tertiary);
+    }
+
+    .cloze-prompt {
+      font-weight: 750;
+      font-size: 0.91rem;
+      color: var(--text-primary);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      flex-shrink: 0;
+      white-space: nowrap;
+    }
+
+    .cloze-pill {
+      flex: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      cursor: pointer;
+      min-width: 80px;
+      min-height: 32px;
+      padding: 0.15rem 0.6rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid transparent;
+      transition: all var(--transition-fast);
+      user-select: none;
+    }
+
+    .cloze-pill .katex-display,
+    .cloze-pill .katex-display-box {
+      margin: 0 !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      vertical-align: middle !important;
+    }
+
+    .cloze-pill .katex {
+      font-size: 1.05em !important;
+      line-height: 1.15 !important;
+    }
+
+    body.recall-active .cloze-pill.is-masked {
+      background: repeating-linear-gradient(
+        -45deg,
+        rgba(79, 70, 229, 0.05),
+        rgba(79, 70, 229, 0.05) 8px,
+        rgba(79, 70, 229, 0.12) 8px,
+        rgba(79, 70, 229, 0.12) 16px
+      ) !important;
+      border: 1.5px dashed var(--accent-primary) !important;
+      justify-content: center !important;
+      color: transparent !important;
+      cursor: pointer;
+    }
+
+    body.recall-active .cloze-pill.is-masked * {
+      opacity: 0 !important;
+      visibility: hidden !important;
+      pointer-events: none !important;
+    }
+
+    body.recall-active .cloze-pill.is-masked::before {
+      content: '❓ [ 掀開公式 ]';
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.82rem;
+      font-weight: 800;
+      color: var(--accent-primary);
+      background: rgba(79, 70, 229, 0.08);
+      border-radius: var(--radius-sm);
+      z-index: 2;
+    }
+
+    body.recall-active .cloze-pill.is-revealed {
+      background: rgba(5, 150, 105, 0.08) !important;
+      border: 1px solid rgba(5, 150, 105, 0.35) !important;
+      animation: popReveal 0.25s ease-out;
+    }
+
+    @keyframes popReveal {
+      0% { transform: scale(0.96); opacity: 0.7; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    /* 比較與特性表格 */
+    .compare-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.25rem 0;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 1px solid var(--border-light);
+    }
+
+    .compare-table th {
+      background: var(--bg-tertiary);
+      padding: 0.85rem 1rem;
+      text-align: left;
+      font-weight: 800;
+      color: var(--text-primary);
+      border-bottom: 2px solid var(--border-light);
+      font-size: 0.95rem;
+    }
+
+    .compare-table td {
+      padding: 0.85rem 1rem;
+      border-bottom: 1px solid var(--border-light);
+      color: var(--text-secondary);
+      font-size: 0.92rem;
+      line-height: 1.6;
+    }
+
+    .compare-table tr:hover td {
+      background: rgba(79, 70, 229, 0.03);
+    }
+
+    /* 題型模型卡片 */
+    .model-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-left: 5px solid var(--accent-primary);
+      border-radius: var(--radius-md);
+      padding: 1.35rem 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .model-card.accent-emerald {
+      border-left-color: var(--accent-emerald);
+    }
+
+    .model-card.accent-amber {
+      border-left-color: var(--accent-amber);
+    }
+
+    .model-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .model-subtitle {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      margin-bottom: 0.85rem;
+    }
+
+    .guide-tab-pane {
+      display: none;
+      animation: fadeIn 0.25s ease forwards;
+    }
+
+    .guide-tab-pane.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 頂部操作與快速導航 -->
+  <div class="guide-container">
+
+    <div class="top-action-bar">
+      <a href="../../../index.html?unit=02_linear_motion" class="back-home-btn" title="返回解題互動中心">
+        <span>←</span>
+        <span>返回 02 直線運動 互動解題中心</span>
+      </a>
+
+      <div style="display:flex; align-items:center; gap:0.75rem;">
+        <a href="guide_print.html" class="recall-btn" style="text-decoration:none; background:linear-gradient(135deg, #059669 0%, #10b981 100%); color:#fff; border:none; box-shadow:0 2px 6px rgba(5,150,105,0.3);" title="切換為 A4 雙頁講義列印模式">
+          <span>🖨️</span>
+          <span>A4 雙頁列印版</span>
+        </a>
+        <button class="theme-toggle-btn" id="guide-theme-toggle" title="切換深淺模式" style="border:1px solid var(--border-light); background:var(--bg-card); width:38px; height:38px; border-radius:var(--radius-full); cursor:pointer;">
+          🌙
+        </button>
+      </div>
+    </div>
+
+    <!-- Hero 看板 -->
+    <header class="hero-banner">
+      <div class="hero-title">
+        <span>⚡ 直線運動 · 核心公式大全與圖形攻略寶典</span>
+        <span class="hero-badge">Active Recall 自測版</span>
+      </div>
+      <p class="hero-desc">
+        完整涵蓋位置位移、速度速率、三大運動圖形本質矩陣（$x-t$、$v-t$、$a-t$）、等加速度三大核心公式幾何與微積分推導、奇數比與中點速度推論、四大重力模型、相對運動追撞臨界與打點計時器數據分析。支援點擊遮蔽／掀牌精熟回想自測！
+      </p>
+    </header>
+
+    <!-- 精熟學習 · 遮蔽回想控制列 -->
+    <section class="recall-control-panel" aria-label="回想自測控制工具列">
+      <div class="recall-panel-left">
+        <div class="recall-mode-indicator">
+          <div class="recall-status-icon" id="recall-icon">🧠</div>
+          <div>
+            <div style="display:flex; align-items:center; gap:0.5rem;">
+              <span style="font-weight:800; font-size:1.05rem; color:var(--text-primary);">主動回想自測 (Active Recall)</span>
+              <span class="recall-badge" id="recall-mode-tag">回想自測中</span>
+            </div>
+            <p style="font-size:0.86rem; color:var(--text-muted); margin-top:2px;">
+              看清左側物理量提示，心中推想公式後點擊膠囊掀牌驗證！
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="recall-panel-right">
+        <div class="recall-progress-box" title="當前已掀開/總回想自測數量">
+          <span style="font-size:0.82rem; font-weight:700; color:var(--text-secondary);">揭開進度:</span>
+          <div class="recall-progress-bar">
+            <div class="recall-progress-fill" id="recall-progress-fill" style="width: 0%;"></div>
+          </div>
+          <span style="font-size:0.84rem; font-weight:800; font-family:'JetBrains Mono',monospace;" id="recall-count-text">0 / 0</span>
+        </div>
+
+        <div class="recall-btn-group">
+          <button class="recall-btn recall-btn-primary" id="recall-toggle-mode-btn" title="切換回想遮蔽模式與完整研讀模式">
+            <span>👁️</span>
+            <span id="recall-toggle-text">切換為完整研讀模式</span>
+          </button>
+          <button class="recall-btn" id="recall-mask-all-btn" title="全部蓋住公式進行閉卷回想">
+            <span>🔒</span>全部遮蔽
+          </button>
+          <button class="recall-btn" id="recall-reveal-all-btn" title="一鍵揭開所有公式">
+            <span>🔓</span>全部掀開
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 主單元 Tab 切換導覽 -->
+    <nav class="guide-nav-tabs" aria-label="講義重點導航">
+      <button class="guide-tab-btn active" data-tab="tab-concepts">
+        <span>📊</span> 1. 基本物理量與三大運動圖形
+      </button>
+      <button class="guide-tab-btn" data-tab="tab-constant-a">
+        <span>📐</span> 2. 等加速度核心公式與四大比例推論
+      </button>
+      <button class="guide-tab-btn" data-tab="tab-gravity">
+        <span>🚀</span> 3. 四大重力運動模型與斜面下滑
+      </button>
+      <button class="guide-tab-btn" data-tab="tab-relative-ticker">
+        <span>⚡</span> 4. 相對運動追趕與打點計時器分析
+      </button>
+    </nav>
+
+    <!-- ===================================================================== -->
+    <!-- Tab 1: 基本物理量與三大運動圖形 -->
+    <!-- ===================================================================== -->
+    <div class="guide-tab-pane active" id="tab-concepts">
+      
+      <!-- 概念卡片 1 -->
+      <section class="formula-section-card">
+        <span class="section-header-tag tag-blue">基礎核心觀念</span>
+        <h2 style="font-size:1.35rem; font-weight:800; margin-bottom:0.75rem;">一、 質點、位置、位移與路徑長</h2>
+        <p class="formula-desc">
+          質點為忽略形狀大小、質量集中於一點的理想物理模型。一維直線運動中，方向以正負號表示。
+        </p>
+
+        <div class="formula-cloze-group">
+          <div class="cloze-row">
+            <span class="cloze-prompt">🎯 1. 位移定義 $\Delta x=$</span>
+            <div class="cloze-pill">
+              <span>$$x_{\text{末}} - x_{\text{初}} = x_2 - x_1$$</span>
+            </div>
+          </div>
+          <div class="cloze-row">
+            <span class="cloze-prompt">📏 2. 路徑長 $\Delta \ell$ 與位移量值關係:</span>
+            <div class="cloze-pill">
+              <span>$$\Delta \ell \ge |\Delta x| \quad (\text{僅當單向不折返時取等號})$$</span>
+            </div>
+          </div>
+        </div>
+
+        <table class="compare-table">
+          <thead>
+            <tr>
+              <th>物理量</th>
+              <th>物理本質</th>
+              <th>方向性與正負</th>
+              <th>與運動路徑關係</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>位移 $\Delta x$</strong></td>
+              <td>向量 (Vector)</td>
+              <td>有正負（正號為正向，負號為負向）</td>
+              <td>僅決定於<strong>初位置與末位置</strong>，與中間路徑無關</td>
+            </tr>
+            <tr>
+              <td><strong>路徑長 $\Delta \ell$</strong></td>
+              <td>純量 (Scalar)</td>
+              <td>恆為正值或零（$\Delta \ell \ge 0$）</td>
+              <td>隨運動軌跡累加，有折返時必定大於位移量值</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- 概念卡片 2 -->
+      <section class="formula-section-card">
+        <span class="section-header-tag tag-green">運動快慢度量</span>
+        <h2 style="font-size:1.35rem; font-weight:800; margin-bottom:0.75rem;">二、 速度、速率與微積分運動方程式</h2>
+
+        <div class="formula-grid">
+          <div class="formula-card">
+            <div class="formula-card-title">
+              <span>平均速度 (Average Velocity)</span>
+              <span class="formula-badge">向量</span>
+            </div>
+            <div class="cloze-row">
+              <span class="cloze-prompt">公式 $\bar{v}=$</span>
+              <div class="cloze-pill">
+                <span>$$\frac{\Delta x}{\Delta t} = \frac{x_2 - x_1}{t_2 - t_1}$$</span>
+              </div>
+            </div>
+            <p class="formula-desc">方向與位移 $\Delta x$ 同向，不論中間是否折返。</p>
+          </div>
+
+          <div class="formula-card">
+            <div class="formula-card-title">
+              <span>平均速率 (Average Speed)</span>
+              <span class="formula-badge">純量</span>
+            </div>
+            <div class="cloze-row">
+              <span class="cloze-prompt">公式 $v_{\text{avg}}=$</span>
+              <div class="cloze-pill">
+                <span>$$\frac{\Delta \ell}{\Delta t} = \frac{\text{總路徑長}}{\text{總時間}}$$</span>
+              </div>
+            </div>
+            <p class="formula-desc">恆為正值，若有折返則 $v_{\text{avg}} > |\bar{v}|$。</p>
+          </div>
+
+          <div class="formula-card">
+            <div class="formula-card-title">
+              <span>瞬時速度 (Instantaneous Velocity)</span>
+              <span class="formula-badge">微分</span>
+            </div>
+            <div class="cloze-row">
+              <span class="cloze-prompt">公式 $v(t)=$</span>
+              <div class="cloze-pill">
+                <span>$$\lim_{\Delta t \to 0} \frac{\Delta x}{\Delta t} = \frac{dx}{dt}$$</span>
+              </div>
+            </div>
+            <p class="formula-desc">位置函數對時間的一階導數，瞬時速率即為 $|v|$。</p>
+          </div>
+
+          <div class="formula-card">
+            <div class="formula-card-title">
+              <span>瞬時加速度 (Instantaneous Acceleration)</span>
+              <span class="formula-badge">二階導</span>
+            </div>
+            <div class="cloze-row">
+              <span class="cloze-prompt">公式 $a(t)=$</span>
+              <div class="cloze-pill">
+                <span>$$\lim_{\Delta t \to 0} \frac{\Delta v}{\Delta t} = \frac{dv}{dt} = \frac{d^2x}{dt^2}$$</span>
+              </div>
+            </div>
+            <p class="formula-desc">速度函數對時間的一階導數，單位為 $\text{m/s}^2$。</p>
+          </div>
+        </div>
+
+        <div style="background:var(--bg-tertiary); border:1px solid var(--border-light); border-radius:var(--radius-md); padding:1rem 1.25rem; margin-top:1.25rem;">
+          <h4 style="font-weight:800; color:var(--accent-amber); margin-bottom:0.4rem;">💡 加速與減速的嚴密判定準則：</h4>
+          <p style="font-size:0.92rem; color:var(--text-secondary); line-height:1.6;">
+            • 當加速度與速度<strong>同向</strong>（即 $a \cdot v > 0$）時 $\implies$ 物體做<strong>加速運動</strong>（速率越來越快）。<br>
+            • 當加速度與速度<strong>反向</strong>（即 $a \cdot v < 0$）時 $\implies$ 物體做<strong>減速運動</strong>（速率越來越慢）。<br>
+            <em>（注意：加速度為負並不代表一定是減速，若速度也是負，則為向負方向加速！）</em>
+          </p>
+        </div>
+      </section>
+
+      <!-- 概念卡片 3 -->
+      <section class="formula-section-card">
+        <span class="section-header-tag tag-cyan">重中之重</span>
+        <h2 style="font-size:1.35rem; font-weight:800; margin-bottom:0.75rem;">三、 直線運動三大圖形物理意義全覽矩陣</h2>
+        <p class="formula-desc">物理圖形是解題最強大的視覺武器，掌握「點、割線、切線、面積」的本質意義：</p>
+
+        <table class="compare-table">
+          <thead>
+            <tr>
+              <th style="width:18%;">圖形種類</th>
+              <th style="width:20%;">點座標 $(t, y)$</th>
+              <th style="width:20%;">兩點割線斜率</th>
+              <th style="width:20%;">切線斜率</th>
+              <th style="width:22%;">與 $t$ 軸所圍面積</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>$x-t$ 圖</strong><br><span style="font-size:0.78rem; color:var(--text-muted);">位置-時間</span></td>
+              <td>該時刻之<strong>位置</strong> $x$</td>
+              <td>時段內之<strong>平均速度</strong> $\bar{v} = \frac{\Delta x}{\Delta t}$</td>
+              <td>該瞬間之<strong>瞬時速度</strong> $v = \frac{dx}{dt}$</td>
+              <td style="color:var(--text-muted);"><em>無常用物理意義</em></td>
+            </tr>
+            <tr>
+              <td><strong>$v-t$ 圖</strong><br><span style="font-size:0.78rem; color:var(--accent-primary); font-weight:700;">★ 最重要</span></td>
+              <td>該時刻之<strong>瞬時速度</strong> $v$</td>
+              <td>時段內之<strong>平均加速度</strong> $\bar{a} = \frac{\Delta v}{\Delta t}$</td>
+              <td>該瞬間之<strong>瞬時加速度</strong> $a = \frac{dv}{dt}$</td>
+              <td><strong>位移 $\Delta x$</strong><br><span style="font-size:0.8rem; color:var(--text-muted);">(軸上方為正，下方為負)</span></td>
+            </tr>
+            <tr>
+              <td><strong>$a-t$ 圖</strong><br><span style="font-size:0.78rem; color:var(--text-muted);">加速度-時間</span></td>
+              <td>該時刻之<strong>瞬時加速度</strong> $a$</td>
+              <td style="color:var(--text-muted);"><em>無常用意義</em></td>
+              <td style="color:var(--text-muted);"><em>躍度 (Jerk)</em></td>
+              <td><strong>速度變化量 $\Delta v$</strong><br><span style="font-size:0.8rem; color:var(--accent-amber); font-weight:700;">($v_{\text{末}} - v_{\text{初}}$，非末速！)</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- Tab 2: 等加速度核心公式與四大比例推論 -->
+    <!-- ===================================================================== -->
+    <div class="guide-tab-pane" id="tab-constant-a">
+      
+      <section class="formula-section-card">
+        <span class="section-header-tag tag-blue">四大必備公式</span>
+        <h2 style="font-size:1.35rem; font-weight:800; margin-bottom:0.75rem;">一、 等加速度直線運動核心公式與雙重推導</h2>
+        <p class="formula-desc">設初速度為 $v_0$、加速度為 $a$（常數）、經歷時間為 $t$、位移為 $S$、末速度為 $v$：</p>
+
+        <div class="formula-cloze-group">
+          <!-- 公式一 -->
+          <div class="cloze-row">
+            <span class="cloze-prompt">【公式一 · 速度時間關係】 $v=$</span>
+            <div class="cloze-pill">
+              <span>$$v_0 + at$$</span>
+            </div>
+          </div>
+          <div style="font-size:0.84rem; color:var(--text-muted); padding:0 0.5rem 0.5rem 0.5rem;">
+            推導：由平均加速度定義 $a = \frac{v - v_0}{t} \implies v - v_0 = at \implies v = v_0 + at$。
+          </div>
+
+          <!-- 公式二 -->
+          <div class="cloze-row">
+            <span class="cloze-prompt">【公式二 · 位移時間關係】 $S=$</span>
+            <div class="cloze-pill">
+              <span>$$v_0 t + \frac{1}{2} a t^2$$</span>
+            </div>
+          </div>
+          <div style="font-size:0.84rem; color:var(--text-muted); padding:0 0.5rem 0.5rem 0.5rem;">
+            推導：$v-t$ 圖梯形面積 $S = \frac{(v_0 + v)t}{2} = \frac{(v_0 + v_0 + at)t}{2} = v_0 t + \frac{1}{2}at^2$。
+          </div>
+
+          <!-- 公式三 -->
+          <div class="cloze-row">
+            <span class="cloze-prompt">【公式三 · 速度位移關係（無時間）】 $v^2=$</span>
+            <div class="cloze-pill">
+              <span>$$v_0^2 + 2aS$$</span>
+            </div>
+          </div>
+          <div style="font-size:0.84rem; color:var(--text-muted); padding:0 0.5rem 0.5rem 0.5rem;">
+            推導：由 $t = \frac{v - v_0}{a}$ 代入梯形面積 $S = \frac{v + v_0}{2} \cdot \frac{v - v_0}{a} = \frac{v^2 - v_0^2}{2a} \implies v^2 = v_0^2 + 2aS$。
+          </div>
+
+          <!-- 公式四 -->
+          <div class="cloze-row">
+            <span class="cloze-prompt">【公式四 · 梯形平均速度位移式】 $S=$</span>
+            <div class="cloze-pill">
+              <span>$$\frac{v_0 + v}{2} \cdot t = \bar{v} \cdot t$$</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 比例推論 -->
+      <section class="formula-section-card">
+        <span class="section-header-tag tag-amber">考試提速神器</span>
+        <h2 style="font-size:1.35rem; font-weight:800; margin-bottom:0.75rem;">二、 初速為零（$v_0 = 0$）四大特殊比例推論</h2>
+        <p class="formula-desc">當物體由靜止出發做等加速度運動時，連續時段與位移存在優美的數學比例，能秒殺多數大考題：</p>
+
+        <div class="formula-cloze-group">
+          <div class="cloze-row">
+            <span class="cloze-prompt">1. 等時區間「累積位移比」 $S_1 : S_2 : S_3 : \dots : S_n =$</span>
+            <div class="cloze-pill">
+              <span>$$1^2 : 2^2 : 3^2 : \dots : n^2 = 1 : 4 : 9 : \dots : n^2$$</span>
+            </div>
+          </div>
+
+          <div class="cloze-row">
+            <span class="cloze-prompt">2. 等時區間「時段位移比」 $\Delta S_1 : \Delta S_2 : \Delta S_3 : \dots : \Delta S_n =$</span>
+            <div class="cloze-pill">
+              <span>$$1 : 3 : 5 : 7 : \dots : (2n - 1) \quad (\text{連續奇數比})$$</span>
+            </div>
+          </div>
+
+          <div class="cloze-row">
+            <span class="cloze-prompt">3. 連續相等位移「累積時間比」 $t_1 : t_2 : t_3 : \dots : t_n =$</span>
+            <div class="cloze-pill">
+              <span>$$1 : \sqrt{2} : \sqrt{3} : \dots : \sqrt{n}$$</span>
+            </div>
+          </div>
+
+          <div class="cloze-row">
+            <span class="cloze-prompt">4. 連續相等位移「時段時間比」 $\Delta t_1 : \Delta t_2 : \dots : \Delta t_n =$</span>
+            <div class="cloze-pill">
+              <span>$$1 : (\sqrt{2}-1) : (\sqrt{3}-\sqrt{2}) : \dots : (\sqrt{n}-\sqrt{n-1})$$</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 中點速度 -->
+      <section class="formula-section-card">
+        <span class="section-header-tag tag-green">精選幾何特徵</span>
+        <h2 style="font-size:1.35rem; font-weight:800; margin-bottom:0.75rem;">三、 時間中點速度 vs 位置中點速度</h2>
+
+        <div class="formula-grid">
+          <div class="formula-card">
+            <div class="formula-card-title">
+              <span>時間中點速度 $v_{t/2}$</span>
+              <span class="formula-badge">算術平均</span>
+            </div>
+            <div class="cloze-row">
+              <span class="cloze-prompt">公式 $v_{t/2}=$</span>
+              <div class="cloze-pill">
+                <span>$$\frac{v_0 + v}{2} = \bar{v}$$</span>
+              </div>
+            </div>
+            <p class="formula-desc">等加速度運動中，時間中點的瞬時速度必等於全程的平均速度！</p>
+          </div>
+
+          <div class="formula-card">
+            <div class="formula-card-title">
+              <span>位置中點速度 $v_{S/2}$</span>
+              <span class="formula-badge">平方平均</span>
+            </div>
+            <div class="cloze-row">
+              <span class="cloze-prompt">公式 $v_{S/2}=$</span>
+              <div class="cloze-pill">
+                <span>$$\sqrt{\frac{v_0^2 + v^2}{2}}$$</span>
+              </div>
+            </div>
+            <p class="formula-desc">由 $v_{S/2}^2 - v_0^2 = 2a(S/2)$ 與 $v^2 - v_{S/2}^2 = 2a(S/2)$ 解出。</p>
+          </div>
+        </div>
+
+        <div style="background:var(--bg-tertiary); border:1px solid var(--border-light); border-radius:var(--radius-md); padding:0.85rem 1.25rem; margin-top:1rem; font-weight:700; color:var(--text-primary);">
+          📌 核心不等式結論：不論是加速或減速運動，位置中點速度恆大於時間中點速度（$v_{S/2} > v_{t/2}$）！
+        </div>
+      </section>
+
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- Tab 3: 四大重力運動模型與斜面下滑 -->
+    <!-- ===================================================================== -->
+    <div class="guide-tab-pane" id="tab-gravity">
+      
+      <!-- 自由落體 -->
+      <section class="formula-section-card">
+        <span class="section-header-tag tag-blue">模型一</span>
+        <h2 style="font-size:1.35rem; font-weight:800; margin-bottom:0.75rem;">一、 自由落體 (Free Fall)</h2>
+        <p class="formula-desc">初速 $v_0 = 0$，加速度 $a = g \approx 9.8 \text{ 或 } 10 \text{ m/s}^2$，取向下為正：</p>
+
+        <div class="formula-cloze-group">
+          <div class="cloze-row">
+            <span class="cloze-prompt">1. 落下高度 $h(t)=$</span>
+            <div class="cloze-pill">
+              <span>$$\frac{1}{2} g t^2$$</span>
+            </div>
+          </div>
+          <div class="cloze-row">
+            <span class="cloze-prompt">2. 著地時間 $t=$</span>
+            <div class="cloze-pill">
+              <span>$$\sqrt{\frac{2h}{g}}$$</span>
+            </div>
+          </div>
+          <div class="cloze-row">
+            <span class="cloze-prompt">3. 著地速度 $v=$</span>
+            <div class="cloze-pill">
+              <span>$$\sqrt{2gh} = gt$$</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 鉛直上拋 -->
+      <section class="formula-section-card">
+        <span class="section-header-tag tag-green">模型二 · 對稱性極佳</span>
+        <h2 style="font-size:1.35rem; font-weight:800; margin-bottom:0.75rem;">二、 鉛直上拋運動 (Vertical Upward Throw)</h2>
+        <p class="formula-desc">初速 $v_0$ 朝上，取向上為正，$a = -g$。其高度與速度具有高度對稱性：</p>
+
+        <div class="formula-cloze-group">
+          <div class="cloze-row">
+            <span class="cloze-prompt">1. 上升至最高點所需時間 $t_{\text{頂}}=$</span>
+            <div class="cloze-pill">
+              <span>$$\frac{v_0}{g}$$</span>
+            </div>
+          </div>
+          <div class="cloze-row">
+            <span class="cloze-prompt">2. 最大上升高度 $H_{\text{max}}=$</span>
+            <div class="cloze-pill">
+              <span>$$\frac{v_0^2}{2g}$$</span>
+            </div>
+          </div>
+          <div class="cloze-row">
+            <span class="cloze-prompt">3. 全程往返總時間（空中滯空時間） $T=$</span>
+            <div class="cloze-pill">
+              <span>$$\frac{2v_0}{g} = 2 t_{\text{頂}}$$</span>
+            </div>
+          </div>
+          <div class="cloze-row">
+            <span class="cloze-prompt">4. 通過同一高度對稱性:</span>
+            <div class="cloze-pill">
+              <span>$$v_{\text{下}} = -v_{\text{上}} \quad (|v_{\text{下}}| = |v_{\text{上}}|)$$</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 光滑斜面下滑 -->
+      <section class="formula-section-card">
+        <span class="section-header-tag tag-amber">模型三</span>
+        <h2 style="font-size:1.35rem; font-weight:800; margin-bottom:0.75rem;">三、 光滑斜面下滑運動</h2>
+        <p class="formula-desc">傾角為 $\theta$ 之光滑斜面，斜面長 $d$，鉛直高度 $h = d \sin\theta$：</p>
+
+        <div class="formula-cloze-group">
+          <div class="cloze-row">
+            <span class="cloze-prompt">1. 下滑加速度 $a=$</span>
+            <div class="cloze-pill">
+              <span>$$g \sin\theta$$</span>
+            </div>
+          </div>
+          <div class="cloze-row">
+            <span class="cloze-prompt">2. 滑至底端之末速度 $v=$</span>
+            <div class="cloze-pill">
+              <span>$$\sqrt{2gh} \quad (\text{僅與高度 } h \text{ 有關，獨立於傾角 } \theta)$$</span>
+            </div>
+          </div>
+          <div class="cloze-row">
+            <span class="cloze-prompt">3. 下滑時間 $t=$</span>
+            <div class="cloze-pill">
+              <span>$$\sqrt{\frac{2d}{g\sin\theta}} = \frac{1}{\sin\theta} \sqrt{\frac{2h}{g}}$$</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- Tab 4: 相對運動追趕與打點計時器分析 -->
+    <!-- ===================================================================== -->
+    <div class="guide-tab-pane" id="tab-relative-ticker">
+      
+      <!-- 相對運動 -->
+      <section class="formula-section-card">
+        <span class="section-header-tag tag-blue">運動學高級視角</span>
+        <h2 style="font-size:1.35rem; font-weight:800; margin-bottom:0.75rem;">一、 一維相對運動與追趕相撞問題</h2>
+        <p class="formula-desc">以 $B$ 物體為參考坐標系觀察 $A$ 物體：</p>
+
+        <div class="formula-cloze-group">
+          <div class="cloze-row">
+            <span class="cloze-prompt">1. 相對位置定義 $x_{AB}=$</span>
+            <div class="cloze-pill">
+              <span>$$x_A - x_B$$</span>
+            </div>
+          </div>
+          <div class="cloze-row">
+            <span class="cloze-prompt">2. 相對速度定義 $v_{AB}=$</span>
+            <div class="cloze-pill">
+              <span>$$v_A - v_B$$</span>
+            </div>
+          </div>
+          <div class="cloze-row">
+            <span class="cloze-prompt">3. 相對加速度定義 $a_{AB}=$</span>
+            <div class="cloze-pill">
+              <span>$$a_A - a_B$$</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="model-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:1.25rem; margin-top:1.25rem;">
+          <div class="model-card accent-emerald" style="margin:0;">
+            <div class="model-title">🎯 追及與相撞條件</div>
+            <p class="formula-desc">兩物體相遇的充要條件是<strong>在相同時刻位於相同位置</strong>：</p>
+            <div class="cloze-row" style="margin-top:0.5rem;">
+              <span class="cloze-prompt">相遇條件式:</span>
+              <div class="cloze-pill">
+                <span>$$x_A(t) = x_B(t) \iff \Delta x_{AB}(t) = 0$$</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="model-card accent-amber" style="margin:0;">
+            <div class="model-title">⚠️ 最近距離 / 臨界不相撞條件</div>
+            <p class="formula-desc">兩物體距離達到極值（最近或最遠）之瞬間：</p>
+            <div class="cloze-row" style="margin-top:0.5rem;">
+              <span class="cloze-prompt">極值臨界式:</span>
+              <div class="cloze-pill">
+                <span>$$v_{AB} = 0 \iff v_A = v_B \quad (\text{兩車速度相等})$$</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 打點計時器實驗數據分析 -->
+      <section class="formula-section-card">
+        <span class="section-header-tag tag-green">探究與實作必考</span>
+        <h2 style="font-size:1.35rem; font-weight:800; margin-bottom:0.75rem;">二、 打點計時器紙帶數據分析法 (Ticker-Tape Experiment)</h2>
+        <p class="formula-desc">打點頻率為 $f \text{ (Hz)}$，相鄰兩打點之間的時間週期為 $T = \frac{1}{f}$：</p>
+
+        <div class="formula-cloze-group">
+          <div class="cloze-row">
+            <span class="cloze-prompt">1. 求某點 $n$ 之瞬時速度（時間中點法） $v_n=$</span>
+            <div class="cloze-pill">
+              <span>$$\frac{x_{n+1} - x_{n-1}}{2T} = \bar{v}_{(n-1) \to (n+1)}$$</span>
+            </div>
+          </div>
+
+          <div class="cloze-row">
+            <span class="cloze-prompt">2. 連續等時位移差求加速度（逐差法） $a=$</span>
+            <div class="cloze-pill">
+              <span>$$\frac{\Delta x_2 - \Delta x_1}{(\Delta t)^2} = \frac{x_{23} - x_{12}}{T^2}$$</span>
+            </div>
+          </div>
+
+          <div class="cloze-row">
+            <span class="cloze-prompt">3. 間隔 $k$ 個區間的位移差逐差法 $a=$</span>
+            <div class="cloze-pill">
+              <span>$$\frac{x_{m+k} - x_m}{k \cdot (\Delta t)^2}$$</span>
+            </div>
+          </div>
+        </div>
+
+        <div style="background:var(--bg-tertiary); border:1px solid var(--border-light); border-radius:var(--radius-md); padding:1rem 1.25rem; margin-top:1.25rem;">
+          <h4 style="font-weight:800; color:var(--accent-primary); margin-bottom:0.4rem;">💡 實驗審題避坑小技巧：</h4>
+          <p style="font-size:0.92rem; color:var(--text-secondary); line-height:1.6;">
+            1. 務必看清楚頻率是 $50 \text{ Hz}$（$T=0.02\text{ s}$）還是 $60 \text{ Hz}$（$T=0.0167\text{ s}$）。<br>
+            2. 題目給定的是「每 5 個點取一次數據」還是「連續相鄰點」。若每隔 5 個點取一次，則 $\Delta t = 5T = 0.1\text{ s}$！<br>
+            3. 座標軸起點：注意題目的尺規刻度是「相對於原點的總座標 $x_n$」還是「兩相鄰點之間的間距 $\Delta x_n$」。
+          </p>
+        </div>
+      </section>
+
+    </div>
+
+  </div>
+
+  <!-- 底部固定導覽列與腳本 -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // 1. 主題切換
+      const themeBtn = document.getElementById('guide-theme-toggle');
+      const savedTheme = localStorage.getItem('phy_theme') || 'light';
+      document.documentElement.setAttribute('data-theme', savedTheme);
+      themeBtn.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+
+      themeBtn.addEventListener('click', () => {
+        const cur = document.documentElement.getAttribute('data-theme');
+        const next = cur === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', next);
+        themeBtn.textContent = next === 'dark' ? '☀️' : '🌙';
+        localStorage.setItem('phy_theme', next);
+      });
+
+      // 2. Tab 切換
+      const tabBtns = document.querySelectorAll('.guide-tab-btn');
+      const tabPanes = document.querySelectorAll('.guide-tab-pane');
+
+      tabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          tabBtns.forEach(b => b.classList.remove('active'));
+          tabPanes.forEach(p => p.classList.remove('active'));
+
+          btn.classList.add('active');
+          const targetId = btn.getAttribute('data-tab');
+          const targetPane = document.getElementById(targetId);
+          if (targetPane) targetPane.classList.add('active');
+        });
+      });
+
+      // 3. Active Recall 遮蔽自測引擎
+      let isRecallMode = localStorage.getItem('phy_recall_mode_02') !== 'false';
+      const toggleModeBtn = document.getElementById('recall-toggle-mode-btn');
+      const toggleText = document.getElementById('recall-toggle-text');
+      const recallModeTag = document.getElementById('recall-mode-tag');
+      const maskAllBtn = document.getElementById('recall-mask-all-btn');
+      const revealAllBtn = document.getElementById('recall-reveal-all-btn');
+      const countText = document.getElementById('recall-count-text');
+      const fillBar = document.getElementById('recall-progress-fill');
+      const recallIcon = document.getElementById('recall-icon');
+
+      const targets = document.querySelectorAll('.cloze-pill');
+
+      targets.forEach(el => {
+        el.classList.add('recall-target');
+        el.classList.add('is-masked');
+
+        el.addEventListener('click', (e) => {
+          if (!document.body.classList.contains('recall-active')) return;
+          e.stopPropagation();
+          if (el.classList.contains('is-masked')) {
+            el.classList.remove('is-masked');
+            el.classList.add('is-revealed');
+          } else {
+            el.classList.remove('is-revealed');
+            el.classList.add('is-masked');
+          }
+          updateProgress();
+        });
+      });
+
+      function updateProgress() {
+        const total = targets.length;
+        const revealed = document.querySelectorAll('.cloze-pill.is-revealed').length;
+        countText.textContent = `${revealed} / ${total}`;
+        const pct = total > 0 ? (revealed / total) * 100 : 0;
+        fillBar.style.width = pct + '%';
+      }
+
+      function setRecallMode(active) {
+        isRecallMode = active;
+        if (active) {
+          document.body.classList.add('recall-active');
+          recallModeTag.textContent = '回想自測中';
+          recallModeTag.style.background = 'var(--accent-primary)';
+          toggleText.textContent = '切換為完整研讀模式';
+          recallIcon.textContent = '🧠';
+          toggleModeBtn.classList.remove('recall-btn-secondary');
+          toggleModeBtn.classList.add('recall-btn-primary');
+        } else {
+          document.body.classList.remove('recall-active');
+          recallModeTag.textContent = '完整研讀中';
+          recallModeTag.style.background = 'var(--accent-emerald)';
+          toggleText.textContent = '啟動回想自測';
+          recallIcon.textContent = '📖';
+          toggleModeBtn.classList.remove('recall-btn-primary');
+        }
+        localStorage.setItem('phy_recall_mode_02', active);
+        updateProgress();
+      }
+
+      toggleModeBtn.addEventListener('click', () => {
+        setRecallMode(!isRecallMode);
+      });
+
+      maskAllBtn.addEventListener('click', () => {
+        if (!isRecallMode) setRecallMode(true);
+        targets.forEach(el => {
+          el.classList.remove('is-revealed');
+          el.classList.add('is-masked');
+        });
+        updateProgress();
+      });
+
+      revealAllBtn.addEventListener('click', () => {
+        targets.forEach(el => {
+          el.classList.remove('is-masked');
+          el.classList.add('is-revealed');
+        });
+        updateProgress();
+      });
+
+      setRecallMode(isRecallMode);
+
+      // 4. KaTeX 數學渲染器
+      function renderKaTeXIn(container) {
+        if (!window.katex) return;
+        const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT, null, false);
+        const textNodes = [];
+        let node;
+        while (node = walker.nextNode()) {
+          if (node.nodeValue.includes('$')) {
+            textNodes.push(node);
+          }
+        }
+
+        textNodes.forEach(textNode => {
+          const parent = textNode.parentNode;
+          if (!parent || parent.tagName === 'SCRIPT' || parent.tagName === 'STYLE' || parent.classList.contains('katex') || parent.closest('.katex')) return;
+
+          let raw = textNode.nodeValue;
+          let replaced = false;
+          let tempDiv = document.createElement('span');
+
+          const parts = raw.split(/(\$\$[\s\S]*?\$\$|\$[^\$]+?\$)/g);
+          if (parts.length <= 1) return;
+
+          parts.forEach(part => {
+            if (part.startsWith('$$') && part.endsWith('$$')) {
+              const math = part.slice(2, -2).trim();
+              const span = document.createElement('div');
+              span.className = 'katex-display-box';
+              try {
+                katex.render(math, span, { displayMode: true, throwOnError: false });
+                tempDiv.appendChild(span);
+                replaced = true;
+              } catch (e) {
+                tempDiv.appendChild(document.createTextNode(part));
+              }
+            } else if (part.startsWith('$') && part.endsWith('$')) {
+              const math = part.slice(1, -1).trim();
+              const span = document.createElement('span');
+              try {
+                katex.render(math, span, { displayMode: false, throwOnError: false });
+                tempDiv.appendChild(span);
+                replaced = true;
+              } catch (e) {
+                tempDiv.appendChild(document.createTextNode(part));
+              }
+            } else if (part) {
+              tempDiv.appendChild(document.createTextNode(part));
+            }
+          });
+
+          if (replaced) {
+            parent.replaceChild(tempDiv, textNode);
+          }
+        });
+      }
+
+      let katexTries = 0;
+      const timer = setInterval(() => {
+        katexTries++;
+        if (window.katex) {
+          clearInterval(timer);
+          renderKaTeXIn(document.body);
+        } else if (katexTries > 30) {
+          clearInterval(timer);
+        }
+      }, 100);
+    });
+  </script>
+</body>
+</html>

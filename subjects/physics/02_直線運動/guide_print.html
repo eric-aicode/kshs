@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>【A4列印講義】高中物理 · 直線運動核心公式大全與圖形攻略寶典</title>
+  <meta name="description" content="專為A4紙張列印與PDF匯出優化的高中物理直線運動精編講義：位置位移、三大運動圖形物理意義、等加速度三大核心公式、特殊比例推論、四大重力模型與打點計時器分析。">
+
+  <!-- Google Fonts: Noto Sans TC & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Noto+Sans+TC:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- KaTeX for crisp LaTeX Math rendering -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" crossorigin="anonymous"></script>
+
+  <style>
+    /* ==========================================================================
+       A4 紙張列印專用版面排版系統 (High Density Print Layout)
+       ========================================================================== */
+    :root {
+      --text-main: #111827;
+      --text-sub: #374151;
+      --text-muted: #4b5563;
+      --border-dark: #9ca3af;
+      --border-light: #d1d5db;
+      --bg-box: #f9fafb;
+      --accent-color: #1e3a8a;
+      --accent-badge: #047857;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Noto Sans TC', system-ui, -apple-system, sans-serif;
+      font-size: 9.2pt;
+      line-height: 1.45;
+      color: var(--text-main);
+      background-color: #f3f4f6;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    .print-sheet {
+      width: 210mm;
+      min-height: 297mm;
+      margin: 1.5rem auto;
+      padding: 12mm 15mm;
+      background: #ffffff;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
+      border-radius: 4px;
+      position: relative;
+    }
+
+    .screen-control-bar {
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      background: rgba(17, 24, 39, 0.95);
+      backdrop-filter: blur(8px);
+      color: #ffffff;
+      padding: 0.75rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 0.75rem;
+      align-items: center;
+    }
+
+    .action-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.5rem 1.1rem;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 0.92rem;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.15s ease;
+      border: 1px solid transparent;
+    }
+
+    .btn-print {
+      background: #2563eb;
+      color: #ffffff;
+    }
+
+    .btn-print:hover {
+      background: #1d4ed8;
+    }
+
+    .btn-back {
+      background: #374151;
+      color: #f9fafb;
+    }
+
+    .btn-back:hover {
+      background: #4b5563;
+    }
+
+    .sheet-header {
+      border-bottom: 2px solid var(--accent-color);
+      padding-bottom: 0.35rem;
+      margin-bottom: 0.65rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    .sheet-title {
+      font-size: 1.25rem;
+      font-weight: 900;
+      color: var(--accent-color);
+      letter-spacing: -0.02em;
+    }
+
+    .sheet-subtitle {
+      font-size: 0.76rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .sheet-page-indicator {
+      font-size: 0.76rem;
+      font-weight: 800;
+      color: #ffffff;
+      background: var(--accent-color);
+      padding: 0.15rem 0.6rem;
+      border-radius: 4px;
+    }
+
+    .section-block {
+      margin-bottom: 0.65rem;
+    }
+
+    .section-title {
+      font-size: 0.88rem;
+      font-weight: 800;
+      color: var(--accent-color);
+      border-left: 3.5px solid var(--accent-color);
+      padding-left: 0.4rem;
+      margin-bottom: 0.35rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .section-title .badge {
+      font-size: 0.68rem;
+      font-weight: 700;
+      color: var(--accent-badge);
+      background: #ecfdf5;
+      border: 1px solid #a7f3d0;
+      padding: 0.05rem 0.4rem;
+      border-radius: 3px;
+    }
+
+    .print-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.5rem;
+    }
+
+    .print-box {
+      border: 1px solid var(--border-light);
+      background: var(--bg-box);
+      border-radius: 4px;
+      padding: 0.45rem 0.6rem;
+      font-size: 0.84rem;
+    }
+
+    .print-box-title {
+      font-weight: 800;
+      font-size: 0.84rem;
+      color: var(--text-main);
+      margin-bottom: 0.2rem;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .formula-line {
+      font-family: 'JetBrains Mono', Consolas, monospace;
+      font-size: 0.86rem;
+      font-weight: 700;
+      color: #1e3a8a;
+      background: #ffffff;
+      border: 1px solid var(--border-light);
+      padding: 0.25rem 0.45rem;
+      border-radius: 3px;
+      margin: 0.25rem 0;
+      text-align: center;
+    }
+
+    .print-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.8rem;
+      margin: 0.3rem 0;
+    }
+
+    .print-table th {
+      background: #f3f4f6;
+      border: 1px solid var(--border-dark);
+      padding: 0.25rem 0.4rem;
+      font-weight: 800;
+      text-align: left;
+    }
+
+    .print-table td {
+      border: 1px solid var(--border-light);
+      padding: 0.25rem 0.4rem;
+      line-height: 1.35;
+    }
+
+    .formula-tag {
+      font-weight: 800;
+      color: #991b1b;
+      margin-right: 0.2rem;
+    }
+
+    .sheet-footer {
+      position: absolute;
+      bottom: 6mm;
+      left: 15mm;
+      right: 15mm;
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border-light);
+      padding-top: 0.3rem;
+    }
+
+    @media print {
+      body {
+        background-color: #ffffff;
+      }
+      .screen-control-bar {
+        display: none !important;
+      }
+      .print-sheet {
+        margin: 0;
+        padding: 10mm 12mm;
+        box-shadow: none;
+        border-radius: 0;
+        page-break-after: always;
+        width: 100%;
+        min-height: 100vh;
+      }
+      .print-sheet:last-child {
+        page-break-after: avoid;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 頂部浮動列印控制列 -->
+  <aside class="screen-control-bar">
+    <div>
+      <span style="font-weight:800; font-size:1.05rem;">📄 高中物理 02 直線運動 · A4 雙頁精編講義</span>
+      <span style="color:#9ca3af; font-size:0.85rem; margin-left:0.75rem;">（適合彩色或黑白雙面列印，排版嚴密無溢出）</span>
+    </div>
+    <div class="btn-group">
+      <a href="guide.html" class="action-btn btn-back">
+        <span>📖</span> 切換至公式寶典 (回想自測)
+      </a>
+      <a href="../../../index.html?unit=02_linear_motion" class="action-btn btn-back">
+        <span>←</span> 返回題庫
+      </a>
+      <button class="action-btn btn-print" onclick="window.print()">
+        <span>🖨️</span> 一鍵列印 / 存為 PDF
+      </button>
+    </div>
+  </aside>
+
+  <!-- ========================================================================= -->
+  <!-- PAGE 1: 物理量、三大運動圖形、等加速度四大公式與推導 -->
+  <!-- ========================================================================= -->
+  <main class="print-sheet">
+    <header class="sheet-header">
+      <div>
+        <h1 class="sheet-title">高中物理 · 直線運動核心公式與三大圖形解密全覽 (Page 1)</h1>
+        <p class="sheet-subtitle">物理量本質、微積分關係、$x-t / v-t / a-t$ 圖形對照矩陣、等加速度三大核心公式詳細推導</p>
+      </div>
+      <div class="sheet-page-indicator">第 1 頁 / 共 2 頁</div>
+    </header>
+
+    <!-- 一、 質點、位置、位移與路徑長 -->
+    <section class="section-block">
+      <div class="section-title">
+        <span>一、 質點、位置、位移與路徑長核心觀念</span>
+        <span class="badge">向量 vs 純量</span>
+      </div>
+      <div class="print-grid-2">
+        <div class="print-box">
+          <div class="print-box-title"><span>位移 (Displacement, $\Delta x$)</span><span style="color:#b91c1c;">[向量]</span></div>
+          <div>$\Delta x = x_2 - x_1 = x_{\text{末}} - x_{\text{初}}$</div>
+          <div style="font-size:0.78rem; color:var(--text-muted); margin-top:2px;">• 僅取決於初位置與末位置，與運動路徑完全無關。<br>• 正負號表示方向：$\Delta x > 0$ 正向，$\Delta x < 0$ 負向。</div>
+        </div>
+        <div class="print-box">
+          <div class="print-box-title"><span>路徑長 (Distance, $\Delta \ell$)</span><span style="color:#047857;">[純量]</span></div>
+          <div>$\Delta \ell \ge |\Delta x| \quad (\text{恆正或為零})$</div>
+          <div style="font-size:0.78rem; color:var(--text-muted); margin-top:2px;">• 運動軌跡之總長度。<br>• <strong>僅當質點單向不折返直線運動時，$|\Delta x| = \Delta \ell$。</strong></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 二、 速度、速率與微積分運動方程 -->
+    <section class="section-block">
+      <div class="section-title">
+        <span>二、 速度、速率、加速度與微積分函數關係</span>
+        <span class="badge">微積分關係</span>
+      </div>
+      <div class="print-grid-2">
+        <div class="print-box">
+          <div>• <strong>平均速度</strong>：$\bar{v} = \frac{\Delta x}{\Delta t} = \frac{x_2 - x_1}{t_2 - t_1}$ （方向與位移相同）</div>
+          <div>• <strong>瞬時速度</strong>：$v = \frac{dx}{dt} = \lim_{\Delta t \to 0} \frac{\Delta x}{\Delta t}$ （切線斜率）</div>
+          <div>• <strong>平均速率</strong>：$v_{\text{avg}} = \frac{\text{總路徑長}}{\text{總時間}} = \frac{\Delta \ell}{\Delta t}$ （純量，折返時 $v_{\text{avg}} > |\bar{v}|$）</div>
+        </div>
+        <div class="print-box">
+          <div>• <strong>平均加速度</strong>：$\bar{a} = \frac{\Delta v}{\Delta t} = \frac{v_2 - v_1}{t_2 - t_1}$ （方向與速度變化量 $\Delta v$ 相同）</div>
+          <div>• <strong>瞬時加速度</strong>：$a = \frac{dv}{dt} = \frac{d^2x}{dt^2}$</div>
+          <div style="font-size:0.78rem; color:#b45309; font-weight:700;">★ 判斷快慢：$a \cdot v > 0$ 同向為加速；$a \cdot v < 0$ 反向為減速！</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 三、 三大運動圖形物理意義對照矩陣 -->
+    <section class="section-block">
+      <div class="section-title">
+        <span>三、 直線運動三大圖形物理意義對照矩陣（點、割線、切線、面積）</span>
+        <span class="badge">★ 解題核心</span>
+      </div>
+      <table class="print-table">
+        <thead>
+          <tr>
+            <th style="width:16%;">圖形種類</th>
+            <th style="width:20%;">點座標 $(t, y)$</th>
+            <th style="width:20%;">兩點割線斜率</th>
+            <th style="width:20%;">切線斜率</th>
+            <th style="width:24%;">與時間軸所圍面積</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>$x-t$ 圖</strong><br>(位置-時間)</td>
+            <td>該時刻之<strong>位置</strong> $x$</td>
+            <td>時段內之<strong>平均速度</strong> $\bar{v}$</td>
+            <td>該瞬間之<strong>瞬時速度</strong> $v$</td>
+            <td style="color:#6b7280;"><em>無常用物理意義</em></td>
+          </tr>
+          <tr>
+            <td><strong>$v-t$ 圖</strong><br><strong style="color:#1e3a8a;">(最重要的圖)</strong></td>
+            <td>該時刻之<strong>瞬時速度</strong> $v$</td>
+            <td>時段內之<strong>平均加速度</strong> $\bar{a}$</td>
+            <td>該瞬間之<strong>瞬時加速度</strong> $a$</td>
+            <td><strong>位移 $\Delta x$</strong> ($t$軸上方為正，下方為負；總路徑長為面積絕對值和)</td>
+          </tr>
+          <tr>
+            <td><strong>$a-t$ 圖</strong><br>(加速度-時間)</td>
+            <td>該時刻之<strong>瞬時加速度</strong> $a$</td>
+            <td style="color:#6b7280;"><em>無常用意義</em></td>
+            <td style="color:#6b7280;"><em>躍度 (Jerk)</em></td>
+            <td><strong>速度變化量 $\Delta v = v_{\text{末}} - v_{\text{初}}$</strong><br><span style="color:#b91c1c; font-weight:700;">(注意：面積是 $\Delta v$，非末速！)</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- 四、 等加速度直線運動核心公式與詳細推導 -->
+    <section class="section-block">
+      <div class="section-title">
+        <span>四、 等加速度直線運動四大公式與推導</span>
+        <span class="badge">必背無死角</span>
+      </div>
+      <div class="print-grid-2">
+        <div class="print-box">
+          <div class="print-box-title">【公式一 · 速度時間式】</div>
+          <div class="formula-line">$$v = v_0 + at$$</div>
+          <div style="font-size:0.76rem; color:var(--text-muted);">
+            推導：由 $a = \frac{\Delta v}{\Delta t} = \frac{v - v_0}{t} \implies v - v_0 = at \implies v = v_0 + at$。
+          </div>
+        </div>
+        <div class="print-box">
+          <div class="print-box-title">【公式二 · 位移時間式】</div>
+          <div class="formula-line">$$S = v_0 t + \frac{1}{2} a t^2$$</div>
+          <div style="font-size:0.76rem; color:var(--text-muted);">
+            推導：$v-t$ 圖梯形面積 $S = \frac{(v_0 + v)t}{2} = \frac{[v_0 + (v_0 + at)]t}{2} = v_0 t + \frac{1}{2}at^2$。
+          </div>
+        </div>
+        <div class="print-box">
+          <div class="print-box-title">【公式三 · 速度位移式（無時間）】</div>
+          <div class="formula-line">$$v^2 = v_0^2 + 2aS$$</div>
+          <div style="font-size:0.76rem; color:var(--text-muted);">
+            推導：由 $t = \frac{v - v_0}{a}$ 代入 $S = \frac{v + v_0}{2} \cdot \frac{v - v_0}{a} = \frac{v^2 - v_0^2}{2a} \implies v^2 = v_0^2 + 2aS$。
+          </div>
+        </div>
+        <div class="print-box">
+          <div class="print-box-title">【公式四 · 梯形平均速度式】</div>
+          <div class="formula-line">$$S = \frac{v_0 + v}{2} \cdot t = \bar{v} \cdot t$$</div>
+          <div style="font-size:0.76rem; color:var(--text-muted);">
+            推導：等加速度運動全程平均速度恰好等於時間中點速度：$\bar{v} = v_{t/2} = \frac{v_0 + v}{2}$。
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="sheet-footer">
+      <span>高中物理學習中心 · 02 直線運動 精編列印版講義</span>
+      <span>建議使用 A4 紙張 · 雙面黑白或彩色皆宜</span>
+    </footer>
+  </main>
+
+  <!-- ========================================================================= -->
+  <!-- PAGE 2: 特殊比例推論、中點速度、四大重力模型、相對運動與打點計時器 -->
+  <!-- ========================================================================= -->
+  <main class="print-sheet">
+    <header class="sheet-header">
+      <div>
+        <h1 class="sheet-title">高中物理 · 直線運動核心公式與三大圖形解密全覽 (Page 2)</h1>
+        <p class="sheet-subtitle">初速為零特殊比例、中點速度定理、四大重力運動模型、一維相對運動與打點計時器數據分析</p>
+      </div>
+      <div class="sheet-page-indicator">第 2 頁 / 共 2 頁</div>
+    </header>
+
+    <!-- 五、 初速為零四大特殊比例與中點速度 -->
+    <section class="section-block">
+      <div class="section-title">
+        <span>五、 初速為零（$v_0 = 0$）四大特殊比例推論與中點速度</span>
+        <span class="badge">快速解題技巧</span>
+      </div>
+      <table class="print-table">
+        <tbody>
+          <tr>
+            <td style="width:28%;"><strong>1. 等時間間隔累積位移比</strong></td>
+            <td style="width:72%;">$S_1 : S_2 : S_3 : \dots : S_n = 1^2 : 2^2 : 3^2 : \dots : n^2 = 1 : 4 : 9 : \dots : n^2$</td>
+          </tr>
+          <tr>
+            <td><strong>2. 等時間間隔時段位移比</strong></td>
+            <td>$\Delta S_1 : \Delta S_2 : \Delta S_3 : \dots : \Delta S_n = 1 : 3 : 5 : 7 : \dots : (2n - 1) \quad$ <strong>(連續奇數比)</strong></td>
+          </tr>
+          <tr>
+            <td><strong>3. 連續相等位移累積時間比</strong></td>
+            <td>$t_1 : t_2 : t_3 : \dots : t_n = 1 : \sqrt{2} : \sqrt{3} : \dots : \sqrt{n}$</td>
+          </tr>
+          <tr>
+            <td><strong>4. 連續相等位移時段時間比</strong></td>
+            <td>$\Delta t_1 : \Delta t_2 : \Delta t_3 : \dots = 1 : (\sqrt{2}-1) : (\sqrt{3}-\sqrt{2}) : \dots : (\sqrt{n}-\sqrt{n-1})$</td>
+          </tr>
+          <tr>
+            <td><strong>5. 時間中點 vs 位置中點速度</strong></td>
+            <td>
+              • <strong>時間中點速度</strong>：$v_{t/2} = \frac{v_0 + v}{2} = \bar{v}$ ； • <strong>位置中點速度</strong>：$v_{S/2} = \sqrt{\frac{v_0^2 + v^2}{2}}$<br>
+              <span style="color:#b91c1c; font-weight:700;">★ 核心結論：無論加速或減速，恆有 $v_{S/2} > v_{t/2}$！</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- 六、 常見重力等加速度模型 -->
+    <section class="section-block">
+      <div class="section-title">
+        <span>六、 常見重力運動模型與光滑斜面下滑</span>
+        <span class="badge">地表運動模型</span>
+      </div>
+      <div class="print-grid-2">
+        <div class="print-box">
+          <div class="print-box-title">1. 自由落體 ($v_0 = 0, a = g$ 向下)</div>
+          <div>• 著地時間：$t = \sqrt{\frac{2h}{g}}$</div>
+          <div>• 著地速度：$v = \sqrt{2gh} = gt$</div>
+          <div>• 落下高度：$h = \frac{1}{2}gt^2$</div>
+        </div>
+        <div class="print-box">
+          <div class="print-box-title">2. 鉛直下拋 ($v_0$ 向下, $a = g$ 向下)</div>
+          <div>• 速度公式：$v = v_0 + gt$</div>
+          <div>• 高度公式：$h = v_0 t + \frac{1}{2}gt^2$</div>
+          <div>• 速度位移：$v^2 = v_0^2 + 2gh$</div>
+        </div>
+        <div class="print-box">
+          <div class="print-box-title">3. 鉛直上拋 ($v_0$ 向上, $a = -g$ 向上)</div>
+          <div>• 頂點時間：$t_{\text{頂}} = \frac{v_0}{g}$ ； 最大高度：$H_{\text{max}} = \frac{v_0^2}{2g}$</div>
+          <div>• 全程時間：$T = \frac{2v_0}{g} = 2 t_{\text{頂}}$ （上升時間 = 下降時間）</div>
+          <div>• 速度對稱：通過同一高度時 $v_{\text{下}} = -v_{\text{上}}$</div>
+        </div>
+        <div class="print-box">
+          <div class="print-box-title">4. 光滑斜面下滑 (傾角 $\theta$, 長 $d$, 高 $h$)</div>
+          <div>• 下滑加速度：$a = g \sin\theta$</div>
+          <div>• 底端速度：$v = \sqrt{2gh}$ （與傾角 $\theta$ 無關，僅與高 $h$ 有關）</div>
+          <div>• 下滑時間：$t = \sqrt{\frac{2d}{g\sin\theta}} = \frac{1}{\sin\theta}\sqrt{\frac{2h}{g}}$</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 七、 一維相對運動與打點計時器數據分析 -->
+    <section class="section-block">
+      <div class="section-title">
+        <span>七、 一維相對運動與打點計時器實驗數據分析</span>
+        <span class="badge">探究與實作</span>
+      </div>
+      <div class="print-grid-2">
+        <div class="print-box">
+          <div class="print-box-title">一維相對運動核心定理</div>
+          <div>• 相對位置：$x_{AB} = x_A - x_B$</div>
+          <div>• 相對速度：$v_{AB} = v_A - v_B$</div>
+          <div>• 相對加速度：$a_{AB} = a_A - a_B$</div>
+          <div style="font-size:0.78rem; color:#b91c1c; margin-top:2px;">
+            • <strong>相撞條件</strong>：同一時刻位置相同，即 $\Delta x_{AB} = 0$。<br>
+            • <strong>最近/避撞極值</strong>：相對速度等於零，即 $v_A = v_B$！
+          </div>
+        </div>
+        <div class="print-box">
+          <div class="print-box-title">打點計時器紙帶分析法 (頻率 $f$)</div>
+          <div>• 打點週期：$T = \frac{1}{f}$ （$50\text{Hz}\implies 0.02\text{s}$）</div>
+          <div>• <strong>中點瞬時速度</strong>：$v_n = \frac{x_{n+1} - x_{n-1}}{2T} = \bar{v}_{(n-1)\to(n+1)}$</div>
+          <div>• <strong>逐差法求加速度</strong>：$a = \frac{\Delta x_2 - \Delta x_1}{(\Delta t)^2}$</div>
+          <div style="font-size:0.78rem; color:#047857; margin-top:2px;">
+            若間隔 $k$ 個時段：$a = \frac{x_{m+k} - x_m}{k \cdot (\Delta t)^2}$
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="sheet-footer">
+      <span>高中物理學習中心 · 02 直線運動 精編列印版講義</span>
+      <span>建議使用 A4 紙張 · 雙面黑白或彩色皆宜</span>
+    </footer>
+  </main>
+
+  <script>
+    // 自動在列印頁載入完成時排版 KaTeX
+    window.addEventListener('DOMContentLoaded', () => {
+      let katexTries = 0;
+      const timer = setInterval(() => {
+        katexTries++;
+        if (window.katex) {
+          clearInterval(timer);
+          renderAllMath();
+        } else if (katexTries > 30) {
+          clearInterval(timer);
+        }
+      }, 100);
+
+      function renderAllMath() {
+        const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false);
+        const textNodes = [];
+        let node;
+        while (node = walker.nextNode()) {
+          if (node.nodeValue.includes('$')) {
+            textNodes.push(node);
+          }
+        }
+
+        textNodes.forEach(textNode => {
+          const parent = textNode.parentNode;
+          if (!parent || parent.tagName === 'SCRIPT' || parent.tagName === 'STYLE' || parent.classList.contains('katex')) return;
+
+          let raw = textNode.nodeValue;
+          let replaced = false;
+          let tempDiv = document.createElement('span');
+
+          const parts = raw.split(/(\$\$[\s\S]*?\$\$|\$[^\$]+?\$)/g);
+          if (parts.length <= 1) return;
+
+          parts.forEach(part => {
+            if (part.startsWith('$$') && part.endsWith('$$')) {
+              const math = part.slice(2, -2).trim();
+              const span = document.createElement('div');
+              try {
+                katex.render(math, span, { displayMode: true, throwOnError: false });
+                tempDiv.appendChild(span);
+                replaced = true;
+              } catch (e) {
+                tempDiv.appendChild(document.createTextNode(part));
+              }
+            } else if (part.startsWith('$') && part.endsWith('$')) {
+              const math = part.slice(1, -1).trim();
+              const span = document.createElement('span');
+              try {
+                katex.render(math, span, { displayMode: false, throwOnError: false });
+                tempDiv.appendChild(span);
+                replaced = true;
+              } catch (e) {
+                tempDiv.appendChild(document.createTextNode(part));
+              }
+            } else if (part) {
+              tempDiv.appendChild(document.createTextNode(part));
+            }
+          });
+
+          if (replaced) {
+            parent.replaceChild(tempDiv, textNode);
+          }
+        });
+      }
+    });
+  </script>
+</body>
+</html>

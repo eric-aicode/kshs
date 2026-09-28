@@ -1,0 +1,1065 @@
+<!DOCTYPE html>
+<html lang="zh-TW" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>進階三角函數 · 核心公式大全、圖形變換與正餘弦疊合寶典 (回想自測)</title>
+  <meta name="description" content="高中數學進階三角函數完整攻略：和差角公式、倍半角公式、三角函數圖形伸縮平移（振幅、週期、相位）、二次換元極值、正餘弦疊合與圓參數式應用。支援Active Recall點擊遮蔽回想自測！">
+
+  <!-- Google Fonts: Plus Jakarta Sans & Noto Sans TC -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Noto+Sans+TC:wght@400;500;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- KaTeX for crisp LaTeX Math rendering -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" crossorigin="anonymous"></script>
+
+  <!-- Application Stylesheet -->
+  <link rel="stylesheet" href="../../../core/style.css">
+
+  <style>
+    .guide-container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 1.5rem 1.25rem 4rem 1.25rem;
+    }
+
+    .hero-banner {
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.08) 0%, rgba(236, 72, 153, 0.08) 100%);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-lg);
+      padding: 2rem 2.25rem;
+      margin-bottom: 2rem;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .hero-banner::after {
+      content: '📐';
+      position: absolute;
+      right: 1.5rem;
+      bottom: -1rem;
+      font-size: 7rem;
+      opacity: 0.12;
+      pointer-events: none;
+    }
+
+    .hero-title {
+      font-size: 1.95rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .hero-badge {
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 0.25rem 0.75rem;
+      border-radius: var(--radius-full);
+      background: #8b5cf6;
+      color: #ffffff;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .hero-desc {
+      color: var(--text-secondary);
+      font-size: 1.05rem;
+      max-width: 880px;
+      line-height: 1.7;
+    }
+
+    .top-action-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .back-home-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 700;
+      padding: 0.5rem 1.1rem;
+      border-radius: var(--radius-full);
+      background: #8b5cf6;
+      color: #ffffff;
+      text-decoration: none;
+      transition: all var(--transition-fast);
+      box-shadow: 0 2px 6px rgba(139, 92, 246, 0.3);
+    }
+
+    .back-home-btn:hover {
+      background: #7c3aed;
+      transform: translateX(-3px);
+    }
+
+    .guide-nav-tabs {
+      display: flex;
+      gap: 0.75rem;
+      margin-bottom: 1.75rem;
+      border-bottom: 2px solid var(--border-light);
+      padding-bottom: 0.75rem;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .guide-nav-tabs::-webkit-scrollbar {
+      display: none;
+    }
+
+    .guide-tab-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.65rem 1.25rem;
+      border-radius: var(--radius-full);
+      border: 1px solid var(--border-light);
+      background: var(--bg-card);
+      color: var(--text-secondary);
+      font-weight: 700;
+      font-size: 0.98rem;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      white-space: nowrap;
+      text-decoration: none;
+    }
+
+    .guide-tab-btn:hover {
+      background: var(--bg-tertiary);
+      color: var(--text-primary);
+      border-color: var(--border-focus);
+    }
+
+    .guide-tab-btn.active {
+      background: #8b5cf6;
+      color: #ffffff;
+      border-color: #8b5cf6;
+      box-shadow: 0 4px 12px rgba(139, 92, 246, 0.35);
+    }
+
+    /* 遮蔽回想控制列 */
+    .recall-control-panel {
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-left: 5px solid #8b5cf6;
+      border-radius: var(--radius-lg);
+      padding: 1.1rem 1.5rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .recall-panel-left {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .recall-mode-indicator {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+    }
+
+    .recall-status-icon {
+      font-size: 1.85rem;
+      width: 48px;
+      height: 48px;
+      border-radius: var(--radius-md);
+      background: rgba(139, 92, 246, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(139, 92, 246, 0.2);
+    }
+
+    .recall-badge {
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 0.15rem 0.6rem;
+      border-radius: var(--radius-full);
+      background: #8b5cf6;
+      color: #ffffff;
+      letter-spacing: 0.05em;
+    }
+
+    .recall-panel-right {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+    }
+
+    .recall-progress-box {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: var(--bg-tertiary);
+      padding: 0.35rem 0.85rem;
+      border-radius: var(--radius-full);
+      border: 1px solid var(--border-light);
+    }
+
+    .recall-progress-bar {
+      width: 90px;
+      height: 8px;
+      background: var(--bg-card);
+      border-radius: var(--radius-full);
+      overflow: hidden;
+      border: 1px solid var(--border-light);
+    }
+
+    .recall-progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #8b5cf6 0%, #ec4899 100%);
+      transition: width 0.3s ease;
+    }
+
+    .recall-btn-group {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+    }
+
+    .recall-btn {
+      padding: 0.45rem 0.95rem;
+      border-radius: var(--radius-full);
+      font-weight: 700;
+      font-size: 0.88rem;
+      border: 1px solid var(--border-light);
+      background: var(--bg-card);
+      color: var(--text-primary);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      user-select: none;
+    }
+
+    .recall-btn:hover {
+      background: var(--bg-tertiary);
+      border-color: var(--border-focus);
+      transform: translateY(-1px);
+    }
+
+    .recall-btn-primary {
+      background: #8b5cf6;
+      color: #ffffff;
+      border-color: #8b5cf6;
+      box-shadow: 0 2px 8px rgba(139, 92, 246, 0.3);
+    }
+
+    .recall-btn-primary:hover {
+      background: #7c3aed;
+      color: #ffffff;
+    }
+
+    .formula-section-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem 2rem;
+      margin-bottom: 2rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .section-header-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.3rem 0.85rem;
+      border-radius: var(--radius-full);
+      font-size: 0.82rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+    }
+
+    .tag-purple { background: rgba(139, 92, 246, 0.1); color: #8b5cf6; border: 1px solid rgba(139, 92, 246, 0.2); }
+    .tag-pink { background: rgba(236, 72, 153, 0.1); color: #ec4899; border: 1px solid rgba(236, 72, 153, 0.2); }
+    .tag-blue { background: rgba(59, 130, 246, 0.1); color: #3b82f6; border: 1px solid rgba(59, 130, 246, 0.2); }
+    .tag-green { background: rgba(16, 185, 129, 0.1); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.2); }
+
+    .formula-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 1.25rem;
+      margin-top: 1.25rem;
+    }
+
+    .formula-card {
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-md);
+      padding: 1.25rem 1.4rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .formula-card-title {
+      font-weight: 800;
+      font-size: 1.05rem;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .formula-badge {
+      font-size: 0.7rem;
+      padding: 0.15rem 0.5rem;
+      border-radius: var(--radius-sm);
+      font-weight: 700;
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+    }
+
+    .formula-desc {
+      font-size: 0.92rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* 細粒度克漏字填空 (Granular Cloze & Active Recall) */
+    .formula-cloze-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+      margin: 0.75rem 0;
+    }
+
+    .cloze-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      padding: 0.35rem 0.65rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-sm);
+      transition: all var(--transition-fast);
+      min-height: 42px;
+      box-sizing: border-box;
+      overflow-x: auto;
+    }
+
+    .cloze-row:hover {
+      border-color: var(--border-focus);
+      background: var(--bg-tertiary);
+    }
+
+    .cloze-prompt {
+      font-weight: 750;
+      font-size: 0.91rem;
+      color: var(--text-primary);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      flex-shrink: 0;
+      white-space: nowrap;
+    }
+
+    .cloze-pill {
+      flex: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      cursor: pointer;
+      min-width: 80px;
+      min-height: 32px;
+      padding: 0.15rem 0.6rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid transparent;
+      transition: all var(--transition-fast);
+      user-select: none;
+    }
+
+    .cloze-pill .katex-display,
+    .cloze-pill .katex-display-box {
+      margin: 0 !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      vertical-align: middle !important;
+    }
+
+    .cloze-pill .katex {
+      font-size: 1.05em !important;
+      line-height: 1.15 !important;
+    }
+
+    body.recall-active .cloze-pill.is-masked {
+      background: repeating-linear-gradient(
+        -45deg,
+        rgba(139, 92, 246, 0.05),
+        rgba(139, 92, 246, 0.05) 8px,
+        rgba(139, 92, 246, 0.12) 8px,
+        rgba(139, 92, 246, 0.12) 16px
+      ) !important;
+      border: 1.5px dashed #8b5cf6 !important;
+      justify-content: center !important;
+      color: transparent !important;
+      cursor: pointer;
+    }
+
+    body.recall-active .cloze-pill.is-masked * {
+      opacity: 0 !important;
+      visibility: hidden !important;
+      pointer-events: none !important;
+    }
+
+    body.recall-active .cloze-pill.is-masked::before {
+      content: '❓ [ 掀開公式 ]';
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.82rem;
+      font-weight: 800;
+      color: #8b5cf6;
+      background: rgba(139, 92, 246, 0.08);
+      border-radius: var(--radius-sm);
+      z-index: 2;
+    }
+
+    body.recall-active .cloze-pill.is-revealed {
+      background: rgba(16, 185, 129, 0.08) !important;
+      border: 1px solid rgba(16, 185, 129, 0.35) !important;
+      animation: popReveal 0.25s ease-out;
+    }
+
+    @keyframes popReveal {
+      0% { transform: scale(0.96); opacity: 0.7; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    .compare-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.25rem 0;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 1px solid var(--border-light);
+    }
+
+    .compare-table th {
+      background: var(--bg-tertiary);
+      padding: 0.85rem 1rem;
+      text-align: left;
+      font-weight: 800;
+      color: var(--text-primary);
+      border-bottom: 2px solid var(--border-light);
+      font-size: 0.95rem;
+    }
+
+    .compare-table td {
+      padding: 0.85rem 1rem;
+      border-bottom: 1px solid var(--border-light);
+      color: var(--text-secondary);
+      font-size: 0.92rem;
+      line-height: 1.6;
+    }
+
+    .guide-tab-pane {
+      display: none;
+      animation: fadeIn 0.25s ease forwards;
+    }
+
+    .guide-tab-pane.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="guide-container">
+
+    <div class="top-action-bar">
+      <a href="../../../index.html?subject=math&unit=09_advanced_trig" class="back-home-btn" title="返回解題互動中心">
+        <span>←</span>
+        <span>返回 09 進階三角函數 互動解題中心</span>
+      </a>
+
+      <div style="display:flex; align-items:center; gap:0.75rem;">
+        <a href="guide_print.html" class="recall-btn" style="text-decoration:none; background:linear-gradient(135deg, #059669 0%, #10b981 100%); color:#fff; border:none; box-shadow:0 2px 6px rgba(5,150,105,0.3);" title="切換為 A4 雙頁講義列印模式">
+          <span>🖨️</span>
+          <span>A4 雙頁列印版</span>
+        </a>
+        <button class="theme-toggle-btn" id="guide-theme-toggle" title="切換深淺模式" style="border:1px solid var(--border-light); background:var(--bg-card); width:38px; height:38px; border-radius:var(--radius-full); cursor:pointer;">
+          🌙
+        </button>
+      </div>
+    </div>
+
+    <!-- Hero 看板 -->
+    <header class="hero-banner">
+      <div class="hero-title">
+        <span>📐 進階三角函數 · 核心公式大全與圖形攻略寶典</span>
+        <span class="hero-badge">Active Recall 自測版</span>
+      </div>
+      <p class="hero-desc">
+        完整涵蓋三大核心單元：§9-1 和差角與倍半角公式、§9-2 三角函數圖形本質（振幅、週期、平移伸縮、二次換元極值）、§9-3 正餘弦疊合定理與圓參數式幾何應用。支援點擊遮蔽／掀牌精熟回想自測！
+      </p>
+    </header>
+
+    <!-- 精熟學習 · 遮蔽回想控制列 -->
+    <section class="recall-control-panel" aria-label="回想自測控制工具列">
+      <div class="recall-panel-left">
+        <div class="recall-mode-indicator">
+          <div class="recall-status-icon" id="recall-icon">🧠</div>
+          <div>
+            <div style="display:flex; align-items:center; gap:0.5rem;">
+              <span style="font-weight:800; font-size:1.05rem; color:var(--text-primary);">主動回想自測 (Active Recall)</span>
+              <span class="recall-badge" id="recall-mode-tag">回想自測中</span>
+            </div>
+            <p style="font-size:0.86rem; color:var(--text-muted); margin-top:2px;">
+              看清左側三角量提示，心中推想公式後點擊膠囊掀牌驗證！
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="recall-panel-right">
+        <div class="recall-progress-box" title="當前已掀開/總回想自測數量">
+          <span style="font-size:0.82rem; font-weight:700; color:var(--text-secondary);">揭開進度:</span>
+          <div class="recall-progress-bar">
+            <div class="recall-progress-fill" id="recall-progress-fill" style="width: 0%;"></div>
+          </div>
+          <span style="font-size:0.84rem; font-weight:800; font-family:'JetBrains Mono',monospace;" id="recall-count-text">0 / 0</span>
+        </div>
+
+        <div class="recall-btn-group">
+          <button class="recall-btn recall-btn-primary" id="recall-toggle-mode-btn" title="切換回想遮蔽模式與完整研讀模式">
+            <span>👁️</span>
+            <span id="recall-toggle-text">切換為完整研讀模式</span>
+          </button>
+          <button class="recall-btn" id="recall-mask-all-btn" title="全部蓋住公式進行閉卷回想">
+            <span>🔒</span>全部遮蔽
+          </button>
+          <button class="recall-btn" id="recall-reveal-all-btn" title="一鍵揭開所有公式">
+            <span>🔓</span>全部掀開
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 主單元 Tab 切換導覽 -->
+    <nav class="guide-nav-tabs" aria-label="講義重點導航">
+      <button class="guide-tab-btn active" data-tab="tab-difference">
+        <span>🔄</span> 1. §9-1 和差角與倍半角公式
+      </button>
+      <button class="guide-tab-btn" data-tab="tab-graphs">
+        <span>📈</span> 2. §9-2 三角函數圖形與極值
+      </button>
+      <button class="guide-tab-btn" data-tab="tab-harmonic">
+        <span>🌊</span> 3. §9-3 正餘弦疊合與圓參數式
+      </button>
+    </nav>
+
+    <!-- ===================================================================== -->
+    <!-- Tab 1: §9-1 和差角與倍半角公式 -->
+    <!-- ===================================================================== -->
+    <div class="guide-tab-pane active" id="tab-difference">
+      
+      <section class="formula-section-card">
+        <span class="section-header-tag tag-purple">和差角核心定理</span>
+        <h2 style="font-size:1.35rem; font-weight:800; margin-bottom:0.75rem;">一、 正弦、餘弦與正切之和差角公式</h2>
+        <p class="formula-desc">三角函數之基本運算基石，注意餘弦符號之正負變號口訣：</p>
+
+        <div class="formula-cloze-group">
+          <!-- 正弦和角 -->
+          <div class="cloze-row">
+            <span class="cloze-prompt">1. 正弦和角 $\sin(\alpha + \beta)=$</span>
+            <div class="cloze-pill">
+              <span>$$\sin\alpha\cos\beta + \cos\alpha\sin\beta$$</span>
+            </div>
+          </div>
+          <!-- 正弦差角 -->
+          <div class="cloze-row">
+            <span class="cloze-prompt">2. 正弦差角 $\sin(\alpha - \beta)=$</span>
+            <div class="cloze-pill">
+              <span>$$\sin\alpha\cos\beta - \cos\alpha\sin\beta$$</span>
+            </div>
+          </div>
+          <!-- 餘弦和角 -->
+          <div class="cloze-row">
+            <span class="cloze-prompt">3. 餘弦和角 $\cos(\alpha + \beta)=$</span>
+            <div class="cloze-pill">
+              <span>$$\cos\alpha\cos\beta - \sin\alpha\sin\beta \quad (\text{注意減號！})$$</span>
+            </div>
+          </div>
+          <!-- 餘弦差角 -->
+          <div class="cloze-row">
+            <span class="cloze-prompt">4. 餘弦差角 $\cos(\alpha - \beta)=$</span>
+            <div class="cloze-pill">
+              <span>$$\cos\alpha\cos\beta + \sin\alpha\sin\beta \quad (\text{注意加號！})$$</span>
+            </div>
+          </div>
+          <!-- 正切和角 -->
+          <div class="cloze-row">
+            <span class="cloze-prompt">5. 正切和角 $\tan(\alpha + \beta)=$</span>
+            <div class="cloze-pill">
+              <span>$$\frac{\tan\alpha + \tan\beta}{1 - \tan\alpha\tan\beta}$$</span>
+            </div>
+          </div>
+          <!-- 正切差角 -->
+          <div class="cloze-row">
+            <span class="cloze-prompt">6. 正切差角 $\tan(\alpha - \beta)=$</span>
+            <div class="cloze-pill">
+              <span>$$\frac{\tan\alpha - \tan\beta}{1 + \tan\alpha\tan\beta}$$</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 二倍角與半角公式 -->
+      <section class="formula-section-card">
+        <span class="section-header-tag tag-pink">重要導出公式</span>
+        <h2 style="font-size:1.35rem; font-weight:800; margin-bottom:0.75rem;">二、 二倍角公式與半角公式</h2>
+
+        <div class="formula-grid">
+          <div class="formula-card">
+            <div class="formula-card-title">
+              <span>正弦二倍角</span>
+              <span class="formula-badge">必背</span>
+            </div>
+            <div class="cloze-row">
+              <span class="cloze-prompt">$\sin 2\theta=$</span>
+              <div class="cloze-pill">
+                <span>$$2\sin\theta\cos\theta$$</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="formula-card">
+            <div class="formula-card-title">
+              <span>餘弦二倍角（三種形式）</span>
+              <span class="formula-badge">降次神器</span>
+            </div>
+            <div class="cloze-row">
+              <span class="cloze-prompt">$\cos 2\theta=$</span>
+              <div class="cloze-pill">
+                <span>$$\cos^2\theta - \sin^2\theta = 2\cos^2\theta - 1 = 1 - 2\sin^2\theta$$</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="formula-card">
+            <div class="formula-card-title">
+              <span>正切二倍角</span>
+              <span class="formula-badge">和角特例</span>
+            </div>
+            <div class="cloze-row">
+              <span class="cloze-prompt">$\tan 2\theta=$</span>
+              <div class="cloze-pill">
+                <span>$$\frac{2\tan\theta}{1 - \tan^2\theta}$$</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="formula-card">
+            <div class="formula-card-title">
+              <span>半角公式（降次換角）</span>
+              <span class="formula-badge">開根號注意正負</span>
+            </div>
+            <div class="cloze-row">
+              <span class="cloze-prompt">$\sin^2\frac{\theta}{2}=, \cos^2\frac{\theta}{2}=$</span>
+              <div class="cloze-pill">
+                <span>$$\sin^2\frac{\theta}{2} = \frac{1 - \cos\theta}{2}, \quad \cos^2\frac{\theta}{2} = \frac{1 + \cos\theta}{2}$$</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- Tab 2: §9-2 三角函數圖形與極值 -->
+    <!-- ===================================================================== -->
+    <div class="guide-tab-pane" id="tab-graphs">
+      
+      <section class="formula-section-card">
+        <span class="section-header-tag tag-blue">圖形本質與對照</span>
+        <h2 style="font-size:1.35rem; font-weight:800; margin-bottom:0.75rem;">一、 三大基本三角函數圖形性質比較表</h2>
+
+        <table class="compare-table">
+          <thead>
+            <tr>
+              <th>函數</th>
+              <th>定義域</th>
+              <th>值域 (振幅)</th>
+              <th>基本週期</th>
+              <th>奇偶性與對稱特徵</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>$y = \sin x$</strong></td>
+              <td>$\mathbb{R}$</td>
+              <td>$[-1, 1]$ (振幅 1)</td>
+              <td>$2\pi$</td>
+              <td><strong>奇函數</strong>：$\sin(-x) = -\sin x$（對稱於原點 $(0,0)$）</td>
+            </tr>
+            <tr>
+              <td><strong>$y = \cos x$</strong></td>
+              <td>$\mathbb{R}$</td>
+              <td>$[-1, 1]$ (振幅 1)</td>
+              <td>$2\pi$</td>
+              <td><strong>偶函數</strong>：$\cos(-x) = \cos x$（對稱於 $y$ 軸）</td>
+            </tr>
+            <tr>
+              <td><strong>$y = \tan x$</strong></td>
+              <td>$x \neq k\pi + \frac{\pi}{2}, k \in \mathbb{Z}$</td>
+              <td>$\mathbb{R}$ (無最大最小值)</td>
+              <td>$\pi$ (只有正餘弦一半)</td>
+              <td><strong>奇函數</strong>：$\tan(-x) = -\tan x$（漸近線 $x = k\pi + \frac{\pi}{2}$）</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- 伸縮平移標準型 -->
+      <section class="formula-section-card">
+        <span class="section-header-tag tag-green">平移與伸縮變換</span>
+        <h2 style="font-size:1.35rem; font-weight:800; margin-bottom:0.75rem;">二、 綜合變換標準型 $y = A\sin(bx + c) + d$ 之四大特徵</h2>
+        <p class="formula-desc">將其改寫為標準形態 $y = A\sin\left[b\left(x + \frac{c}{b}\right)\right] + d$：</p>
+
+        <div class="formula-cloze-group">
+          <div class="cloze-row">
+            <span class="cloze-prompt">1. 函數振幅 (Amplitude) =</span>
+            <div class="cloze-pill">
+              <span>$$|A| = \frac{\text{最大值} - \text{最小值}}{2}$$</span>
+            </div>
+          </div>
+          <div class="cloze-row">
+            <span class="cloze-prompt">2. 函數週期 (Period) $T=$</span>
+            <div class="cloze-pill">
+              <span>$$\frac{2\pi}{|b|} \quad (\tan \text{ 函數則為 } \frac{\pi}{|b|})$$</span>
+            </div>
+          </div>
+          <div class="cloze-row">
+            <span class="cloze-prompt">3. 基準中心線 (Midline) 與極值 =</span>
+            <div class="cloze-pill">
+              <span>$$y = d = \frac{\max + \min}{2}, \quad \text{範圍: } [d - |A|, d + |A|]$$</span>
+            </div>
+          </div>
+          <div class="cloze-row">
+            <span class="cloze-prompt">4. 水平左右平移量 =</span>
+            <div class="cloze-pill">
+              <span>$$\text{向右平移 } -\frac{c}{b} \text{ 單位（即向左平移 } \frac{c}{b} \text{ 單位）}$$</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 二次換元極值 -->
+      <section class="formula-section-card">
+        <span class="section-header-tag tag-purple">高頻題型</span>
+        <h2 style="font-size:1.35rem; font-weight:800; margin-bottom:0.75rem;">三、 三角函數二次式配方求極值法</h2>
+        <div style="background:var(--bg-tertiary); border:1px solid var(--border-light); border-radius:var(--radius-md); padding:1rem 1.25rem;">
+          <h4 style="font-weight:800; color:var(--text-primary); margin-bottom:0.5rem;">🔑 經典標準步驟：</h4>
+          <p style="font-size:0.92rem; color:var(--text-secondary); line-height:1.7;">
+            1. **統一函數名稱**：利用 $\sin^2 x + \cos^2 x = 1 \implies \cos^2 x = 1 - \sin^2 x$ 將式子化為純 $\sin$ 或純 $\cos$ 的二次函數。<br>
+            2. **變數代換**：令 $t = \sin x$ 或 $t = \cos x$。<br>
+            3. **嚴格確定 $t$ 的範圍**：若 $x \in \mathbb{R}$，則 $-1 \le t \le 1$；若題目給定角度範圍（如 $\frac{\pi}{6} \le x \le \frac{5\pi}{6}$），需先找出 $\sin x$ 的最大與最小值！<br>
+            4. **配方法求拋物線頂點**：注意頂點是否落在 $t$ 的受限區間內！若在區間外，極值發生在區間端點處！
+          </p>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- Tab 3: §9-3 正餘弦疊合與圓參數式 -->
+    <!-- ===================================================================== -->
+    <div class="guide-tab-pane" id="tab-harmonic">
+      
+      <!-- 疊合核心定理 -->
+      <section class="formula-section-card">
+        <span class="section-header-tag tag-purple">大考必考核心</span>
+        <h2 style="font-size:1.35rem; font-weight:800; margin-bottom:0.75rem;">一、 正餘弦線性組合疊合定理</h2>
+        <p class="formula-desc">同頻率的正弦與餘弦線性組合 $a\sin x + b\cos x$，可合成為單一振幅的正弦波或餘弦波：</p>
+
+        <div class="formula-cloze-group">
+          <!-- 合成正弦型 -->
+          <div class="cloze-row">
+            <span class="cloze-prompt">1. 合成正弦型 $a\sin x + b\cos x=$</span>
+            <div class="cloze-pill">
+              <span>$$\sqrt{a^2 + b^2} \sin(x + \theta) \quad \left(\cos\theta = \frac{a}{\sqrt{a^2+b^2}}, \sin\theta = \frac{b}{\sqrt{a^2+b^2}}\right)$$</span>
+            </div>
+          </div>
+
+          <!-- 合成餘弦型 -->
+          <div class="cloze-row">
+            <span class="cloze-prompt">2. 合成餘弦型 $a\sin x + b\cos x=$</span>
+            <div class="cloze-pill">
+              <span>$$\sqrt{a^2 + b^2} \cos(x - \phi) \quad \left(\cos\phi = \frac{b}{\sqrt{a^2+b^2}}, \sin\phi = \frac{a}{\sqrt{a^2+b^2}}\right)$$</span>
+            </div>
+          </div>
+
+          <!-- 極值範圍 -->
+          <div class="cloze-row">
+            <span class="cloze-prompt">3. $x \in \mathbb{R}$ 時之極值範圍:</span>
+            <div class="cloze-pill">
+              <span>$$-\sqrt{a^2 + b^2} \le a\sin x + b\cos x \le \sqrt{a^2 + b^2}$$</span>
+            </div>
+          </div>
+
+          <!-- 取得最大值之角度 -->
+          <div class="cloze-row">
+            <span class="cloze-prompt">4. 達最大值時之 $\tan x$ 條件:</span>
+            <div class="cloze-pill">
+              <span>$$\tan x = \frac{a}{b} \quad (\text{因為 } x + \theta = \frac{\pi}{2} \implies \tan x = \cot\theta = \frac{\cos\theta}{\sin\theta} = \frac{a}{b})$$</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 圓參數式幾何應用 -->
+      <section class="formula-section-card">
+        <span class="section-header-tag tag-pink">幾何綜合題必備</span>
+        <h2 style="font-size:1.35rem; font-weight:800; margin-bottom:0.75rem;">二、 圓參數式與幾何極值轉化</h2>
+
+        <div class="formula-grid">
+          <div class="formula-card">
+            <div class="formula-card-title">
+              <span>圓之標準參數式</span>
+              <span class="formula-badge">解析幾何</span>
+            </div>
+            <div class="cloze-row">
+              <span class="cloze-prompt">圓 $(x-h)^2 + (y-k)^2 = r^2$ 上任一點 $P(x,y)$:</span>
+              <div class="cloze-pill">
+                <span>$$\begin{cases} x = h + r\cos\theta \\ y = k + r\sin\theta \end{cases} \quad (\theta \in [0, 2\pi))$$</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="formula-card">
+            <div class="formula-card-title">
+              <span>一次式 $Ax + By + C$ 極值</span>
+              <span class="formula-badge">化為疊合</span>
+            </div>
+            <div class="cloze-row">
+              <span class="cloze-prompt">代入參數式後得:</span>
+              <div class="cloze-pill">
+                <span>$$r(A\cos\theta + B\sin\theta) + (Ah + Bk + C) \implies \text{最大值 } = (Ah+Bk+C) + r\sqrt{A^2+B^2}$$</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+  </div>
+
+  <!-- 底部腳本 -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // 1. 主題切換
+      const themeBtn = document.getElementById('guide-theme-toggle');
+      const savedTheme = localStorage.getItem('phy_theme') || 'light';
+      document.documentElement.setAttribute('data-theme', savedTheme);
+      themeBtn.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+
+      themeBtn.addEventListener('click', () => {
+        const cur = document.documentElement.getAttribute('data-theme');
+        const next = cur === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', next);
+        themeBtn.textContent = next === 'dark' ? '☀️' : '🌙';
+        localStorage.setItem('phy_theme', next);
+      });
+
+      // 2. Tab 切換
+      const tabBtns = document.querySelectorAll('.guide-tab-btn');
+      const tabPanes = document.querySelectorAll('.guide-tab-pane');
+
+      tabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          tabBtns.forEach(b => b.classList.remove('active'));
+          tabPanes.forEach(p => p.classList.remove('active'));
+
+          btn.classList.add('active');
+          const targetId = btn.getAttribute('data-tab');
+          const targetPane = document.getElementById(targetId);
+          if (targetPane) targetPane.classList.add('active');
+        });
+      });
+
+      // 3. Active Recall 遮蔽自測引擎
+      let isRecallMode = localStorage.getItem('phy_recall_mode_math09') !== 'false';
+      const toggleModeBtn = document.getElementById('recall-toggle-mode-btn');
+      const toggleText = document.getElementById('recall-toggle-text');
+      const recallModeTag = document.getElementById('recall-mode-tag');
+      const maskAllBtn = document.getElementById('recall-mask-all-btn');
+      const revealAllBtn = document.getElementById('recall-reveal-all-btn');
+      const countText = document.getElementById('recall-count-text');
+      const fillBar = document.getElementById('recall-progress-fill');
+      const recallIcon = document.getElementById('recall-icon');
+
+      const targets = document.querySelectorAll('.cloze-pill');
+
+      targets.forEach(el => {
+        el.classList.add('recall-target');
+        el.classList.add('is-masked');
+
+        el.addEventListener('click', (e) => {
+          if (!document.body.classList.contains('recall-active')) return;
+          e.stopPropagation();
+          if (el.classList.contains('is-masked')) {
+            el.classList.remove('is-masked');
+            el.classList.add('is-revealed');
+          } else {
+            el.classList.remove('is-revealed');
+            el.classList.add('is-masked');
+          }
+          updateProgress();
+        });
+      });
+
+      function updateProgress() {
+        const total = targets.length;
+        const revealed = document.querySelectorAll('.cloze-pill.is-revealed').length;
+        countText.textContent = `${revealed} / ${total}`;
+        const pct = total > 0 ? (revealed / total) * 100 : 0;
+        fillBar.style.width = pct + '%';
+      }
+
+      function setRecallMode(active) {
+        isRecallMode = active;
+        if (active) {
+          document.body.classList.add('recall-active');
+          recallModeTag.textContent = '回想自測中';
+          recallModeTag.style.background = '#8b5cf6';
+          toggleText.textContent = '切換為完整研讀模式';
+          recallIcon.textContent = '🧠';
+          toggleModeBtn.classList.remove('recall-btn-secondary');
+          toggleModeBtn.classList.add('recall-btn-primary');
+        } else {
+          document.body.classList.remove('recall-active');
+          recallModeTag.textContent = '完整研讀中';
+          recallModeTag.style.background = 'var(--accent-emerald)';
+          toggleText.textContent = '啟動回想自測';
+          recallIcon.textContent = '📖';
+          toggleModeBtn.classList.remove('recall-btn-primary');
+        }
+        localStorage.setItem('phy_recall_mode_math09', active);
+        updateProgress();
+      }
+
+      toggleModeBtn.addEventListener('click', () => {
+        setRecallMode(!isRecallMode);
+      });
+
+      maskAllBtn.addEventListener('click', () => {
+        if (!isRecallMode) setRecallMode(true);
+        targets.forEach(el => {
+          el.classList.remove('is-revealed');
+          el.classList.add('is-masked');
+        });
+        updateProgress();
+      });
+
+      revealAllBtn.addEventListener('click', () => {
+        targets.forEach(el => {
+          el.classList.remove('is-masked');
+          el.classList.add('is-revealed');
+        });
+        updateProgress();
+      });
+
+      setRecallMode(isRecallMode);
+
+      // 4. KaTeX 數學渲染器
+      function renderKaTeXIn(container) {
+        if (!window.katex) return;
+        const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT, null, false);
+        const textNodes = [];
+        let node;
+        while (node = walker.nextNode()) {
+          if (node.nodeValue.includes('$')) {
+            textNodes.push(node);
+          }
+        }
+
+        textNodes.forEach(textNode => {
+          const parent = textNode.parentNode;
+          if (!parent || parent.tagName === 'SCRIPT' || parent.tagName === 'STYLE' || parent.classList.contains('katex') || parent.closest('.katex')) return;
+
+          let raw = textNode.nodeValue;
+          let replaced = false;
+          let tempDiv = document.createElement('span');
+
+          const parts = raw.split(/(\$\$[\s\S]*?\$\$|\$[^\$]+?\$)/g);
+          if (parts.length <= 1) return;
+
+          parts.forEach(part => {
+            if (part.startsWith('$$') && part.endsWith('$$')) {
+              const math = part.slice(2, -2).trim();
+              const span = document.createElement('div');
+              span.className = 'katex-display-box';
+              try {
+                katex.render(math, span, { displayMode: true, throwOnError: false });
+                tempDiv.appendChild(span);
+                replaced = true;
+              } catch (e) {
+                tempDiv.appendChild(document.createTextNode(part));
+              }
+            } else if (part.startsWith('$') && part.endsWith('$')) {
+              const math = part.slice(1, -1).trim();
+              const span = document.createElement('span');
+              try {
+                katex.render(math, span, { displayMode: false, throwOnError: false });
+                tempDiv.appendChild(span);
+                replaced = true;
+              } catch (e) {
+                tempDiv.appendChild(document.createTextNode(part));
+              }
+            } else if (part) {
+              tempDiv.appendChild(document.createTextNode(part));
+            }
+          });
+
+          if (replaced) {
+            parent.replaceChild(tempDiv, textNode);
+          }
+        });
+      }
+
+      let katexTries = 0;
+      const timer = setInterval(() => {
+        katexTries++;
+        if (window.katex) {
+          clearInterval(timer);
+          renderKaTeXIn(document.body);
+        } else if (katexTries > 30) {
+          clearInterval(timer);
+        }
+      }, 100);
+    });
+  </script>
+</body>
+</html>

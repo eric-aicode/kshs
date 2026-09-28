@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>【A4列印講義】高中數學 · 09 進階三角函數核心公式大全與圖形攻略</title>
+  <meta name="description" content="專為A4紙張列印與PDF匯出優化的高中數學進階三角函數精編講義：和差角公式、倍半角、圖形伸縮平移、二次換元極值與正餘弦疊合定理。">
+
+  <!-- Google Fonts: Noto Sans TC & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Noto+Sans+TC:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- KaTeX for crisp LaTeX Math rendering -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" crossorigin="anonymous"></script>
+
+  <style>
+    :root {
+      --text-main: #111827;
+      --text-sub: #374151;
+      --text-muted: #4b5563;
+      --border-dark: #9ca3af;
+      --border-light: #d1d5db;
+      --bg-box: #f9fafb;
+      --accent-color: #6d28d9; /* 數學科專屬紫藍色，沉穩大方 */
+      --accent-badge: #047857;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Noto Sans TC', system-ui, -apple-system, sans-serif;
+      font-size: 9.2pt;
+      line-height: 1.45;
+      color: var(--text-main);
+      background-color: #f3f4f6;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    .print-sheet {
+      width: 210mm;
+      min-height: 297mm;
+      margin: 1.5rem auto;
+      padding: 12mm 15mm;
+      background: #ffffff;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
+      border-radius: 4px;
+      position: relative;
+    }
+
+    .screen-control-bar {
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      background: rgba(17, 24, 39, 0.95);
+      backdrop-filter: blur(8px);
+      color: #ffffff;
+      padding: 0.75rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 0.75rem;
+      align-items: center;
+    }
+
+    .action-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.5rem 1.1rem;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 0.92rem;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.15s ease;
+      border: 1px solid transparent;
+    }
+
+    .btn-print {
+      background: #8b5cf6;
+      color: #ffffff;
+    }
+
+    .btn-print:hover {
+      background: #7c3aed;
+    }
+
+    .btn-back {
+      background: #374151;
+      color: #f9fafb;
+    }
+
+    .btn-back:hover {
+      background: #4b5563;
+    }
+
+    .sheet-header {
+      border-bottom: 2px solid var(--accent-color);
+      padding-bottom: 0.35rem;
+      margin-bottom: 0.65rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    .sheet-title {
+      font-size: 1.25rem;
+      font-weight: 900;
+      color: var(--accent-color);
+      letter-spacing: -0.02em;
+    }
+
+    .sheet-subtitle {
+      font-size: 0.76rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .sheet-page-indicator {
+      font-size: 0.76rem;
+      font-weight: 800;
+      color: #ffffff;
+      background: var(--accent-color);
+      padding: 0.15rem 0.6rem;
+      border-radius: 4px;
+    }
+
+    .section-block {
+      margin-bottom: 0.65rem;
+    }
+
+    .section-title {
+      font-size: 0.88rem;
+      font-weight: 800;
+      color: var(--accent-color);
+      border-left: 3.5px solid var(--accent-color);
+      padding-left: 0.4rem;
+      margin-bottom: 0.35rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .section-title .badge {
+      font-size: 0.68rem;
+      font-weight: 700;
+      color: var(--accent-badge);
+      background: #ecfdf5;
+      border: 1px solid #a7f3d0;
+      padding: 0.05rem 0.4rem;
+      border-radius: 3px;
+    }
+
+    .print-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.5rem;
+    }
+
+    .print-box {
+      border: 1px solid var(--border-light);
+      background: var(--bg-box);
+      border-radius: 4px;
+      padding: 0.45rem 0.6rem;
+      font-size: 0.84rem;
+    }
+
+    .print-box-title {
+      font-weight: 800;
+      font-size: 0.84rem;
+      color: var(--text-main);
+      margin-bottom: 0.2rem;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .formula-line {
+      font-family: 'JetBrains Mono', Consolas, monospace;
+      font-size: 0.86rem;
+      font-weight: 700;
+      color: #5b21b6;
+      background: #ffffff;
+      border: 1px solid var(--border-light);
+      padding: 0.25rem 0.45rem;
+      border-radius: 3px;
+      margin: 0.25rem 0;
+      text-align: center;
+    }
+
+    .print-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.8rem;
+      margin: 0.3rem 0;
+    }
+
+    .print-table th {
+      background: #f3f4f6;
+      border: 1px solid var(--border-dark);
+      padding: 0.25rem 0.4rem;
+      font-weight: 800;
+      text-align: left;
+    }
+
+    .print-table td {
+      border: 1px solid var(--border-light);
+      padding: 0.25rem 0.4rem;
+      line-height: 1.35;
+    }
+
+    .sheet-footer {
+      position: absolute;
+      bottom: 6mm;
+      left: 15mm;
+      right: 15mm;
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border-light);
+      padding-top: 0.3rem;
+    }
+
+    @media print {
+      body {
+        background-color: #ffffff;
+      }
+      .screen-control-bar {
+        display: none !important;
+      }
+      .print-sheet {
+        margin: 0;
+        padding: 10mm 12mm;
+        box-shadow: none;
+        border-radius: 0;
+        page-break-after: always;
+        width: 100%;
+        min-height: 100vh;
+      }
+      .print-sheet:last-child {
+        page-break-after: avoid;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 頂部浮動列印控制列 -->
+  <aside class="screen-control-bar">
+    <div>
+      <span style="font-weight:800; font-size:1.05rem;">📄 高中數學 09 進階三角函數 · A4 雙頁精編講義</span>
+      <span style="color:#9ca3af; font-size:0.85rem; margin-left:0.75rem;">（適合彩色或黑白雙面列印，排版嚴密無溢出）</span>
+    </div>
+    <div class="btn-group">
+      <a href="guide.html" class="action-btn btn-back">
+        <span>📖</span> 切換至公式寶典 (回想自測)
+      </a>
+      <a href="../../../index.html?subject=math&unit=09_advanced_trig" class="action-btn btn-back">
+        <span>←</span> 返回題庫
+      </a>
+      <button class="action-btn btn-print" onclick="window.print()">
+        <span>🖨️</span> 一鍵列印 / 存為 PDF
+      </button>
+    </div>
+  </aside>
+
+  <!-- ========================================================================= -->
+  <!-- PAGE 1: 和差角公式、倍半角公式、三大函數圖形性質 -->
+  <!-- ========================================================================= -->
+  <main class="print-sheet">
+    <header class="sheet-header">
+      <div>
+        <h1 class="sheet-title">高中數學 · 09 進階三角函數核心概念與圖形全覽 (Page 1)</h1>
+        <p class="sheet-subtitle">§9-1 和差角公式、倍半角公式、§9-2 正弦/餘弦/正切三大圖形性質對照矩陣</p>
+      </div>
+      <div class="sheet-page-indicator">第 1 頁 / 共 2 頁</div>
+    </header>
+
+    <!-- 一、 和角與差角公式 -->
+    <section class="section-block">
+      <div class="section-title">
+        <span>一、 正弦、餘弦與正切之和差角公式</span>
+        <span class="badge">必背核心</span>
+      </div>
+      <div class="print-grid-2">
+        <div class="print-box">
+          <div class="print-box-title">【正弦和差角公式】</div>
+          <div class="formula-line">$\sin(\alpha \pm \beta) = \sin\alpha\cos\beta \pm \cos\alpha\sin\beta$</div>
+          <div style="font-size:0.78rem; color:var(--text-muted); margin-top:2px;">• 同號口訣：sin 和角為「正餘 + 餘正」，差角為「正餘 - 餘正」。</div>
+        </div>
+        <div class="print-box">
+          <div class="print-box-title">【餘弦和差角公式】（注意變號！）</div>
+          <div class="formula-line">$\cos(\alpha \pm \beta) = \cos\alpha\cos\beta \mp \sin\alpha\sin\beta$</div>
+          <div style="font-size:0.78rem; color:#b91c1c; margin-top:2px;">• 異號口訣：cos 和角為「餘餘 - 正正」，差角為「餘餘 + 正正」。</div>
+        </div>
+      </div>
+      <div class="print-grid-2" style="margin-top:0.4rem;">
+        <div class="print-box">
+          <div class="print-box-title">【正切和角公式】</div>
+          <div class="formula-line">$\tan(\alpha + \beta) = \frac{\tan\alpha + \tan\beta}{1 - \tan\alpha\tan\beta}$</div>
+        </div>
+        <div class="print-box">
+          <div class="print-box-title">【正切差角公式】</div>
+          <div class="formula-line">$\tan(\alpha - \beta) = \frac{\tan\alpha - \tan\beta}{1 + \tan\alpha\tan\beta}$</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 二、 二倍角與半角公式 -->
+    <section class="section-block">
+      <div class="section-title">
+        <span>二、 二倍角公式與降次半角公式</span>
+        <span class="badge">化簡降次</span>
+      </div>
+      <table class="print-table">
+        <tbody>
+          <tr>
+            <td style="width:25%;"><strong>正弦二倍角</strong></td>
+            <td style="width:75%;">$\sin 2\theta = 2\sin\theta\cos\theta$</td>
+          </tr>
+          <tr>
+            <td><strong>餘弦二倍角 (三型)</strong></td>
+            <td>$\cos 2\theta = \cos^2\theta - \sin^2\theta = 2\cos^2\theta - 1 = 1 - 2\sin^2\theta$</td>
+          </tr>
+          <tr>
+            <td><strong>正切二倍角</strong></td>
+            <td>$\tan 2\theta = \frac{2\tan\theta}{1 - \tan^2\theta}$</td>
+          </tr>
+          <tr>
+            <td><strong>降次半角公式</strong></td>
+            <td>$\sin^2\frac{\theta}{2} = \frac{1 - \cos\theta}{2}, \quad \cos^2\frac{\theta}{2} = \frac{1 + \cos\theta}{2}, \quad \tan^2\frac{\theta}{2} = \frac{1 - \cos\theta}{1 + \cos\theta}$</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- 三、 三大基本三角函數圖形對照 -->
+    <section class="section-block">
+      <div class="section-title">
+        <span>三、 §9-2 基本三角函數圖形性質對照表</span>
+        <span class="badge">圖形本質</span>
+      </div>
+      <table class="print-table">
+        <thead>
+          <tr>
+            <th style="width:18%;">函數</th>
+            <th style="width:22%;">定義域</th>
+            <th style="width:18%;">值域 (振幅)</th>
+            <th style="width:16%;">基本週期</th>
+            <th style="width:26%;">對稱性與奇偶性</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>$y = \sin x$</strong></td>
+            <td>$\mathbb{R}$</td>
+            <td>$[-1, 1]$ (振幅 1)</td>
+            <td>$2\pi$</td>
+            <td><strong>奇函數</strong>，對稱於原點 $(0,0)$</td>
+          </tr>
+          <tr>
+            <td><strong>$y = \cos x$</strong></td>
+            <td>$\mathbb{R}$</td>
+            <td>$[-1, 1]$ (振幅 1)</td>
+            <td>$2\pi$</td>
+            <td><strong>偶函數</strong>，對稱於 $y$ 軸</td>
+          </tr>
+          <tr>
+            <td><strong>$y = \tan x$</strong></td>
+            <td>$x \neq k\pi + \frac{\pi}{2}, k \in \mathbb{Z}$</td>
+            <td>$\mathbb{R}$ (無振幅)</td>
+            <td>$\pi$</td>
+            <td><strong>奇函數</strong>，漸近線 $x = k\pi + \frac{\pi}{2}$</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <footer class="sheet-footer">
+      <span>高中數學學習中心 · 09 進階三角函數 精編列印講義</span>
+      <span>建議使用 A4 紙張 · 雙面黑白或彩色皆宜</span>
+    </footer>
+  </main>
+
+  <!-- ========================================================================= -->
+  <!-- PAGE 2: 伸縮平移標準型、二次換元、正餘弦疊合定理與圓參數式 -->
+  <!-- ========================================================================= -->
+  <main class="print-sheet">
+    <header class="sheet-header">
+      <div>
+        <h1 class="sheet-title">高中數學 · 09 進階三角函數核心概念與圖形全覽 (Page 2)</h1>
+        <p class="sheet-subtitle">函數變換標準式、二次換元求極值、§9-3 正餘弦疊合定理、圓參數式與幾何極值應用</p>
+      </div>
+      <div class="sheet-page-indicator">第 2 頁 / 共 2 頁</div>
+    </header>
+
+    <!-- 四、 綜合變換標準型 -->
+    <section class="section-block">
+      <div class="section-title">
+        <span>四、 圖形伸縮平移標準型 $y = A\sin(bx + c) + d$</span>
+        <span class="badge">變換法則</span>
+      </div>
+      <div class="print-grid-2">
+        <div class="print-box">
+          <div class="print-box-title">【四大核心參數意義】</div>
+          <div>• <strong>振幅 (Amplitude)</strong>：$|A| = \frac{\max - \min}{2}$</div>
+          <div>• <strong>週期 (Period)</strong>：$T = \frac{2\pi}{|b|}$ （$\tan$ 為 $\frac{\pi}{|b|}$）</div>
+          <div>• <strong>中軸基準線</strong>：$y = d = \frac{\max + \min}{2}$</div>
+          <div>• <strong>函數範圍</strong>：$[d - |A|, d + |A|]$</div>
+        </div>
+        <div class="print-box">
+          <div class="print-box-title">【水平與鉛直平移口訣】</div>
+          <div>將式子提出 $b$：$y = A\sin\left[b\left(x + \frac{c}{b}\right)\right] + d$</div>
+          <div style="margin-top:2px;">• <strong>左右平移</strong>：左加右減，向右平移 $-\frac{c}{b}$ 單位。</div>
+          <div>• <strong>上下平移</strong>：上加下減，向上平移 $d$ 單位。</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 五、 二次換元求極值法 -->
+    <section class="section-block">
+      <div class="section-title">
+        <span>五、 三角函數二次式配方求極值技巧</span>
+        <span class="badge">換元受限</span>
+      </div>
+      <div class="print-box">
+        <div>• <strong>化同名</strong>：利用 $\cos^2 x = 1 - \sin^2 x$ 化為純單一函數之二次式。</div>
+        <div>• <strong>設元與界定範圍</strong>：令 $t = \sin x$ 或 $t = \cos x$。<strong>務必先定出 $t$ 的受限區間！</strong></div>
+        <div style="font-size:0.78rem; color:#b45309; margin-top:2px;">
+          ★ 警惕：若角度受限（如 $\frac{\pi}{6} \le x \le \frac{5\pi}{6}$），則 $t \in [\frac{1}{2}, 1]$，配方求得頂點後需檢驗頂點是否在區間內，若在區間外則極值必在端點！
+        </div>
+      </div>
+    </section>
+
+    <!-- 六、 正餘弦疊合定理 -->
+    <section class="section-block">
+      <div class="section-title">
+        <span>六、 §9-3 正餘弦疊合定理與極值條件</span>
+        <span class="badge">★ 大考核心</span>
+      </div>
+      <div class="print-grid-2">
+        <div class="print-box">
+          <div class="print-box-title">1. 合成正弦型</div>
+          <div class="formula-line">$$a\sin x + b\cos x = \sqrt{a^2 + b^2}\sin(x + \theta)$$</div>
+          <div style="font-size:0.76rem; color:var(--text-muted);">
+            其中 $\cos\theta = \frac{a}{\sqrt{a^2+b^2}}$，$\sin\theta = \frac{b}{\sqrt{a^2+b^2}}$。
+          </div>
+        </div>
+        <div class="print-box">
+          <div class="print-box-title">2. 合成餘弦型</div>
+          <div class="formula-line">$$a\sin x + b\cos x = \sqrt{a^2 + b^2}\cos(x - \phi)$$</div>
+          <div style="font-size:0.76rem; color:var(--text-muted);">
+            其中 $\cos\phi = \frac{b}{\sqrt{a^2+b^2}}$，$\sin\phi = \frac{a}{\sqrt{a^2+b^2}}$。
+          </div>
+        </div>
+      </div>
+      <table class="print-table" style="margin-top:0.4rem;">
+        <tbody>
+          <tr>
+            <td style="width:25%;"><strong>無限制時之極值</strong></td>
+            <td style="width:75%;">$-\sqrt{a^2 + b^2} \le a\sin x + b\cos x \le \sqrt{a^2 + b^2}$</td>
+          </tr>
+          <tr>
+            <td><strong>最大值之角度條件</strong></td>
+            <td>當 $x + \theta = \frac{\pi}{2} \implies \tan x = \cot\theta = \frac{a}{b}$ 時取最大值。</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- 七、 圓參數式與幾何極值轉化 -->
+    <section class="section-block">
+      <div class="section-title">
+        <span>七、 圓參數式幾何應用</span>
+        <span class="badge">綜合題型</span>
+      </div>
+      <div class="print-grid-2">
+        <div class="print-box">
+          <div class="print-box-title">圓之標準參數式</div>
+          <div>點 $P(x,y)$ 在圓 $(x-h)^2 + (y-k)^2 = r^2$ 上：</div>
+          <div>$\begin{cases} x = h + r\cos\theta \\ y = k + r\sin\theta \end{cases} \quad (\theta \in [0, 2\pi))$</div>
+        </div>
+        <div class="print-box">
+          <div class="print-box-title">線性表達式 $Ax + By + C$ 極值</div>
+          <div>代入參數式轉為三角疊合：</div>
+          <div>$r(A\cos\theta + B\sin\theta) + (Ah + Bk + C)$<br>$\implies \text{最大值} = (Ah+Bk+C) + r\sqrt{A^2+B^2}$</div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="sheet-footer">
+      <span>高中數學學習中心 · 09 進階三角函數 精編列印講義</span>
+      <span>建議使用 A4 紙張 · 雙面黑白或彩色皆宜</span>
+    </footer>
+  </main>
+
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      let katexTries = 0;
+      const timer = setInterval(() => {
+        katexTries++;
+        if (window.katex) {
+          clearInterval(timer);
+          renderAllMath();
+        } else if (katexTries > 30) {
+          clearInterval(timer);
+        }
+      }, 100);
+
+      function renderAllMath() {
+        const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false);
+        const textNodes = [];
+        let node;
+        while (node = walker.nextNode()) {
+          if (node.nodeValue.includes('$')) {
+            textNodes.push(node);
+          }
+        }
+
+        textNodes.forEach(textNode => {
+          const parent = textNode.parentNode;
+          if (!parent || parent.tagName === 'SCRIPT' || parent.tagName === 'STYLE' || parent.classList.contains('katex')) return;
+
+          let raw = textNode.nodeValue;
+          let replaced = false;
+          let tempDiv = document.createElement('span');
+
+          const parts = raw.split(/(\$\$[\s\S]*?\$\$|\$[^\$]+?\$)/g);
+          if (parts.length <= 1) return;
+
+          parts.forEach(part => {
+            if (part.startsWith('$$') && part.endsWith('$$')) {
+              const math = part.slice(2, -2).trim();
+              const span = document.createElement('div');
+              try {
+                katex.render(math, span, { displayMode: true, throwOnError: false });
+                tempDiv.appendChild(span);
+                replaced = true;
+              } catch (e) {
+                tempDiv.appendChild(document.createTextNode(part));
+              }
+            } else if (part.startsWith('$') && part.endsWith('$')) {
+              const math = part.slice(1, -1).trim();
+              const span = document.createElement('span');
+              try {
+                katex.render(math, span, { displayMode: false, throwOnError: false });
+                tempDiv.appendChild(span);
+                replaced = true;
+              } catch (e) {
+                tempDiv.appendChild(document.createTextNode(part));
+              }
+            } else if (part) {
+              tempDiv.appendChild(document.createTextNode(part));
+            }
+          });
+
+          if (replaced) {
+            parent.replaceChild(tempDiv, textNode);
+          }
+        });
+      }
+    });
+  </script>
+</body>
+</html>

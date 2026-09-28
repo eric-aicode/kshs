@@ -1,31 +1,39 @@
 // ==========================================================================
-// 物理拋體運動互動學習中心 - 核心互動邏輯 (Application Controller)
+// 物理學習中心 - 核心互動邏輯與多單元切換控制器 (Application Controller)
 // ==========================================================================
 
 document.addEventListener('DOMContentLoaded', () => {
-  // 1. 狀態初始化
+  // 1. 取得科目與單元設定
   const urlParams = new URLSearchParams(window.location.search);
+  const subjectParam = urlParams.get('subject') || LEARNING_CENTER_CONFIG.defaultSubject || 'physics';
+  const unitParam = urlParams.get('unit');
   const qParam = parseInt(urlParams.get('q'), 10);
-  const initialCurrentId = (qParam && qParam >= 1 && qParam <= 72) ? qParam : 1;
+
+  // 尋找科目與單元設定
+  let subjectConfig = LEARNING_CENTER_CONFIG.subjects.find(s => s.id === subjectParam) || LEARNING_CENTER_CONFIG.subjects[0];
+  let unitConfig = subjectConfig.units.find(u => u.id === unitParam) || subjectConfig.units[0];
 
   const state = {
-    currentId: initialCurrentId,
+    currentSubjectId: subjectConfig.id,
+    currentUnitId: unitConfig.id,
+    currentId: 1,
     mode: 'focus', // 'focus' | 'list'
     fontScale: parseFloat(localStorage.getItem('phy_font_scale')) || 1.15,
     theme: localStorage.getItem('phy_theme') || 'light',
-    activeFilter: 'all', // 'all' | '1-27' | '28-60' | '61-72' | 'bookmarked'
+    activeFilter: 'all',
     searchQuery: '',
-    reveals: {}, // { [qId]: { hint: false, sol: false, ans: false } }
-    bookmarked: new Set(JSON.parse(localStorage.getItem('phy_bookmarked') || '[]')),
-    mastered: new Set(JSON.parse(localStorage.getItem('phy_mastered') || '[]')),
+    reveals: {}, // { [unit_qId]: { hint: false, sol: false, ans: false } }
+    bookmarked: new Set(JSON.parse(localStorage.getItem(`phy_bookmarked_${unitConfig.id}`) || '[]')),
+    mastered: new Set(JSON.parse(localStorage.getItem(`phy_mastered_${unitConfig.id}`) || '[]')),
   };
 
   // 2. DOM 節點快取
+  const appLogo = document.getElementById('app-logo');
   const appContainer = document.getElementById('app-container');
   const mainContent = document.getElementById('main-content');
   const questionGrid = document.getElementById('question-grid');
   const searchInput = document.getElementById('search-input');
-  const filterTabs = document.querySelectorAll('.filter-tab');
+  const filterTabsNav = document.getElementById('filter-tabs-nav');
   const modeFocusBtn = document.getElementById('mode-focus-btn');
   const modeListBtn = document.getElementById('mode-list-btn');
   const themeToggleBtn = document.getElementById('theme-toggle-btn');
@@ -36,26 +44,44 @@ document.addEventListener('DOMContentLoaded', () => {
   const prevBtn = document.getElementById('prev-question-btn');
   const nextBtn = document.getElementById('next-question-btn');
   const currentNavIndicator = document.getElementById('current-nav-indicator');
+  const subjectSelect = document.getElementById('subject-select');
+  const unitSelect = document.getElementById('unit-select');
+  const appSubtitle = document.getElementById('app-subtitle');
+  
+  // 寶典與列印連結
+  const headerGuideLink = document.getElementById('header-guide-link');
+  const headerPrintLink = document.getElementById('header-print-link');
+  const sidebarGuideLink = document.getElementById('sidebar-guide-link');
+  const sidebarPrintLink = document.getElementById('sidebar-print-link');
 
-  // 題庫資料集檢查（支援新舊架構）
-  const activeQuestions = (typeof PHYSICS_QUESTIONS !== 'undefined' && Array.isArray(PHYSICS_QUESTIONS))
-    ? PHYSICS_QUESTIONS
-    : (typeof UNIT_QUESTIONS !== 'undefined' && Array.isArray(UNIT_QUESTIONS) ? UNIT_QUESTIONS : []);
-
-  if (typeof PHYSICS_QUESTIONS === 'undefined' && activeQuestions.length > 0) {
-    window.PHYSICS_QUESTIONS = activeQuestions;
+  // 動態更新單元下拉選單選項
+  function updateUnitSelectOptions() {
+    if (!unitSelect) return;
+    unitSelect.innerHTML = '';
+    subjectConfig.units.forEach(u => {
+      const opt = document.createElement('option');
+      opt.value = u.id;
+      opt.textContent = `🎯 ${u.name}`;
+      unitSelect.appendChild(opt);
+    });
   }
 
-  if (activeQuestions.length === 0) {
-    console.error('題庫資料未成功載入');
-    mainContent.innerHTML = `
-      <div style="text-align:center; padding:4rem 1rem; color:var(--text-muted);">
-        <div style="font-size:3rem; margin-bottom:1rem;">⚠️</div>
-        <h2>題庫資料載入中或發生異常</h2>
-        <p>請重新整理瀏覽器頁面 (F5)。</p>
-      </div>
-    `;
-    return;
+  // 取得目前單元的題庫清單
+  function getCurrentQuestions() {
+    if (unitConfig.dataVar && typeof window[unitConfig.dataVar] !== 'undefined') {
+      return window[unitConfig.dataVar];
+    }
+    // 後備支援各單元全域變數
+    if (unitConfig.id === '01_projectile' && typeof PHYSICS_QUESTIONS !== 'undefined') {
+      return PHYSICS_QUESTIONS;
+    }
+    if (unitConfig.id === '02_linear_motion' && typeof LINEAR_MOTION_QUESTIONS !== 'undefined') {
+      return LINEAR_MOTION_QUESTIONS;
+    }
+    if (unitConfig.id === '09_advanced_trig' && typeof ADVANCED_TRIG_QUESTIONS !== 'undefined') {
+      return ADVANCED_TRIG_QUESTIONS;
+    }
+    return [];
   }
 
   // 3. 設定主題與字體大小
@@ -74,7 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
     localStorage.setItem('phy_font_scale', state.fontScale);
   }
 
-  // 數學公式後備純文字/Unicode 轉換器 (若離線或CDN延遲時保證符號清晰)
+  // 數學公式後備純文字/Unicode 轉換器
   function fallbackMathRender(latex, isBlock) {
     let clean = latex
       .replace(/\\sqrt\{([^}]+)\}/g, '√($1)')
@@ -108,7 +134,6 @@ document.addEventListener('DOMContentLoaded', () => {
   function renderMarkdownWithKaTeX(rawText) {
     if (!rawText) return '';
 
-    // Step 1: 預處理所有數學公式，用專屬 Token 替換，防止其符號受到 HTML/Markdown 破壞
     const mathTokens = [];
 
     // 先抓雙錢字號區塊公式 $$...$$
@@ -125,13 +150,13 @@ document.addEventListener('DOMContentLoaded', () => {
       return tokenId;
     });
 
-    // Step 2: 對公式外的純文本進行安全的 HTML 轉義
+    // 對純文本進行安全的 HTML 轉義
     text = text
       .replace(/&/g, '&amp;')
       .replace(/</g, '&lt;')
       .replace(/>/g, '&gt;');
 
-    // Step 3: Markdown 基本語法解析
+    // Markdown 基本語法解析
     text = text
       .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
       .replace(/\*([^*]+)\*/g, '<em>$1</em>')
@@ -141,7 +166,7 @@ document.addEventListener('DOMContentLoaded', () => {
       .replace(/\n\n+/g, '</p><p>')
       .replace(/\n/g, '<br>');
 
-    // Step 4: 將 Math Token 還原為 KaTeX 完美渲染的 HTML (無注入破壞)
+    // 還原 Math Token
     mathTokens.forEach(({ id, formula, isBlock }) => {
       let renderedHtml = '';
       if (window.katex) {
@@ -167,31 +192,88 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // 5. 取得目前篩選後的題目清單
   function getFilteredQuestions() {
-    return PHYSICS_QUESTIONS.filter(q => {
+    const questions = getCurrentQuestions();
+    return questions.filter(q => {
       // 分類篩選
-      if (state.activeFilter === '1-27' && (q.id < 1 || q.id > 27)) return false;
-      if (state.activeFilter === '28-60' && (q.id < 28 || q.id > 60)) return false;
-      if (state.activeFilter === '61-72' && (q.id < 61 || q.id > 72)) return false;
-      if (state.activeFilter === 'bookmarked' && !state.bookmarked.has(q.id)) return false;
+      if (state.activeFilter === 'bookmarked') {
+        if (!state.bookmarked.has(q.id)) return false;
+      } else if (state.activeFilter !== 'all') {
+        const cat = unitConfig.categories && unitConfig.categories.find(c => c.id === state.activeFilter);
+        if (cat && cat.range) {
+          if (q.id < cat.range[0] || q.id > cat.range[1]) return false;
+        }
+      }
 
-      // 關鍵字搜尋 (支援題號與題目內容)
+      // 關鍵字搜尋
       if (state.searchQuery) {
         const query = state.searchQuery.toLowerCase();
         const idMatch = String(q.id).includes(query);
-        const textMatch = q.raw.toLowerCase().includes(query);
+        const textMatch = q.raw ? q.raw.toLowerCase().includes(query) : (q.question + q.solution).toLowerCase().includes(query);
         if (!idMatch && !textMatch) return false;
       }
       return true;
     });
   }
 
-  // 6. 渲染題號側邊欄矩陣 (Sidebar Grid)
+  // 6. 動態渲染分類導覽標籤 (Filter Tabs)
+  function renderFilterTabs() {
+    if (!filterTabsNav) return;
+    const questions = getCurrentQuestions();
+    let html = `
+      <button class="filter-tab ${state.activeFilter === 'all' ? 'active' : ''}" data-filter="all">
+        <span>全部習題</span>
+        <span class="filter-count" id="count-all">${questions.length}</span>
+      </button>
+    `;
+
+    if (unitConfig.categories) {
+      unitConfig.categories.forEach(cat => {
+        const count = questions.filter(q => q.id >= cat.range[0] && q.id <= cat.range[1]).length;
+        html += `
+          <button class="filter-tab ${state.activeFilter === cat.id ? 'active' : ''}" data-filter="${cat.id}">
+            <span>${cat.name}</span>
+            <span class="filter-count">${count}</span>
+          </button>
+        `;
+      });
+    }
+
+    html += `
+      <button class="filter-tab ${state.activeFilter === 'bookmarked' ? 'active' : ''}" data-filter="bookmarked">
+        <span>⭐ 我的複習標記</span>
+        <span class="filter-count" id="count-bookmarked">${state.bookmarked.size}</span>
+      </button>
+    `;
+
+    filterTabsNav.innerHTML = html;
+
+    // 重新綁定分類 Tab 點擊事件
+    filterTabsNav.querySelectorAll('.filter-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        filterTabsNav.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        state.activeFilter = tab.dataset.filter;
+        if (state.mode === 'focus') {
+          const filtered = getFilteredQuestions();
+          if (filtered.length > 0 && !filtered.some(q => q.id === state.currentId)) {
+            state.currentId = filtered[0].id;
+          }
+          renderFocusView();
+        } else {
+          renderListView();
+        }
+      });
+    });
+  }
+
+  // 7. 渲染題號側邊欄矩陣 (Sidebar Grid)
   function renderSidebarGrid() {
+    const questions = getCurrentQuestions();
     const filtered = getFilteredQuestions();
     const filteredIds = new Set(filtered.map(q => q.id));
 
     questionGrid.innerHTML = '';
-    PHYSICS_QUESTIONS.forEach(q => {
+    questions.forEach(q => {
       const isVisible = filteredIds.has(q.id);
       const isCurrent = state.mode === 'focus' && state.currentId === q.id;
       const isBookmarked = state.bookmarked.has(q.id);
@@ -200,7 +282,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const btn = document.createElement('button');
       btn.className = `q-badge ${isCurrent ? 'current' : ''} ${isBookmarked ? 'bookmarked' : ''} ${isMastered ? 'mastered' : ''}`;
       btn.textContent = q.id;
-      btn.title = `第 ${q.id} 題：${q.category}`;
+      btn.title = `第 ${q.id} 題：${q.category || q.title || ''}`;
       if (!isVisible) {
         btn.style.opacity = '0.25';
       }
@@ -210,7 +292,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (state.mode === 'focus') {
           renderFocusView();
         } else {
-          // 清單模式滾動至該題
           const targetEl = document.getElementById(`q-card-${q.id}`);
           if (targetEl) {
             targetEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -224,39 +305,26 @@ document.addEventListener('DOMContentLoaded', () => {
       questionGrid.appendChild(btn);
     });
 
-    // 更新篩選器統計數字
-    updateFilterCounts();
+    // 更新書籤數量
+    const bmCountEl = document.getElementById('count-bookmarked');
+    if (bmCountEl) bmCountEl.textContent = state.bookmarked.size;
   }
 
-  function updateFilterCounts() {
-    const countAll = PHYSICS_QUESTIONS.length;
-    const count1 = PHYSICS_QUESTIONS.filter(q => q.id >= 1 && q.id <= 27).length;
-    const count2 = PHYSICS_QUESTIONS.filter(q => q.id >= 28 && q.id <= 60).length;
-    const count3 = PHYSICS_QUESTIONS.filter(q => q.id >= 61 && q.id <= 72).length;
-    const countBookmarked = state.bookmarked.size;
-
-    document.getElementById('count-all').textContent = countAll;
-    document.getElementById('count-1-27').textContent = count1;
-    document.getElementById('count-28-60').textContent = count2;
-    document.getElementById('count-61-72').textContent = count3;
-    document.getElementById('count-bookmarked').textContent = countBookmarked;
-  }
-
-  // 7. 渲染單張題目卡片 HTML
+  // 8. 渲染單張題目卡片 HTML
   function createQuestionCardElement(q) {
     const card = document.createElement('article');
     card.className = 'question-card';
     card.id = `q-card-${q.id}`;
 
-    // 取得該題的展開狀態
-    if (!state.reveals[q.id]) {
-      state.reveals[q.id] = { hint: false, sol: false, ans: false };
+    // 取得該題展開狀態
+    const revealKey = `${unitConfig.id}_${q.id}`;
+    if (!state.reveals[revealKey]) {
+      state.reveals[revealKey] = { hint: false, sol: false, ans: false };
     }
-    const r = state.reveals[q.id];
+    const r = state.reveals[revealKey];
     const isBookmarked = state.bookmarked.has(q.id);
     const isMastered = state.mastered.has(q.id);
 
-    // 格式化內容
     const questionHtml = renderMarkdownWithKaTeX(q.question);
     const hintHtml = q.hint ? renderMarkdownWithKaTeX(q.hint) : '';
     const solutionHtml = q.solution ? renderMarkdownWithKaTeX(q.solution) : '';
@@ -323,7 +391,6 @@ document.addEventListener('DOMContentLoaded', () => {
     `;
 
     // 綁定事件
-    // 1. 收藏星號
     const starBtn = card.querySelector(`#star-btn-${q.id}`);
     starBtn.addEventListener('click', () => {
       if (state.bookmarked.has(q.id)) {
@@ -333,11 +400,10 @@ document.addEventListener('DOMContentLoaded', () => {
         state.bookmarked.add(q.id);
         starBtn.classList.add('active-star');
       }
-      localStorage.setItem('phy_bookmarked', JSON.stringify([...state.bookmarked]));
+      localStorage.setItem(`phy_bookmarked_${unitConfig.id}`, JSON.stringify([...state.bookmarked]));
       renderSidebarGrid();
     });
 
-    // 2. 掌握勾選
     const masterBtn = card.querySelector(`#master-btn-${q.id}`);
     masterBtn.addEventListener('click', () => {
       if (state.mastered.has(q.id)) {
@@ -347,33 +413,30 @@ document.addEventListener('DOMContentLoaded', () => {
         state.mastered.add(q.id);
         masterBtn.classList.add('active-mastered');
       }
-      localStorage.setItem('phy_mastered', JSON.stringify([...state.mastered]));
+      localStorage.setItem(`phy_mastered_${unitConfig.id}`, JSON.stringify([...state.mastered]));
       renderSidebarGrid();
     });
 
-    // 3. 提示切換
     const toggleHintBtn = card.querySelector(`#toggle-hint-${q.id}`);
     if (toggleHintBtn) {
       toggleHintBtn.addEventListener('click', () => {
-        state.reveals[q.id].hint = !state.reveals[q.id].hint;
+        state.reveals[revealKey].hint = !state.reveals[revealKey].hint;
         updateCardSolutions(card, q);
       });
     }
 
-    // 4. 詳細解析切換
     const toggleSolBtn = card.querySelector(`#toggle-sol-${q.id}`);
     if (toggleSolBtn) {
       toggleSolBtn.addEventListener('click', () => {
-        state.reveals[q.id].sol = !state.reveals[q.id].sol;
+        state.reveals[revealKey].sol = !state.reveals[revealKey].sol;
         updateCardSolutions(card, q);
       });
     }
 
-    // 5. 答案切換
     const toggleAnsBtn = card.querySelector(`#toggle-ans-${q.id}`);
     if (toggleAnsBtn) {
       toggleAnsBtn.addEventListener('click', () => {
-        state.reveals[q.id].ans = !state.reveals[q.id].ans;
+        state.reveals[revealKey].ans = !state.reveals[revealKey].ans;
         updateCardSolutions(card, q);
       });
     }
@@ -381,9 +444,10 @@ document.addEventListener('DOMContentLoaded', () => {
     return card;
   }
 
-  // 8. 局部更新卡片的解析展開區
+  // 9. 局部更新卡片的解析展開區
   function updateCardSolutions(card, q) {
-    const r = state.reveals[q.id];
+    const revealKey = `${unitConfig.id}_${q.id}`;
+    const r = state.reveals[revealKey];
     const hintBtn = card.querySelector(`#toggle-hint-${q.id}`);
     const solBtn = card.querySelector(`#toggle-sol-${q.id}`);
     const ansBtn = card.querySelector(`#toggle-ans-${q.id}`);
@@ -430,32 +494,37 @@ document.addEventListener('DOMContentLoaded', () => {
     `;
   }
 
-  // 9. 渲染「單題專注模式 (Focus Mode)」
+  // 10. 渲染「單題專注模式」
   function renderFocusView() {
     mainContent.innerHTML = '';
-    const q = PHYSICS_QUESTIONS.find(item => item.id === state.currentId);
-    if (!q) return;
+    const questions = getCurrentQuestions();
+    if (questions.length === 0) {
+      renderEmptyState();
+      return;
+    }
+
+    const q = questions.find(item => item.id === state.currentId) || questions[0];
+    state.currentId = q.id;
 
     const card = createQuestionCardElement(q);
     mainContent.appendChild(card);
 
     // 更新底部導航
     focusBottomNav.style.display = 'flex';
-    currentNavIndicator.textContent = `第 ${q.id} / 72 題`;
+    currentNavIndicator.textContent = `第 ${q.id} / ${questions.length} 題`;
     prevBtn.disabled = q.id <= 1;
-    nextBtn.disabled = q.id >= 72;
+    nextBtn.disabled = q.id >= questions.length;
 
     renderSidebarGrid();
   }
 
-  // 10. 渲染「清單瀏覽模式 (List Mode)」
+  // 11. 渲染「清單瀏覽模式」
   function renderListView() {
     mainContent.innerHTML = '';
     focusBottomNav.style.display = 'none';
 
     const filtered = getFilteredQuestions();
 
-    // 頂部小操作列 (全部展開 / 全部收合)
     const listActionBar = document.createElement('div');
     listActionBar.className = 'list-actions-bar';
     listActionBar.innerHTML = `
@@ -469,14 +538,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     listActionBar.querySelector('#expand-all-btn').addEventListener('click', () => {
       filtered.forEach(q => {
-        state.reveals[q.id] = { hint: true, sol: true, ans: true };
+        state.reveals[`${unitConfig.id}_${q.id}`] = { hint: true, sol: true, ans: true };
       });
       renderListView();
     });
 
     listActionBar.querySelector('#collapse-all-btn').addEventListener('click', () => {
       filtered.forEach(q => {
-        state.reveals[q.id] = { hint: false, sol: false, ans: false };
+        state.reveals[`${unitConfig.id}_${q.id}`] = { hint: false, sol: false, ans: false };
       });
       renderListView();
     });
@@ -503,7 +572,17 @@ document.addEventListener('DOMContentLoaded', () => {
     renderSidebarGrid();
   }
 
-  // 11. 切換模式
+  function renderEmptyState() {
+    mainContent.innerHTML = `
+      <div style="text-align:center; padding:4rem 1rem; color:var(--text-muted);">
+        <div style="font-size:3rem; margin-bottom:1rem;">⚠️</div>
+        <h2>題庫資料載入中或發生異常</h2>
+        <p>請重新整理瀏覽器頁面 (F5)。</p>
+      </div>
+    `;
+  }
+
+  // 12. 切換模式
   function setMode(mode) {
     state.mode = mode;
     if (mode === 'focus') {
@@ -517,7 +596,93 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // 12. 事件監聽設定
+  // 13. 切換單元 (Switch Unit)
+  function switchUnit(newUnitId, targetQId = 1) {
+    const found = subjectConfig.units.find(u => u.id === newUnitId);
+    if (!found) return;
+
+    unitConfig = found;
+    state.currentUnitId = unitConfig.id;
+    state.activeFilter = 'all';
+    state.searchQuery = '';
+    if (searchInput) searchInput.value = '';
+
+    // 讀取該單元的書籤與掌握紀錄
+    state.bookmarked = new Set(JSON.parse(localStorage.getItem(`phy_bookmarked_${unitConfig.id}`) || '[]'));
+    state.mastered = new Set(JSON.parse(localStorage.getItem(`phy_mastered_${unitConfig.id}`) || '[]'));
+
+    // 更新網址 Query
+    const newUrl = new URL(window.location);
+    newUrl.searchParams.set('subject', state.currentSubjectId);
+    newUrl.searchParams.set('unit', unitConfig.id);
+    newUrl.searchParams.set('q', targetQId);
+    window.history.replaceState({}, '', newUrl);
+
+    // 更新副標題與寶典按鈕連結
+    if (appSubtitle) {
+      appSubtitle.textContent = `${unitConfig.name} · 全功能互動精解指南`;
+    }
+    if (headerGuideLink) {
+      headerGuideLink.href = unitConfig.guideUrl || 'guide.html';
+      headerGuideLink.title = `查看 ${unitConfig.name} 公式變形、題型矩陣與解題思考導航`;
+    }
+    if (headerPrintLink) {
+      headerPrintLink.href = unitConfig.printUrl || 'guide_print.html';
+    }
+    if (sidebarGuideLink) {
+      sidebarGuideLink.href = unitConfig.guideUrl || 'guide.html';
+    }
+    if (sidebarPrintLink) {
+      sidebarPrintLink.href = unitConfig.printUrl || 'guide_print.html';
+    }
+
+    if (unitSelect) {
+      unitSelect.value = unitConfig.id;
+    }
+
+    // 題號校驗
+    const questions = getCurrentQuestions();
+    state.currentId = (targetQId && targetQId >= 1 && targetQId <= questions.length) ? targetQId : 1;
+
+    renderFilterTabs();
+    if (state.mode === 'focus') {
+      renderFocusView();
+    } else {
+      renderListView();
+    }
+  }
+
+  // 14. 切換科目 (Switch Subject)
+  function switchSubject(newSubjectId) {
+    const found = LEARNING_CENTER_CONFIG.subjects.find(s => s.id === newSubjectId);
+    if (!found) return;
+
+    subjectConfig = found;
+    state.currentSubjectId = subjectConfig.id;
+    if (appLogo) appLogo.textContent = subjectConfig.icon || '📚';
+    if (subjectSelect) subjectSelect.value = subjectConfig.id;
+
+    updateUnitSelectOptions();
+    if (subjectConfig.units.length > 0) {
+      switchUnit(subjectConfig.units[0].id, 1);
+    }
+  }
+
+  // 15. 事件監聽設定
+  // 科目選單切換
+  if (subjectSelect) {
+    subjectSelect.addEventListener('change', (e) => {
+      switchSubject(e.target.value);
+    });
+  }
+
+  // 單元選單切換
+  if (unitSelect) {
+    unitSelect.addEventListener('change', (e) => {
+      switchUnit(e.target.value, 1);
+    });
+  }
+
   // 模式切換按鈕
   modeFocusBtn.addEventListener('click', () => setMode('focus'));
   modeListBtn.addEventListener('click', () => setMode('list'));
@@ -531,25 +696,6 @@ document.addEventListener('DOMContentLoaded', () => {
   fontIncBtn.addEventListener('click', () => applyFontScale(state.fontScale + 0.1));
   fontDecBtn.addEventListener('click', () => applyFontScale(state.fontScale - 0.1));
 
-  // 篩選器分頁點擊
-  filterTabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      filterTabs.forEach(t => t.classList.remove('active'));
-      tab.classList.add('active');
-      state.activeFilter = tab.dataset.filter;
-      if (state.mode === 'focus') {
-        // 如果目前選中的題目不在篩選範圍內，切換到符合條件的第一題
-        const filtered = getFilteredQuestions();
-        if (filtered.length > 0 && !filtered.some(q => q.id === state.currentId)) {
-          state.currentId = filtered[0].id;
-        }
-        renderFocusView();
-      } else {
-        renderListView();
-      }
-    });
-  });
-
   // 搜尋輸入
   searchInput.addEventListener('input', (e) => {
     state.searchQuery = e.target.value.trim();
@@ -562,6 +708,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // 底部換題導航 (專注模式)
   prevBtn.addEventListener('click', () => {
+    const questions = getCurrentQuestions();
     if (state.currentId > 1) {
       state.currentId--;
       renderFocusView();
@@ -570,7 +717,8 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   nextBtn.addEventListener('click', () => {
-    if (state.currentId < 72) {
+    const questions = getCurrentQuestions();
+    if (state.currentId < questions.length) {
       state.currentId++;
       renderFocusView();
       window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -581,20 +729,27 @@ document.addEventListener('DOMContentLoaded', () => {
   document.addEventListener('keydown', (e) => {
     if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
 
+    const questions = getCurrentQuestions();
+    const total = questions.length;
+
     if (e.key === 'ArrowLeft' || e.key === 'k') {
       if (state.mode === 'focus' && state.currentId > 1) {
         state.currentId--;
         renderFocusView();
       }
     } else if (e.key === 'ArrowRight' || e.key === 'j') {
-      if (state.mode === 'focus' && state.currentId < 72) {
+      if (state.mode === 'focus' && state.currentId < total) {
         state.currentId++;
         renderFocusView();
       }
     } else if (e.code === 'Space') {
       if (state.mode === 'focus') {
-        e.preventDefault(); // 防止滾動
-        const curQ = state.reveals[state.currentId];
+        e.preventDefault();
+        const revealKey = `${unitConfig.id}_${state.currentId}`;
+        if (!state.reveals[revealKey]) {
+          state.reveals[revealKey] = { hint: false, sol: false, ans: false };
+        }
+        const curQ = state.reveals[revealKey];
         if (!curQ.sol) {
           curQ.hint = true;
           curQ.sol = true;
@@ -609,12 +764,20 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // 13. 初始化執行
+  // 16. 初始化執行
   applyTheme(state.theme);
   applyFontScale(state.fontScale);
+
+  // 初始化選取當前科目與單元
+  if (subjectSelect) subjectSelect.value = subjectConfig.id;
+  if (appLogo) appLogo.textContent = subjectConfig.icon || '📚';
+  updateUnitSelectOptions();
+
+  const initialTargetQ = (qParam && qParam >= 1) ? qParam : 1;
+  switchUnit(unitConfig.id, initialTargetQ);
   setMode('focus');
 
-  // 若 KaTeX 稍微延遲加載完成，自動再重繪一次以確保所有根號與公式清晰展開
+  // KaTeX 重繪計時器
   let attempts = 0;
   const katexTimer = setInterval(() => {
     attempts++;

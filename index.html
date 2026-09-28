@@ -31,12 +31,13 @@
             <!-- 科目切換選單 -->
             <select class="subject-select" id="subject-select" title="切換學習科目">
               <option value="physics">⚛️ 物理科</option>
+              <option value="math">📐 數學科</option>
               <option value="chemistry" disabled>🧪 化學科 (籌備中)</option>
-              <option value="math" disabled>📐 數學科 (籌備中)</option>
             </select>
             <!-- 單元切換選單 -->
             <select class="unit-select" id="unit-select" title="切換學習單元">
-              <option value="01_projectile">🎯 二維拋體運動 (1~72題)</option>
+              <option value="01_projectile">🎯 01 二維拋體運動 (1~72題)</option>
+              <option value="02_linear_motion">🎯 02 直線運動 (1~19題)</option>
             </select>
           </div>
           <p id="app-subtitle">二維拋體運動 · 第 1 ~ 72 題 全功能互動精解指南</p>
@@ -51,15 +52,15 @@
         </div>
 
         <!-- 觀念公式與題型攻略連結 -->
-        <a href="guide.html" class="pill-btn guide-link-btn" title="查看拋體運動公式變形、8大題型矩陣與解題思考導航" style="text-decoration:none; display:inline-flex; align-items:center; gap:0.45rem; font-weight:800; color:#ffffff; background:linear-gradient(135deg, #4f46e5 0%, #6366f1 100%); border:1px solid rgba(99,102,241,0.5); padding:0.45rem 0.95rem; border-radius:var(--radius-full); box-shadow:0 2px 8px rgba(79,70,229,0.3); transition:all var(--transition-fast);">
+        <a href="guide.html" id="header-guide-link" class="pill-btn guide-link-btn" title="查看公式變形、題型矩陣與解題思考導航" style="text-decoration:none; display:inline-flex; align-items:center; gap:0.45rem; font-weight:800; color:#ffffff; background:linear-gradient(135deg, #4f46e5 0%, #6366f1 100%); border:1px solid rgba(99,102,241,0.5); padding:0.45rem 0.95rem; border-radius:var(--radius-full); box-shadow:0 2px 8px rgba(79,70,229,0.3); transition:all var(--transition-fast);">
           <span>📐</span>
-          <span>公式題型寶典 (回想自測)</span>
+          <span id="header-guide-text">公式題型寶典 (回想自測)</span>
         </a>
 
         <!-- A4 列印版講義連結 -->
-        <a href="guide_print.html" class="pill-btn" title="開啟專為 A4 紙張與 PDF 排版優化的雙頁精編講義" style="text-decoration:none; display:inline-flex; align-items:center; gap:0.45rem; font-weight:700; color:#ffffff; background:linear-gradient(135deg, #059669 0%, #10b981 100%); border:1px solid rgba(16,185,129,0.5); padding:0.45rem 0.95rem; border-radius:var(--radius-full); box-shadow:0 2px 8px rgba(5,150,105,0.25); transition:all var(--transition-fast);">
+        <a href="guide_print.html" id="header-print-link" class="pill-btn" title="開啟專為 A4 紙張與 PDF 排版優化的雙頁精編講義" style="text-decoration:none; display:inline-flex; align-items:center; gap:0.45rem; font-weight:700; color:#ffffff; background:linear-gradient(135deg, #059669 0%, #10b981 100%); border:1px solid rgba(16,185,129,0.5); padding:0.45rem 0.95rem; border-radius:var(--radius-full); box-shadow:0 2px 8px rgba(5,150,105,0.25); transition:all var(--transition-fast);">
           <span>🖨️</span>
-          <span>A4列印講義 (雙頁)</span>
+          <span id="header-print-text">A4列印講義 (雙頁)</span>
         </a>
 
         <!-- 字級縮放控制器 -->
@@ -87,15 +88,15 @@
         <div style="font-size:0.78rem; font-weight:800; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.05em; display:flex; align-items:center; gap:0.35rem;">
           <span>⚡</span><span>必備複習利器</span>
         </div>
-        <a href="guide.html" style="text-decoration:none; display:flex; align-items:center; justify-content:space-between; padding:0.55rem 0.75rem; border-radius:var(--radius-sm); background:rgba(79,70,229,0.08); border:1px solid rgba(79,70,229,0.2); color:var(--accent-primary); font-weight:750; font-size:0.88rem; transition:all var(--transition-fast);">
+        <a href="guide.html" id="sidebar-guide-link" style="text-decoration:none; display:flex; align-items:center; justify-content:space-between; padding:0.55rem 0.75rem; border-radius:var(--radius-sm); background:rgba(79,70,229,0.08); border:1px solid rgba(79,70,229,0.2); color:var(--accent-primary); font-weight:750; font-size:0.88rem; transition:all var(--transition-fast);">
           <span style="display:flex; align-items:center; gap:0.45rem;">
-            <span>📐</span><span>公式變形與題型寶典</span>
+            <span>📐</span><span id="sidebar-guide-text">公式變形與題型寶典</span>
           </span>
           <span style="font-size:0.72rem; background:var(--accent-primary); color:#fff; padding:1px 6px; border-radius:10px;">回想自測</span>
         </a>
-        <a href="guide_print.html" style="text-decoration:none; display:flex; align-items:center; justify-content:space-between; padding:0.55rem 0.75rem; border-radius:var(--radius-sm); background:rgba(5,150,105,0.08); border:1px solid rgba(5,150,105,0.2); color:var(--accent-emerald); font-weight:750; font-size:0.88rem; transition:all var(--transition-fast);">
+        <a href="guide_print.html" id="sidebar-print-link" style="text-decoration:none; display:flex; align-items:center; justify-content:space-between; padding:0.55rem 0.75rem; border-radius:var(--radius-sm); background:rgba(5,150,105,0.08); border:1px solid rgba(5,150,105,0.2); color:var(--accent-emerald); font-weight:750; font-size:0.88rem; transition:all var(--transition-fast);">
           <span style="display:flex; align-items:center; gap:0.45rem;">
-            <span>🖨️</span><span>A4 雙頁列印講義</span>
+            <span>🖨️</span><span id="sidebar-print-text">A4 雙頁列印講義</span>
           </span>
           <span style="font-size:0.72rem; background:var(--accent-emerald); color:#fff; padding:1px 6px; border-radius:10px;">PDF</span>
         </a>
@@ -107,8 +108,8 @@
         <input type="text" class="search-input" id="search-input" placeholder="搜尋題號或題目關鍵字...">
       </div>
 
-      <!-- 分類標籤 -->
-      <nav class="filter-tabs" aria-label="單元分類導覽">
+      <!-- 分類標籤 (動態生成) -->
+      <nav class="filter-tabs" id="filter-tabs-nav" aria-label="單元分類導覽">
         <button class="filter-tab active" data-filter="all">
           <span>全部習題</span>
           <span class="filter-count" id="count-all">72</span>
@@ -140,7 +141,7 @@
           <span style="font-size: 0.75rem; text-transform: none; color: var(--text-muted);">點擊直達</span>
         </div>
         <div class="question-grid" id="question-grid" style="margin-top: 0.75rem;">
-          <!-- 由 JS 動態生成 1~72 題號徽章 -->
+          <!-- 由 JS 動態生成題號徽章 -->
         </div>
       </div>
     </aside>
@@ -172,6 +173,8 @@
   <!-- 資料與核心模組腳本 -->
   <script src="core/subjects_config.js"></script>
   <script src="subjects/physics/01_拋體運動/data.js"></script>
+  <script src="subjects/physics/02_直線運動/data.js"></script>
+  <script src="subjects/math/09_進階三角函數/data.js"></script>
   <script src="core/app.js"></script>
 </body>
 </html>
