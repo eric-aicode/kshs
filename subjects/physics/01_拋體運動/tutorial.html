@@ -1,0 +1,1617 @@
+<!DOCTYPE html>
+<html lang="zh-TW" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>【物理自學大師】二維拋體運動完全自學指南 · 由淺入深圖解講義</title>
+  <meta name="description" content="高中物理二維拋體運動完整自學講義：運動獨立性原理、平拋幾何與軌跡方程、斜拋對稱美學與三大公式推導、斜面旋轉坐標系、大三角形正弦定理、曲率半徑、獵人打猴子相對運動與八大題型攻略。">
+
+  <!-- Google Fonts: Plus Jakarta Sans & Noto Sans TC -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Noto+Sans+TC:wght@400;500;700;800;900&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- KaTeX for crisp LaTeX Math rendering -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" crossorigin="anonymous"></script>
+
+  <!-- Application Stylesheet -->
+  <link rel="stylesheet" href="../../../core/style.css">
+
+  <style>
+    /* ==========================================================================
+       二維拋體自學大師深度講義樣式 (Masterclass Textbook Styling)
+       ========================================================================== */
+    :root {
+      --book-max-width: 1080px;
+      --sidebar-toc-width: 280px;
+    }
+
+    body {
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      font-family: 'Noto Sans TC', system-ui, -apple-system, sans-serif;
+      line-height: 1.85;
+      font-size: 1.05rem;
+    }
+
+    .book-layout {
+      max-width: var(--book-max-width);
+      margin: 0 auto;
+      padding: 2rem 1.5rem 6rem 1.5rem;
+      position: relative;
+    }
+
+    /* 頂部導航條 */
+    .book-top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border-light);
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .btn-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-size: 0.88rem;
+      font-weight: 750;
+      padding: 0.45rem 1rem;
+      border-radius: var(--radius-full);
+      text-decoration: none;
+      transition: all var(--transition-fast);
+      border: 1px solid var(--border-light);
+      background: var(--bg-card);
+      color: var(--text-secondary);
+    }
+
+    .btn-pill:hover {
+      color: var(--accent-primary);
+      border-color: var(--accent-primary);
+      transform: translateY(-1px);
+    }
+
+    /* 書本封面看板 */
+    .book-cover {
+      background: linear-gradient(135deg, rgba(79, 70, 229, 0.09) 0%, rgba(14, 165, 233, 0.09) 100%);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-xl);
+      padding: 3rem 2.5rem;
+      margin-bottom: 3rem;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .book-cover::after {
+      content: '🚀';
+      position: absolute;
+      right: 2rem;
+      bottom: -1.5rem;
+      font-size: 9rem;
+      opacity: 0.12;
+      pointer-events: none;
+    }
+
+    .book-series-tag {
+      display: inline-block;
+      font-size: 0.82rem;
+      font-weight: 800;
+      color: var(--accent-primary);
+      background: rgba(79, 70, 229, 0.12);
+      border: 1px solid rgba(79, 70, 229, 0.25);
+      padding: 0.3rem 0.85rem;
+      border-radius: var(--radius-full);
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .book-title {
+      font-size: 2.35rem;
+      font-weight: 900;
+      line-height: 1.3;
+      margin-bottom: 1rem;
+      color: var(--text-primary);
+      letter-spacing: -0.02em;
+    }
+
+    .book-subtitle {
+      font-size: 1.15rem;
+      color: var(--text-secondary);
+      max-width: 860px;
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+    }
+
+    .book-meta-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .meta-item {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      padding: 0.25rem 0.75rem;
+      border-radius: var(--radius-sm);
+    }
+
+    /* 快速閱讀目錄索引 */
+    .toc-container {
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem 2rem;
+      margin-bottom: 3.5rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .toc-title {
+      font-size: 1.15rem;
+      font-weight: 850;
+      color: var(--text-primary);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .toc-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 0.65rem 1.5rem;
+    }
+
+    .toc-link {
+      display: flex;
+      align-items: baseline;
+      gap: 0.6rem;
+      text-decoration: none;
+      color: var(--text-secondary);
+      font-size: 0.96rem;
+      font-weight: 600;
+      padding: 0.35rem 0.5rem;
+      border-radius: var(--radius-sm);
+      transition: all var(--transition-fast);
+    }
+
+    .toc-link:hover {
+      color: var(--accent-primary);
+      transform: translateX(4px);
+    }
+
+    .toc-link span.num {
+      color: var(--accent-primary);
+      font-weight: 800;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* 章節大區塊 */
+    .chapter-section {
+      margin-bottom: 4.5rem;
+      scroll-margin-top: 2rem;
+    }
+
+    .chapter-header {
+      border-bottom: 2px solid var(--border-light);
+      padding-bottom: 0.75rem;
+      margin-bottom: 1.75rem;
+      display: flex;
+      align-items: baseline;
+      gap: 0.85rem;
+      flex-wrap: wrap;
+    }
+
+    .chapter-num {
+      font-size: 1.25rem;
+      font-weight: 900;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--accent-primary);
+      background: rgba(79, 70, 229, 0.1);
+      padding: 0.2rem 0.7rem;
+      border-radius: var(--radius-sm);
+    }
+
+    .chapter-title {
+      font-size: 1.75rem;
+      font-weight: 850;
+      color: var(--text-primary);
+    }
+
+    /* 觀念解說卡片 */
+    .concept-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .concept-card h3 {
+      font-size: 1.3rem;
+      font-weight: 800;
+      margin-bottom: 1.15rem;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .concept-card p {
+      margin-bottom: 1.15rem;
+      color: var(--text-secondary);
+    }
+
+    .concept-card p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* 強調註解框 (Callout Boxes) */
+    .callout-box {
+      border-left: 4px solid var(--accent-primary);
+      background: rgba(79, 70, 229, 0.05);
+      border-radius: 0 var(--radius-md) var(--radius-md) 0;
+      padding: 1.2rem 1.4rem;
+      margin: 1.5rem 0;
+    }
+
+    .callout-tip {
+      border-left-color: var(--accent-emerald);
+      background: rgba(16, 185, 129, 0.05);
+    }
+
+    .callout-tip .callout-head {
+      color: #059669;
+    }
+
+    .callout-warning {
+      border-left-color: #f59e0b;
+      background: rgba(245, 158, 11, 0.06);
+    }
+
+    .callout-warning .callout-head {
+      color: #d97706;
+    }
+
+    .callout-danger {
+      border-left-color: #ef4444;
+      background: rgba(239, 68, 68, 0.06);
+    }
+
+    .callout-danger .callout-head {
+      color: #dc2626;
+    }
+
+    .callout-head {
+      font-weight: 800;
+      font-size: 0.98rem;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    /* 插圖與視覺圖表容器 (SVG Diagram Containers) */
+    .diagram-wrapper {
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      margin: 2rem 0;
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .diagram-wrapper svg {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+    }
+
+    .diagram-caption {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      margin-top: 0.85rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+    }
+
+    /* 雙向推導對照卡 (Dual Derivation System) */
+    .derivation-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.25rem;
+      margin: 1.5rem 0;
+    }
+
+    .derivation-card {
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-md);
+      padding: 1.25rem 1.4rem;
+    }
+
+    .derivation-card-title {
+      font-weight: 800;
+      font-size: 0.95rem;
+      color: var(--text-primary);
+      margin-bottom: 0.65rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .badge-method {
+      font-size: 0.72rem;
+      padding: 0.15rem 0.55rem;
+      border-radius: var(--radius-sm);
+      font-weight: 700;
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+    }
+
+    /* 比較與精解表格 */
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 1px solid var(--border-light);
+      font-size: 0.96rem;
+    }
+
+    .data-table th {
+      background: var(--bg-tertiary);
+      padding: 0.85rem 1rem;
+      text-align: left;
+      font-weight: 800;
+      color: var(--text-primary);
+      border-bottom: 2px solid var(--border-light);
+    }
+
+    .data-table td {
+      padding: 0.85rem 1rem;
+      border-bottom: 1px solid var(--border-light);
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .data-table tr:hover td {
+      background: rgba(79, 70, 229, 0.03);
+    }
+
+    /* 自學檢核清單 */
+    .checklist-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+
+    .checklist-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border-light);
+      padding: 0.85rem 1rem;
+      border-radius: var(--radius-md);
+      font-size: 0.96rem;
+    }
+
+    .check-icon {
+      color: var(--accent-emerald);
+      font-weight: 900;
+      font-size: 1.1rem;
+      line-height: 1.2;
+    }
+
+    /* 浮動目錄按鈕與置頂導航 */
+    .floating-back-top {
+      position: fixed;
+      right: 2rem;
+      bottom: 2rem;
+      width: 46px;
+      height: 46px;
+      border-radius: var(--radius-full);
+      background: var(--accent-primary);
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px var(--accent-primary-glow);
+      cursor: pointer;
+      border: none;
+      transition: all var(--transition-fast);
+      z-index: 100;
+      text-decoration: none;
+    }
+
+    .floating-back-top:hover {
+      transform: translateY(-3px);
+      background: var(--accent-primary-hover);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="book-layout">
+
+    <!-- 頂部操作按鈕列 -->
+    <header class="book-top-bar">
+      <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+        <a href="../../../index.html?unit=01_projectile" class="btn-pill" title="回到 01 拋體運動 互動題庫中心">
+          <span>←</span> 回到拋體題庫中心
+        </a>
+        <a href="../../../guide.html" class="btn-pill" title="前往 Active Recall 遮蔽回想公式寶典">
+          <span>🧠</span> 公式回想自測寶典
+        </a>
+        <a href="../../../guide_print.html" class="btn-pill" title="前往 A4 雙頁列印講義">
+          <span>🖨️</span> A4 列印講義
+        </a>
+      </div>
+
+      <button class="theme-toggle-btn" id="theme-btn" title="切換深淺模式" style="border:1px solid var(--border-light); background:var(--bg-card); width:38px; height:38px; border-radius:var(--radius-full); cursor:pointer;">
+        🌙
+      </button>
+    </header>
+
+    <!-- 書本封面看板 -->
+    <section class="book-cover">
+      <div class="book-series-tag">⚡ 高中物理自學大師系列 · 二維運動學經典篇</div>
+      <h1 class="book-title">二維拋體運動完全自學指南<br><span style="font-size:1.6rem; font-weight:750; color:var(--accent-primary);">從伽利略獨立性原理、斜面旋轉坐標到大考秒殺思維</span></h1>
+      <p class="book-subtitle">
+        拋體運動是高中物理從「一維線性」邁向「多維空間動力學」的最關鍵分水嶺！本講義徹底揚棄死背公式，以「運動獨立性正交分解」、「幾何比例美學」、「旋轉坐標系」與「時空向量大三角形」四大底層心法，帶您看透平拋、斜拋與斜面拋體的每一個時空軌跡細節！
+      </p>
+      <div class="book-meta-pills">
+        <span class="meta-item">🎨 10 組全向量高解析 SVG 圖解</span>
+        <span class="meta-item">📐 正交分解 vs 旋轉坐標系雙向推演</span>
+        <span class="meta-item">⚡ 獵人打猴子相對運動與向量抵消</span>
+        <span class="meta-item">🎯 八大經典大考題型與避坑指南</span>
+      </div>
+    </section>
+
+    <!-- 快速閱讀目錄索引 -->
+    <nav class="toc-container" aria-label="全書快速導航">
+      <div class="toc-title">
+        <span>📑</span> 講義目錄導覽 (由淺入深自學路徑)
+      </div>
+      <div class="toc-grid">
+        <a href="#ch1" class="toc-link"><span class="num">01.</span> 二維運動基石：運動獨立性與伽利略思想實驗</a>
+        <a href="#ch2" class="toc-link"><span class="num">02.</span> 水平拋體運動：正交建模、軌跡方程與二倍角切線定理</a>
+        <a href="#ch3" class="toc-link"><span class="num">03.</span> 斜向拋體運動：對稱美學與三大公式雙軌推導</a>
+        <a href="#ch4" class="toc-link"><span class="num">04.</span> 互餘角射程相等與射程因子因式分解秒殺術</a>
+        <a href="#ch5" class="toc-link"><span class="num">05.</span> 斜面拋體運動：旋轉坐標系大法與垂直撞擊條件</a>
+        <a href="#ch6" class="toc-link"><span class="num">06.</span> 大三角形幾何向量法：初速位移與自由落體疊加</a>
+        <a href="#ch7" class="toc-link"><span class="num">07.</span> 拋體曲率半徑與切向/法向加速度本質解析</a>
+        <a href="#ch8" class="toc-link"><span class="num">08.</span> 經典相對運動：獵人打猴子模型與兩物空中相撞</a>
+        <a href="#ch9" class="toc-link"><span class="num">09.</span> 大考八大題型思維導圖與解題決策樹</a>
+        <a href="#appendix" class="toc-link"><span class="num">附.</span> 拋體七大易錯地雷陣與自學精熟檢核表</a>
+      </div>
+    </nav>
+
+
+    <!-- =========================================================================
+         CHAPTER 1: 運動獨立性原理
+         ========================================================================= -->
+    <section id="ch1" class="chapter-section">
+      <div class="chapter-header">
+        <span class="chapter-num">CHAPTER 01</span>
+        <h2 class="chapter-title">二維運動基石：運動獨立性與伽利略思想實驗</h2>
+      </div>
+
+      <div class="concept-card">
+        <h3><span>💡</span> 為什麼能把曲線拆成兩條直線？—— 伽利略的運動獨立性原理</h3>
+        <p>
+          在日常生活直覺中，當一顆棒球被以高速向前投擲出去時，很多人會下意識地認為：「它向前衝的速度這麼快，重力是不是要過一陣子才會發揮作用？」或者「水平速度越快，球在空中停留的時間越久？」。
+        </p>
+        <p>
+          這是歷史上亞里斯多德物理學留下的致命誤解。<strong>17 世紀的伽利略（Galileo Galilei）以精準的思想實驗徹底粉碎了這個迷思：</strong>
+        </p>
+
+        <div class="callout-box callout-tip">
+          <div class="callout-head"><span>🌟</span> 伽利略運動獨立性原理 (Principle of Independence of Motions)</div>
+          <p>
+            當一個物體在空間中同時參與兩個不同方向的運動時，<strong>這兩個正交方向的運動互不干擾、各自獨立進行</strong>。物體在鉛直方向的運動完全由鉛直受力決定；在水平方向的運動完全由水平受力決定。
+          </p>
+        </div>
+
+        <p>
+          對於只受重力作用的拋體而言：
+          <br>1. <strong>水平方向（$x$ 軸）</strong>：合力 $F_x = 0 \implies$ 加速度 $a_x = 0$。水平方向永遠維持<strong>等速直線運動</strong>。
+          <br>2. <strong>鉛直方向（$y$ 軸）</strong>：合力 $F_y = mg \implies$ 加速度 $a_y = g$（向下）。鉛直方向永遠維持<strong>等加速度直線運動（自由落體或鉛直上拋）</strong>。
+        </p>
+
+        <!-- 圖解 1: 平拋與自由落體等時閃光軌跡對照圖 -->
+        <div class="diagram-wrapper">
+          <svg viewBox="0 0 760 380" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <marker id="arrow1" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                <path d="M 0 1 L 10 5 L 0 9 z" fill="#4f46e5" />
+              </marker>
+              <marker id="arrowG" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                <path d="M 0 1 L 10 5 L 0 9 z" fill="#ef4444" />
+              </marker>
+            </defs>
+
+            <!-- 背景隔線網格 -->
+            <g stroke="#e2e8f0" stroke-width="1" stroke-dasharray="3,3">
+              <line x1="80" y1="50" x2="680" y2="50" />
+              <line x1="80" y1="80" x2="680" y2="80" />
+              <line x1="80" y1="140" x2="680" y2="140" />
+              <line x1="80" y1="230" x2="680" y2="230" />
+              <line x1="80" y1="350" x2="680" y2="350" />
+              <line x1="120" y1="40" x2="120" y2="360" />
+              <line x1="240" y1="40" x2="240" y2="360" />
+              <line x1="360" y1="40" x2="360" y2="360" />
+              <line x1="480" y1="40" x2="480" y2="360" />
+              <line x1="600" y1="40" x2="600" y2="360" />
+            </g>
+
+            <!-- 懸崖平台 -->
+            <rect x="30" y="45" width="90" height="315" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2" />
+            <text x="75" y="180" font-size="13" font-weight="700" fill="#64748b" text-anchor="middle">發射台</text>
+
+            <!-- 自由落體球 (左側 x=120) -->
+            <g fill="#059669">
+              <circle cx="120" cy="50" r="9" />
+              <circle cx="120" cy="80" r="9" />
+              <circle cx="120" cy="140" r="9" />
+              <circle cx="120" cy="230" r="9" />
+              <circle cx="120" cy="350" r="9" />
+            </g>
+            <text x="120" y="30" font-size="13" font-weight="800" fill="#059669" text-anchor="middle">A 球：純自由落體</text>
+
+            <!-- 平拋球軌跡 (曲線) -->
+            <path d="M 120 50 Q 360 80 600 350" fill="none" stroke="#4f46e5" stroke-width="2.5" stroke-dasharray="4,4" />
+
+            <!-- 平拋球 (依時間間隔) -->
+            <g fill="#4f46e5">
+              <circle cx="120" cy="50" r="9" />
+              <circle cx="240" cy="80" r="9" />
+              <circle cx="360" cy="140" r="9" />
+              <circle cx="480" cy="230" r="9" />
+              <circle cx="600" cy="350" r="9" />
+            </g>
+            <text x="360" y="25" font-size="13" font-weight="800" fill="#4f46e5" text-anchor="middle">B 球：水平初速 v0 平拋</text>
+
+            <!-- 水平初速箭頭 -->
+            <line x1="120" y1="50" x2="190" y2="50" stroke="#4f46e5" stroke-width="2.5" marker-end="url(#arrow1)" />
+            <text x="155" y="42" font-size="12" font-weight="800" fill="#4f46e5">v₀</text>
+
+            <!-- 輔助水平對照線與時間標記 -->
+            <line x1="120" y1="50" x2="650" y2="50" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="2,2" />
+            <text x="655" y="54" font-size="11" font-weight="700" fill="#64748b">t = 0</text>
+
+            <line x1="120" y1="80" x2="650" y2="80" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="2,2" />
+            <text x="655" y="84" font-size="11" font-weight="700" fill="#64748b">t = 1T (Δy = 1h)</text>
+
+            <line x1="120" y1="140" x2="650" y2="140" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="2,2" />
+            <text x="655" y="144" font-size="11" font-weight="700" fill="#64748b">t = 2T (Δy = 3h)</text>
+
+            <line x1="120" y1="230" x2="650" y2="230" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="2,2" />
+            <text x="655" y="234" font-size="11" font-weight="700" fill="#64748b">t = 3T (Δy = 5h)</text>
+
+            <line x1="120" y1="350" x2="650" y2="350" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="2,2" />
+            <text x="655" y="354" font-size="11" font-weight="700" fill="#64748b">t = 4T (Δy = 7h)</text>
+
+            <!-- 水平位移等距提示 -->
+            <path d="M 120 365 L 240 365" stroke="#4f46e5" stroke-width="1.5" />
+            <text x="180" y="378" font-size="11" font-weight="700" fill="#4f46e5" text-anchor="middle">Δx = v₀T</text>
+            <path d="M 240 365 L 360 365" stroke="#4f46e5" stroke-width="1.5" />
+            <text x="300" y="378" font-size="11" font-weight="700" fill="#4f46e5" text-anchor="middle">Δx = v₀T</text>
+            <path d="M 360 365 L 480 365" stroke="#4f46e5" stroke-width="1.5" />
+            <text x="420" y="378" font-size="11" font-weight="700" fill="#4f46e5" text-anchor="middle">Δx = v₀T</text>
+            <path d="M 480 365 L 600 365" stroke="#4f46e5" stroke-width="1.5" />
+            <text x="540" y="378" font-size="11" font-weight="700" fill="#4f46e5" text-anchor="middle">Δx = v₀T</text>
+
+            <!-- 結論註記 -->
+            <rect x="250" y="160" width="310" height="52" rx="8" fill="rgba(255,255,255,0.92)" stroke="#4f46e5" stroke-width="1.5" />
+            <text x="405" y="182" font-size="12" font-weight="800" fill="#1e293b" text-anchor="middle">【關鍵發現】任意時刻 t 兩球的高度完全相同！</text>
+            <text x="405" y="200" font-size="11" font-weight="600" fill="#64748b" text-anchor="middle">落地時間 t 完全由高度 H 決定，與初速 v₀ 無關！</text>
+          </svg>
+          <div class="diagram-caption">
+            <span>📊</span> 圖 1：伽利略等時頻閃實驗 —— 平拋球與自由落體在垂直方向的下落時程完全重合
+          </div>
+        </div>
+
+        <div class="callout-box callout-warning">
+          <div class="callout-head"><span>⚠️</span> 自學第一死穴：被水平初速騙了「滯空時間」</div>
+          <p>
+            「初速 $v_0 = 10\text{ m/s}$ 的平拋，和初速 $v_0 = 1000\text{ m/s}$（如狙擊槍子彈）的平拋，若從同一高度釋放，誰先著地？」
+            <br><strong>答案是：同時著地！</strong>
+            因為自由下落的加速度全由重力 $g$ 負責。既然兩者鉛直初速度皆為 0（$v_{0y} = 0$），且加速度皆為 $g$，其下墜時間永遠滿足 $h = \frac{1}{2}gt^2 \implies t = \sqrt{\frac{2h}{g}}$。$v_0$ 只能決定子彈飛到多遠的水平距離，絲毫無法延緩其落地的瞬間！
+          </p>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- =========================================================================
+         CHAPTER 2: 水平拋體運動定量方程式
+         ========================================================================= -->
+    <section id="ch2" class="chapter-section">
+      <div class="chapter-header">
+        <span class="chapter-num">CHAPTER 02</span>
+        <h2 class="chapter-title">水平拋體運動：正交建模、軌跡方程與二倍角切線定理</h2>
+      </div>
+
+      <div class="concept-card">
+        <h3><span>📐</span> 平拋運動的數學定量系統</h3>
+        <p>
+          建立以拋出點為坐標原點 $(0, 0)$，水平向右為 $+x$ 軸，鉛直向下為 $+y$ 軸的二維直角坐標系：
+        </p>
+
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>物理維度</th>
+              <th>水平方向 ($x$ 軸，等速直線)</th>
+              <th>鉛直方向 ($y$ 軸，自由落體)</th>
+              <th>合成物理量 (二維向量疊加)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>加速度</strong></td>
+              <td>$a_x = 0$</td>
+              <td>$a_y = g$（向下）</td>
+              <td>$\vec{a} = (0, g)$，量值 $a = g$</td>
+            </tr>
+            <tr>
+              <td><strong>瞬時速度</strong></td>
+              <td>$v_x(t) = v_0$（恆定）</td>
+              <td>$v_y(t) = gt$</td>
+              <td>$v(t) = \sqrt{v_0^2 + (gt)^2}$</td>
+            </tr>
+            <tr>
+              <td><strong>位置/位移</strong></td>
+              <td>$x(t) = v_0 t$</td>
+              <td>$y(t) = \frac{1}{2}gt^2$</td>
+              <td>$S(t) = \sqrt{x^2 + y^2} = \sqrt{(v_0 t)^2 + (\frac{1}{2}gt^2)^2}$</td>
+            </tr>
+            <tr>
+              <td><strong>方向偏角</strong></td>
+              <td colspan="2">
+                速度切線角正切：$\tan\theta = \frac{v_y}{v_x} = \frac{gt}{v_0}$
+              </td>
+              <td>
+                位移偏角正切：$\tan\alpha = \frac{y}{x} = \frac{\frac{1}{2}gt^2}{v_0 t} = \frac{gt}{2v_0}$
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- 圖解 2: 平拋切線速度偏角與位移偏角的 2 倍幾何定理 -->
+        <div class="diagram-wrapper">
+          <svg viewBox="0 0 760 360" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <marker id="arrV" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                <path d="M 0 1 L 10 5 L 0 9 z" fill="#4f46e5" />
+              </marker>
+              <marker id="arrS" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                <path d="M 0 1 L 10 5 L 0 9 z" fill="#059669" />
+              </marker>
+            </defs>
+
+            <!-- 坐標軸 -->
+            <line x1="80" y1="40" x2="680" y2="40" stroke="#64748b" stroke-width="2" marker-end="url(#arrV)" />
+            <text x="690" y="44" font-size="13" font-weight="800" fill="#64748b">+x</text>
+            <line x1="80" y1="40" x2="80" y2="330" stroke="#64748b" stroke-width="2" marker-end="url(#arrV)" />
+            <text x="75" y="345" font-size="13" font-weight="800" fill="#64748b">+y</text>
+            <circle cx="80" cy="40" r="4" fill="#1e293b" />
+            <text x="65" y="35" font-size="13" font-weight="800" fill="#1e293b">O</text>
+
+            <!-- 拋物線軌跡 -->
+            <path d="M 80 40 Q 280 40 520 280" fill="none" stroke="#cbd5e1" stroke-width="2.5" stroke-dasharray="4,4" />
+
+            <!-- 取一點 P(x, y) = (520, 280) -->
+            <circle cx="520" cy="280" r="7" fill="#4f46e5" />
+            <text x="535" y="285" font-size="14" font-weight="800" fill="#4f46e5">P (x, y)</text>
+
+            <!-- 位移向量 OP (綠色) -->
+            <line x1="80" y1="40" x2="520" y2="280" stroke="#059669" stroke-width="2.5" marker-end="url(#arrS)" />
+            <text x="270" y="150" font-size="13" font-weight="800" fill="#059669">位移向量 S</text>
+
+            <!-- 位移角 alpha 弧度 -->
+            <path d="M 160 40 A 80 80 0 0 1 150 78" fill="none" stroke="#059669" stroke-width="2" />
+            <text x="170" y="70" font-size="13" font-weight="800" fill="#059669">α (位移角)</text>
+
+            <!-- 速度切線向量 (藍色) -->
+            <line x1="520" y1="280" x2="630" y2="355" stroke="#4f46e5" stroke-width="3" marker-end="url(#arrV)" />
+            <text x="640" y="355" font-size="14" font-weight="900" fill="#4f46e5">切線速度 v</text>
+
+            <!-- 切線反向延長線 (貫穿至 x 軸) -->
+            <line x1="520" y1="280" x2="300" y2="40" stroke="#ef4444" stroke-width="2" stroke-dasharray="4,4" />
+            <circle cx="300" cy="40" r="5" fill="#ef4444" />
+            <text x="290" y="28" font-size="13" font-weight="900" fill="#ef4444">Q (x/2, 0) 中點！</text>
+
+            <!-- 水平與鉛直投影虛線 -->
+            <line x1="520" y1="40" x2="520" y2="280" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="3,3" />
+            <line x1="80" y1="280" x2="520" y2="280" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="3,3" />
+
+            <!-- 水平長度標示 (x/2 與 x/2) -->
+            <line x1="80" y1="300" x2="300" y2="300" stroke="#64748b" stroke-width="1.5" />
+            <text x="190" y="315" font-size="12" font-weight="700" fill="#64748b" text-anchor="middle">x / 2</text>
+            <line x1="300" y1="300" x2="520" y2="300" stroke="#64748b" stroke-width="1.5" />
+            <text x="410" y="315" font-size="12" font-weight="700" fill="#64748b" text-anchor="middle">x / 2</text>
+
+            <!-- 速度角 theta 標記 -->
+            <path d="M 370 40 A 70 70 0 0 1 355 90" fill="none" stroke="#ef4444" stroke-width="2" />
+            <text x="385" y="80" font-size="13" font-weight="800" fill="#ef4444">θ (速度切線角)</text>
+          </svg>
+          <div class="diagram-caption">
+            <span>✨</span> 圖 2：平拋黃金幾何定理 —— 速度切線反向延長線必過水平位移正中點 ($\frac{x}{2}, 0$)，且 $\tan\theta = 2\tan\alpha$
+          </div>
+        </div>
+
+        <div class="callout-box callout-tip">
+          <div class="callout-head"><span>🔥</span> 大考秒殺必備：平拋二倍角切線定理之神威</div>
+          <p>
+            觀察圖 2 的幾何推導：
+            $$\tan\theta = \frac{v_y}{v_x} = \frac{gt}{v_0}$$
+            $$\tan\alpha = \frac{y}{x} = \frac{\frac{1}{2}gt^2}{v_0 t} = \frac{gt}{2v_0}$$
+            兩式一比，立刻得到震撼全場的結論：
+            $$\Large \tan\theta = 2\tan\alpha$$
+            <strong>幾何物理意義</strong>：在直角三角形中，$\tan\theta = \frac{y}{\Delta x} \implies \Delta x = \frac{y}{\tan\theta} = \frac{y}{2\tan\alpha} = \frac{x}{2}$。
+            這代表：<strong>任意時刻 $P$ 點的速度切線反向延長線，永遠精準命中水平位移的中點！</strong>在許多大考題目中，只要看到「垂直撞擊斜面」或「求落地瞬時速度夾角」，利用這條中點定理，3 秒鐘免列二次方程即可秒殺！
+          </p>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- =========================================================================
+         CHAPTER 3: 斜向拋體運動三大公式雙軌推導
+         ========================================================================= -->
+    <section id="ch3" class="chapter-section">
+      <div class="chapter-header">
+        <span class="chapter-num">CHAPTER 03</span>
+        <h2 class="chapter-title">斜向拋體運動：對稱美學與三大公式雙軌推導</h2>
+      </div>
+
+      <div class="concept-card">
+        <h3><span>🚀</span> 斜拋的運動分解與對稱性</h3>
+        <p>
+          當物體以初速 $v_0$、仰角 $\theta$ 從地面拋出時，其初速度可立即正交分解為：
+          $$v_{0x} = v_0 \cos\theta \quad (\text{水平等速分量})$$
+          $$v_{0y} = v_0 \sin\theta \quad (\text{鉛直上拋分量})$$
+        </p>
+
+        <div class="derivation-container">
+          <div class="derivation-card">
+            <div class="derivation-card-title">
+              <span>公式一：飛行總時間 $T$</span>
+              <span class="badge-method">運動對稱推導</span>
+            </div>
+            <p><strong>上升時間 $t_u$：</strong>在最高點處，鉛直速度降為零 $v_y = 0$：</p>
+            $$v_y = v_{0y} - gt_u = 0 \implies t_u = \frac{v_{0y}}{g} = \frac{v_0\sin\theta}{g}$$
+            <p><strong>總滯空時間 $T$：</strong>由於重力場中上升與下降的加速度大小相同，運動具有完全對稱性：</p>
+            $$\Large T = 2 t_u = \frac{2v_0\sin\theta}{g} = \frac{2v_{0y}}{g}$$
+          </div>
+
+          <div class="derivation-card">
+            <div class="derivation-card-title">
+              <span>公式二：最大飛行高度 $H$</span>
+              <span class="badge-method">功能定理/公式三</span>
+            </div>
+            <p>由運動學第三公式 $v_y^2 = v_{0y}^2 - 2gH$，最高點 $v_y = 0$：</p>
+            $$0 = v_{0y}^2 - 2gH \implies \Large H = \frac{v_{0y}^2}{2g} = \frac{v_0^2\sin^2\theta}{2g}$$
+            <p style="font-size:0.88rem; color:var(--text-muted);">
+              <strong>能量視角：</strong>最高點處 $\Delta E_k = \frac{1}{2}m v_{0y}^2 = mgH$，完全吻合！
+            </p>
+          </div>
+        </div>
+
+        <div class="derivation-card" style="margin-top:1rem;">
+          <div class="derivation-card-title">
+            <span>公式三：水平射程 $R$ (Horizontal Range)</span>
+            <span class="badge-method">二倍角公式合成</span>
+          </div>
+          <p>水平方向全程以等速度 $v_{0x}$ 運動，歷經總時間 $T$：</p>
+          $$R = v_{0x} \cdot T = (v_0\cos\theta) \cdot \left(\frac{2v_0\sin\theta}{g}\right) = \frac{2v_0^2\sin\theta\cos\theta}{g}$$
+          <p>代入三角函數二倍角公式 $2\sin\theta\cos\theta = \sin 2\theta$，得到著名的射程公式：</p>
+          $$\Large R = \frac{v_0^2 \sin 2\theta}{g} = \frac{2 v_{0x} v_{0y}}{g}$$
+        </div>
+
+        <!-- 圖解 3: 斜向拋體對稱軌跡與互餘角神效應 -->
+        <div class="diagram-wrapper">
+          <svg viewBox="0 0 760 380" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <marker id="arrV2" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                <path d="M 0 1 L 10 5 L 0 9 z" fill="#4f46e5" />
+              </marker>
+              <marker id="arrV3" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                <path d="M 0 1 L 10 5 L 0 9 z" fill="#059669" />
+              </marker>
+            </defs>
+
+            <!-- 地面 -->
+            <line x1="60" y1="320" x2="700" y2="320" stroke="#475569" stroke-width="2.5" />
+            <text x="690" y="340" font-size="12" font-weight="700" fill="#64748b">地面 (y=0)</text>
+
+            <!-- 互餘角雙軌跡對比: 仰角 60度 (高) 與 30度 (低) -->
+            <path d="M 100 320 Q 340 60 580 320" fill="none" stroke="#059669" stroke-width="2.5" />
+            <path d="M 100 320 Q 340 233 580 320" fill="none" stroke="#6366f1" stroke-width="2.5" stroke-dasharray="4,4" />
+
+            <!-- 45度軌跡 (最大射程，橘色): 射程更遠 -->
+            <path d="M 100 320 Q 380 140 660 320" fill="none" stroke="#f59e0b" stroke-width="2" stroke-dasharray="2,2" />
+
+            <!-- 初速向量 (60度) -->
+            <line x1="100" y1="320" x2="160" y2="216" stroke="#059669" stroke-width="2.5" marker-end="url(#arrV3)" />
+            <text x="135" y="210" font-size="12" font-weight="800" fill="#059669">θ = 60°</text>
+
+            <!-- 初速向量 (30度) -->
+            <line x1="100" y1="320" x2="186" y2="270" stroke="#6366f1" stroke-width="2.5" marker-end="url(#arrV2)" />
+            <text x="195" y="270" font-size="12" font-weight="800" fill="#6366f1">θ = 30°</text>
+
+            <!-- 最高點頂部標示 (60度軌跡頂點: x=340, y=190) -->
+            <circle cx="340" cy="190" r="5" fill="#059669" />
+            <line x1="340" y1="190" x2="400" y2="190" stroke="#059669" stroke-width="2" marker-end="url(#arrV3)" />
+            <text x="405" y="185" font-size="11" font-weight="800" fill="#059669">頂點速度 vx = v₀cosθ (純水平！)</text>
+
+            <!-- 最大高度 H 標記 (60度) -->
+            <line x1="340" y1="190" x2="340" y2="320" stroke="#059669" stroke-width="1.5" stroke-dasharray="3,3" />
+            <text x="325" y="260" font-size="12" font-weight="800" fill="#059669" text-anchor="end">H₆₀</text>
+
+            <!-- 共同落地點 R -->
+            <circle cx="580" cy="320" r="6" fill="#ef4444" />
+            <text x="580" y="345" font-size="13" font-weight="800" fill="#ef4444" text-anchor="middle">同著地點 R (θ=30° 與 60°)</text>
+
+            <!-- 射程 R 標註箭頭線 -->
+            <line x1="100" y1="360" x2="580" y2="360" stroke="#64748b" stroke-width="1.5" />
+            <circle cx="100" cy="360" r="3" fill="#64748b" />
+            <circle cx="580" cy="360" r="3" fill="#64748b" />
+            <text x="340" y="375" font-size="12" font-weight="800" fill="#1e293b" text-anchor="middle">共同水平射程 R = (v₀² sin 2θ) / g</text>
+          </svg>
+          <div class="diagram-caption">
+            <span>🎯</span> 圖 3：斜拋對稱性與互餘角神效應 —— 仰角 $\theta$ 與 $90^\circ - \theta$ 射程完全相同，但高者滯空久、低者疾速抵達
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- =========================================================================
+         CHAPTER 4: 軌跡方程與射程因子法
+         ========================================================================= -->
+    <section id="ch4" class="chapter-section">
+      <div class="chapter-header">
+        <span class="chapter-num">CHAPTER 04</span>
+        <h2 class="chapter-title">互餘角射程相等與射程因子因式分解秒殺術</h2>
+      </div>
+
+      <div class="concept-card">
+        <h3><span>⚡</span> 射程與最大高度的神祕比例：$\frac{H}{R} = \frac{1}{4}\tan\theta$</h3>
+        <p>
+          將最大高度公式 $H = \frac{v_0^2\sin^2\theta}{2g}$ 與射程公式 $R = \frac{2v_0^2\sin\theta\cos\theta}{g}$ 兩式相除：
+          $$\frac{H}{R} = \frac{\frac{v_0^2\sin^2\theta}{2g}}{\frac{2v_0^2\sin\theta\cos\theta}{g}} = \frac{\sin^2\theta}{4\sin\theta\cos\theta} = \frac{\sin\theta}{4\cos\theta} = \frac{1}{4}\tan\theta$$
+        </p>
+
+        <div class="callout-box callout-tip">
+          <div class="callout-head"><span>🏆</span> 高中大考第一秒殺公式：$\tan\theta = \frac{4H}{R}$</div>
+          <p>
+            <strong>心法</strong>：凡是在考卷上看見「拋體的高度是射程的幾分之幾」或「給了 $H$ 與 $R$ 求仰角 $\theta$」，不需要代初速 $v_0$、不需要算時間 $t$，直接代入：
+            $$\Large \tan\theta = \frac{4H}{R}$$
+            <strong>經典特例</strong>：當 $\theta = 45^\circ$（最大射程時），$\tan 45^\circ = 1 \implies \mathbf{R = 4H}$！最大射程恰好是其最大高度的 4 倍！
+          </p>
+        </div>
+
+        <h3><span>🔍</span> 軌跡方程的高階變形：射程因子分解形</h3>
+        <p>
+          一般課本給的拋物線軌跡方程是消去時間 $t$ 後的代數式：
+          $$x = v_0\cos\theta \cdot t \implies t = \frac{x}{v_0\cos\theta}$$
+          代入 $y = v_0\sin\theta \cdot t - \frac{1}{2}gt^2$：
+          $$y = x\tan\theta - \frac{g}{2v_0^2\cos^2\theta}x^2$$
+          這個公式在計算特定障礙物問題時非常笨重。我們對其進行神級因式分解：
+        </p>
+
+        <div class="derivation-card" style="background:var(--bg-tertiary);">
+          <div class="derivation-card-title">
+            <span>軌跡方程因式分解推導</span>
+            <span class="badge-method">射程因子化</span>
+          </div>
+          $$y = x\tan\theta \left(1 - \frac{gx}{2v_0^2\cos^2\theta \tan\theta}\right)$$
+          注意括號內分母的項：
+          $$2v_0^2\cos^2\theta \left(\frac{\sin\theta}{\cos\theta}\right) = 2v_0^2\sin\theta\cos\theta = v_0^2\sin 2\theta = gR$$
+          因此整條方程式瞬間簡化為：
+          $$\Large \mathbf{y = x\tan\theta \left(1 - \frac{x}{R}\right)}$$
+        </div>
+
+        <p style="margin-top:1rem;">
+          <strong>大考實戰價值</strong>：當題目給定拋體的水平射程 $R$，以及要求物體恰好越過距發射點 $x$ 處、高為 $y$ 的高牆（或網球過網）時，傳統做法需要解二次方程式聯立初速與角度；<strong>而利用射程因子式，一行即可直接解出仰角正切 $\tan\theta$！</strong>
+        </p>
+      </div>
+    </section>
+
+
+    <!-- =========================================================================
+         CHAPTER 5: 斜面拋體運動
+         ========================================================================= -->
+    <section id="ch5" class="chapter-section">
+      <div class="chapter-header">
+        <span class="chapter-num">CHAPTER 05</span>
+        <h2 class="chapter-title">斜面拋體運動：旋轉坐標系大法與垂直撞擊條件</h2>
+      </div>
+
+      <div class="concept-card">
+        <h3><span>⛰️</span> 為什麼在斜面上要「旋轉坐標系」？</h3>
+        <p>
+          當一個斜面的傾角為 $\alpha$，物體從斜面底端以相對水平仰角 $\theta$（即相對斜面夾角 $\beta = \theta - \alpha$）拋出時：
+          <br>若採用傳統的水平-鉛直直角坐標系，斜面的邊界條件為直線方程式 $y = x\tan\alpha$。物體落回斜面相當於解拋物線與直線的交點，代數計算極其冗長易錯。
+        </p>
+        <p>
+          <strong>真正高手破題法：將坐標系旋轉 $\alpha$ 角，使坐標軸與斜面平行/垂直！</strong>
+        </p>
+
+        <!-- 圖解 4: 斜面旋轉坐標系分解圖 -->
+        <div class="diagram-wrapper">
+          <svg viewBox="0 0 760 380" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <marker id="arrSlope" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                <path d="M 0 1 L 10 5 L 0 9 z" fill="#4f46e5" />
+              </marker>
+              <marker id="arrG2" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                <path d="M 0 1 L 10 5 L 0 9 z" fill="#ef4444" />
+              </marker>
+            </defs>
+
+            <!-- 斜面 (傾角 alpha = 30度) -->
+            <polygon points="80,320 620,320 620,130" fill="rgba(203, 213, 225, 0.25)" stroke="#94a3b8" stroke-width="2" />
+            <line x1="80" y1="320" x2="620" y2="130" stroke="#334155" stroke-width="3" />
+            <text x="360" y="240" font-size="14" font-weight="800" fill="#334155" transform="rotate(-19, 360, 240)">斜面 (傾角 α)</text>
+
+            <!-- 傾角 alpha 弧度 -->
+            <path d="M 160 320 A 80 80 0 0 0 155 294" fill="none" stroke="#64748b" stroke-width="2" />
+            <text x="175" y="310" font-size="13" font-weight="800" fill="#64748b">α</text>
+
+            <!-- 旋轉坐標軸: x' 沿斜面向上, y' 垂直斜面向上 -->
+            <line x1="80" y1="320" x2="650" y2="120" stroke="#4f46e5" stroke-width="2" marker-end="url(#arrSlope)" />
+            <text x="655" y="115" font-size="14" font-weight="900" fill="#4f46e5">+x' (沿斜面)</text>
+
+            <line x1="80" y1="320" x2="16" y2="135" stroke="#4f46e5" stroke-width="2" marker-end="url(#arrSlope)" />
+            <text x="10" y="125" font-size="14" font-weight="900" fill="#4f46e5">+y' (垂直斜面)</text>
+
+            <!-- 重力加速度分解圖 (在空間中任意點) -->
+            <g transform="translate(420, 70)">
+              <!-- 重力 g 鉛直向下 -->
+              <line x1="0" y1="0" x2="0" y2="85" stroke="#ef4444" stroke-width="3" marker-end="url(#arrG2)" />
+              <text x="10" y="55" font-size="14" font-weight="900" fill="#ef4444">重力 g</text>
+
+              <!-- 垂直分量 g*cos(alpha) -->
+              <line x1="0" y1="0" x2="-28" y2="79" stroke="#ef4444" stroke-width="2" stroke-dasharray="3,3" marker-end="url(#arrG2)" />
+              <text x="-120" y="60" font-size="12" font-weight="800" fill="#ef4444">gy' = g cos α</text>
+
+              <!-- 平行分量 g*sin(alpha) 沿斜面向下 -->
+              <line x1="0" y1="0" x2="28" y2="6" stroke="#ef4444" stroke-width="2" stroke-dasharray="3,3" marker-end="url(#arrG2)" />
+              <text x="35" y="10" font-size="12" font-weight="800" fill="#ef4444">gx' = g sin α</text>
+            </g>
+
+            <!-- 拋體軌跡 (拋物線落回斜面) -->
+            <path d="M 80 320 Q 260 70 520 165" fill="none" stroke="#059669" stroke-width="3" />
+            <circle cx="80" cy="320" r="5" fill="#059669" />
+            <circle cx="520" cy="165" r="6" fill="#ef4444" />
+            <text x="535" y="165" font-size="13" font-weight="800" fill="#ef4444">著地點 (y'=0)</text>
+
+            <!-- 離斜面最遠處 (vy'=0，速度恰與斜面平行) -->
+            <circle cx="285" cy="165" r="5" fill="#f59e0b" />
+            <line x1="250" y1="177" x2="330" y2="149" stroke="#f59e0b" stroke-width="2.5" />
+            <text x="270" y="135" font-size="12" font-weight="800" fill="#f59e0b">最遠點：速度平行斜面 (vy'=0)</text>
+          </svg>
+          <div class="diagram-caption">
+            <span>📐</span> 圖 4：斜面旋轉坐標系 —— 重力分解為 $g\cos\alpha$ 與 $g\sin\alpha$，落回斜面即為單純的 $y'=0$ 條件
+          </div>
+        </div>
+
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>坐標軸</th>
+              <th>加速度分量</th>
+              <th>初速度分量 ($\beta = \theta - \alpha$)</th>
+              <th>物理意義</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>$y'$ 軸 (垂直斜面)</strong></td>
+              <td>$a_{y'} = -g\cos\alpha$</td>
+              <td>$v_{0y'} = v_0\sin\beta$</td>
+              <td>等效為鉛直上拋，決定<strong>在空中的停留時間與離斜面最大高度</strong>！</td>
+            </tr>
+            <tr>
+              <td><strong>$x'$ 軸 (平行斜面)</strong></td>
+              <td>$a_{x'} = -g\sin\alpha$</td>
+              <td>$v_{0x'} = v_0\cos\beta$</td>
+              <td>等效為帶有阻礙加速度的等加速度直線運動。</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="callout-box callout-tip">
+          <div class="callout-head"><span>⚡</span> 兩大斜面大考高頻極限判定條件</div>
+          <p>
+            1. <strong>何時物體離斜面最遠？</strong>
+            <br>當垂直斜面的速度降為零時（$v_{y'} = 0$），此時<strong>物體的合速度剛好平行於斜面</strong>！
+            $$t_{\text{最遠}} = \frac{v_{0y'}}{g\cos\alpha} = \frac{v_0\sin(\theta - \alpha)}{g\cos\alpha}$$
+            2. <strong>何時物體垂直撞擊斜面？</strong>
+            <br>垂直撞擊斜面，代表著地瞬間<strong>平行斜面的速度剛好減速到零（$v_{x'} = 0$）</strong>！
+            $$v_{x'} = v_{0x'} - (g\sin\alpha) t = 0 \implies v_0\cos(\theta - \alpha) = (g\sin\alpha) t$$
+            利用此條件與 $t = \frac{2v_0\sin(\theta - \alpha)}{g\cos\alpha}$ 聯立，可瞬間解出拋射角 $\theta$ 的正切值！
+          </p>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- =========================================================================
+         CHAPTER 6: 向量大三角形幾何法
+         ========================================================================= -->
+    <section id="ch6" class="chapter-section">
+      <div class="chapter-header">
+        <span class="chapter-num">CHAPTER 06</span>
+        <h2 class="chapter-title">大三角形幾何向量法：初速位移與自由落體疊加</h2>
+      </div>
+
+      <div class="concept-card">
+        <h3><span>📐</span> 拋體位移的向量合成：$\vec{r}(t) = \vec{v}_0 t + \frac{1}{2}\vec{g}t^2$</h3>
+        <p>
+          很多同學在解斜面拋體或空中相遇時，習慣把 $x, y$ 拆解列出兩三個方程式聯立求解，往往解出又臭又長的三角二次方。
+          但如果我們從<strong>純向量位移視角</strong>來看，拋體在任意時間 $t$ 內的位移向量 $\vec{r}$，本質上就是兩個位移向量的幾何相加：
+          $$\Large \vec{r} = (\vec{v}_0 t) + \left(\frac{1}{2}\vec{g}t^2\right)$$
+        </p>
+
+        <!-- 圖解 5: 大三角形幾何向量法 -->
+        <div class="diagram-wrapper">
+          <svg viewBox="0 0 760 340" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <marker id="arrV0" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                <path d="M 0 1 L 10 5 L 0 9 z" fill="#4f46e5" />
+              </marker>
+              <marker id="arrG3" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                <path d="M 0 1 L 10 5 L 0 9 z" fill="#ef4444" />
+              </marker>
+              <marker id="arrR" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                <path d="M 0 1 L 10 5 L 0 9 z" fill="#059669" />
+              </marker>
+            </defs>
+
+            <!-- 發射點 O (100, 280) -->
+            <circle cx="100" cy="280" r="5" fill="#1e293b" />
+            <text x="85" y="295" font-size="14" font-weight="900" fill="#1e293b">O (起點)</text>
+
+            <!-- 初速直線等速向量: v0 * t (藍色) -->
+            <line x1="100" y1="280" x2="520" y2="40" stroke="#4f46e5" stroke-width="3" marker-end="url(#arrV0)" />
+            <text x="300" y="140" font-size="14" font-weight="800" fill="#4f46e5" transform="rotate(-30, 300, 140)">
+              初速等速直線位移: v₀ t
+            </text>
+
+            <!-- 頂點 Q (520, 40) -->
+            <circle cx="520" cy="40" r="5" fill="#4f46e5" />
+            <text x="535" y="45" font-size="13" font-weight="800" fill="#4f46e5">Q (若無重力會抵達處)</text>
+
+            <!-- 自由落體下墜位移: 1/2 g t^2 (紅色鉛直向下) -->
+            <line x1="520" y1="40" x2="520" y2="240" stroke="#ef4444" stroke-width="3" marker-end="url(#arrG3)" />
+            <text x="535" y="150" font-size="14" font-weight="800" fill="#ef4444">自由下墜: ½ g t²</text>
+
+            <!-- 實際終點 P (520, 240) -->
+            <circle cx="520" cy="240" r="6" fill="#059669" />
+            <text x="535" y="245" font-size="14" font-weight="900" fill="#059669">P (實際落點)</text>
+
+            <!-- 合位移向量 r (綠色) -->
+            <line x1="100" y1="280" x2="520" y2="240" stroke="#059669" stroke-width="3" marker-end="url(#arrR)" />
+            <text x="290" y="280" font-size="14" font-weight="900" fill="#059669">實際合成位移向量 r</text>
+
+            <!-- 真實拋物線軌跡 (曲線對照) -->
+            <path d="M 100 280 Q 340 70 520 240" fill="none" stroke="#cbd5e1" stroke-width="2" stroke-dasharray="3,3" />
+
+            <!-- 三角形正弦定理解析看板 -->
+            <rect x="120" y="50" width="220" height="60" rx="8" fill="rgba(255,255,255,0.92)" stroke="#059669" stroke-width="1.5" />
+            <text x="230" y="75" font-size="12" font-weight="800" fill="#1e293b" text-anchor="middle">△OQP 構成封閉三角形！</text>
+            <text x="230" y="95" font-size="11" font-weight="700" fill="#059669" text-anchor="middle">可直接套用國中三角學或正弦定理</text>
+          </svg>
+          <div class="diagram-caption">
+            <span>✨</span> 圖 5：拋體位移向量大三角形 —— 任何拋體運動皆是由「等速直線位移 $\vec{v}_0 t$」與「自由落體位移 $\frac{1}{2}\vec{g}t^2$」合成的封閉向量三角形
+          </div>
+        </div>
+
+        <p>
+          在求斜面射程或夾角時，三角形 $\triangle OQP$ 的三個內角往往直接由斜面傾角 $\alpha$ 與發射角 $\theta$ 決定。利用<strong>正弦定理（Law of Sines）</strong>：
+          $$\frac{|\vec{v}_0 t|}{\sin\angle OPQ} = \frac{|\frac{1}{2}\vec{g}t^2|}{\sin\angle POQ} = \frac{|\vec{r}|}{\sin\angle OQP}$$
+          立刻可以把時間 $t$ 消去一次方，免開根號、免配方，幾何優雅感十足！
+        </p>
+      </div>
+    </section>
+
+
+    <!-- =========================================================================
+         CHAPTER 7: 曲率半徑與法向加速度
+         ========================================================================= -->
+    <section id="ch7" class="chapter-section">
+      <div class="chapter-header">
+        <span class="chapter-num">CHAPTER 07</span>
+        <h2 class="chapter-title">拋體曲率半徑與切向/法向加速度本質解析</h2>
+      </div>
+
+      <div class="concept-card">
+        <h3><span>🌀</span> 為什麼拋物線頂點的彎曲程度最好算？—— 曲率半徑 $\rho$ 的奧祕</h3>
+        <p>
+          任何曲線運動在極微小的一段局部，都可以視為某個圓（稱為「密切圓」Osculating Circle）的圓弧。該圓的半徑即稱為該點的<strong>曲率半徑 $\rho$</strong>。
+          由向心加速度公式：
+          $$a_n = \frac{v^2}{\rho} \implies \Large \rho = \frac{v^2}{a_n}$$
+          其中：
+          <br>• $v$ 是該點的<strong>合速度（切線速率）</strong>。
+          <br>• $a_n$ 是該點<strong>垂直於切線速度方向的加速度分量（法向加速度）</strong>。
+        </p>
+
+        <!-- 圖解 6: 曲率半徑與加速度正交分解 -->
+        <div class="diagram-wrapper">
+          <svg viewBox="0 0 760 360" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <marker id="arrAcc" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                <path d="M 0 1 L 10 5 L 0 9 z" fill="#ef4444" />
+              </marker>
+              <marker id="arrTan" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                <path d="M 0 1 L 10 5 L 0 9 z" fill="#4f46e5" />
+              </marker>
+            </defs>
+
+            <!-- 拋物線軌跡 -->
+            <path d="M 80 300 Q 380 40 680 300" fill="none" stroke="#64748b" stroke-width="2.5" />
+
+            <!-- 最高點頂部 (x=380, y=105) -->
+            <circle cx="380" cy="105" r="6" fill="#4f46e5" />
+            <!-- 速度向量 (純水平) -->
+            <line x1="380" y1="105" x2="470" y2="105" stroke="#4f46e5" stroke-width="3" marker-end="url(#arrTan)" />
+            <text x="440" y="95" font-size="13" font-weight="900" fill="#4f46e5">v = v₀ cos θ</text>
+            <!-- 重力加速度 g (純垂直，恰好就是法向加速度 an!) -->
+            <line x1="380" y1="105" x2="380" y2="185" stroke="#ef4444" stroke-width="3" marker-end="url(#arrAcc)" />
+            <text x="390" y="155" font-size="13" font-weight="900" fill="#ef4444">an = g (此時 at = 0)</text>
+
+            <!-- 最高點的密切曲率圓 (虛線) -->
+            <circle cx="380" cy="225" r="120" fill="none" stroke="#4f46e5" stroke-width="1.5" stroke-dasharray="4,4" />
+            <line x1="380" y1="105" x2="380" y2="225" stroke="#4f46e5" stroke-width="1.5" />
+            <text x="365" y="170" font-size="12" font-weight="800" fill="#4f46e5" text-anchor="end">曲率半徑 ρ頂</text>
+
+            <!-- 發射起點 (80, 300) 加速度分解 -->
+            <circle cx="80" cy="300" r="5" fill="#1e293b" />
+            <!-- 初速向量 -->
+            <line x1="80" y1="300" x2="160" y2="210" stroke="#4f46e5" stroke-width="2.5" marker-end="url(#arrTan)" />
+            <text x="140" y="200" font-size="12" font-weight="800" fill="#4f46e5">初速 v₀ (仰角 θ)</text>
+            <!-- 重力 g (鉛直向下) -->
+            <line x1="80" y1="300" x2="80" y2="380" stroke="#ef4444" stroke-width="2" marker-end="url(#arrAcc)" />
+            <!-- 法向加速度 an = g cos theta -->
+            <line x1="80" y1="300" x2="135" y2="350" stroke="#ef4444" stroke-width="2.5" marker-end="url(#arrAcc)" />
+            <text x="145" y="355" font-size="11" font-weight="800" fill="#ef4444">an = g cos θ</text>
+          </svg>
+          <div class="diagram-caption">
+            <span>🌀</span> 圖 6：法向加速度與曲率圓 —— 軌跡頂點速度與重力垂直，曲率半徑 $\rho_{\text{頂}} = \frac{v_0^2\cos^2\theta}{g}$
+          </div>
+        </div>
+
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>位置</th>
+              <th>瞬時切線速率 $v$</th>
+              <th>法向加速度 $a_n$</th>
+              <th>曲率半徑 $\rho = \frac{v^2}{a_n}$</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>最高點（頂點）</strong></td>
+              <td>$v_{\text{頂}} = v_0\cos\theta$</td>
+              <td>$a_n = g$（速度水平，重力完全充當向心加速度）</td>
+              <td>$$\Large \rho_{\text{頂}} = \frac{v_0^2\cos^2\theta}{g}$$</td>
+            </tr>
+            <tr>
+              <td><strong>拋出點（起點）</strong></td>
+              <td>$v = v_0$</td>
+              <td>$a_n = g\cos\theta$（重力垂直初速度之投影）</td>
+              <td>$$\Large \rho_{\text{初}} = \frac{v_0^2}{g\cos\theta}$$</td>
+            </tr>
+            <tr>
+              <td><strong>曲率半徑之比</strong></td>
+              <td colspan="3">
+                $$\frac{\rho_{\text{頂}}}{\rho_{\text{初}}} = \frac{\frac{v_0^2\cos^2\theta}{g}}{\frac{v_0^2}{g\cos\theta}} = \cos^3\theta$$
+                <strong>極度高頻的競賽與分科考題考點！</strong>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+
+    <!-- =========================================================================
+         CHAPTER 8: 獵人打猴子相對運動模型
+         ========================================================================= -->
+    <section id="ch8" class="chapter-section">
+      <div class="chapter-header">
+        <span class="chapter-num">CHAPTER 08</span>
+        <h2 class="chapter-title">經典相對運動：獵人打猴子模型與兩物空中相撞</h2>
+      </div>
+
+      <div class="concept-card">
+        <h3><span>🐒</span> 世紀思想實驗：獵人扣扳機的瞬間，猴子鬆手下墜</h3>
+        <p>
+          樹上有一隻聰明的猴子，看見遠處地面上的獵人拿槍<strong>精準瞄準自己</strong>。
+          猴子心想：「當子彈飛過來時，我只要在槍聲響起的一瞬間鬆手下墜，子彈就會從我頭頂飛過！」
+          <br><strong>請問：猴子能逃過一劫嗎？還是註定中彈？</strong>
+        </p>
+
+        <!-- 圖解 7: 獵人打猴子相對運動與等重力消除 -->
+        <div class="diagram-wrapper">
+          <svg viewBox="0 0 760 360" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <marker id="arrGun" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                <path d="M 0 1 L 10 5 L 0 9 z" fill="#4f46e5" />
+              </marker>
+            </defs>
+
+            <!-- 地面 -->
+            <line x1="50" y1="320" x2="710" y2="320" stroke="#475569" stroke-width="2" />
+
+            <!-- 獵人槍口 (70, 310) -->
+            <circle cx="70" cy="310" r="6" fill="#1e293b" />
+            <text x="50" y="340" font-size="13" font-weight="900" fill="#1e293b">獵人槍口</text>
+
+            <!-- 樹木與猴子原位置 (620, 80) -->
+            <rect x="615" y="80" width="12" height="240" fill="#94a3b8" />
+            <circle cx="620" cy="80" r="10" fill="#f59e0b" />
+            <text x="640" y="85" font-size="13" font-weight="900" fill="#f59e0b">猴子原位置 (t=0)</text>
+
+            <!-- 瞄準視線 (槍口直指猴子原位置，虛線) -->
+            <line x1="70" y1="310" x2="620" y2="80" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4,4" />
+            <text x="320" y="180" font-size="12" font-weight="700" fill="#64748b" transform="rotate(-22.6, 320, 180)">槍口準心瞄準直線 (v₀ t)</text>
+
+            <!-- 子彈拋物線軌跡 -->
+            <path d="M 70 310 Q 345 130 520 205" fill="none" stroke="#4f46e5" stroke-width="2.5" />
+            <circle cx="520" cy="205" r="7" fill="#ef4444" />
+            <text x="535" y="210" font-size="14" font-weight="900" fill="#ef4444">💥 空中命中點！</text>
+
+            <!-- 猴子自由落體軌跡 (鉛直向下) -->
+            <line x1="620" y1="80" x2="620" y2="205" stroke="#ef4444" stroke-width="2" stroke-dasharray="3,3" />
+            <circle cx="620" cy="205" r="8" fill="#f59e0b" />
+            <text x="635" y="210" font-size="12" font-weight="800" fill="#f59e0b">猴子掉落至此</text>
+
+            <!-- 等時下墜量對照 1/2 g t^2 -->
+            <line x1="520" y1="121" x2="520" y2="205" stroke="#ef4444" stroke-width="2" />
+            <text x="440" y="165" font-size="12" font-weight="800" fill="#ef4444">Δy = ½ g t²</text>
+
+            <line x1="620" y1="80" x2="620" y2="205" stroke="#ef4444" stroke-width="2" />
+            <text x="635" y="145" font-size="12" font-weight="800" fill="#ef4444">Δy = ½ g t² (完全相等！)</text>
+          </svg>
+          <div class="diagram-caption">
+            <span>🎯</span> 圖 7：獵人打猴子 —— 重力加速度對兩者造成的下墜量完全同步抵消，只要射程足夠必定命中！
+          </div>
+        </div>
+
+        <div class="callout-box callout-danger">
+          <div class="callout-head"><span>💡</span> 物理本質解析：切換至「猴子參考系」</div>
+          <p>
+            如果我們站在「正在自由下落的猴子」視角來看世界：
+            <br>因為猴子自身具有向下的加速度 $g$，根據非慣性系原理，猴子看宇宙萬物都會感受到一個向上的「等效慣性加速度 $+g$」。
+            <br><strong>此慣性加速度 $+g$ 與真實重力加速度 $-g$ 在猴子眼中完全抵消！</strong>
+            <br>因此在猴子看來，重力「消失」了！子彈不再走拋物線，而是以初速 $v_0$ <strong>沿著槍口瞄準的直線等速朝自己飛來！</strong>
+            <br><strong>結論</strong>：只要子彈落地前能飛到猴子的水平距離處，<strong>無論子彈初速 $v_0$ 多快多慢，猴子百分之百必定中彈！</strong>
+          </p>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- =========================================================================
+         CHAPTER 9: 大考八大題型思維導圖與決策樹
+         ========================================================================= -->
+    <section id="ch9" class="chapter-section">
+      <div class="chapter-header">
+        <span class="chapter-num">CHAPTER 09</span>
+        <h2 class="chapter-title">大考八大題型思維導圖與解題決策樹</h2>
+      </div>
+
+      <div class="concept-card">
+        <h3><span>🌳</span> 題目診斷導引：看見關鍵字，0.5 秒反射公式</h3>
+        
+        <!-- 圖解 8: 解題決策樹 SVG -->
+        <div class="diagram-wrapper">
+          <svg viewBox="0 0 760 380" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <marker id="arrTree" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                <path d="M 0 1 L 10 5 L 0 9 z" fill="#4f46e5" />
+              </marker>
+            </defs>
+
+            <!-- 根節點: 拋體運動題目 -->
+            <rect x="290" y="20" width="180" height="42" rx="8" fill="#4f46e5" />
+            <text x="380" y="46" font-size="14" font-weight="900" fill="#ffffff" text-anchor="middle">二維拋體運動試題</text>
+
+            <!-- 分支 1: 水平拋體 -->
+            <line x1="330" y1="62" x2="160" y2="120" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrTree)" />
+            <rect x="70" y="120" width="180" height="40" rx="6" fill="#e0e7ff" stroke="#6366f1" stroke-width="1.5" />
+            <text x="160" y="145" font-size="13" font-weight="800" fill="#4338ca" text-anchor="middle">條件 1：水平拋體 (平拋)</text>
+
+            <!-- 平拋子策略 -->
+            <line x1="160" y1="160" x2="160" y2="210" stroke="#cbd5e1" stroke-width="1.5" />
+            <rect x="60" y="210" width="200" height="135" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1" />
+            <text x="75" y="235" font-size="12" font-weight="800" fill="#1e293b">1. 飛行時間：t = √(2h/g)</text>
+            <text x="75" y="260" font-size="12" font-weight="800" fill="#1e293b">2. 水平位移：x = v₀ t</text>
+            <text x="75" y="285" font-size="12" font-weight="800" fill="#059669">3. 角度神技：tan θ = 2 tan α</text>
+            <text x="75" y="310" font-size="12" font-weight="800" fill="#ef4444">4. 階梯彈跳：聯立 y/x = 踏高/踏寬</text>
+
+            <!-- 分支 2: 斜拋運動 (同高度地面) -->
+            <line x1="380" y1="62" x2="380" y2="120" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrTree)" />
+            <rect x="290" y="120" width="180" height="40" rx="6" fill="#ecfdf5" stroke="#10b981" stroke-width="1.5" />
+            <text x="380" y="145" font-size="13" font-weight="800" fill="#047857" text-anchor="middle">條件 2：地面斜向拋體</text>
+
+            <!-- 斜拋子策略 -->
+            <line x1="380" y1="160" x2="380" y2="210" stroke="#cbd5e1" stroke-width="1.5" />
+            <rect x="280" y="210" width="200" height="135" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1" />
+            <text x="295" y="235" font-size="12" font-weight="800" fill="#1e293b">1. 飛行時間：T = 2v₀y / g</text>
+            <text x="295" y="260" font-size="12" font-weight="800" fill="#1e293b">2. 最大高度：H = v₀y² / 2g</text>
+            <text x="295" y="285" font-size="12" font-weight="800" fill="#059669">3. 比例神技：tan θ = 4H / R</text>
+            <text x="295" y="310" font-size="12" font-weight="800" fill="#4f46e5">4. 過障礙：y = x tanθ (1 - x/R)</text>
+
+            <!-- 分支 3: 斜面/相對運動 -->
+            <line x1="430" y1="62" x2="600" y2="120" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrTree)" />
+            <rect x="510" y="120" width="180" height="40" rx="6" fill="#fff7ed" stroke="#f97316" stroke-width="1.5" />
+            <text x="600" y="145" font-size="13" font-weight="800" fill="#c2410c" text-anchor="middle">條件 3：斜面 / 追撞問題</text>
+
+            <!-- 斜面子策略 -->
+            <line x1="600" y1="160" x2="600" y2="210" stroke="#cbd5e1" stroke-width="1.5" />
+            <rect x="500" y="210" width="200" height="135" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1" />
+            <text x="515" y="235" font-size="12" font-weight="800" fill="#1e293b">1. 旋轉坐標：分解 g 為 sin/cos</text>
+            <text x="515" y="260" font-size="12" font-weight="800" fill="#059669">2. 離斜面最遠：vy' = 0 (平行)</text>
+            <text x="515" y="285" font-size="12" font-weight="800" fill="#ef4444">3. 垂直撞擊：vx' = 0</text>
+            <text x="515" y="310" font-size="12" font-weight="800" fill="#4f46e5">4. 相對運動：重力等效消除！</text>
+          </svg>
+          <div class="diagram-caption">
+            <span>🌳</span> 圖 8：二維拋體解題決策樹 —— 掌握三大板塊關鍵分流，見題立即鎖定破題策略
+          </div>
+        </div>
+
+        <table class="data-table" style="margin-top:2rem;">
+          <thead>
+            <tr>
+              <th>題型分類</th>
+              <th>大考代表題目特徵</th>
+              <th>秒殺核心武器</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>題型 1：階梯下跳</strong></td>
+              <td>從階梯頂部水平拋出，問落在第幾階？</td>
+              <td>
+                階梯邊緣滿足射線斜率 $k = \frac{\text{階高}}{\text{階寬}}$。
+                令平拋位移比 $\frac{y}{x} = \frac{\frac{1}{2}gt^2}{v_0 t} \ge k$ 求出臨界時間 $t$，再求階數 $N = \lceil \frac{x}{\text{階寬}} \rceil$。
+              </td>
+            </tr>
+            <tr>
+              <td><strong>題型 2：斜面彈跳</strong></td>
+              <td>沿斜面拋出後彈跳，或求垂直打中斜面角度。</td>
+              <td>
+                旋轉坐標法：分解為 $g\cos\alpha$ 與 $g\sin\alpha$；若垂直打中斜面，代表 $v_{x'} = 0$。
+              </td>
+            </tr>
+            <tr>
+              <td><strong>題型 3：投籃空心入網</strong></td>
+              <td>已知籃框高度 $y$、距離 $x$ 與入網角度 $\phi$。</td>
+              <td>
+                利用因式分解軌跡方程 $y = x\tan\theta (1 - \frac{x}{R})$，配合末速度夾角公式 $\tan\phi = \frac{v_y}{v_x}$ 秒殺。
+              </td>
+            </tr>
+            <tr>
+              <td><strong>題型 4：互餘角射程</strong></td>
+              <td>同初速兩次拋出，射程相同但飛行時間不同。</td>
+              <td>
+                $\theta_1 + \theta_2 = 90^\circ$；
+                $t_1 t_2 = \frac{2R}{g}$；$t_1^2 + t_2^2 = \frac{4v_0^2}{g^2}$；$H_1 + H_2 = \frac{v_0^2}{2g}$。
+              </td>
+            </tr>
+            <tr>
+              <td><strong>題型 5：動量變化量</strong></td>
+              <td>拋體運動過程中的動量變化量 $\Delta \vec{p}$。</td>
+              <td>
+                衝量定理 $\Delta \vec{p} = \vec{I} = m\vec{g}\Delta t$！
+                <strong>動量變化量方向永遠鉛直向下，量值只跟經歷時間成正比，與拋射角、水平速度完全無關！</strong>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+
+    <!-- =========================================================================
+         APPENDIX: 易錯地雷陣與檢核清單
+         ========================================================================= -->
+    <section id="appendix" class="chapter-section">
+      <div class="chapter-header">
+        <span class="chapter-num">APPENDIX</span>
+        <h2 class="chapter-title">拋體七大易錯地雷陣與自學精熟檢核表</h2>
+      </div>
+
+      <div class="concept-card">
+        <h3><span>💣</span> 避開大考最容易失分的 7 個思維陷阱</h3>
+
+        <div class="callout-box callout-danger">
+          <div class="callout-head"><span>❌ 陷阱 1</span> 斜拋最高點「速度為零」？</div>
+          <p>
+            <strong>致命盲點</strong>：很多同學寫快了，誤把「鉛直上拋」的頂點條件套到斜拋。
+            <br><strong>正解</strong>：斜拋最高點<strong>只有鉛直速度 $v_y = 0$</strong>，水平速度依然健在，且整段運動從未減速：$v_{\text{頂}} = v_{0x} = v_0\cos\theta$！因此最高點合速度不為零，動能也不為零（處於動能極小值）。
+          </p>
+        </div>
+
+        <div class="callout-box callout-danger">
+          <div class="callout-head"><span>❌ 陷阱 2</span> 斜拋最高點「加速度為零」？</div>
+          <p>
+            <strong>致命盲點</strong>：誤以為速度達到極值時，加速度就是零。
+            <br><strong>正解</strong>：在忽略空氣阻力的情況下，拋體在空中任何位置（哪怕在最高點瞬間），所受合力永遠只有重力 $mg$，因此<strong>加速度永遠恆為 $g$，方向恆鉛直向下</strong>！
+          </p>
+        </div>
+
+        <div class="callout-box callout-danger">
+          <div class="callout-head"><span>❌ 陷阱 3</span> 不管著地點高度，盲目套用 $R = \frac{v_0^2\sin 2\theta}{g}$？</div>
+          <p>
+            <strong>致命盲點</strong>：射程公式 $R = \frac{v_0^2\sin 2\theta}{g}$ <strong>僅限於「拋出點與著地點在同一水平面上（$y=0$）」</strong>！
+            <br><strong>正解</strong>：如果是從懸崖邊往海面拋、或是從地面拋上屋頂，兩端高度不同（$\Delta y \neq 0$），絕對不能直接代入該公式！必須老老實實列出鉛直位移方程式 $\Delta y = v_{0y}t - \frac{1}{2}gt^2$ 解出時間 $t$，再算水平射程 $x = v_{0x} t$。
+          </p>
+        </div>
+
+        <div class="callout-box callout-danger">
+          <div class="callout-head"><span>❌ 陷阱 4</span> 把速度夾角 $\tan\theta$ 當作位移夾角 $\tan\alpha$？</div>
+          <p>
+            <strong>致命盲點</strong>：題目問「位移與水平夾角」，卻算了 $\tan\theta = \frac{gt}{v_0}$。
+            <br><strong>正解</strong>：平拋的位移是從起點指向該點的割線，偏角滿足 $\tan\alpha = \frac{gt}{2v_0}$；而切線速度偏角滿足 $\tan\theta = \frac{gt}{v_0}$。兩者有著嚴格的 <strong>2 倍關係</strong>（$\tan\theta = 2\tan\alpha$），千萬別混淆！
+          </p>
+        </div>
+
+        <h3 style="margin-top:2.5rem;"><span>✅</span> 自學自測檢核清單 (Self-Mastery Checklist)</h3>
+        <p>請遮住講義，試著在白紙上回答下列 8 個核心問題。若能全部流暢推導，代表您已徹底自學成才：</p>
+
+        <div class="checklist-grid">
+          <div class="checklist-item">
+            <span class="check-icon">✓</span>
+            <div>你能徒手用 $\Delta t$ 推導出平拋的 $\tan\theta = 2\tan\alpha$ 幾何定理嗎？</div>
+          </div>
+          <div class="checklist-item">
+            <span class="check-icon">✓</span>
+            <div>你能證明為什麼仰角 $\theta$ 與 $90^\circ - \theta$ 會有完全相同的水平射程嗎？</div>
+          </div>
+          <div class="checklist-item">
+            <span class="check-icon">✓</span>
+            <div>你能不看講義寫出 $\tan\theta = \frac{4H}{R}$ 的 3 行證明並解釋其幾何意義嗎？</div>
+          </div>
+          <div class="checklist-item">
+            <span class="check-icon">✓</span>
+            <div>當遇到斜面拋體時，你清楚重力在旋轉坐標系中如何分解成兩個分量嗎？</div>
+          </div>
+          <div class="checklist-item">
+            <span class="check-icon">✓</span>
+            <div>你能解釋為什麼獵人瞄準猴子時，不論子彈速度多快都會打中猴子嗎？</div>
+          </div>
+          <div class="checklist-item">
+            <span class="check-icon">✓</span>
+            <div>你能推導出斜拋最高點的曲率半徑 $\rho_{\text{頂}} = \frac{v_0^2\cos^2\theta}{g}$ 嗎？</div>
+          </div>
+          <div class="checklist-item">
+            <span class="check-icon">✓</span>
+            <div>在台階平拋跳躍問題中，你懂得如何利用階梯長寬比寫出臨界不等式嗎？</div>
+          </div>
+          <div class="checklist-item">
+            <span class="check-icon">✓</span>
+            <div>你能用射程因子方程 $y = x\tan\theta (1 - \frac{x}{R})$ 一步解出過牆問題嗎？</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 底部置頂按鈕 -->
+    <a href="#" class="floating-back-top" title="回到頁首">↑</a>
+
+  </div>
+
+  <!-- KaTeX 自動渲染腳本與主題切換 -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      // 1. 深淺主題切換邏輯
+      const themeBtn = document.getElementById('theme-btn');
+      const currentTheme = localStorage.getItem('phy_theme') || 'light';
+      document.documentElement.setAttribute('data-theme', currentTheme);
+      themeBtn.textContent = currentTheme === 'dark' ? '☀️' : '🌙';
+
+      themeBtn.addEventListener('click', function() {
+        const now = document.documentElement.getAttribute('data-theme');
+        const next = now === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', next);
+        themeBtn.textContent = next === 'dark' ? '☀️' : '🌙';
+        localStorage.setItem('phy_theme', next);
+      });
+
+      // 2. KaTeX 數學公式自動渲染
+      function renderKaTeX() {
+        if (!window.katex) return;
+        const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false);
+        const textNodes = [];
+        let node;
+        while (node = walker.nextNode()) {
+          if (node.nodeValue.includes('$')) {
+            textNodes.push(node);
+          }
+        }
+
+        textNodes.forEach(textNode => {
+          const parent = textNode.parentNode;
+          if (!parent || parent.tagName === 'SCRIPT' || parent.tagName === 'STYLE' || parent.classList.contains('katex') || parent.closest('.katex') || parent.closest('svg')) return;
+
+          let raw = textNode.nodeValue;
+          let replaced = false;
+          let tempDiv = document.createElement('span');
+
+          const parts = raw.split(/(\$\$[\s\S]*?\$\$|\$[^\$]+?\$)/g);
+          if (parts.length <= 1) return;
+
+          parts.forEach(part => {
+            if (part.startsWith('$$') && part.endsWith('$$')) {
+              const math = part.slice(2, -2).trim();
+              const span = document.createElement('div');
+              span.style.overflowX = 'auto';
+              span.style.padding = '0.5rem 0';
+              try {
+                katex.render(math, span, { displayMode: true, throwOnError: false });
+                tempDiv.appendChild(span);
+                replaced = true;
+              } catch (e) {
+                tempDiv.appendChild(document.createTextNode(part));
+              }
+            } else if (part.startsWith('$') && part.endsWith('$')) {
+              const math = part.slice(1, -1).trim();
+              const span = document.createElement('span');
+              try {
+                katex.render(math, span, { displayMode: false, throwOnError: false });
+                tempDiv.appendChild(span);
+                replaced = true;
+              } catch (e) {
+                tempDiv.appendChild(document.createTextNode(part));
+              }
+            } else if (part) {
+              tempDiv.appendChild(document.createTextNode(part));
+            }
+          });
+
+          if (replaced) {
+            parent.replaceChild(tempDiv, textNode);
+          }
+        });
+      }
+
+      let tries = 0;
+      const timer = setInterval(() => {
+        tries++;
+        if (window.katex) {
+          clearInterval(timer);
+          renderKaTeX();
+        } else if (tries > 30) {
+          clearInterval(timer);
+        }
+      }, 100);
+    });
+  </script>
+</body>
+</html>

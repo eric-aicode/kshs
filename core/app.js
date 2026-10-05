@@ -48,10 +48,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const unitSelect = document.getElementById('unit-select');
   const appSubtitle = document.getElementById('app-subtitle');
   
-  // 寶典與列印連結
+  // 寶典、自學講義與列印連結
   const headerGuideLink = document.getElementById('header-guide-link');
+  const headerTutorialLink = document.getElementById('header-tutorial-link');
   const headerPrintLink = document.getElementById('header-print-link');
   const sidebarGuideLink = document.getElementById('sidebar-guide-link');
+  const sidebarTutorialLink = document.getElementById('sidebar-tutorial-link');
   const sidebarPrintLink = document.getElementById('sidebar-print-link');
 
   // 動態更新單元下拉選單選項
@@ -626,11 +628,27 @@ document.addEventListener('DOMContentLoaded', () => {
       headerGuideLink.href = unitConfig.guideUrl || 'guide.html';
       headerGuideLink.title = `查看 ${unitConfig.name} 公式變形、題型矩陣與解題思考導航`;
     }
+    if (headerTutorialLink) {
+      if (unitConfig.tutorialUrl) {
+        headerTutorialLink.href = unitConfig.tutorialUrl;
+        headerTutorialLink.style.display = 'inline-flex';
+      } else {
+        headerTutorialLink.style.display = 'none';
+      }
+    }
     if (headerPrintLink) {
       headerPrintLink.href = unitConfig.printUrl || 'guide_print.html';
     }
     if (sidebarGuideLink) {
       sidebarGuideLink.href = unitConfig.guideUrl || 'guide.html';
+    }
+    if (sidebarTutorialLink) {
+      if (unitConfig.tutorialUrl) {
+        sidebarTutorialLink.href = unitConfig.tutorialUrl;
+        sidebarTutorialLink.style.display = 'flex';
+      } else {
+        sidebarTutorialLink.style.display = 'none';
+      }
     }
     if (sidebarPrintLink) {
       sidebarPrintLink.href = unitConfig.printUrl || 'guide_print.html';

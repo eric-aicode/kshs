@@ -1,0 +1,1525 @@
+<!DOCTYPE html>
+<html lang="zh-TW" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>【物理自學大師】直線運動完全自學指南 · 由淺入深圖解講義</title>
+  <meta name="description" content="高中物理直線運動完整自學講義：質點模型、位置與位移、速度與速率、微積分運動方程式、三大圖形物理本質、等加速度四大公式雙向推導、伽利略奇數比、四大重力模型、相對運動與打點計時器實驗。">
+
+  <!-- Google Fonts: Plus Jakarta Sans & Noto Sans TC -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Noto+Sans+TC:wght@400;500;700;800;900&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- KaTeX for crisp LaTeX Math rendering -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" crossorigin="anonymous"></script>
+
+  <!-- Application Stylesheet -->
+  <link rel="stylesheet" href="../../../core/style.css">
+
+  <style>
+    /* ==========================================================================
+       自學大師專屬深度講義版面 (Masterclass Textbook Styling)
+       ========================================================================== */
+    :root {
+      --book-max-width: 1080px;
+      --sidebar-toc-width: 280px;
+    }
+
+    body {
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      font-family: 'Noto Sans TC', system-ui, -apple-system, sans-serif;
+      line-height: 1.85;
+      font-size: 1.05rem;
+    }
+
+    .book-layout {
+      max-width: var(--book-max-width);
+      margin: 0 auto;
+      padding: 2rem 1.5rem 6rem 1.5rem;
+      position: relative;
+    }
+
+    /* 頂部導航條 */
+    .book-top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border-light);
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .btn-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.45rem 1rem;
+      border-radius: var(--radius-full);
+      font-weight: 700;
+      font-size: 0.9rem;
+      text-decoration: none;
+      transition: all var(--transition-fast);
+      border: 1px solid var(--border-light);
+      background: var(--bg-card);
+      color: var(--text-primary);
+    }
+
+    .btn-pill:hover {
+      background: var(--bg-tertiary);
+      border-color: var(--accent-primary);
+      transform: translateY(-2px);
+    }
+
+    .btn-pill-primary {
+      background: var(--accent-primary);
+      color: #ffffff;
+      border-color: var(--accent-primary);
+      box-shadow: 0 2px 8px var(--accent-primary-glow);
+    }
+
+    .btn-pill-primary:hover {
+      background: var(--accent-primary-hover);
+      color: #ffffff;
+    }
+
+    /* 封面看板 (Book Cover Banner) */
+    .book-cover {
+      background: linear-gradient(135deg, rgba(79, 70, 229, 0.12) 0%, rgba(56, 189, 248, 0.08) 100%);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-xl);
+      padding: 3rem 2.5rem;
+      margin-bottom: 3rem;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+    }
+
+    .book-cover::after {
+      content: '⚡';
+      position: absolute;
+      right: 2rem;
+      bottom: -1.5rem;
+      font-size: 10rem;
+      opacity: 0.08;
+      pointer-events: none;
+    }
+
+    .book-series-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: var(--accent-primary);
+      background: rgba(79, 70, 229, 0.1);
+      border: 1px solid rgba(79, 70, 229, 0.25);
+      padding: 0.3rem 0.85rem;
+      border-radius: var(--radius-full);
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .book-title {
+      font-size: 2.35rem;
+      font-weight: 900;
+      line-height: 1.3;
+      margin-bottom: 1rem;
+      color: var(--text-primary);
+      letter-spacing: -0.02em;
+    }
+
+    .book-subtitle {
+      font-size: 1.15rem;
+      color: var(--text-secondary);
+      max-width: 860px;
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+    }
+
+    .book-meta-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .meta-item {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      padding: 0.25rem 0.75rem;
+      border-radius: var(--radius-sm);
+    }
+
+    /* 快速目錄清單 (TOC Box) */
+    .toc-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-left: 5px solid var(--accent-primary);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem 2rem;
+      margin-bottom: 3.5rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .toc-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--accent-primary);
+    }
+
+    .toc-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 0.75rem 1.5rem;
+    }
+
+    .toc-link {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: color var(--transition-fast);
+      padding: 0.3rem 0;
+    }
+
+    .toc-link:hover {
+      color: var(--accent-primary);
+      transform: translateX(4px);
+    }
+
+    .toc-link span.num {
+      color: var(--accent-primary);
+      font-weight: 800;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* 章節大區塊 */
+    .chapter-section {
+      margin-bottom: 4.5rem;
+      scroll-margin-top: 2rem;
+    }
+
+    .chapter-header {
+      border-bottom: 2px solid var(--border-light);
+      padding-bottom: 0.75rem;
+      margin-bottom: 1.75rem;
+      display: flex;
+      align-items: baseline;
+      gap: 0.85rem;
+      flex-wrap: wrap;
+    }
+
+    .chapter-num {
+      font-size: 1.25rem;
+      font-weight: 900;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--accent-primary);
+      background: rgba(79, 70, 229, 0.1);
+      padding: 0.2rem 0.7rem;
+      border-radius: var(--radius-sm);
+    }
+
+    .chapter-title {
+      font-size: 1.75rem;
+      font-weight: 850;
+      color: var(--text-primary);
+      letter-spacing: -0.01em;
+    }
+
+    .section-intro {
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+    }
+
+    /* 小節與段落 */
+    h3.sub-title {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      margin: 2rem 0 1rem 0;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    h4.sub-sub-title {
+      font-size: 1.1rem;
+      font-weight: 750;
+      color: var(--text-primary);
+      margin: 1.5rem 0 0.75rem 0;
+    }
+
+    p {
+      margin-bottom: 1.25rem;
+      color: var(--text-secondary);
+    }
+
+    p strong {
+      color: var(--text-primary);
+      font-weight: 750;
+    }
+
+    /* 專業概念高亮卡片 (Callout Box) */
+    .callout {
+      border-radius: var(--radius-md);
+      padding: 1.25rem 1.5rem;
+      margin: 1.5rem 0;
+      border-left: 4px solid;
+      background: var(--bg-card);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .callout-idea {
+      border-left-color: #3b82f6;
+      background: rgba(59, 130, 246, 0.05);
+    }
+
+    .callout-idea .callout-head {
+      color: #2563eb;
+    }
+
+    .callout-tip {
+      border-left-color: #10b981;
+      background: rgba(16, 185, 129, 0.05);
+    }
+
+    .callout-tip .callout-head {
+      color: #059669;
+    }
+
+    .callout-warning {
+      border-left-color: #f59e0b;
+      background: rgba(245, 158, 11, 0.06);
+    }
+
+    .callout-warning .callout-head {
+      color: #d97706;
+    }
+
+    .callout-danger {
+      border-left-color: #ef4444;
+      background: rgba(239, 68, 68, 0.06);
+    }
+
+    .callout-danger .callout-head {
+      color: #dc2626;
+    }
+
+    .callout-head {
+      font-weight: 800;
+      font-size: 0.98rem;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    /* 插圖與視覺圖表容器 (SVG Diagram Containers) */
+    .diagram-wrapper {
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      margin: 2rem 0;
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .diagram-wrapper svg {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+    }
+
+    .diagram-caption {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      margin-top: 0.85rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+    }
+
+    /* 雙推導卡片對照 (Dual Derivation Grid) */
+    .derivation-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+      margin: 1.5rem 0;
+    }
+
+    @media (max-width: 768px) {
+      .derivation-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .derivation-card {
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-md);
+      padding: 1.25rem 1.4rem;
+    }
+
+    .derivation-card-title {
+      font-weight: 800;
+      font-size: 0.95rem;
+      color: var(--text-primary);
+      margin-bottom: 0.65rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .badge-method {
+      font-size: 0.72rem;
+      padding: 0.15rem 0.55rem;
+      border-radius: var(--radius-sm);
+      font-weight: 700;
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+    }
+
+    /* 比較與精解表格 */
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 1px solid var(--border-light);
+      font-size: 0.96rem;
+    }
+
+    .data-table th {
+      background: var(--bg-tertiary);
+      padding: 0.85rem 1rem;
+      text-align: left;
+      font-weight: 800;
+      color: var(--text-primary);
+      border-bottom: 2px solid var(--border-light);
+    }
+
+    .data-table td {
+      padding: 0.85rem 1rem;
+      border-bottom: 1px solid var(--border-light);
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .data-table tr:hover td {
+      background: rgba(79, 70, 229, 0.03);
+    }
+
+    /* 典型例題剖析箱 (Example Walkthrough Box) */
+    .example-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-lg);
+      margin: 2rem 0;
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .example-header {
+      background: var(--bg-tertiary);
+      padding: 0.85rem 1.25rem;
+      font-weight: 800;
+      font-size: 1.05rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .example-body {
+      padding: 1.25rem 1.5rem;
+    }
+
+    .example-question {
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 1rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px dashed var(--border-light);
+    }
+
+    .thinking-flow {
+      background: rgba(79, 70, 229, 0.04);
+      border: 1px solid rgba(79, 70, 229, 0.15);
+      border-radius: var(--radius-md);
+      padding: 1rem 1.25rem;
+      margin: 1rem 0;
+    }
+
+    .thinking-flow-title {
+      font-weight: 800;
+      font-size: 0.92rem;
+      color: var(--accent-primary);
+      margin-bottom: 0.4rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    /* 檢查核對勾選清單 (Checklist) */
+    .checklist-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      margin: 1.5rem 0;
+    }
+
+    .checklist-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      padding: 0.75rem 1rem;
+      border-radius: var(--radius-md);
+      font-size: 0.96rem;
+    }
+
+    .check-icon {
+      color: var(--accent-emerald);
+      font-weight: 900;
+      font-size: 1.1rem;
+      line-height: 1.2;
+    }
+
+    /* 浮動目錄按鈕與置頂導航 */
+    .floating-back-top {
+      position: fixed;
+      right: 2rem;
+      bottom: 2rem;
+      width: 46px;
+      height: 46px;
+      border-radius: var(--radius-full);
+      background: var(--accent-primary);
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px var(--accent-primary-glow);
+      cursor: pointer;
+      border: none;
+      transition: all var(--transition-fast);
+      z-index: 100;
+      text-decoration: none;
+    }
+
+    .floating-back-top:hover {
+      transform: translateY(-3px);
+      background: var(--accent-primary-hover);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="book-layout">
+
+    <!-- 頂部操作按鈕列 -->
+    <header class="book-top-bar">
+      <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+        <a href="../../../index.html?unit=02_linear_motion" class="btn-pill" title="回到 02 直線運動 互動題庫中心">
+          <span>←</span> 回到直線運動解題中心
+        </a>
+        <a href="guide.html" class="btn-pill" title="前往 Active Recall 遮蔽回想公式寶典">
+          <span>🧠</span> 公式回想自測寶典
+        </a>
+        <a href="guide_print.html" class="btn-pill" title="前往 A4 雙頁列印講義">
+          <span>🖨️</span> A4 列印講義
+        </a>
+      </div>
+
+      <button class="theme-toggle-btn" id="theme-btn" title="切換深淺模式" style="border:1px solid var(--border-light); background:var(--bg-card); width:38px; height:38px; border-radius:var(--radius-full); cursor:pointer;">
+        🌙
+      </button>
+    </header>
+
+    <!-- 書本封面看板 -->
+    <section class="book-cover">
+      <div class="book-series-tag">⚡ 高中物理自學大師系列 · 運動學核心篇</div>
+      <h1 class="book-title">直線運動完全自學指南<br><span style="font-size:1.6rem; font-weight:750; color:var(--accent-primary);">從生活直覺、微積分幾何到高階解題思維的無痛進階</span></h1>
+      <p class="book-subtitle">
+        這是一本專為「想從底層物理直覺徹底搞懂運動學」而設計的自學教材。全書屏棄死背公式，以生動圖解、生活情境、幾何切線與微積分視角，由淺入深層層推演。讀完本書，你不僅能記住公式，更能看透每道大考物理題背後的時空規律！
+      </p>
+      <div class="book-meta-pills">
+        <span class="meta-item">📖 全程配備 10 組精美 SVG 向量圖解</span>
+        <span class="meta-item">🎯 幾何面積法與微積分微元雙向推導</span>
+        <span class="meta-item">💡 破除 7 大思維地雷區</span>
+        <span class="meta-item">⚡ 歷屆大考核心思維決策樹</span>
+      </div>
+    </section>
+
+    <!-- 快速目錄索引 -->
+    <nav class="toc-box" aria-label="全書章節目錄">
+      <div class="toc-title">
+        <span>📑 全書章節架構導覽</span>
+      </div>
+      <div class="toc-grid">
+        <a href="#ch1" class="toc-link"><span class="num">01.</span> 世界的簡化：質點模型與坐標系</a>
+        <a href="#ch2" class="toc-link"><span class="num">02.</span> 移動的軌跡：位置、位移與路徑長</a>
+        <a href="#ch3" class="toc-link"><span class="num">03.</span> 變化的快慢：速度、速率與微積分之眼</a>
+        <a href="#ch4" class="toc-link"><span class="num">04.</span> 三圖定乾坤：x-t, v-t, a-t 圖形本質</a>
+        <a href="#ch5" class="toc-link"><span class="num">05.</span> 最美運動學：等加速度公式與三大神比例</a>
+        <a href="#ch6" class="toc-link"><span class="num">06.</span> 重力舞台：四大自由落體與斜面模型</a>
+        <a href="#ch7" class="toc-link"><span class="num">07.</span> 維度升級：一維相對運動與避撞極值</a>
+        <a href="#ch8" class="toc-link"><span class="num">08.</span> 探究與實踐：打點計時器數據分析微觀論</a>
+        <a href="#ch9" class="toc-link"><span class="num">09.</span> 大師思維：解題決策樹與易錯地雷陣</a>
+      </div>
+    </nav>
+
+    <!-- ========================================================================= -->
+    <!-- 第 1 章：質點模型與空間坐標 -->
+    <!-- ========================================================================= -->
+    <article class="chapter-section" id="ch1">
+      <header class="chapter-header">
+        <span class="chapter-num">CHAPTER 01</span>
+        <h2 class="chapter-title">世界的簡化：質點模型與空間坐標</h2>
+      </header>
+
+      <p class="section-intro">
+        物理學的迷人之處，不在於把問題變複雜，而在於<strong>「抓大放小」</strong>。真實世界中的物體有體積、形狀，還會翻滾、震動。如果每一隻螞蟻爬行、每一列高鐵奔馳都要計算車輪與車廂各處的細微擺動，物理學將寸步難行。物理學家邁出的第一步，就是大膽的理想化——<strong>質點模型（Point Mass）</strong>。
+      </p>
+
+      <h3 class="sub-title">1.1 什麼時候可以把物體看成「一個點」？</h3>
+      <p>
+        <strong>定義</strong>：當物體本身的<strong>大小與形狀</strong>對於所研究的空間尺度或運動過程影響微不足道時，我們可以忽略物體的形體結構與轉動，將其所有質量視為集中於一點的幾何點，這個模型稱為<strong>質點</strong>。
+      </p>
+
+      <div class="callout callout-idea">
+        <div class="callout-head">💡 典型思維辨析：同一物體，何時是質點？何時不是？</div>
+        <ul>
+          <li><strong>案例 A：高鐵從台北行駛到高雄（約 350 公里）</strong>：高鐵列車全長約 300 公尺，相較於 350,000 公尺的行車距離，列車的長度不到路程的千分之一，此時將高鐵視為質點完全合理。</li>
+          <li><strong>案例 B：高鐵通過 100 公尺長的隧道</strong>：從車頭進隧道到車尾完全離開，列車自身 300 公尺的長度遠大於隧道長度，車頭與車尾的通過時刻截然不同！此時<strong>絕對不能</strong>將列車視為質點。</li>
+          <li><strong>案例 C：地球公轉 vs 地球自轉</strong>：研究地球繞太陽公轉（公轉軌道半徑約 1.5 億公里），地球大小可忽略，是質點；但若研究晝夜交替與自轉，就必須考慮球體形狀與自轉軸，不能視為質點。</li>
+        </ul>
+      </div>
+
+      <h3 class="sub-title">1.2 一維空間位置的三大要素</h3>
+      <p>
+        要描述質點在哪裡，必須建立數線坐標系。完整的「位置描述」必須具備三大要素：
+      </p>
+      <ol style="margin-left:1.5rem; margin-bottom:1.25rem; color:var(--text-secondary);">
+        <li><strong>參考原點 ($O$)</strong>：一切位置測量的基準點（$x = 0$）。選定不同的原點，位置坐標數值就會不同，但<strong>位移差值絕對不變</strong>。</li>
+        <li><strong>距離（純量數值）</strong>：質點距離原點有多遠（如 $5\text{ m}$）。</li>
+        <li><strong>方向（正負符號）</strong>：在數線上規定一個正方向（通常向右為正、向左為負；或向上為正、向下為負）。</li>
+      </ol>
+
+      <!-- SVG 圖 1: 質點與坐標系示意圖 -->
+      <div class="diagram-wrapper">
+        <svg viewBox="0 0 760 160" width="760" height="160" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="#4f46e5"/>
+            </marker>
+            <marker id="arrow-gray" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="#9ca3af"/>
+            </marker>
+          </defs>
+          <!-- 數線軸 -->
+          <line x1="40" y1="90" x2="720" y2="90" stroke="#4f46e5" stroke-width="3" marker-end="url(#arrow)"/>
+          <text x="725" y="95" font-family="'JetBrains Mono', monospace" font-size="14" font-weight="700" fill="#4f46e5">+x (m)</text>
+          
+          <!-- 刻度與標記 -->
+          <!-- -20 -->
+          <line x1="120" y1="80" x2="120" y2="100" stroke="#9ca3af" stroke-width="2"/>
+          <text x="120" y="125" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="13" fill="#6b7280">-20</text>
+          <!-- -10 -->
+          <line x1="230" y1="80" x2="230" y2="100" stroke="#9ca3af" stroke-width="2"/>
+          <text x="230" y="125" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="13" fill="#6b7280">-10</text>
+          <!-- 原點 0 -->
+          <line x1="340" y1="75" x2="340" y2="105" stroke="#ef4444" stroke-width="3"/>
+          <circle cx="340" cy="90" r="4" fill="#ef4444"/>
+          <text x="340" y="125" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="14" font-weight="800" fill="#ef4444">0 (原點 O)</text>
+          <!-- +10 -->
+          <line x1="450" y1="80" x2="450" y2="100" stroke="#9ca3af" stroke-width="2"/>
+          <text x="450" y="125" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="13" fill="#6b7280">+10</text>
+          <!-- +20 (質點 P) -->
+          <line x1="560" y1="80" x2="560" y2="100" stroke="#9ca3af" stroke-width="2"/>
+          <text x="560" y="125" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="13" fill="#6b7280">+20</text>
+
+          <!-- 質點球體 P -->
+          <circle cx="560" cy="50" r="12" fill="#10b981" stroke="#059669" stroke-width="2"/>
+          <text x="560" y="55" text-anchor="middle" font-family="'Plus Jakarta Sans', sans-serif" font-size="12" font-weight="800" fill="#ffffff">P</text>
+          <line x1="560" y1="62" x2="560" y2="85" stroke="#10b981" stroke-width="2" stroke-dasharray="3,3"/>
+          <text x="560" y="25" text-anchor="middle" font-family="'Noto Sans TC', sans-serif" font-size="12" font-weight="700" fill="#059669">質點位置 x = +20 m</text>
+
+          <!-- 原點到 P 的向量箭頭 -->
+          <line x1="340" y1="50" x2="545" y2="50" stroke="#10b981" stroke-width="2.5" marker-end="url(#arrow)"/>
+          <text x="445" y="42" text-anchor="middle" font-family="'Noto Sans TC', sans-serif" font-size="12" font-weight="700" fill="#059669">距離 20 m，向正方向</text>
+        </svg>
+        <div class="diagram-caption">
+          <span>📐 圖 1.1：一維數線坐標系三要素（原點基準、標度距離、正負方向）</span>
+        </div>
+      </div>
+    </article>
+
+    <!-- ========================================================================= -->
+    <!-- 第 2 章：位移與路徑長 -->
+    <!-- ========================================================================= -->
+    <article class="chapter-section" id="ch2">
+      <header class="chapter-header">
+        <span class="chapter-num">CHAPTER 02</span>
+        <h2 class="chapter-title">移動的軌跡：位置、位移與路徑長</h2>
+      </header>
+
+      <p class="section-intro">
+        日常生活中我們常說「我今天走了 5 公里」，但如果這 5 公里是繞著操場操練 12 圈半後回到出發點，在物理學家眼中，你的**總位移是零**！這正是初學者最容易混淆的兩個概念：<strong>「位移（向量）」</strong>與<strong>「路徑長（純量）」</strong>。
+      </p>
+
+      <div class="derivation-grid">
+        <div class="derivation-card" style="border-left:4px solid #4f46e5;">
+          <div class="derivation-card-title">
+            <span>位移 (Displacement, $\Delta x$)</span>
+            <span class="badge-method" style="color:#4f46e5;">向量 Vector</span>
+          </div>
+          <p style="font-size:0.92rem; margin-bottom:0.5rem;"><strong>核心定義</strong>：位置的變化量，由起點指向終點的單一有向線段。</p>
+          <div style="background:var(--bg-card); padding:0.6rem; border-radius:4px; font-family:'JetBrains Mono',monospace; font-size:1.05rem; text-align:center; font-weight:700; color:#4f46e5; margin:0.5rem 0;">
+            $$\Delta x = x_{\text{末}} - x_{\text{初}} = x_2 - x_1$$
+          </div>
+          <ul style="font-size:0.88rem; color:var(--text-secondary); margin-left:1.2rem; line-height:1.6;">
+            <li><strong>只問結果，不問過程</strong>：不論中間折返了多少次，位移只看起點與終點坐標之差。</li>
+            <li>正號代表向正向移動；負號代表向負向移動。</li>
+          </ul>
+        </div>
+
+        <div class="derivation-card" style="border-left:4px solid #10b981;">
+          <div class="derivation-card-title">
+            <span>路徑長 / 路程 (Distance, $\Delta \ell$)</span>
+            <span class="badge-method" style="color:#10b981;">純量 Scalar</span>
+          </div>
+          <p style="font-size:0.92rem; margin-bottom:0.5rem;"><strong>核心定義</strong>：質點運動過程中實際踩過軌跡的「總長度累積」。</p>
+          <div style="background:var(--bg-card); padding:0.6rem; border-radius:4px; font-family:'JetBrains Mono',monospace; font-size:1.05rem; text-align:center; font-weight:700; color:#10b981; margin:0.5rem 0;">
+            $$\Delta \ell = \sum |\Delta x_i| \ge 0$$
+          </div>
+          <ul style="font-size:0.88rem; color:var(--text-secondary); margin-left:1.2rem; line-height:1.6;">
+            <li><strong>記錄每一步汗水</strong>：就像手環計步器，只要有移動，數值恆為正並持續累加。</li>
+            <li>沒有方向性，恆大於等於 0。</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- SVG 圖 2: 折返跑位移與路徑長示意圖 -->
+      <div class="diagram-wrapper">
+        <svg viewBox="0 0 760 210" width="760" height="210" xmlns="http://www.w3.org/2000/svg">
+          <!-- 數線軸 -->
+          <line x1="50" y1="150" x2="710" y2="150" stroke="#9ca3af" stroke-width="2" marker-end="url(#arrow-gray)"/>
+          <circle cx="150" cy="150" r="5" fill="#4f46e5"/>
+          <text x="150" y="175" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="13" font-weight="700" fill="#4f46e5">A: x = -2m</text>
+          
+          <circle cx="330" cy="150" r="5" fill="#ef4444"/>
+          <text x="330" y="175" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="13" font-weight="700" fill="#ef4444">O: x = 0m</text>
+          
+          <circle cx="510" cy="150" r="5" fill="#f59e0b"/>
+          <text x="510" y="175" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="13" font-weight="700" fill="#f59e0b">C: x = +4m</text>
+          
+          <circle cx="670" cy="150" r="5" fill="#10b981"/>
+          <text x="670" y="175" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="13" font-weight="700" fill="#10b981">B: x = +8m</text>
+
+          <!-- 運動軌跡第 1 段 A -> B -->
+          <path d="M 150 135 C 150 70, 670 70, 670 135" fill="none" stroke="#3b82f6" stroke-width="3" stroke-dasharray="6,4"/>
+          <polygon points="410,68 420,73 410,78" fill="#3b82f6"/>
+          <text x="410" y="55" text-anchor="middle" font-family="'Noto Sans TC', sans-serif" font-size="13" font-weight="700" fill="#3b82f6">第 1 階段：由 A(-2) 前進至 B(+8)，移動 +10 m</text>
+
+          <!-- 運動軌跡第 2 段 B -> C (折返) -->
+          <path d="M 670 135 C 670 100, 510 100, 510 135" fill="none" stroke="#ef4444" stroke-width="3"/>
+          <polygon points="590,108 580,103 590,98" fill="#ef4444"/>
+          <text x="590" y="90" text-anchor="middle" font-family="'Noto Sans TC', sans-serif" font-size="13" font-weight="700" fill="#ef4444">第 2 階段：折返至 C(+4)，移動 -4 m</text>
+
+          <!-- 淨位移向量箭頭 (起點 A -> 終點 C) -->
+          <line x1="150" y1="195" x2="505" y2="195" stroke="#4f46e5" stroke-width="3" marker-end="url(#arrow)"/>
+          <text x="330" y="208" text-anchor="middle" font-family="'Noto Sans TC', sans-serif" font-size="13" font-weight="800" fill="#4f46e5">淨位移 Δx = x_末 - x_初 = (+4) - (-2) = +6 m</text>
+        </svg>
+        <div class="diagram-caption">
+          <span>📐 圖 2.1：折返運動實例——總路徑長 $\Delta \ell = 10 + 4 = 14\text{ m}$，但淨位移 $\Delta x = +6\text{ m}$！</span>
+        </div>
+      </div>
+
+      <div class="callout callout-warning">
+        <div class="callout-head">⚠️ 大師定律：位移大小與路徑長的絕對關係</div>
+        <p style="margin:0; font-size:0.95rem;">
+          在任何運動過程中，恆有不等式：<strong>$\Delta \ell \ge |\Delta x|$</strong><br>
+          只有當質點做<strong>「單向不折返的直線運動」</strong>時，兩者數值才會剛好相等（$|\Delta x| = \Delta \ell$）。只要中途有哪怕一毫米的反向回頭，路徑長必定嚴格大於位移量值！
+        </p>
+      </div>
+    </article>
+
+    <!-- ========================================================================= -->
+    <!-- 第 3 章：速度、速率與加速度 -->
+    <!-- ========================================================================= -->
+    <article class="chapter-section" id="ch3">
+      <header class="chapter-header">
+        <span class="chapter-num">CHAPTER 03</span>
+        <h2 class="chapter-title">變化的快慢：速度、速率與微積分之眼</h2>
+      </header>
+
+      <p class="section-intro">
+        如果你問一般人：「跑車的速度很快是什麼意思？」他會說時速 200 公里。但若問物理學家：「這輛車正在加速嗎？」物理學家會回答：「如果它的時速一直維持 200 公里走直線，它的<strong>加速度為零</strong>！」這就是日常直覺與物理精準定義的鴻溝。
+      </p>
+
+      <h3 class="sub-title">3.1 速度（Velocity）vs 速率（Speed）</h3>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>名詞</th>
+            <th>平均物理量（宏觀時段）</th>
+            <th>瞬時物理量（微觀極限）</th>
+            <th>本質屬性</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>速度 (Velocity)</strong></td>
+            <td><strong>平均速度</strong>：$\bar{v} = \frac{\Delta x}{\Delta t}$<br><span style="font-size:0.82rem; color:var(--text-muted);">方向與位移 $\Delta x$ 同向</span></td>
+            <td><strong>瞬時速度</strong>：$v = \lim_{\Delta t \to 0}\frac{\Delta x}{\Delta t} = \frac{dx}{dt}$<br><span style="font-size:0.82rem; color:#4f46e5; font-weight:700;">$x-t$ 圖該時刻之「切線斜率」</span></td>
+            <td><strong>向量</strong>（有正負符號）</td>
+          </tr>
+          <tr>
+            <td><strong>速率 (Speed)</strong></td>
+            <td><strong>平均速率</strong>：$v_{\text{avg}} = \frac{\Delta \ell}{\Delta t}$<br><span style="font-size:0.82rem; color:var(--text-muted);">總路徑長除以總時間</span></td>
+            <td><strong>瞬時速率</strong>：$V = |v| = \left|\frac{dx}{dt}\right|$<br><span style="font-size:0.82rem; color:var(--text-muted);">儀表板即時指針讀數</span></td>
+            <td><strong>純量</strong>（恆為正值或零）</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3 class="sub-title">3.2 加速度（Acceleration）：速度如何隨時間演變？</h3>
+      <p>
+        加速度不是衡量「跑得多快」，而是衡量<strong>「速度改變得多劇烈」</strong>！
+      </p>
+      <ul>
+        <li><strong>平均加速度</strong>：$\bar{a} = \frac{\Delta v}{\Delta t} = \frac{v_2 - v_1}{t_2 - t_1}$ （方向與「速度變化量 $\Delta v$」相同，<strong>不一定與速度 $v$ 相同</strong>！）</li>
+        <li><strong>瞬時加速度</strong>：$a = \lim_{\Delta t \to 0}\frac{\Delta v}{\Delta t} = \frac{dv}{dt} = \frac{d^2x}{dt^2}$ （$v-t$ 圖的切線斜率，或位置函數對時間的二階導數）。</li>
+      </ul>
+
+      <!-- SVG 圖 3: 加速與減速力學直覺圖 -->
+      <div class="diagram-wrapper">
+        <svg viewBox="0 0 760 190" width="760" height="190" xmlns="http://www.w3.org/2000/svg">
+          <!-- 左側：加速狀態 -->
+          <rect x="30" y="20" width="335" height="150" rx="8" fill="rgba(16,185,129,0.06)" stroke="#10b981" stroke-width="1.5"/>
+          <text x="197" y="45" text-anchor="middle" font-family="'Noto Sans TC', sans-serif" font-size="15" font-weight="800" fill="#047857">🚀 情況一：加速運動（越來越快）</text>
+          
+          <!-- 小車 1 -->
+          <rect x="80" y="90" width="70" height="35" rx="5" fill="#34d399"/>
+          <circle cx="95" cy="125" r="8" fill="#1f2937"/>
+          <circle cx="135" cy="125" r="8" fill="#1f2937"/>
+          <!-- 速度向量 -->
+          <line x1="155" y1="105" x2="225" y2="105" stroke="#059669" stroke-width="3" marker-end="url(#arrow)"/>
+          <text x="190" y="98" font-family="'JetBrains Mono',monospace" font-size="12" font-weight="700" fill="#059669">v (向右)</text>
+          <!-- 加速度向量 -->
+          <line x1="155" y1="125" x2="245" y2="125" stroke="#10b981" stroke-width="3" marker-end="url(#arrow)"/>
+          <text x="200" y="142" font-family="'JetBrains Mono',monospace" font-size="12" font-weight="700" fill="#047857">a (同向向右)</text>
+          <text x="197" y="160" text-anchor="middle" font-family="'Noto Sans TC', sans-serif" font-size="12" font-weight="700" fill="#047857">判定：a · v > 0（同號）⇒ 速率必增加！</text>
+
+          <!-- 右側：減速狀態 -->
+          <rect x="395" y="20" width="335" height="150" rx="8" fill="rgba(239,68,68,0.06)" stroke="#ef4444" stroke-width="1.5"/>
+          <text x="562" y="45" text-anchor="middle" font-family="'Noto Sans TC', sans-serif" font-size="15" font-weight="800" fill="#b91c1c">🛑 情況二：減速運動（煞車變慢）</text>
+          
+          <!-- 小車 2 -->
+          <rect x="520" y="90" width="70" height="35" rx="5" fill="#f87171"/>
+          <circle cx="535" cy="125" r="8" fill="#1f2937"/>
+          <circle cx="575" cy="125" r="8" fill="#1f2937"/>
+          <!-- 速度向量 -->
+          <line x1="595" y1="105" x2="665" y2="105" stroke="#dc2626" stroke-width="3" marker-end="url(#arrow)"/>
+          <text x="630" y="98" font-family="'JetBrains Mono',monospace" font-size="12" font-weight="700" fill="#dc2626">v (向右)</text>
+          <!-- 加速度向量反向 -->
+          <line x1="515" y1="105" x2="445" y2="105" stroke="#b91c1c" stroke-width="3" marker-end="url(#arrow)"/>
+          <text x="475" y="98" font-family="'JetBrains Mono',monospace" font-size="12" font-weight="700" fill="#b91c1c">a (反向向左)</text>
+          <text x="562" y="160" text-anchor="middle" font-family="'Noto Sans TC', sans-serif" font-size="12" font-weight="700" fill="#b91c1c">判定：a · v < 0（異號）⇒ 速率必減小！</text>
+        </svg>
+        <div class="diagram-caption">
+          <span>📐 圖 3.1：加速與減速的本質——不看加速度的正負號，只看「加速度與速度方向是否同向」！</span>
+        </div>
+      </div>
+
+      <div class="callout callout-danger">
+        <div class="callout-head">🚨 新手必犯的直覺死穴：加速度為負就是減速嗎？</div>
+        <p style="margin:0;">
+          <strong>大錯特錯！</strong> 若物體正以速度 $v = -10\text{ m/s}$ 向左倒車，此時加速度 $a = -5\text{ m/s}^2$（也是向左）。<br>
+          因為兩者方向相同，1 秒後速度變為 $-15\text{ m/s}$，速率從 $10\text{ m/s}$ 暴增為 $15\text{ m/s}$——<strong>這是在向左瘋狂加速！</strong><br>
+          <strong>金科玉律</strong>：只要 $a$ 與 $v$ <strong>同號（$a \cdot v > 0$）就是加速</strong>；只有 $a$ 與 $v$ <strong>異號（$a \cdot v < 0$）才是減速</strong>！
+        </p>
+      </div>
+    </article>
+
+    <!-- ========================================================================= -->
+    <!-- 第 4 章：三大運動圖形深度解析 -->
+    <!-- ========================================================================= -->
+    <article class="chapter-section" id="ch4">
+      <header class="chapter-header">
+        <span class="chapter-num">CHAPTER 04</span>
+        <h2 class="chapter-title">三圖定乾坤：x-t, v-t, a-t 圖形本質</h2>
+      </header>
+
+      <p class="section-intro">
+        很多學生做物理題時喜歡到處亂套公式，往往一頭霧水。頂尖高手解題，腦海中永遠是一張清晰的 <strong>$v-t$ 圖</strong>！圖形是將抽象時間與幾何面積結合的最高維度工具。只要理解了「點、線、面」的物理本質，任何複雜的多階段運動都一覽無遺。
+      </p>
+
+      <div class="diagram-wrapper">
+        <svg viewBox="0 0 760 260" width="760" height="260" xmlns="http://www.w3.org/2000/svg">
+          <!-- 網格與座標系 -->
+          <line x1="60" y1="210" x2="710" y2="210" stroke="#4b5563" stroke-width="2" marker-end="url(#arrow-gray)"/>
+          <text x="715" y="215" font-family="'JetBrains Mono',monospace" font-size="13" fill="#4b5563">t(s)</text>
+          <line x1="100" y1="230" x2="100" y2="30" stroke="#4b5563" stroke-width="2" marker-end="url(#arrow-gray)"/>
+          <text x="90" y="25" font-family="'JetBrains Mono',monospace" font-size="13" font-weight="700" fill="#4f46e5">v (m/s)</text>
+          <line x1="60" y1="130" x2="700" y2="130" stroke="#9ca3af" stroke-width="1" stroke-dasharray="3,3"/>
+          <text x="80" y="135" font-family="'JetBrains Mono',monospace" font-size="12" fill="#9ca3af">0</text>
+
+          <!-- v-t 折線: (0, 0) -> (3, 20) -> (6, 20) -> (9, -10) -->
+          <!-- 正位移梯形面積填充 (0~7.5s) -->
+          <polygon points="100,130 220,50 340,50 460,130" fill="rgba(79,70,229,0.18)"/>
+          <!-- 負位移三角形面積填充 (7.5~9s) -->
+          <polygon points="460,130 580,180 580,130" fill="rgba(239,68,68,0.2)"/>
+
+          <!-- 實線折線 -->
+          <polyline points="100,130 220,50 340,50 580,180" fill="none" stroke="#4f46e5" stroke-width="3.5"/>
+
+          <!-- 說明標註 -->
+          <text x="260" y="95" text-anchor="middle" font-family="'Noto Sans TC',sans-serif" font-size="13" font-weight="800" fill="#4f46e5">+ 正位移 (+Δx₁)</text>
+          <text x="260" y="115" text-anchor="middle" font-family="'Noto Sans TC',sans-serif" font-size="11" fill="#6b7280">面積 = 梯形面積 (向前走)</text>
+
+          <text x="530" y="155" text-anchor="middle" font-family="'Noto Sans TC',sans-serif" font-size="12" font-weight="800" fill="#dc2626">- 負位移 (-Δx₂)</text>
+          <text x="530" y="170" text-anchor="middle" font-family="'Noto Sans TC',sans-serif" font-size="10" fill="#6b7280">面積 = 反向折返</text>
+
+          <!-- 切線斜率標注 -->
+          <line x1="160" y1="120" x2="260" y2="20" stroke="#f59e0b" stroke-width="2" stroke-dasharray="4,3"/>
+          <text x="140" y="60" font-family="'Noto Sans TC',sans-serif" font-size="11" font-weight="700" fill="#d97706">斜率 = 加速度 a₁ > 0</text>
+
+          <!-- 折返點提示 -->
+          <circle cx="460" cy="130" r="5" fill="#ef4444"/>
+          <text x="460" y="115" text-anchor="middle" font-family="'Noto Sans TC',sans-serif" font-size="12" font-weight="800" fill="#dc2626">v = 0 折返點（離原點最遠處）</text>
+        </svg>
+        <div class="diagram-caption">
+          <span>📐 圖 4.1：核心 $v-t$ 圖解析——斜率即加速度，時間軸上方為正位移，下方為負位移，與時間軸交點即折返時刻！</span>
+        </div>
+      </div>
+
+      <div class="callout callout-idea">
+        <div class="callout-head">💡 三大圖形微積分互通心法（點、線、面記憶口訣）</div>
+        <div style="font-size:0.95rem; line-height:1.7;">
+          • <strong>微分（求斜率）階梯</strong>：$x-t$ 圖斜率 $\implies v$；$v-t$ 圖斜率 $\implies a$。<br>
+          • <strong>積分（求面積）階梯</strong>：$a-t$ 圖面積 $\implies \Delta v$（速度變化量）；$v-t$ 圖面積 $\implies \Delta x$（位移）。<br>
+          • <strong>路徑長與位移的算術區別</strong>：在 $v-t$ 圖中，位移是代數和（上方面積減下方面積），而<strong>總路徑長是絕對值面積之和</strong>（上方面積加下方面積）！
+        </div>
+      </div>
+    </article>
+
+    <!-- ========================================================================= -->
+    <!-- 第 5 章：等加速度四大公式與三大推論 -->
+    <!-- ========================================================================= -->
+    <article class="chapter-section" id="ch5">
+      <header class="chapter-header">
+        <span class="chapter-num">CHAPTER 05</span>
+        <h2 class="chapter-title">最美運動學：等加速度公式與三大神比例</h2>
+      </header>
+
+      <p class="section-intro">
+        當物體的加速度大小與方向<strong>恆定不變（$a = \text{常數}$）</strong>時，這就是物理學中應用最廣泛的「等加速度直線運動」。初學者往往死記硬背那四個公式，考試一換數字就卡住。現在，我們從<strong>幾何面積法</strong>與<strong>微積分微元法</strong>兩種視角，徹底推導並洞悉其本質！
+      </p>
+
+      <h3 class="sub-title">5.1 四大核心公式深度推導</h3>
+
+      <!-- 公式一推導 -->
+      <div class="example-box">
+        <div class="example-header">
+          <span>【公式一】 速度時間關係式：$v = v_0 + at$</span>
+          <span style="font-size:0.82rem; font-weight:700; color:var(--accent-primary);">已知初速、加速度與時間，求末速</span>
+        </div>
+        <div class="example-body">
+          <div class="derivation-grid">
+            <div>
+              <h5 style="font-weight:800; color:var(--accent-primary); margin-bottom:0.3rem;">方法一：由平均加速度定義推導</h5>
+              <p style="font-size:0.92rem;">
+                等加速度運動中，每一瞬間的加速度都相同，故平均加速度等於瞬時加速度：<br>
+                $$a = \frac{\Delta v}{\Delta t} = \frac{v - v_0}{t}$$
+                兩邊同乘 $t$，移項即得：<br>
+                $$v - v_0 = at \implies v = v_0 + at$$
+              </p>
+            </div>
+            <div>
+              <h5 style="font-weight:800; color:var(--accent-emerald); margin-bottom:0.3rem;">方法二：微積分定積分推導</h5>
+              <p style="font-size:0.92rem;">
+                由加速度定義 $a = \frac{dv}{dt} \implies dv = a \, dt$。<br>
+                在時段 $0 \to t$ 內定積分（$a$ 為常數可提出）：<br>
+                $$\int_{v_0}^v dv = a \int_0^t dt \implies [v]_{v_0}^v = a [t]_0^t$$
+                $$\implies v - v_0 = at \implies v = v_0 + at$$
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 公式二推導 -->
+      <div class="example-box">
+        <div class="example-header">
+          <span>【公式二】 位移時間關係式：$S = v_0 t + \frac{1}{2}at^2$</span>
+          <span style="font-size:0.82rem; font-weight:700; color:var(--accent-primary);">已知初速、時間與加速度，求位移</span>
+        </div>
+        <div class="example-body">
+          <div class="derivation-grid">
+            <div>
+              <h5 style="font-weight:800; color:var(--accent-primary); margin-bottom:0.3rem;">方法一：$v-t$ 圖梯形面積分割法</h5>
+              <p style="font-size:0.92rem;">
+                在 $v-t$ 圖中，曲線為一斜直線（從 $(0, v_0)$ 到 $(t, v)$），所圍形狀為一梯形：<br>
+                $$\text{位移 } S = \frac{(\text{上底 } v_0 + \text{下底 } v) \cdot t}{2}$$
+                將公式一 $v = v_0 + at$ 代入下底：<br>
+                $$S = \frac{[v_0 + (v_0 + at)] \cdot t}{2} = \frac{(2v_0 + at)t}{2} = v_0 t + \frac{1}{2}at^2$$
+              </p>
+            </div>
+            <div>
+              <h5 style="font-weight:800; color:var(--accent-emerald); margin-bottom:0.3rem;">方法二：微積分定積分法</h5>
+              <p style="font-size:0.92rem;">
+                由速度定義 $v = \frac{dx}{dt} \implies dx = v \, dt = (v_0 + at) \, dt$。<br>
+                對兩端定積分求位移 $S = \int dx$：<br>
+                $$S = \int_0^t (v_0 + at) \, dt = \left[ v_0 t + \frac{1}{2}at^2 \right]_0^t = v_0 t + \frac{1}{2}at^2$$
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 公式三推導 -->
+      <div class="example-box">
+        <div class="example-header">
+          <span>【公式三】 速度位移關係式（無時間公式）：$v^2 = v_0^2 + 2aS$</span>
+          <span style="font-size:0.82rem; font-weight:700; color:var(--accent-primary);">題目沒有給時間、也不求時間時的秒殺利器</span>
+        </div>
+        <div class="example-body">
+          <div class="derivation-grid">
+            <div>
+              <h5 style="font-weight:800; color:var(--accent-primary); margin-bottom:0.3rem;">方法一：代數消時間法</h5>
+              <p style="font-size:0.92rem;">
+                由公式一解出時間：$t = \frac{v - v_0}{a}$。<br>
+                代入梯形平均速度位移式 $S = \frac{v_0 + v}{2} \cdot t$：<br>
+                $$S = \frac{v + v_0}{2} \cdot \left(\frac{v - v_0}{a}\right) = \frac{v^2 - v_0^2}{2a}$$
+                兩端同乘以 $2a$ 移項即得：<br>
+                $$v^2 - v_0^2 = 2aS \implies v^2 = v_0^2 + 2aS$$
+              </p>
+            </div>
+            <div>
+              <h5 style="font-weight:800; color:var(--accent-emerald); margin-bottom:0.3rem;">方法二：微分連鎖律（Chain Rule）積分</h5>
+              <p style="font-size:0.92rem;">
+                加速度利用連鎖律改寫：$a = \frac{dv}{dt} = \frac{dv}{dx}\frac{dx}{dt} = v \frac{dv}{dx}$。<br>
+                分離變數：$a \, dx = v \, dv$。<br>
+                兩邊定積分：<br>
+                $$\int_0^S a \, dx = \int_{v_0}^v v \, dv \implies a S = \left[ \frac{1}{2}v^2 \right]_{v_0}^v = \frac{1}{2}(v^2 - v_0^2)$$
+                $$\implies v^2 = v_0^2 + 2aS$$
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="sub-title">5.2 初速為零（$v_0 = 0$）三大秒殺神比例</h3>
+      <p>
+        伽利略（Galileo Galilei）在 17 世紀研究斜面滾球時，發現了一個驚天秘密：<strong>在相等的時間間隔內，物體滑下的距離成奇數比！</strong>
+      </p>
+
+      <!-- SVG 圖 5: 伽利略奇數比圖解 -->
+      <div class="diagram-wrapper">
+        <svg viewBox="0 0 760 210" width="760" height="210" xmlns="http://www.w3.org/2000/svg">
+          <!-- 階梯梯形分割圖 -->
+          <!-- 0~T 三角形 -->
+          <polygon points="60,180 180,180 180,140" fill="#4f46e5" opacity="0.3"/>
+          <text x="140" y="170" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="14" font-weight="800" fill="#4f46e5">1 份</text>
+          
+          <!-- T~2T 梯形 (相當於 3 個小三角形) -->
+          <polygon points="180,180 300,180 300,100 180,140" fill="#10b981" opacity="0.35"/>
+          <text x="240" y="150" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="14" font-weight="800" fill="#047857">3 份</text>
+
+          <!-- 2T~3T 梯形 (相當於 5 個小三角形) -->
+          <polygon points="300,180 420,180 420,60 300,100" fill="#f59e0b" opacity="0.4"/>
+          <text x="360" y="130" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="14" font-weight="800" fill="#b45309">5 份</text>
+
+          <!-- 3T~4T 梯形 (相當於 7 個小三角形) -->
+          <polygon points="420,180 540,180 540,20 420,60" fill="#ec4899" opacity="0.4"/>
+          <text x="480" y="110" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="14" font-weight="800" fill="#be185d">7 份</text>
+
+          <!-- v-t 斜直線 -->
+          <line x1="60" y1="180" x2="540" y2="20" stroke="#4f46e5" stroke-width="3"/>
+          <line x1="50" y1="180" x2="570" y2="180" stroke="#4b5563" stroke-width="2"/>
+
+          <!-- 虛線分隔線 -->
+          <line x1="180" y1="180" x2="180" y2="140" stroke="#4b5563" stroke-dasharray="3,3"/>
+          <line x1="300" y1="180" x2="300" y2="100" stroke="#4b5563" stroke-dasharray="3,3"/>
+          <line x1="420" y1="180" x2="420" y2="60" stroke="#4b5563" stroke-dasharray="3,3"/>
+
+          <!-- 時間標記 -->
+          <text x="60" y="200" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="12" fill="#6b7280">0</text>
+          <text x="180" y="200" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="12" fill="#6b7280">1T</text>
+          <text x="300" y="200" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="12" fill="#6b7280">2T</text>
+          <text x="420" y="200" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="12" fill="#6b7280">3T</text>
+          <text x="540" y="200" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="12" fill="#6b7280">4T</text>
+
+          <!-- 說明 -->
+          <text x="635" y="60" text-anchor="middle" font-family="'Noto Sans TC',sans-serif" font-size="13" font-weight="800" fill="#4f46e5">伽利略奇數定律</text>
+          <text x="635" y="85" text-anchor="middle" font-family="'Noto Sans TC',sans-serif" font-size="12" fill="#374151">時段位移比：</text>
+          <text x="635" y="105" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="13" font-weight="700" fill="#059669">1 : 3 : 5 : 7</text>
+          <text x="635" y="135" text-anchor="middle" font-family="'Noto Sans TC',sans-serif" font-size="12" fill="#374151">累積位移比：</text>
+          <text x="635" y="155" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="13" font-weight="700" fill="#2563eb">1 : 4 : 9 : 16</text>
+        </svg>
+        <div class="diagram-caption">
+          <span>📐 圖 5.1：初速為 0 的等加速度運動幾何面積分割——連續相等時段的位移比恆為連續奇數 $1 : 3 : 5 : 7 : \dots$！</span>
+        </div>
+      </div>
+
+      <div class="callout callout-tip">
+        <div class="callout-head">🎯 秒殺解題推論三連發（牢記必在考場搶時間）</div>
+        <ol style="margin-left:1.2rem; font-size:0.95rem; line-height:1.7;">
+          <li><strong>等時間間隔「時段位移比」</strong>：$\Delta S_1 : \Delta S_2 : \Delta S_3 : \dots : \Delta S_n = 1 : 3 : 5 : \dots : (2n-1)$。</li>
+          <li><strong>等時間間隔「累積總位移比」</strong>：$S_1 : S_2 : S_3 : \dots : S_n = 1^2 : 2^2 : 3^2 : \dots : n^2 = 1 : 4 : 9 : \dots : n^2$。</li>
+          <li><strong>連續相等位移所花「時段時間比」</strong>：$\Delta t_1 : \Delta t_2 : \Delta t_3 : \dots = 1 : (\sqrt{2}-1) : (\sqrt{3}-\sqrt{2}) : \dots : (\sqrt{n}-\sqrt{n-1})$。</li>
+        </ol>
+      </div>
+
+      <h3 class="sub-title">5.3 震撼定理：時間中點速度 vs 位置中點速度</h3>
+      <p>
+        設物體由初速 $v_0$ 經等加速度運動至末速 $v$，行經時間 $t$，總位移 $S$：
+      </p>
+      <div class="derivation-grid">
+        <div class="derivation-card">
+          <div class="derivation-card-title">
+            <span>時間中點（$t/2$）瞬間速度 $v_{t/2}$</span>
+            <span class="badge-method">算術平均</span>
+          </div>
+          <div style="font-size:1.1rem; text-align:center; padding:0.6rem; font-weight:700; color:#4f46e5;">
+            $$v_{t/2} = \frac{v_0 + v}{2} = \bar{v}$$
+          </div>
+          <p style="font-size:0.88rem; color:var(--text-secondary); margin-top:0.3rem;">
+            <strong>物理意涵</strong>：在等加速度直線運動中，<strong>時間中點的瞬時速度恰好等於全程的平均速度</strong>！這也是打點計時器實驗數據處理的核心基石。
+          </p>
+        </div>
+
+        <div class="derivation-card">
+          <div class="derivation-card-title">
+            <span>位置中點（$S/2$）瞬間速度 $v_{S/2}$</span>
+            <span class="badge-method">平方平均</span>
+          </div>
+          <div style="font-size:1.1rem; text-align:center; padding:0.6rem; font-weight:700; color:#059669;">
+            $$v_{S/2} = \sqrt{\frac{v_0^2 + v^2}{2}}$$
+          </div>
+          <p style="font-size:0.88rem; color:var(--text-secondary); margin-top:0.3rem;">
+            <strong>推導</strong>：前半程 $v_{S/2}^2 - v_0^2 = 2a(S/2)$，後半程 $v^2 - v_{S/2}^2 = 2a(S/2)$。兩式相減移項即得。
+          </p>
+        </div>
+      </div>
+
+      <div class="callout callout-warning">
+        <div class="callout-head">⚖️ 終極不等式結論：不論加速還是減速，$v_{S/2} > v_{t/2}$ 恆成立！</div>
+        <p style="margin:0; font-size:0.95rem;">
+          數學上，由柯西不等式或算幾不等式可知：平方平均數必大於算術平均數（$\sqrt{\frac{a^2+b^2}{2}} > \frac{a+b}{2}$，當 $a \neq b$）。<br>
+          因此，<strong>只要初速不等於末速，位置中點速度必定永遠大於時間中點速度！</strong>
+        </p>
+      </div>
+    </article>
+
+    <!-- ========================================================================= -->
+    <!-- 第 6 章：重力模型 -->
+    <!-- ========================================================================= -->
+    <article class="chapter-section" id="ch6">
+      <header class="chapter-header">
+        <span class="chapter-num">CHAPTER 06</span>
+        <h2 class="chapter-title">重力舞台：四大自由落體與斜面模型</h2>
+      </header>
+
+      <p class="section-intro">
+        地球引力賦予地表附近所有物體一個近乎恆定不變的向下加速度：<strong>重力加速度 $g \approx 9.8\text{ m/s}^2$（解題時常簡化為 $10\text{ m/s}^2$）</strong>。無論是一片羽毛還是一顆保齡球，在真空中都將以完全相同的節奏下落！
+      </p>
+
+      <!-- SVG 圖 6: 鉛直上拋對稱性圖解 -->
+      <div class="diagram-wrapper">
+        <svg viewBox="0 0 760 250" width="760" height="250" xmlns="http://www.w3.org/2000/svg">
+          <!-- 拋出地面 -->
+          <line x1="80" y1="220" x2="680" y2="220" stroke="#4b5563" stroke-width="2"/>
+          <text x="380" y="240" text-anchor="middle" font-family="'Noto Sans TC',sans-serif" font-size="13" font-weight="700" fill="#6b7280">水平地面 (y = 0)</text>
+
+          <!-- 鉛直軌跡與最高點 (頂點 H_max) -->
+          <path d="M 280 220 C 280 40, 480 40, 480 220" fill="none" stroke="#4f46e5" stroke-width="3" stroke-dasharray="6,4"/>
+          <circle cx="380" cy="40" r="8" fill="#ef4444"/>
+          <text x="380" y="25" text-anchor="middle" font-family="'Noto Sans TC',sans-serif" font-size="13" font-weight="800" fill="#dc2626">最高點：瞬時速度 v = 0</text>
+          <text x="380" y="65" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="12" font-weight="700" fill="#4f46e5">H_max = v₀² / (2g)</text>
+
+          <!-- 上升端點箭頭 (左) -->
+          <circle cx="280" cy="220" r="6" fill="#10b981"/>
+          <line x1="280" y1="210" x2="280" y2="150" stroke="#10b981" stroke-width="3" marker-end="url(#arrow)"/>
+          <text x="245" y="180" font-family="'JetBrains Mono',monospace" font-size="12" font-weight="700" fill="#047857">初速 +v₀</text>
+
+          <!-- 下降著地端點箭頭 (右) -->
+          <circle cx="480" cy="220" r="6" fill="#10b981"/>
+          <line x1="480" y1="150" x2="480" y2="210" stroke="#10b981" stroke-width="3" marker-end="url(#arrow)"/>
+          <text x="515" y="180" font-family="'JetBrains Mono',monospace" font-size="12" font-weight="700" fill="#047857">末速 -v₀</text>
+
+          <!-- 水平虛線：同一高度對稱性 -->
+          <line x1="220" y1="130" x2="540" y2="130" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="3,3"/>
+          <text x="175" y="135" font-family="'Noto Sans TC',sans-serif" font-size="11" font-weight="700" fill="#d97706">同一高度 y</text>
+          
+          <line x1="295" y1="145" x2="295" y2="105" stroke="#059669" stroke-width="2.5" marker-end="url(#arrow)"/>
+          <text x="310" y="125" font-family="'JetBrains Mono',monospace" font-size="11" font-weight="700" fill="#059669">+v₁</text>
+
+          <line x1="465" y1="105" x2="465" y2="145" stroke="#dc2626" stroke-width="2.5" marker-end="url(#arrow)"/>
+          <text x="445" y="125" font-family="'JetBrains Mono',monospace" font-size="11" font-weight="700" fill="#dc2626">-v₁</text>
+
+          <!-- 說明 -->
+          <text x="600" y="70" font-family="'Noto Sans TC',sans-serif" font-size="13" font-weight="800" fill="#4f46e5">完美對稱特性：</text>
+          <text x="600" y="95" font-family="'Noto Sans TC',sans-serif" font-size="12" fill="#374151">1. 上升時間 = 下降時間</text>
+          <text x="600" y="115" font-family="'JetBrains Mono',monospace" font-size="12" font-weight="700" fill="#059669">   t_頂 = v₀ / g</text>
+          <text x="600" y="135" font-family="'JetBrains Mono',monospace" font-size="12" font-weight="700" fill="#059669">   總停留時間 T = 2v₀ / g</text>
+          <text x="600" y="160" font-family="'Noto Sans TC',sans-serif" font-size="12" fill="#374151">2. 同高度速度量值相等、方向相反：</text>
+          <text x="600" y="180" font-family="'JetBrains Mono',monospace" font-size="12" font-weight="700" fill="#dc2626">   v_下 = -v_上</text>
+        </svg>
+        <div class="diagram-caption">
+          <span>📐 圖 6.1：鉛直上拋運動的高度對稱性與速度對稱性示意圖</span>
+        </div>
+      </div>
+
+      <h3 class="sub-title">6.1 光滑斜面下滑奇蹟：速度獨立於斜角！</h3>
+      <p>
+        設光滑斜面傾角為 $\theta$，高度為 $h$，斜面長度為 $d = \frac{h}{\sin\theta}$。物體從頂端由靜止釋放：
+      </p>
+      <ul>
+        <li><strong>下滑加速度</strong>：受重力沿斜面的分力驅動，$a = g\sin\theta$。</li>
+        <li><strong>滑至底端之末速度</strong>：
+          $$v = \sqrt{2ad} = \sqrt{2(g\sin\theta)\left(\frac{h}{\sin\theta}\right)} = \sqrt{2gh}$$
+          <span style="color:#4f46e5; font-weight:800;">★ 驚人發現：斜角 $\theta$ 在根號內完全被約分抵消！到達底端時的速率只與高度 $h$ 有關，不論斜面陡峭還是平緩，末速率一模一樣（這正是往後單元「力學能守恆 $mgh = \frac{1}{2}mv^2$」的直觀體現）！</span>
+        </li>
+        <li><strong>下滑時間</strong>：
+          $$t = \sqrt{\frac{2d}{a}} = \sqrt{\frac{2(h/\sin\theta)}{g\sin\theta}} = \frac{1}{\sin\theta}\sqrt{\frac{2h}{g}}$$
+          斜面越陡（$\theta$ 越大，$\sin\theta$ 越大），下滑時間越短。
+        </li>
+      </ul>
+    </article>
+
+    <!-- ========================================================================= -->
+    <!-- 第 7 章：相對運動 -->
+    <!-- ========================================================================= -->
+    <article class="chapter-section" id="ch7">
+      <header class="chapter-header">
+        <span class="chapter-num">CHAPTER 07</span>
+        <h2 class="chapter-title">維度升級：一維相對運動與避撞極值</h2>
+      </header>
+
+      <p class="section-intro">
+        高速公路上，前車以時速 90 公里行駛，後車以時速 100 公里追趕。地面上的觀察者看到兩輛車都在飛奔；但後車駕駛員眼中，前車只不過是以<strong>時速 10 公里向自己靠近</strong>！將視角切換到其中一輛車（以它為靜止參考系），原本複雜的「雙物體運動」瞬間退化為簡單的「單物體運動」。
+      </p>
+
+      <div class="callout callout-idea">
+        <div class="callout-head">💡 相對運動三大公式（以 B 為參考系看 A 的運動）</div>
+        <p style="margin:0; font-size:0.95rem; line-height:1.7;">
+          • <strong>相對位置</strong>：$x_{AB} = x_A - x_B$ （即以 $B$ 為坐標原點）<br>
+          • <strong>相對速度</strong>：$v_{AB} = v_A - v_B$<br>
+          • <strong>相對加速度</strong>：$a_{AB} = a_A - a_B$
+        </p>
+      </div>
+
+      <!-- SVG 圖 7: 兩車避撞相對運動圖解 -->
+      <div class="diagram-wrapper">
+        <svg viewBox="0 0 760 210" width="760" height="210" xmlns="http://www.w3.org/2000/svg">
+          <line x1="60" y1="170" x2="700" y2="170" stroke="#4b5563" stroke-width="2" marker-end="url(#arrow-gray)"/>
+          <text x="705" y="175" font-family="'JetBrains Mono',monospace" font-size="12" fill="#4b5563">t(s)</text>
+          <line x1="100" y1="190" x2="100" y2="30" stroke="#4b5563" stroke-width="2" marker-end="url(#arrow-gray)"/>
+          <text x="85" y="25" font-family="'JetBrains Mono',monospace" font-size="12" font-weight="700" fill="#4f46e5">v</text>
+
+          <!-- 甲車煞車直線 (初速 v_甲，斜率負) -->
+          <line x1="100" y1="50" x2="480" y2="170" stroke="#ef4444" stroke-width="3"/>
+          <text x="110" y="45" font-family="'JetBrains Mono',monospace" font-size="12" font-weight="700" fill="#ef4444">v_甲(0) = 16 m/s</text>
+
+          <!-- 乙車等速水平線 (v_乙) -->
+          <line x1="100" y1="120" x2="600" y2="120" stroke="#10b981" stroke-width="3"/>
+          <text x="610" y="125" font-family="'JetBrains Mono',monospace" font-size="12" font-weight="700" fill="#10b981">v_乙 = 6 m/s</text>
+
+          <!-- 兩線交點 (速度相等時刻 t_c) -->
+          <line x1="320" y1="120" x2="320" y2="170" stroke="#f59e0b" stroke-width="2" stroke-dasharray="3,3"/>
+          <circle cx="320" cy="120" r="5" fill="#f59e0b"/>
+          <text x="320" y="190" text-anchor="middle" font-family="'Noto Sans TC',sans-serif" font-size="12" font-weight="700" fill="#d97706">t = t_c (速度相等時刻)</text>
+
+          <!-- 甲追趕乙多走之位移差（上方三角形面積） -->
+          <polygon points="100,50 320,120 100,120" fill="rgba(239,68,68,0.2)"/>
+          <text x="190" y="95" text-anchor="middle" font-family="'Noto Sans TC',sans-serif" font-size="12" font-weight="800" fill="#b91c1c">面積 = 甲比乙多走的距離 Δx_相</text>
+
+          <text x="500" y="65" font-family="'Noto Sans TC',sans-serif" font-size="13" font-weight="800" fill="#4f46e5">追撞與避撞之黃金準則：</text>
+          <text x="500" y="90" font-family="'Noto Sans TC',sans-serif" font-size="12" fill="#374151">1. 當 v_甲 > v_乙 時，兩車間距不斷縮小</text>
+          <text x="500" y="110" font-family="'Noto Sans TC',sans-serif" font-size="12" fill="#374151">2. <strong>當 v_甲 = v_乙 時，兩車間距縮到最小！</strong></text>
+          <text x="500" y="135" font-family="'Noto Sans TC',sans-serif" font-size="12" font-weight="700" fill="#b91c1c">若此時剛好碰上 ⇒ 避撞臨界距離 d_min</text>
+        </svg>
+        <div class="diagram-caption">
+          <span>📐 圖 7.1：追及與煞車避撞的 $v-t$ 圖解析——兩車速度相等時，兩者距離達到極值！</span>
+        </div>
+      </div>
+    </article>
+
+    <!-- ========================================================================= -->
+    <!-- 第 8 章：打點計時器數據分析微觀論 -->
+    <!-- ========================================================================= -->
+    <article class="chapter-section" id="ch8">
+      <header class="chapter-header">
+        <span class="chapter-num">CHAPTER 08</span>
+        <h2 class="chapter-title">探究與實踐：打點計時器數據分析微觀論</h2>
+      </header>
+
+      <p class="section-intro">
+        打點計時器是高中物理實驗室的「高頻相機」。每隔固定時間 $T$ 在紙帶上打一個墨點，透過紙帶上小點的疏密，我們就能精準反推出瞬時速度與加速度。這也是學測、分科測驗實驗題的最愛考點！
+      </p>
+
+      <!-- SVG 圖 8: 紙帶分析示意圖 -->
+      <div class="diagram-wrapper">
+        <svg viewBox="0 0 760 160" width="760" height="160" xmlns="http://www.w3.org/2000/svg">
+          <!-- 紙帶底色 -->
+          <rect x="50" y="30" width="660" height="70" fill="#fef3c7" stroke="#d97706" stroke-width="1.5" rx="3"/>
+          <text x="60" y="22" font-family="'Noto Sans TC',sans-serif" font-size="11" font-weight="700" fill="#b45309">紙帶運動方向 ← (拉向左邊，右側先打點)</text>
+
+          <!-- 各打點位置 (等加速遞增間距: 10, 20, 30, 40, 50) -->
+          <!-- 點 0 -->
+          <circle cx="100" cy="65" r="4.5" fill="#1f2937"/>
+          <text x="100" y="90" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="12" font-weight="700" fill="#1f2937">0</text>
+
+          <!-- 點 1 (dx=60) -->
+          <circle cx="170" cy="65" r="4.5" fill="#1f2937"/>
+          <text x="170" y="90" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="12" font-weight="700" fill="#1f2937">1</text>
+          <line x1="105" y1="50" x2="165" y2="50" stroke="#4f46e5" stroke-width="1.5"/>
+          <text x="135" y="44" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="11" font-weight="700" fill="#4f46e5">x₁</text>
+
+          <!-- 點 2 (dx=90) -->
+          <circle cx="270" cy="65" r="4.5" fill="#1f2937"/>
+          <text x="270" y="90" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="12" font-weight="700" fill="#1f2937">2</text>
+          <line x1="175" y1="50" x2="265" y2="50" stroke="#4f46e5" stroke-width="1.5"/>
+          <text x="220" y="44" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="11" font-weight="700" fill="#4f46e5">x₂</text>
+
+          <!-- 點 3 (dx=120) -->
+          <circle cx="400" cy="65" r="4.5" fill="#1f2937"/>
+          <text x="400" y="90" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="12" font-weight="700" fill="#1f2937">3</text>
+          <line x1="275" y1="50" x2="395" y2="50" stroke="#4f46e5" stroke-width="1.5"/>
+          <text x="335" y="44" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="11" font-weight="700" fill="#4f46e5">x₃</text>
+
+          <!-- 點 4 (dx=150) -->
+          <circle cx="560" cy="65" r="4.5" fill="#1f2937"/>
+          <text x="560" y="90" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="12" font-weight="700" fill="#1f2937">4</text>
+          <line x1="405" y1="50" x2="555" y2="50" stroke="#4f46e5" stroke-width="1.5"/>
+          <text x="480" y="44" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="11" font-weight="700" fill="#4f46e5">x₄</text>
+
+          <!-- 點 2 的瞬時速度標記 (由 1 到 3 的跨度) -->
+          <line x1="170" y1="125" x2="400" y2="125" stroke="#ef4444" stroke-width="2" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+          <text x="285" y="145" text-anchor="middle" font-family="'Noto Sans TC',sans-serif" font-size="12" font-weight="800" fill="#dc2626">點 2 瞬時速度：v₂ = (x₂ + x₃) / (2T)</text>
+        </svg>
+        <div class="diagram-caption">
+          <span>📐 圖 8.1：打點紙帶分析法——以點 2 為時間中點，取前後點 1 至點 3 的平均速度求得 $v_2$！</span>
+        </div>
+      </div>
+
+      <div class="derivation-grid">
+        <div class="derivation-card">
+          <div class="derivation-card-title">
+            <span>技巧 1：求某點的瞬時速度</span>
+            <span class="badge-method">時間中點定理</span>
+          </div>
+          <p style="font-size:0.92rem;">
+            求點 $n$ 的瞬時速度 $v_n$：取包含該點在內的前後相等時段：
+            $$v_n = \bar{v}_{(n-1)\to(n+1)} = \frac{x_{n+1} - x_{n-1}}{2T}$$
+          </p>
+        </div>
+
+        <div class="derivation-card">
+          <div class="derivation-card-title">
+            <span>技巧 2：求加速度 $a$（逐差法）</span>
+            <span class="badge-method">相鄰位移差</span>
+          </div>
+          <p style="font-size:0.92rem;">
+            等加速度運動中，連續相鄰等時段位移差恆等於 $a(\Delta t)^2$：
+            $$\Delta x_2 - \Delta x_1 = a T^2 \implies a = \frac{\Delta x_2 - \Delta x_1}{T^2}$$
+            若間隔 $k$ 個時段：$a = \frac{\Delta x_{m+k} - \Delta x_m}{k \cdot T^2}$。
+          </p>
+        </div>
+      </div>
+    </article>
+
+    <!-- ========================================================================= -->
+    <!-- 第 9 章：解題思維決策樹與避坑地雷陣 -->
+    <!-- ========================================================================= -->
+    <article class="chapter-section" id="ch9">
+      <header class="chapter-header">
+        <span class="chapter-num">CHAPTER 09</span>
+        <h2 class="chapter-title">大師思維：解題決策樹與易錯地雷陣</h2>
+      </header>
+
+      <p class="section-intro">
+        讀完理論，如何轉化為考場上 100% 的得分力？這份思維決策樹與避坑清單，是無數頂標學長姐總結的解題秘笈。
+      </p>
+
+      <div class="callout callout-idea">
+        <div class="callout-head">🌲 等加速度公式選用「審題三步決策法」</div>
+        <p style="margin:0; font-size:0.95rem; line-height:1.7;">
+          <strong>第一步：盤點五大物理量</strong>（初速 $v_0$、末速 $v$、加速度 $a$、時間 $t$、位移 $S$）。五個量中題目通常給 3 個，求 1 個，剩下 1 個「完全沒提到也不關心」。<br>
+          <strong>第二步：根據「缺席者」秒定公式</strong>：<br>
+          • <strong>沒給 $S$（不求位移）</strong> $\implies$ 必用【公式一】 $v = v_0 + at$<br>
+          • <strong>沒給 $v$（不求末速）</strong> $\implies$ 必用【公式二】 $S = v_0 t + \frac{1}{2}at^2$<br>
+          • <strong>沒給 $t$（不求時間）</strong> $\implies$ 必用【公式三】 $v^2 = v_0^2 + 2aS$<br>
+          • <strong>沒給 $a$（不求加速度）</strong> $\implies$ 必用【公式四】 $S = \frac{v_0 + v}{2}t$
+        </p>
+      </div>
+
+      <h3 class="sub-title">9.2 自學成才檢核清單 (Mastery Checklist)</h3>
+      <div class="checklist-group">
+        <div class="checklist-item">
+          <span class="check-icon">✓</span>
+          <div>我能清楚向同學解釋「平均速度為零」但「平均速率不為零」的具體生活實例。</div>
+        </div>
+        <div class="checklist-item">
+          <span class="check-icon">✓</span>
+          <div>我能脫口而出判斷加速與減速的唯一標準：$a \cdot v > 0$（同向）加速，$a \cdot v < 0$（反向）減速。</div>
+        </div>
+        <div class="checklist-item">
+          <span class="check-icon">✓</span>
+          <div>看到任何 $v-t$ 圖，我能立即指出：斜率是加速度，面積是位移，與 $t$ 軸交點是折返點。</div>
+        </div>
+        <div class="checklist-item">
+          <span class="check-icon">✓</span>
+          <div>我能不看講義，親手用 $v-t$ 圖梯形面積推導出 $S = v_0 t + \frac{1}{2}at^2$ 與 $v^2 = v_0^2 + 2aS$。</div>
+        </div>
+        <div class="checklist-item">
+          <span class="check-icon">✓</span>
+          <div>遇到初速為零的等加速度題目，我能第一反應聯想「奇數比 $1 : 3 : 5 : 7$」快速口算。</div>
+        </div>
+        <div class="checklist-item">
+          <span class="check-icon">✓</span>
+          <div>兩車追撞問題，我懂得「當兩車速度相等時，彼此距離達到極值」的避撞臨界法則。</div>
+        </div>
+        <div class="checklist-item">
+          <span class="check-icon">✓</span>
+          <div>打點計時器題目，我能運用「時間中點瞬時速度等於平均速度」求出任一點速度。</div>
+        </div>
+      </div>
+    </article>
+
+    <!-- 底部行動條 -->
+    <footer style="margin-top:4rem; padding-top:2rem; border-top:1px solid var(--border-light); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;">
+      <div>
+        <p style="font-weight:800; font-size:1.1rem; margin-bottom:0.25rem;">恭喜你完成了直線運動的系統自學！</p>
+        <p style="font-size:0.9rem; color:var(--text-muted); margin:0;">現在你可以前往題庫中心，用真實的大考試題驗收學習成果！</p>
+      </div>
+      <div style="display:flex; gap:0.75rem;">
+        <a href="guide.html" class="btn-pill btn-pill-primary">
+          <span>🧠</span> 前往公式自測
+        </a>
+        <a href="../../../index.html?unit=02_linear_motion" class="btn-pill" style="background:#10b981; color:#fff; border-color:#10b981;">
+          <span>🎯</span> 開始刷 19 道精解習題
+        </a>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- 浮動置頂按鈕 -->
+  <a href="#ch1" class="floating-back-top" title="回到頂端">
+    <span>↑</span>
+  </a>
+
+  <!-- KaTeX 渲染與深淺模式切換腳本 -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // 1. 主題切換
+      const themeBtn = document.getElementById('theme-btn');
+      const savedTheme = localStorage.getItem('phy_theme') || 'light';
+      document.documentElement.setAttribute('data-theme', savedTheme);
+      themeBtn.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+
+      themeBtn.addEventListener('click', () => {
+        const cur = document.documentElement.getAttribute('data-theme');
+        const next = cur === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', next);
+        themeBtn.textContent = next === 'dark' ? '☀️' : '🌙';
+        localStorage.setItem('phy_theme', next);
+      });
+
+      // 2. KaTeX 數學公式自動渲染
+      function renderKaTeX() {
+        if (!window.katex) return;
+        const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false);
+        const textNodes = [];
+        let node;
+        while (node = walker.nextNode()) {
+          if (node.nodeValue.includes('$')) {
+            textNodes.push(node);
+          }
+        }
+
+        textNodes.forEach(textNode => {
+          const parent = textNode.parentNode;
+          if (!parent || parent.tagName === 'SCRIPT' || parent.tagName === 'STYLE' || parent.classList.contains('katex') || parent.closest('.katex') || parent.closest('svg')) return;
+
+          let raw = textNode.nodeValue;
+          let replaced = false;
+          let tempDiv = document.createElement('span');
+
+          const parts = raw.split(/(\$\$[\s\S]*?\$\$|\$[^\$]+?\$)/g);
+          if (parts.length <= 1) return;
+
+          parts.forEach(part => {
+            if (part.startsWith('$$') && part.endsWith('$$')) {
+              const math = part.slice(2, -2).trim();
+              const span = document.createElement('div');
+              span.style.overflowX = 'auto';
+              span.style.padding = '0.5rem 0';
+              try {
+                katex.render(math, span, { displayMode: true, throwOnError: false });
+                tempDiv.appendChild(span);
+                replaced = true;
+              } catch (e) {
+                tempDiv.appendChild(document.createTextNode(part));
+              }
+            } else if (part.startsWith('$') && part.endsWith('$')) {
+              const math = part.slice(1, -1).trim();
+              const span = document.createElement('span');
+              try {
+                katex.render(math, span, { displayMode: false, throwOnError: false });
+                tempDiv.appendChild(span);
+                replaced = true;
+              } catch (e) {
+                tempDiv.appendChild(document.createTextNode(part));
+              }
+            } else if (part) {
+              tempDiv.appendChild(document.createTextNode(part));
+            }
+          });
+
+          if (replaced) {
+            parent.replaceChild(tempDiv, textNode);
+          }
+        });
+      }
+
+      let tries = 0;
+      const timer = setInterval(() => {
+        tries++;
+        if (window.katex) {
+          clearInterval(timer);
+          renderKaTeX();
+        } else if (tries > 30) {
+          clearInterval(timer);
+        }
+      }, 100);
+    });
+  </script>
+</body>
+</html>

@@ -18,6 +18,7 @@ const LEARNING_CENTER_CONFIG = {
           dataPath: 'subjects/physics/01_拋體運動/data.js',
           dataVar: 'PHYSICS_QUESTIONS',
           guideUrl: 'guide.html',
+          tutorialUrl: 'subjects/physics/01_拋體運動/tutorial.html',
           printUrl: 'guide_print.html',
           count: 72,
           categories: [
@@ -32,6 +33,7 @@ const LEARNING_CENTER_CONFIG = {
           dataPath: 'subjects/physics/02_直線運動/data.js',
           dataVar: 'LINEAR_MOTION_QUESTIONS',
           guideUrl: 'subjects/physics/02_直線運動/guide.html',
+          tutorialUrl: 'subjects/physics/02_直線運動/tutorial.html',
           printUrl: 'subjects/physics/02_直線運動/guide_print.html',
           count: 19,
           categories: [
