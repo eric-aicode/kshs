@@ -48,10 +48,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const unitSelect = document.getElementById('unit-select');
   const appSubtitle = document.getElementById('app-subtitle');
   
-  // 寶典、自學講義與列印連結
+  // 寶典、自學講義、精熟專區與列印連結
+  const headerMasteryLink = document.getElementById('header-mastery-link');
   const headerGuideLink = document.getElementById('header-guide-link');
   const headerTutorialLink = document.getElementById('header-tutorial-link');
   const headerPrintLink = document.getElementById('header-print-link');
+  const sidebarMasteryLink = document.getElementById('sidebar-mastery-link');
   const sidebarGuideLink = document.getElementById('sidebar-guide-link');
   const sidebarTutorialLink = document.getElementById('sidebar-tutorial-link');
   const sidebarPrintLink = document.getElementById('sidebar-print-link');
@@ -624,6 +626,14 @@ document.addEventListener('DOMContentLoaded', () => {
     if (appSubtitle) {
       appSubtitle.textContent = `${unitConfig.name} · 全功能互動精解指南`;
     }
+    if (headerMasteryLink) {
+      if (unitConfig.masteryUrl) {
+        headerMasteryLink.href = unitConfig.masteryUrl;
+        headerMasteryLink.style.display = 'inline-flex';
+      } else {
+        headerMasteryLink.style.display = 'none';
+      }
+    }
     if (headerGuideLink) {
       headerGuideLink.href = unitConfig.guideUrl || 'guide.html';
       headerGuideLink.title = `查看 ${unitConfig.name} 公式變形、題型矩陣與解題思考導航`;
@@ -638,6 +648,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     if (headerPrintLink) {
       headerPrintLink.href = unitConfig.printUrl || 'guide_print.html';
+    }
+    if (sidebarMasteryLink) {
+      if (unitConfig.masteryUrl) {
+        sidebarMasteryLink.href = unitConfig.masteryUrl;
+        sidebarMasteryLink.style.display = 'flex';
+      } else {
+        sidebarMasteryLink.style.display = 'none';
+      }
     }
     if (sidebarGuideLink) {
       sidebarGuideLink.href = unitConfig.guideUrl || 'guide.html';

@@ -1,0 +1,1290 @@
+<!DOCTYPE html>
+<html lang="zh-TW" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>二維拋體運動 · 核心公式與概念精熟專題庫 (1~72題 分類練習)</title>
+  <meta name="description" content="高中物理二維拋體運動依公式與核心概念歸納之精熟專題庫。涵蓋水平拋體、正切二倍關係、斜面平拋、斜向拋體三大公式、高程比定理、軌跡方程式與拋體相對運動。">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Noto+Sans+TC:wght@400;500;700;800;900&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- KaTeX -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" crossorigin="anonymous"></script>
+
+  <!-- Base Application Style -->
+  <link rel="stylesheet" href="../../../core/style.css">
+
+  <style>
+    /* ==========================================================================
+       二維拋體運動 公式與概念精熟專用樣式 (Mastery Hub Styling)
+       ========================================================================== */
+    :root {
+      --mastery-max-width: 1200px;
+      --card-radius: 14px;
+    }
+
+    body {
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      font-family: 'Noto Sans TC', system-ui, -apple-system, sans-serif;
+      line-height: 1.7;
+    }
+
+    .mastery-container {
+      max-width: var(--mastery-max-width);
+      margin: 0 auto;
+      padding: 1.75rem 1.25rem 6rem 1.25rem;
+    }
+
+    /* 頂部導航列 */
+    .top-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border-light);
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
+
+    .nav-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.45rem 0.95rem;
+      border-radius: var(--radius-full);
+      font-size: 0.88rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all var(--transition-fast);
+      cursor: pointer;
+      border: 1px solid var(--border-medium);
+      background: var(--bg-card);
+      color: var(--text-secondary);
+    }
+    .nav-btn:hover {
+      border-color: var(--accent-primary);
+      color: var(--accent-primary);
+      transform: translateY(-1px);
+    }
+    .nav-btn.primary {
+      background: var(--accent-primary);
+      color: #ffffff;
+      border-color: var(--accent-primary);
+    }
+    .nav-btn.primary:hover {
+      background: var(--accent-hover);
+      color: #ffffff;
+    }
+
+    /* Hero 看板 */
+    .hero-panel {
+      background: linear-gradient(135deg, rgba(14, 165, 233, 0.08) 0%, rgba(16, 185, 129, 0.08) 100%);
+      border: 1px solid var(--border-light);
+      border-radius: var(--card-radius);
+      padding: 2rem 2.25rem;
+      margin-bottom: 2rem;
+      position: relative;
+      box-shadow: var(--shadow-sm);
+    }
+    .hero-title {
+      font-size: 1.85rem;
+      font-weight: 850;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+    .hero-desc {
+      font-size: 0.96rem;
+      color: var(--text-secondary);
+      max-width: 900px;
+      margin-bottom: 1.25rem;
+    }
+
+    /* 統計儀表板 */
+    .stats-dashboard {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .stat-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-md);
+      padding: 1rem 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .stat-label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .stat-value {
+      font-size: 1.6rem;
+      font-weight: 850;
+      color: var(--text-primary);
+      display: flex;
+      align-items: baseline;
+      gap: 0.35rem;
+    }
+    .stat-sub {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    /* 進度條 */
+    .progress-bar-container {
+      background: var(--bg-tertiary);
+      border-radius: var(--radius-full);
+      height: 10px;
+      overflow: hidden;
+      margin-top: 0.5rem;
+    }
+    .progress-bar-fill {
+      background: linear-gradient(90deg, #0284c7 0%, #10b981 100%);
+      height: 100%;
+      width: 0%;
+      border-radius: var(--radius-full);
+      transition: width 0.4s ease;
+    }
+
+    /* 控制列與篩選標籤 */
+    .controls-bar {
+      position: sticky;
+      top: 0.75rem;
+      z-index: 100;
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: var(--card-radius);
+      padding: 1rem 1.25rem;
+      margin-bottom: 2rem;
+      box-shadow: var(--shadow-md);
+      backdrop-filter: blur(12px);
+    }
+    .controls-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.85rem;
+    }
+    .search-box {
+      flex: 1;
+      min-width: 260px;
+      position: relative;
+    }
+    .search-input {
+      width: 100%;
+      padding: 0.55rem 1rem 0.55rem 2.4rem;
+      border-radius: var(--radius-full);
+      border: 1px solid var(--border-medium);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color var(--transition-fast);
+    }
+    .search-input:focus {
+      border-color: var(--accent-primary);
+      box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.15);
+    }
+    .search-icon {
+      position: absolute;
+      left: 0.85rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 0.9rem;
+      opacity: 0.6;
+    }
+
+    .filter-pills {
+      display: flex;
+      gap: 0.5rem;
+      overflow-x: auto;
+      padding-bottom: 0.35rem;
+      scrollbar-width: thin;
+    }
+    .pill-tab {
+      padding: 0.35rem 0.85rem;
+      border-radius: var(--radius-full);
+      border: 1px solid var(--border-light);
+      background: var(--bg-tertiary);
+      color: var(--text-secondary);
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all var(--transition-fast);
+    }
+    .pill-tab:hover {
+      border-color: var(--accent-primary);
+      color: var(--accent-primary);
+    }
+    .pill-tab.active {
+      background: #0284c7;
+      color: #ffffff;
+      border-color: #0284c7;
+    }
+
+    /* 模組區塊 */
+    .module-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: var(--card-radius);
+      margin-bottom: 2.25rem;
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      scroll-margin-top: 140px;
+      transition: border-color var(--transition-fast);
+    }
+    .module-card:hover {
+      border-color: var(--border-medium);
+    }
+    .module-header {
+      padding: 1.25rem 1.5rem;
+      background: linear-gradient(135deg, rgba(14, 165, 233, 0.05) 0%, rgba(16, 185, 129, 0.05) 100%);
+      border-bottom: 1px solid var(--border-light);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+    .module-title {
+      font-size: 1.25rem;
+      font-weight: 850;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .module-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .module-badge {
+      font-size: 0.78rem;
+      font-weight: 750;
+      padding: 0.2rem 0.65rem;
+      border-radius: var(--radius-full);
+      background: rgba(2, 132, 199, 0.12);
+      color: #0284c7;
+    }
+
+    .module-body {
+      padding: 1.5rem;
+    }
+
+    /* 公式特寫卡片 */
+    .formula-showcase {
+      background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+      color: #ffffff !important;
+      border-radius: var(--radius-md);
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1.25rem;
+      border: 1px solid #334155;
+      box-shadow: 0 4px 16px rgba(15, 23, 42, 0.15);
+      position: relative;
+    }
+    [data-theme="dark"] .formula-showcase {
+      background: linear-gradient(135deg, #111827 0%, #030712 100%);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+    .formula-tag {
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: #38bdf8;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .formula-math-block {
+      overflow-x: auto;
+      font-size: 1.18rem;
+      padding: 0.25rem 0;
+      color: #ffffff !important;
+    }
+    .formula-showcase .katex-display {
+      background: transparent !important;
+      border: none !important;
+      box-shadow: none !important;
+      margin: 0 !important;
+      padding: 0.35rem 0 !important;
+      color: #ffffff !important;
+    }
+    .formula-showcase .katex,
+    .formula-showcase .katex * {
+      color: #ffffff !important;
+    }
+
+    /* 觀念指南與易錯提醒 */
+    .concept-guide-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    @media (max-width: 860px) {
+      .concept-guide-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .guide-box {
+      border-radius: var(--radius-md);
+      padding: 1rem 1.15rem;
+      font-size: 0.92rem;
+    }
+    .guide-box.strategy {
+      background: rgba(2, 132, 199, 0.05);
+      border-left: 4px solid #0284c7;
+    }
+    .guide-box.pitfalls {
+      background: rgba(239, 68, 68, 0.05);
+      border-left: 4px solid var(--accent-crimson);
+    }
+    .guide-box-title {
+      font-weight: 800;
+      margin-bottom: 0.4rem;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    /* 題目單列折疊清單 (Single Row Accordion List) */
+    .questions-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+    .q-row-item {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-md);
+      transition: all var(--transition-fast);
+      overflow: hidden;
+    }
+    .q-row-item:hover {
+      border-color: #0284c7;
+      box-shadow: var(--shadow-sm);
+    }
+    .q-row-item.mastered {
+      background: rgba(16, 185, 129, 0.03);
+      border-color: rgba(16, 185, 129, 0.35);
+    }
+
+    .q-row-header {
+      padding: 0.95rem 1.25rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      cursor: pointer;
+      user-select: none;
+      transition: background var(--transition-fast);
+    }
+    .q-row-header:hover {
+      background: var(--bg-tertiary);
+    }
+    .q-row-item.open .q-row-header {
+      background: var(--bg-tertiary);
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .q-row-left {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      flex: 1;
+      min-width: 0;
+    }
+    .q-row-id {
+      font-size: 0.85rem;
+      font-weight: 850;
+      color: #0284c7;
+      background: rgba(2, 132, 199, 0.1);
+      padding: 0.25rem 0.65rem;
+      border-radius: var(--radius-sm);
+      font-family: 'JetBrains Mono', monospace;
+      flex-shrink: 0;
+    }
+    .q-row-item.mastered .q-row-id {
+      color: var(--accent-emerald);
+      background: rgba(16, 185, 129, 0.15);
+    }
+
+    .q-row-info {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+      flex: 1;
+      min-width: 0;
+    }
+    .q-row-title {
+      font-size: 0.98rem;
+      font-weight: 750;
+      color: var(--text-primary);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .q-row-preview {
+      font-size: 0.84rem;
+      color: var(--text-secondary);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      line-height: 1.4;
+    }
+
+    .q-row-right {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-shrink: 0;
+    }
+    .q-row-checkbox-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      cursor: pointer;
+      user-select: none;
+      padding: 0.2rem 0.4rem;
+      border-radius: var(--radius-sm);
+    }
+    .q-row-checkbox-label:hover {
+      color: var(--text-primary);
+    }
+    .q-row-checkbox-label input {
+      accent-color: var(--accent-emerald);
+      cursor: pointer;
+      width: 16px;
+      height: 16px;
+    }
+    .q-row-btn {
+      padding: 0.35rem 0.75rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.82rem;
+      font-weight: 750;
+      text-decoration: none;
+      cursor: pointer;
+      border: 1px solid rgba(2, 132, 199, 0.25);
+      background: rgba(2, 132, 199, 0.08);
+      color: #0284c7;
+      transition: all var(--transition-fast);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    .q-row-btn:hover {
+      background: #0284c7;
+      color: #ffffff;
+    }
+
+    .q-row-chevron {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      transition: transform 0.25s ease;
+      display: inline-block;
+      margin-left: 0.2rem;
+    }
+    .q-row-item.open .q-row-chevron {
+      transform: rotate(180deg);
+      color: #0284c7;
+    }
+
+    /* 題目展開詳解抽屜 */
+    .q-row-drawer {
+      display: none;
+      padding: 1.35rem 1.6rem;
+      background: var(--bg-primary);
+      border-top: 1px dashed var(--border-medium);
+      font-size: 0.94rem;
+      line-height: 1.75;
+    }
+    .q-row-item.open .q-row-drawer {
+      display: block;
+    }
+    .detail-section {
+      margin-bottom: 1rem;
+    }
+    .detail-section-title {
+      font-size: 0.82rem;
+      font-weight: 850;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      margin-bottom: 0.35rem;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+    .detail-body {
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-sm);
+      padding: 1rem 1.25rem;
+      font-size: 0.95rem;
+      line-height: 1.85;
+    }
+
+    /* 詳解小題與步驟排版 (Sub-step Cards & Bullets) */
+    .step-card {
+      margin-bottom: 0.85rem;
+      padding: 0.75rem 1rem;
+      background: var(--bg-secondary);
+      border-left: 3.5px solid #0284c7;
+      border-radius: 4px;
+      transition: background var(--transition-fast);
+    }
+    .step-card:last-child {
+      margin-bottom: 0;
+    }
+    .step-header {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.4rem;
+    }
+    .step-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 850;
+      font-size: 0.82rem;
+      padding: 0.15rem 0.55rem;
+      border-radius: 4px;
+      color: #ffffff;
+      background: #0284c7;
+      font-family: 'JetBrains Mono', monospace;
+      letter-spacing: 0.02em;
+    }
+    .step-content {
+      line-height: 1.85;
+      color: var(--text-primary);
+    }
+    .step-bullet-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+      margin: 0.35rem 0;
+      padding-left: 0.25rem;
+    }
+    .step-bullet-icon {
+      color: #0284c7;
+      font-size: 0.85rem;
+      line-height: 1.85;
+      flex-shrink: 0;
+    }
+    .step-bullet-text {
+      flex: 1;
+      min-width: 0;
+      line-height: 1.85;
+    }
+    .text-paragraph {
+      margin-bottom: 0.6rem;
+      line-height: 1.85;
+    }
+    .text-paragraph:last-child {
+      margin-bottom: 0;
+    }
+    .question-sub-item {
+      display: flex;
+      align-items: flex-start;
+      margin-top: 0.45rem;
+      line-height: 1.8;
+      color: var(--text-primary);
+    }
+    .q-sub-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 0.82rem;
+      color: #0284c7;
+      background: rgba(2, 132, 199, 0.12);
+      padding: 0.1rem 0.45rem;
+      border-radius: 4px;
+      margin-right: 0.45rem;
+      font-family: 'JetBrains Mono', monospace;
+      flex-shrink: 0;
+      margin-top: 0.15rem;
+    }
+    .detail-answer-badge {
+      display: inline-block;
+      background: rgba(16, 185, 129, 0.12);
+      color: var(--accent-emerald);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      padding: 0.3rem 0.8rem;
+      border-radius: var(--radius-sm);
+      font-weight: 850;
+      font-size: 0.95rem;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="mastery-container">
+    
+    <!-- 頂部導航 -->
+    <header class="top-nav">
+      <div style="display:flex; align-items:center; gap:0.75rem;">
+        <span style="font-size:1.8rem;">🎯</span>
+        <div>
+          <h1 style="font-size:1.25rem; font-weight:850; margin:0;">二維拋體運動 · 公式概念精熟題型分類庫</h1>
+          <p style="font-size:0.8rem; color:var(--text-muted); margin:0;">6 大核心公式模組 · 72 題典型拋體精解全歸納</p>
+        </div>
+      </div>
+      <div class="nav-actions">
+        <a href="../../../index.html?subject=physics&unit=01_projectile" class="nav-btn primary" title="返回主練習庫">
+          <span>📚</span><span>返回主題庫</span>
+        </a>
+        <a href="../02_直線運動/mastery.html" class="nav-btn" title="切換至直線運動精熟庫">
+          <span>⚡</span><span>直線運動精熟庫</span>
+        </a>
+        <a href="tutorial.html" class="nav-btn" title="查看圖解講義">
+          <span>📘</span><span>圖解自學講義</span>
+        </a>
+        <a href="../../../guide.html" class="nav-btn" title="查看公式變形寶典">
+          <span>📐</span><span>公式變形寶典</span>
+        </a>
+        <button class="nav-btn" id="theme-toggle-btn" title="切換深淺主題">
+          🌙
+        </button>
+      </div>
+    </header>
+
+    <!-- Hero 看板 -->
+    <section class="hero-panel">
+      <div class="hero-title">
+        <span>🏹 平拋、斜拋、斜面撞擊與相對運動 · 核心公式矩陣</span>
+      </div>
+      <p class="hero-desc">
+        將 72 道二維拋體題目徹底拆解為 6 大經典公式主題！從平拋二倍正切定理、斜面垂直撞擊，到互餘角等射程與空中相對直線運動，
+        讓你一眼看穿出題老師考的是哪個公式，精準高效刷題。
+      </p>
+
+      <!-- 統計儀表板 -->
+      <div class="stats-dashboard">
+        <div class="stat-card">
+          <span class="stat-label">公式模組總數</span>
+          <div class="stat-value">6 <span class="stat-sub">個主題</span></div>
+        </div>
+        <div class="stat-card">
+          <span class="stat-label">題目總收錄</span>
+          <div class="stat-value">72 <span class="stat-sub">題全集</span></div>
+        </div>
+        <div class="stat-card">
+          <span class="stat-label">已精熟題數</span>
+          <div class="stat-value" id="stat-mastered-count">0 <span class="stat-sub">/ 72 題</span></div>
+          <div class="progress-bar-container">
+            <div class="progress-bar-fill" id="stat-progress-bar"></div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <span class="stat-label">當前熟練進度</span>
+          <div class="stat-value" id="stat-mastered-percent">0% <span class="stat-sub">達成率</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 快速控制條 (Sticky Filter & Search) -->
+    <div class="controls-bar">
+      <div class="controls-top">
+        <div class="search-box">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="mastery-search" class="search-input" placeholder="搜尋題號 (如 25) 或關鍵字 (如 夾角、斜面、射程、軌跡、相對)...">
+        </div>
+        <div style="display:flex; align-items:center; gap:0.75rem; flex-wrap:wrap;">
+          <label style="display:flex; align-items:center; gap:0.35rem; font-size:0.85rem; font-weight:700; cursor:pointer;">
+            <input type="checkbox" id="filter-unmastered-only"> 只顯示尚未精熟題目
+          </label>
+          <button class="nav-btn" id="btn-toggle-all-details" style="font-size:0.82rem; padding:0.35rem 0.75rem;">
+            📖 全部展開詳解
+          </button>
+          <button class="nav-btn" id="btn-reset-progress" style="font-size:0.82rem; padding:0.35rem 0.75rem; color:var(--accent-crimson);">
+            🔄 重設進度
+          </button>
+        </div>
+      </div>
+
+      <!-- 模組快速導航 Pills -->
+      <div class="filter-pills" id="module-tabs">
+        <button class="pill-tab active" data-mod="all">全部模組 (6)</button>
+        <button class="pill-tab" data-mod="pmod-1">模組 1 · 平拋基礎與飛行時間 (14)</button>
+        <button class="pill-tab" data-mod="pmod-2">模組 2 · 速度/位移正切二倍定理 (7)</button>
+        <button class="pill-tab" data-mod="pmod-3">模組 3 · 斜面落點與垂直撞擊 (6)</button>
+        <button class="pill-tab" data-mod="pmod-4">模組 4 · 斜拋三大公式與互補角 (16)</button>
+        <button class="pill-tab" data-mod="pmod-5">模組 5 · 軌跡幾何與高程比定理 (16)</button>
+        <button class="pill-tab" data-mod="pmod-6">模組 6 · 斜面拋射與相對運動 (13)</button>
+      </div>
+    </div>
+
+    <!-- 模組內容動態渲染容器 -->
+    <main id="modules-container"></main>
+
+  </div>
+
+  <!-- 載入拋體運動題目資料庫 -->
+  <script src="data.js"></script>
+
+  <script>
+    // ==========================================================================
+    // 拋體運動 6 大核心公式精熟模組 (1~72 題完全覆蓋)
+    // ==========================================================================
+    const PROJECTILE_MASTERY_MODULES = [
+      {
+        id: "pmod-1",
+        name: "模組 01 · 水平拋體基礎運動學與飛行時間",
+        icon: "🌊",
+        formulaLatex: `t = \\sqrt{\\frac{2h}{g}}, \\quad x = v_0 t = v_0\\sqrt{\\frac{2h}{g}} \\\\
+v_x = v_0, \\quad v_y = gt, \\quad v = \\sqrt{v_0^2 + (gt)^2}`,
+        strategy: "平拋運動的核心是「運動獨立性」：水平等速、鉛直自由落體。只要已知高度 $h$，飛行時間 $t$ 便唯一確定，與水平初速 $v_0$ 完全無關！轟炸機投彈或空中相撞問題，水平方向直接用相對速率 $\\Delta v_x \\times t$ 即可秒殺。",
+        pitfalls: "⚠️ 注意鉛直高度與末速度的關係：末速度 $v = \\sqrt{v_0^2 + 2gh}$，切勿把水平速度誤當作末速度！",
+        questionIds: [1, 2, 8, 9, 10, 11, 12, 13, 14, 15, 24, 25, 26, 27]
+      },
+      {
+        id: "pmod-2",
+        name: "模組 02 · 平拋之速度偏角與位移偏角正切二倍關係",
+        icon: "📐",
+        formulaLatex: `\\tan\\theta = \\frac{v_y}{v_x} = \\frac{gt}{v_0} \\ \\text{(速度偏角)}, \\quad \\tan\\phi = \\frac{y}{x} = \\frac{\\frac{1}{2}gt^2}{v_0 t} = \\frac{gt}{2v_0} \\ \\text{(位移偏角)} \\\\
+\\tan\\theta = 2\\tan\\phi \\ \\text{(正切二倍金律)}`,
+        strategy: "高頻必考秒殺公式！平拋物體的瞬時速度傾角正切值，永遠是位移傾角正切值的 2 倍。幾何上，任意時刻速度切線的反向延長線必精準交於水平位移的中點 $x/2$ 處！",
+        pitfalls: "⚠️ 題目問「速度方向與水平成 $45^\\circ$」時 $\\tan\\theta = 1 \\implies t = v_0/g$；而問「位移與水平成 $45^\\circ$」時 $\\tan\\phi = 1 \\implies t = 2v_0/g$。時間相差整整 2 倍！",
+        questionIds: [3, 4, 5, 6, 7, 22, 23]
+      },
+      {
+        id: "pmod-3",
+        name: "模組 03 · 水平拋體於斜面上之落點、最遠距與垂直撞擊",
+        icon: "🏔️",
+        formulaLatex: `\\text{順斜面拋出落點}: \\ \\tan\\alpha = \\frac{y}{x} = \\frac{gt}{2v_0} \\implies t_{\\text{落}} = \\frac{2v_0\\tan\\alpha}{g} \\\\
+\\text{垂直撞擊斜面}: \\ \\tan\\theta = \\cot\\alpha \\implies \\frac{gt}{v_0} = \\cot\\alpha \\implies t_{\\text{垂}} = \\frac{v_0\\cot\\alpha}{g} \\\\
+\\text{離斜面最遠點}: \\ \\frac{v_y}{v_x} = \\tan\\alpha \\implies t_{\\text{max}} = \\frac{v_0\\tan\\alpha}{g} = \\frac{1}{2}t_{\\text{落}}`,
+        strategy: "斜面平拋三大切入點：(1) 落回斜面，幾何條件為位移角等於斜角 $\\tan\\alpha = y/x$；(2) 離斜面最遠處，速度方向必平行斜面，時間剛好是落點的一半；(3) 垂直撞擊斜面，速度偏角與斜角互餘，正切互為倒數！",
+        pitfalls: "⚠️ 注意垂直撞擊條件是速度與斜面垂直，故速度水平夾角 $\\theta = 90^\\circ - \\alpha$，切記是 $\\tan\\theta = \\cot\\alpha$！",
+        questionIds: [16, 17, 18, 19, 20, 21]
+      },
+      {
+        id: "pmod-4",
+        name: "模組 04 · 斜向拋體標準三大公式與互補角射程相等定理",
+        icon: "🎯",
+        formulaLatex: `T = \\frac{2v_0\\sin\\theta}{g}, \\quad H = \\frac{v_0^2\\sin^2\\theta}{2g}, \\quad R = \\frac{v_0^2\\sin 2\\theta}{g} \\\\
+\\text{互補角定理}: \\ R(\\theta) = R(90^\\circ - \\theta) \\\\
+\\frac{T_1}{T_2} = \\tan\\theta, \\quad \\frac{H_1}{H_2} = \\tan^2\\theta, \\quad R = \\frac{g}{2}T_1 T_2 = 4\\sqrt{H_1 H_2}`,
+        strategy: "斜拋標準三大公式是基礎功。當初速固定，仰角互餘（$\\theta_1 + \\theta_2 = 90^\\circ$）的兩次斜拋，水平射程完全相同！仰角較大者最大高度較高且滯空時間較長。射程可直接由兩次時間之乘積求得：$R = \\frac{1}{2}g T_1 T_2$。",
+        pitfalls: "⚠️ 當 $\\theta = 45^\\circ$ 時水平射程最大 $R_{\\max} = v_0^2/g$；此時最大高度剛好為射程的四分之一 $H = R/4$。",
+        questionIds: [28, 29, 30, 31, 32, 33, 34, 35, 37, 38, 43, 44, 45, 46, 48, 52]
+      },
+      {
+        id: "pmod-5",
+        name: "模組 05 · 斜拋軌跡幾何關係、高程比與特殊定理",
+        icon: "🏹",
+        formulaLatex: `R = 4H\\cot\\theta \\iff \\tan\\theta = \\frac{4H}{R} \\quad (\\text{高程比金律}) \\\\
+y = x\\tan\\theta - \\frac{gx^2}{2v_0^2\\cos^2\\theta} = x\\tan\\theta\\left(1 - \\frac{x}{R}\\right) \\quad (\\text{軌跡方程式}) \\\\
+t_1 + t_2 = T = \\frac{2v_0\\sin\\theta}{g}, \\quad t_1 t_2 = \\frac{2h}{g} \\quad (\\text{同高度對稱性})`,
+        strategy: "高程比定理是秒殺大題的神器：$\\tan\\theta = 4H/R$。若題目說「水平射程等於最大高度 $R=H$」，直接得出 $\\tan\\theta = 4$！若已知軌跡為二次曲線 $y = Ax - Bx^2$，則拋射角正切即為 $A$，水平射程即為 $A/B$。",
+        pitfalls: "⚠️ 經過建築物邊緣或同一高度的兩次時間 $t_1, t_2$，其和必等於全程飛行時間 $T$，其積必等於 $2h/g$。",
+        questionIds: [36, 39, 40, 41, 42, 47, 49, 50, 51, 53, 54, 55, 56, 57, 58, 60]
+      },
+      {
+        id: "pmod-6",
+        name: "模組 06 · 斜面上拋射、曲率半徑與拋體相對運動",
+        icon: "🪐",
+        formulaLatex: `\\text{斜面上最大射程}: \\ R_{\\max} = \\frac{v_0^2}{g(1+\\sin\\beta)} \\\\
+\\text{頂點曲率半徑}: \\ \\rho_{\\text{頂}} = \\frac{v_0^2\\cos^2\\theta}{g} \\\\
+\\text{兩拋體相對運動}: \\ \\vec{a}_{\\text{相}} = \\vec{g} - \\vec{g} = 0 \\implies \\text{空中彼此作等速直線運動！}`,
+        strategy: "兩物體都在空中只受重力時，兩者的相對加速度恆為零！這意味著在其中一顆球看另一顆球，對方是在作「等速直線運動」。經典的「猴子與獵人」就是這個原理——子彈永遠瞄準猴子前進！在斜面上拋射時，法線加速度 $a_n = g\\cos\\theta$ 用於計算軌跡曲率半徑。",
+        pitfalls: "⚠️ 斜面坐標分解：若選取平行斜面與垂直斜面為座標軸，則兩方向均有重力加速度分量（$g\\sin\\beta$ 與 $g\\cos\\beta$），計算時切記符號。",
+        questionIds: [59, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72]
+      }
+    ];
+
+    // ==========================================================================
+    // 狀態管理與 LocalStorage
+    // ==========================================================================
+    const STORAGE_KEY = 'mastery_projectile_completed';
+    let masteredSet = new Set(JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'));
+    let currentFilterMod = 'all';
+    let currentSearchText = '';
+    let showUnmasteredOnly = false;
+    let allDetailsOpen = false;
+
+    // 快取題目映射
+    const questionsMap = new Map();
+    if (typeof PHYSICS_QUESTIONS !== 'undefined') {
+      PHYSICS_QUESTIONS.forEach(q => questionsMap.set(q.id, q));
+    }
+
+    // ==========================================================================
+    // KaTeX 公式安全渲染輔助函式
+    // ==========================================================================
+    function renderLatexFormulas() {
+      if (!window.katex) return;
+      document.querySelectorAll('.latex-render:not([data-rendered="true"])').forEach(el => {
+        const formula = el.getAttribute('data-formula') || el.textContent;
+        const isBlock = el.classList.contains('katex-block');
+        try {
+          katex.render(formula, el, {
+            displayMode: isBlock,
+            throwOnError: false
+          });
+          el.setAttribute('data-rendered', 'true');
+        } catch (e) {
+          console.warn('KaTeX render error:', e);
+        }
+      });
+
+      // 同時替換正文內的 $...$ 和 $$...$$
+      document.querySelectorAll('.math-text:not([data-rendered="true"])').forEach(el => {
+        el.setAttribute('data-rendered', 'true');
+        walkTextNodesForMath(el);
+      });
+    }
+
+    function walkTextNodesForMath(container) {
+      const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT, null, false);
+      const nodes = [];
+      while (walker.nextNode()) nodes.push(walker.currentNode);
+
+      nodes.forEach(node => {
+        const text = node.nodeValue;
+        if (!text || (!text.includes('$') && !text.includes('$$'))) return;
+        const parent = node.parentNode;
+        if (parent && (parent.tagName === 'SCRIPT' || parent.tagName === 'STYLE' || parent.classList.contains('katex'))) return;
+
+        const parts = text.split(/(\$\$[\s\S]+?\$\$|\$[^\$\n\r]+?\$)/g);
+        if (parts.length <= 1) return;
+
+        const frag = document.createDocumentFragment();
+        parts.forEach(part => {
+          if (part.startsWith('$$') && part.endsWith('$$')) {
+            const math = part.slice(2, -2).trim();
+            const span = document.createElement('span');
+            try {
+              katex.render(math, span, { displayMode: true, throwOnError: false });
+              frag.appendChild(span);
+            } catch (e) { frag.appendChild(document.createTextNode(part)); }
+          } else if (part.startsWith('$') && part.endsWith('$')) {
+            const math = part.slice(1, -1).trim();
+            const span = document.createElement('span');
+            try {
+              katex.render(math, span, { displayMode: false, throwOnError: false });
+              frag.appendChild(span);
+            } catch (e) { frag.appendChild(document.createTextNode(part)); }
+          } else if (part) {
+            frag.appendChild(document.createTextNode(part));
+          }
+        });
+        parent.replaceChild(frag, node);
+      });
+    }
+
+    // ==========================================================================
+    // 渲染主流程
+    // ==========================================================================
+    function updateStats() {
+      const total = 72;
+      const count = masteredSet.size;
+      const pct = Math.round((count / total) * 100);
+
+      document.getElementById('stat-mastered-count').innerHTML = `${count} <span class="stat-sub">/ ${total} 題</span>`;
+      document.getElementById('stat-mastered-percent').innerHTML = `${pct}% <span class="stat-sub">達成率</span>`;
+      document.getElementById('stat-progress-bar').style.width = `${pct}%`;
+    }
+
+    function renderModules() {
+      const container = document.getElementById('modules-container');
+      container.innerHTML = '';
+
+      PROJECTILE_MASTERY_MODULES.forEach(mod => {
+        if (currentFilterMod !== 'all' && currentFilterMod !== mod.id) return;
+
+        const filteredQIds = mod.questionIds.filter(id => {
+          const q = questionsMap.get(id);
+          if (!q) return false;
+          if (showUnmasteredOnly && masteredSet.has(id)) return false;
+          if (currentSearchText) {
+            const text = (q.id + ' ' + (q.title || '') + ' ' + q.question + ' ' + (q.hint || '')).toLowerCase();
+            if (!text.includes(currentSearchText.toLowerCase())) return false;
+          }
+          return true;
+        });
+
+        if (filteredQIds.length === 0 && (currentSearchText || showUnmasteredOnly)) return;
+
+        const modCompletedCount = mod.questionIds.filter(id => masteredSet.has(id)).length;
+        const modPercent = Math.round((modCompletedCount / mod.questionIds.length) * 100);
+
+        const card = document.createElement('div');
+        card.className = 'module-card';
+        card.id = `section-${mod.id}`;
+
+        card.innerHTML = `
+          <div class="module-header">
+            <div class="module-title">
+              <span>${mod.icon}</span>
+              <span>${mod.name}</span>
+            </div>
+            <div class="module-meta">
+              <span class="module-badge">精熟度 ${modCompletedCount} / ${mod.questionIds.length} (${modPercent}%)</span>
+              <span class="module-badge" style="background:var(--bg-tertiary); color:var(--text-secondary);">共 ${mod.questionIds.length} 題</span>
+            </div>
+          </div>
+          <div class="module-body">
+            <!-- 公式展示卡 -->
+            <div class="formula-showcase">
+              <div class="formula-tag"><span>📐</span><span>核心公式與定理</span></div>
+              <div class="formula-math-block latex-render katex-block" data-formula="${escapeHtml(mod.formulaLatex)}"></div>
+            </div>
+
+            <!-- 思維與易錯指南 -->
+            <div class="concept-guide-grid">
+              <div class="guide-box strategy">
+                <div class="guide-box-title" style="color:#0284c7;"><span>💡</span><span>破題心法與解題策略</span></div>
+                <div class="math-text">${escapeHtml(mod.strategy)}</div>
+              </div>
+              <div class="guide-box pitfalls">
+                <div class="guide-box-title" style="color:var(--accent-crimson);"><span>⚠️</span><span>常見盲點與易錯提醒</span></div>
+                <div class="math-text">${escapeHtml(mod.pitfalls)}</div>
+              </div>
+            </div>
+
+            <!-- 題目單列折疊清單 -->
+            <div class="questions-list" id="q-list-${mod.id}">
+              ${filteredQIds.map(id => renderQuestionRowHtml(id)).join('')}
+            </div>
+          </div>
+        `;
+
+        container.appendChild(card);
+      });
+
+      setTimeout(renderLatexFormulas, 40);
+    }
+
+    function renderQuestionRowHtml(id) {
+      const q = questionsMap.get(id);
+      if (!q) return '';
+      const isMastered = masteredSet.has(id);
+      
+      // 提煉清晰易讀的標題：若無特定題目標題，抽取題目首句核心敘述
+      let cleanTitle = q.title;
+      if (!cleanTitle || cleanTitle.includes('單元')) {
+        const firstLine = (q.question.split('\n')[0] || '').replace(/[#*]/g, '').trim();
+        cleanTitle = `第 ${id} 題：${firstLine}`;
+      }
+      const snippet = q.question.replace(/\$\$[\s\S]+?\$\$/g, ' [公式] ').replace(/\$[^\$]+?\$/g, ' [式] ').replace(/\n+/g, ' ').slice(0, 95);
+
+      return `
+        <div class="q-row-item ${isMastered ? 'mastered' : ''} ${allDetailsOpen ? 'open' : ''}" id="row-q-${id}">
+          <!-- 單列折疊標頭：一題一列，點擊展開完整題目與詳解 -->
+          <div class="q-row-header" onclick="toggleRowDrawer(${id})">
+            <div class="q-row-left">
+              <span class="q-row-id">Q${id.toString().padStart(2, '0')}</span>
+              <div class="q-row-info">
+                <div class="q-row-title math-text">${escapeHtml(cleanTitle)}</div>
+                <div class="q-row-preview math-text">${escapeHtml(snippet)}...</div>
+              </div>
+            </div>
+
+            <div class="q-row-right">
+              <label class="q-row-checkbox-label" onclick="event.stopPropagation()" title="標記本題為已掌握">
+                <input type="checkbox" onchange="toggleMastered(${id}, this.checked)" ${isMastered ? 'checked' : ''}>
+                <span>${isMastered ? '已掌握' : '標記精熟'}</span>
+              </label>
+              <a href="../../../index.html?subject=physics&unit=01_projectile&q=${id}" class="q-row-btn" onclick="event.stopPropagation()" title="跳轉至主題庫全真作答">
+                <span>🚀</span><span>作答</span>
+              </a>
+              <span class="q-row-chevron" id="chevron-q-${id}">▼</span>
+            </div>
+          </div>
+
+          <!-- 展開抽屜內容 -->
+          <div class="q-row-drawer" id="drawer-q-${id}">
+            <div class="detail-section">
+              <div class="detail-section-title"><span>📝</span><span>完整題目內容</span></div>
+              <div class="detail-body math-text">${formatQuestionHtml(q.question)}</div>
+            </div>
+            ${q.hint ? `
+              <div class="detail-section">
+                <div class="detail-section-title" style="color:#0284c7;"><span>💡</span><span>破題關鍵與核心思維</span></div>
+                <div class="detail-body math-text" style="background:rgba(2,132,199,0.04); border-color:rgba(2,132,199,0.2);">${formatHintHtml(q.hint)}</div>
+              </div>
+            ` : ''}
+            <div class="detail-section">
+              <div class="detail-section-title" style="color:var(--accent-emerald);"><span>🎯</span><span>詳細精解步驟</span></div>
+              <div class="detail-body math-text">${formatSolutionHtml(q.solution)}</div>
+            </div>
+            ${q.answer ? `
+              <div class="detail-section">
+                <div class="detail-section-title"><span>🏁</span><span>標準答案</span></div>
+                <div class="detail-answer-badge math-text">${escapeHtml(q.answer)}</div>
+              </div>
+            ` : ''}
+          </div>
+        </div>
+      `;
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+    }
+
+    // 詳解步驟與小題結構化排版引擎
+    function formatSolutionHtml(raw) {
+      if (!raw) return '<div class="text-paragraph">詳解整理中</div>';
+      let str = String(raw).trim();
+
+      // 1. 強迫不同小題或步驟換行（避免題目/詳解中不同小題黏在同一行）
+      str = str.replace(/([。；;!?！？\$\)])\s*([（(][0-9一二三四五ABCDE][）\)])/g, '$1\n\n$2');
+      str = str.replace(/([。；;!?！？\$\)])\s*(\d+\.\s+)/g, '$1\n\n$2');
+
+      const lines = str.split(/\r?\n/);
+      const blocks = [];
+      let currentBlock = null;
+
+      const isStepHeader = (line) => {
+        const trimmed = line.trim();
+        const match = trimmed.match(/^([（(][0-9一二三四五ABCDE][）\)]|\d+\.|\【步驟[0-9一二三四五]+\】|步驟\s*[0-9一二三四五]+[：:.])\s*(.*)$/);
+        if (match) {
+          return { badge: match[1], rest: match[2] };
+        }
+        return null;
+      };
+
+      lines.forEach(line => {
+        const trimmed = line.trim();
+        if (!trimmed) return;
+
+        const stepInfo = isStepHeader(trimmed);
+        if (stepInfo) {
+          if (currentBlock) blocks.push(currentBlock);
+          currentBlock = {
+            isStep: true,
+            badge: stepInfo.badge,
+            lines: stepInfo.rest ? [stepInfo.rest] : []
+          };
+        } else {
+          if (!currentBlock) {
+            currentBlock = {
+              isStep: false,
+              lines: [trimmed]
+            };
+          } else {
+            currentBlock.lines.push(trimmed);
+          }
+        }
+      });
+
+      if (currentBlock) blocks.push(currentBlock);
+
+      return blocks.map(block => {
+        const formattedContent = formatLinesContent(block.lines);
+        if (block.isStep) {
+          return `
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-badge">${escapeHtml(block.badge)}</span>
+              </div>
+              <div class="step-content">${formattedContent}</div>
+            </div>
+          `;
+        } else {
+          return `<div class="text-paragraph">${formattedContent}</div>`;
+        }
+      }).join('');
+    }
+
+    function formatLinesContent(lines) {
+      if (!lines || lines.length === 0) return '';
+      return lines.map(line => {
+        const trimmed = line.trim();
+        if (!trimmed) return '';
+
+        const safeLine = escapeHtml(trimmed).replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+
+        if (/^[-*•]\s+/.test(trimmed)) {
+          const bulletText = safeLine.replace(/^[-*•]\s+/, '');
+          return `<div class="step-bullet-item"><span class="step-bullet-icon">▸</span><div class="step-bullet-text">${bulletText}</div></div>`;
+        }
+
+        return `<div style="margin-bottom:0.25rem;">${safeLine}</div>`;
+      }).join('');
+    }
+
+    function formatQuestionHtml(raw) {
+      if (!raw) return '';
+      let str = String(raw).trim();
+      str = str.replace(/([。；;!?！？\$\)])\s*([（(][0-9一二三四五ABCDE][）\)])/g, '$1\n$2');
+      const lines = str.split(/\r?\n/);
+      return lines.map(line => {
+        const trimmed = line.trim();
+        if (!trimmed) return '';
+        const subMatch = trimmed.match(/^([（(][0-9一二三四五ABCDE][）\)])\s*(.*)$/);
+        if (subMatch) {
+          const badge = escapeHtml(subMatch[1]);
+          const rest = escapeHtml(subMatch[2]).replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+          return `<div class="question-sub-item"><span class="q-sub-badge">${badge}</span><div style="flex:1;">${rest}</div></div>`;
+        }
+        const safe = escapeHtml(trimmed).replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+        return `<div style="margin-bottom:0.35rem; line-height:1.75;">${safe}</div>`;
+      }).join('');
+    }
+
+    function formatHintHtml(raw) {
+      if (!raw) return '';
+      let str = String(raw).trim();
+      str = str.replace(/([。；;!?！？\$\)])\s*([（(][0-9一二三四五ABCDE][）\)])/g, '$1\n$2');
+      str = str.replace(/([。；;!?！？\$\)])\s*(\d+\.\s+)/g, '$1\n$2');
+      const lines = str.split(/\r?\n/);
+      return lines.map(line => {
+        const trimmed = line.trim();
+        if (!trimmed) return '';
+        const safe = escapeHtml(trimmed).replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+        if (/^[-*•]\s+/.test(trimmed) || /^\d+\.\s+/.test(trimmed)) {
+          const bulletText = safe.replace(/^[-*•\d.]+\s+/, '');
+          return `<div class="step-bullet-item"><span class="step-bullet-icon">💡</span><div class="step-bullet-text">${bulletText}</div></div>`;
+        }
+        return `<div style="margin-bottom:0.35rem; line-height:1.75;">${safe}</div>`;
+      }).join('');
+    }
+
+    // ==========================================================================
+    // 互動操作事件
+    // ==========================================================================
+    window.toggleMastered = function(id, isChecked) {
+      if (isChecked) {
+        masteredSet.add(id);
+      } else {
+        masteredSet.delete(id);
+      }
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(Array.from(masteredSet)));
+      updateStats();
+
+      const row = document.getElementById(`row-q-${id}`);
+      if (row) {
+        const span = row.querySelector('.q-row-checkbox-label span');
+        if (isChecked) {
+          row.classList.add('mastered');
+          if (span) span.textContent = '已掌握';
+        } else {
+          row.classList.remove('mastered');
+          if (span) span.textContent = '標記精熟';
+        }
+      }
+    };
+
+    window.toggleRowDrawer = function(id) {
+      const row = document.getElementById(`row-q-${id}`);
+      if (!row) return;
+      const isOpen = row.classList.contains('open');
+      if (isOpen) {
+        row.classList.remove('open');
+      } else {
+        row.classList.add('open');
+        setTimeout(renderLatexFormulas, 30);
+      }
+    };
+
+    document.getElementById('module-tabs').addEventListener('click', (e) => {
+      const tab = e.target.closest('.pill-tab');
+      if (!tab) return;
+      document.querySelectorAll('#module-tabs .pill-tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      currentFilterMod = tab.getAttribute('data-mod');
+      renderModules();
+    });
+
+    let searchDebounce = null;
+    document.getElementById('mastery-search').addEventListener('input', (e) => {
+      clearTimeout(searchDebounce);
+      searchDebounce = setTimeout(() => {
+        currentSearchText = e.target.value.trim();
+        renderModules();
+      }, 150);
+    });
+
+    document.getElementById('filter-unmastered-only').addEventListener('change', (e) => {
+      showUnmasteredOnly = e.target.checked;
+      renderModules();
+    });
+
+    document.getElementById('btn-toggle-all-details').addEventListener('click', () => {
+      allDetailsOpen = !allDetailsOpen;
+      document.getElementById('btn-toggle-all-details').textContent = allDetailsOpen ? '📖 全部收合題目' : '📖 全部展開題目';
+      document.querySelectorAll('.q-row-item').forEach(item => {
+        if (allDetailsOpen) item.classList.add('open');
+        else item.classList.remove('open');
+      });
+      if (allDetailsOpen) setTimeout(renderLatexFormulas, 50);
+    });
+
+    document.getElementById('btn-reset-progress').addEventListener('click', () => {
+      if (confirm('確定要清空二維拋體所有題目的「已精熟」打勾記錄嗎？')) {
+        masteredSet.clear();
+        localStorage.removeItem(STORAGE_KEY);
+        updateStats();
+        renderModules();
+      }
+    });
+
+    const themeBtn = document.getElementById('theme-toggle-btn');
+    const savedTheme = localStorage.getItem('learning_center_theme') || 'light';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    themeBtn.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+
+    themeBtn.addEventListener('click', () => {
+      const cur = document.documentElement.getAttribute('data-theme') || 'light';
+      const nxt = cur === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', nxt);
+      localStorage.setItem('learning_center_theme', nxt);
+      themeBtn.textContent = nxt === 'dark' ? '☀️' : '🌙';
+    });
+
+    updateStats();
+    renderModules();
+
+    let tries = 0;
+    const mathTimer = setInterval(() => {
+      tries++;
+      if (window.katex) {
+        clearInterval(mathTimer);
+        renderLatexFormulas();
+      } else if (tries > 30) {
+        clearInterval(mathTimer);
+      }
+    }, 100);
+  </script>
+</body>
+</html>
