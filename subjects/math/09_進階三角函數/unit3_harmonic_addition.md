@@ -19,7 +19,7 @@
 
 ### 題目 1：例題 1
 - **題目來源**：`IMG_20260928_221540.jpg`（第 20 頁）
-- **題目**：若 $\sin\theta - \sqrt{3}\cos\theta = r\sin(\theta - \alpha)$，$r > 0, 0 < \alpha < 2\pi$，試求 $r$ 及 \alpha$。
+- **題目**：若 $\sin\theta - \sqrt{3}\cos\theta = r\sin(\theta - \alpha)$，$r > 0, 0 < \alpha < 2\pi$，試求 $r$ 及 $\alpha$。
 - **(圖片敘述)**：無（本題無圖片）
 - **答案**：$r = 2, \alpha = \frac{\pi}{3}$
 - **解題關鍵**：提出 $\sqrt{1^2 + (-\sqrt{3})^2} = 2$，利用正弦差角公式疊合。

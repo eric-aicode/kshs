@@ -1,0 +1,1220 @@
+<!DOCTYPE html>
+<html lang="zh-TW" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🔥 數學段考衝刺區 · 高中進階三角函數全方位特訓與模擬段考</title>
+  <meta name="description" content="高中數學進階三角函數段考考前衝刺特訓：涵蓋§9-1差角公式、§9-2三角函數圖形、§9-3正餘弦疊合。包含審題勘誤、8大核心題型歸納破題、高效複習時間規劃與全真模擬段考檢測試卷。">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Noto+Sans+TC:wght@400;500;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- KaTeX for math typesetting -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+
+  <!-- Application Stylesheet -->
+  <link rel="stylesheet" href="../../../core/style.css">
+
+  <style>
+    .sprint-container {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 1.5rem 1.25rem 4rem 1.25rem;
+    }
+
+    .hero-banner {
+      background: linear-gradient(135deg, rgba(239, 68, 68, 0.08) 0%, rgba(249, 115, 22, 0.08) 50%, rgba(99, 102, 241, 0.08) 100%);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-lg);
+      padding: 2.2rem 2.5rem;
+      margin-bottom: 2rem;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .hero-banner::after {
+      content: '📐';
+      position: absolute;
+      right: 2rem;
+      bottom: -1.2rem;
+      font-size: 8rem;
+      opacity: 0.12;
+      pointer-events: none;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.8rem;
+      font-weight: 800;
+      padding: 0.3rem 0.85rem;
+      border-radius: var(--radius-full);
+      background: linear-gradient(135deg, #ef4444 0%, #f97316 100%);
+      color: #ffffff;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.75rem;
+    }
+
+    .hero-title {
+      font-size: 2.15rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      margin-bottom: 0.65rem;
+      line-height: 1.25;
+    }
+
+    .hero-desc {
+      color: var(--text-secondary);
+      font-size: 1.05rem;
+      max-width: 860px;
+      line-height: 1.7;
+    }
+
+    /* Tab 導覽列 */
+    .tab-nav {
+      display: flex;
+      gap: 0.6rem;
+      overflow-x: auto;
+      padding-bottom: 0.5rem;
+      margin-bottom: 2rem;
+      border-bottom: 2px solid var(--border-light);
+    }
+
+    .tab-btn {
+      padding: 0.75rem 1.35rem;
+      border-radius: var(--radius-md) var(--radius-md) 0 0;
+      border: none;
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all var(--transition-fast);
+      position: relative;
+      white-space: nowrap;
+    }
+
+    .tab-btn:hover {
+      color: var(--text-primary);
+      background: rgba(99, 102, 241, 0.05);
+    }
+
+    .tab-btn.active {
+      color: var(--primary-color);
+      background: var(--bg-surface);
+      border-bottom: 3px solid var(--primary-color);
+    }
+
+    .tab-pane {
+      display: none;
+    }
+
+    .tab-pane.active {
+      display: block;
+      animation: fadeIn 0.25s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* 模組卡片樣式 */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .sprint-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      box-shadow: var(--shadow-sm);
+      transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+    }
+
+    .sprint-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .card-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    /* 勘誤表格樣式 */
+    .errata-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.25rem 0;
+      background: var(--bg-surface);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border-light);
+    }
+
+    .errata-table th, .errata-table td {
+      padding: 0.9rem 1.1rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border-light);
+      font-size: 0.95rem;
+    }
+
+    .errata-table th {
+      background: var(--bg-secondary);
+      font-weight: 800;
+      color: var(--text-primary);
+    }
+
+    .badge-error {
+      background: #fee2e2;
+      color: #dc2626;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+    }
+
+    .badge-fixed {
+      background: #dcfce7;
+      color: #16a34a;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+    }
+
+    /* 考卷容器與題目卡片 */
+    .exam-header-bar {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-md);
+      padding: 1.25rem 1.75rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .timer-display {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #ef4444;
+      background: rgba(239, 68, 68, 0.08);
+      padding: 0.35rem 0.85rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid rgba(239, 68, 68, 0.25);
+    }
+
+    .q-item {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-md);
+      padding: 1.5rem 1.75rem;
+      margin-bottom: 1.5rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .q-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.85rem;
+    }
+
+    .q-num {
+      font-weight: 800;
+      font-size: 1.05rem;
+      color: var(--primary-color);
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+
+    .q-score {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      background: var(--bg-secondary);
+      padding: 0.2rem 0.6rem;
+      border-radius: var(--radius-full);
+    }
+
+    .q-body {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: var(--text-primary);
+      margin-bottom: 1.25rem;
+    }
+
+    .q-options {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .q-option-label {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.65rem 0.95rem;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      background: var(--bg-surface);
+    }
+
+    .q-option-label:hover {
+      border-color: var(--primary-color);
+      background: rgba(99, 102, 241, 0.04);
+    }
+
+    .toggle-solution-btn {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-light);
+      color: var(--text-primary);
+      font-size: 0.9rem;
+      font-weight: 700;
+      padding: 0.45rem 1rem;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .toggle-solution-btn:hover {
+      background: var(--primary-color);
+      color: #ffffff;
+      border-color: var(--primary-color);
+    }
+
+    .solution-box {
+      margin-top: 1rem;
+      padding: 1.25rem;
+      background: var(--bg-secondary);
+      border-left: 4px solid var(--primary-color);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      display: none;
+      animation: fadeIn 0.2s ease-in-out;
+    }
+
+    .solution-box.show {
+      display: block;
+    }
+
+    .sol-ans {
+      font-weight: 800;
+      color: #10b981;
+      margin-bottom: 0.5rem;
+      font-size: 1.05rem;
+    }
+
+    /* 題型破題卡片 */
+    .type-header {
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(168, 85, 247, 0.1) 100%);
+      padding: 1rem 1.25rem;
+      border-radius: var(--radius-sm);
+      font-weight: 800;
+      font-size: 1.15rem;
+      color: var(--text-primary);
+      margin-bottom: 1rem;
+      border-left: 4px solid var(--primary-color);
+    }
+
+    .key-formula-pill {
+      display: inline-block;
+      background: rgba(99, 102, 241, 0.08);
+      border: 1px solid rgba(99, 102, 241, 0.25);
+      border-radius: var(--radius-sm);
+      padding: 0.4rem 0.8rem;
+      margin: 0.3rem 0.3rem 0.3rem 0;
+      font-size: 0.95rem;
+    }
+
+    /* 頂部導航按鈕 */
+    .top-nav-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .back-home-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-decoration: none;
+      padding: 0.45rem 0.85rem;
+      border-radius: var(--radius-full);
+      border: 1px solid var(--border-light);
+      background: var(--bg-surface);
+      transition: all var(--transition-fast);
+    }
+
+    .back-home-link:hover {
+      color: var(--primary-color);
+      border-color: var(--primary-color);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="sprint-container">
+    
+    <!-- 頂部返回與切換列 -->
+    <div class="top-nav-bar">
+      <a href="../../../index.html?subject=math&unit=09_advanced_trig" class="back-home-link">
+        <span>⬅️</span> 回到數學科刷題主中心
+      </a>
+      <div style="display:flex; gap:0.5rem; align-items:center;">
+        <button id="theme-btn" class="back-home-link" style="cursor:pointer;" title="切換深淺模式">☀️ 切換深淺</button>
+      </div>
+    </div>
+
+    <!-- 衝刺區橫幅 -->
+    <div class="hero-banner">
+      <div class="hero-badge">🔥 Exam Sprint Center · 段考衝刺專區</div>
+      <h1 class="hero-title">高二數學 · 三角函數段考終極衝刺與全真模考</h1>
+      <p class="hero-desc">
+        完整涵蓋 <strong>§9-1 差角公式</strong>、<strong>§9-2 三角函數圖形</strong>、<strong>§9-3 正餘弦疊合</strong>。
+        提供精準審題勘誤、黃金三階段考前時程規劃、8大核心題型破題心法，以及 100 分規格全真模擬段考檢測試卷。
+      </p>
+    </div>
+
+    <!-- 導航分頁 Tabs -->
+    <nav class="tab-nav" role="tablist">
+      <button class="tab-btn active" data-tab="tab-strategy">🎯 高效複習策略</button>
+      <button class="tab-btn" data-tab="tab-errata">🔍 審題勘誤報告</button>
+      <button class="tab-btn" data-tab="tab-types">📚 8大核心題型歸納</button>
+      <button class="tab-btn" data-tab="tab-mock-exam">📝 全真模擬段考卷 (100分)</button>
+      <button class="tab-btn" data-tab="tab-handouts">📖 單元講義速讀</button>
+    </nav>
+
+    <!-- TAB 1: 高效複習策略 -->
+    <section id="tab-strategy" class="tab-pane active">
+      <div class="card-grid">
+        <div class="sprint-card">
+          <div class="card-title">⏳ 考前 7 天黃金倒數時程</div>
+          <ul style="line-height:1.9; padding-left:1.25rem; color:var(--text-secondary);">
+            <li><strong style="color:var(--text-primary);">D-7 ~ D-5 (觀念閃電複習)</strong>：每天 1 單元，默寫核心公式（和差角、倍半角、圖形四元素、疊合輔助角）。</li>
+            <li><strong style="color:var(--text-primary);">D-4 ~ D-3 (題型突破專攻)</strong>：針對「對稱換元極值」與「圖形交點超越方程」兩種高失分題型專注訓練各 5 題。</li>
+            <li><strong style="color:var(--text-primary);">D-2 (全真模考實戰)</strong>：限時 70 分鐘嚴格自測本模擬試卷，對答案後進行盲點診斷。</li>
+            <li><strong style="color:var(--text-primary);">D-1 (考前清零與陷阱記憶)</strong>：複習錯題本，背誦「三大常犯防粗心檢查清單」，保持平穩心態。</li>
+          </ul>
+        </div>
+
+        <div class="sprint-card">
+          <div class="card-title">⚠️ 段考三大致命陷阱與檢查SOP</div>
+          <ul style="line-height:1.9; padding-left:1.25rem; color:var(--text-secondary);">
+            <li><strong style="color:#ef4444;">陷阱 1：換元未設限</strong>：令 $t = \sin x + \cos x$ 時，必須立即寫下 $-\sqrt{2} \le t \le \sqrt{2}$，否則極值對稱軸會代錯！</li>
+            <li><strong style="color:#ef4444;">陷阱 2：直線夾角漏解</strong>：兩直線夾角有兩組互補解（銳角與鈍角），除非題目特別指明「銳夾角」。</li>
+            <li><strong style="color:#ef4444;">陷阱 3：圖形平移係數未提出</strong>：$y = \sin(2x - \frac{\pi}{3}) = \sin[2(x - \frac{\pi}{6})]$，向右平移量為 $\frac{\pi}{6}$ 而非 $\frac{\pi}{3}$！</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 2: 審題勘誤報告 -->
+    <section id="tab-errata" class="tab-pane">
+      <div class="sprint-card" style="margin-bottom:1.5rem;">
+        <h2 style="font-size:1.35rem; font-weight:800; margin-bottom:0.75rem;">📋 講義題庫專業審查與勘誤總結</h2>
+        <p style="color:var(--text-secondary); line-height:1.7;">
+          經過全面細緻審查，三個單元講義（9-1、9-2、9-3）在題意結構與解法推導上相當豐富，但存在若干「答案卡印刷筆誤」、「符號遺漏」以及「圖形敘述坐標矛盾」。目前已全數在原始 Markdown 檔案中修復校正！以下為重點勘誤對照表：
+        </p>
+      </div>
+
+      <table class="errata-table">
+        <thead>
+          <tr>
+            <th>單元與題號</th>
+            <th>原始問題敘述 / 錯誤處</th>
+            <th>原案錯誤狀態</th>
+            <th>修正後正確解答與原因說明</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>§9-1 例題 14(2)</strong></td>
+            <td>求 $\sin 3\theta$（已知 $\theta$ 在第四象限，$\sin\theta = -4/5$）</td>
+            <td><span class="badge-error">答案漏負號</span> $\frac{44}{125}$</td>
+            <td><span class="badge-fixed">正解: $-\frac{44}{125}$</span>。$\sin 3\theta = 3(-4/5) - 4(-4/5)^3 = -\frac{44}{125}$，原答案卡漏印負號。</td>
+          </tr>
+          <tr>
+            <td><strong>§9-1 習題 A 第 9 題</strong></td>
+            <td>若 $3+\sqrt{7}$ 為方程式「之位一根」</td>
+            <td><span class="badge-error">錯字</span></td>
+            <td><span class="badge-fixed">更正為「之一根」</span>。兩根積為 2，共軛根 $3-\sqrt{7}$，兩根和為 6。</td>
+          </tr>
+          <tr>
+            <td><strong>§9-2 習題 B 第 4 題</strong></td>
+            <td>圖形敘述寫「與中心線相交點為 $B(\pi, -1)$」</td>
+            <td><span class="badge-error">點位矛盾</span></td>
+            <td><span class="badge-fixed">更正為「與 $x$ 軸相交點 $B(\pi, 0)$」</span>。代入 $b=2, c=\pi/6, d=-1$ 時，$x=\pi$ 處 $y=0$。若寫中心線交點會得出非整數解產生矛盾。</td>
+          </tr>
+          <tr>
+            <td><strong>§9-3 類題 3</strong></td>
+            <td>$-\frac{\pi}{6} \le x \le \frac{\pi}{3}$，求 $y = \sqrt{3}\sin x - \cos x$ 的極值</td>
+            <td><span class="badge-error">答案誤植</span> 最大 0, 最小 -2</td>
+            <td><span class="badge-fixed">正解: 最大值 1, 最小值 $-\sqrt{3}$</span>。$y = 2\sin(x-\pi/6)$，角範圍 $[-\pi/3, \pi/6]$，最大值 $2\sin(\pi/6)=1$，最小值 $2\sin(-\pi/3)=-\sqrt{3}$。</td>
+          </tr>
+          <tr>
+            <td><strong>§9-3 習題 A 第 1 題</strong></td>
+            <td>求 $\sqrt{3}\cos 15^\circ + \sin 15^\circ$ 之值</td>
+            <td><span class="badge-error">答案漏項</span> $\sqrt{2}$</td>
+            <td><span class="badge-fixed">正解: $\frac{\sqrt{6}+\sqrt{2}}{2}$</span>。疊合得 $2\sin 75^\circ = 2 \times \frac{\sqrt{6}+\sqrt{2}}{4} = \frac{\sqrt{6}+\sqrt{2}}{2}$。</td>
+          </tr>
+          <tr>
+            <td><strong>§9-3 習題 A 第 11 題</strong></td>
+            <td>過 $(\frac{\pi}{3}, 2)$ 且在 $x=\frac{\pi}{6}$ 處有極值</td>
+            <td><span class="badge-error">極值點對應筆誤</span></td>
+            <td><span class="badge-fixed">正解: $a = \frac{2\sqrt{3}}{3}, b = 2$</span>。若原答案 $a=\sqrt{3}, b=1$ 則極值點應為 $x=\frac{\pi}{3}$。</td>
+          </tr>
+          <tr>
+            <td><strong>§9-3 習題 B 第 1 題(2)</strong></td>
+            <td>$f(x) = \sin x + \cos x + \sin x\cos x$ 求最小值</td>
+            <td><span class="badge-error">答案誤植</span> 最小值 $-\frac{1}{2}$</td>
+            <td><span class="badge-fixed">正解: 最小值 $-1$</span>。配方 $f(t) = \frac{1}{2}(t+1)^2 - 1$。對稱軸 $t = -1 \in [-\sqrt{2}, \sqrt{2}]$，當 $t = -1$（如 $x = \pi$）時取到最小值 $-1$。原答案誤代 $t=0$。</td>
+          </tr>
+          <tr>
+            <td><strong>§9-3 習題 B 第 3 題</strong></td>
+            <td>求 $y = \frac{3\sin x + 2}{\cos x + 2}$ 之極值</td>
+            <td><span class="badge-error">根號筆誤</span> $\frac{4 \pm \sqrt{21}}{3}$</td>
+            <td><span class="badge-fixed">正解: $\frac{4 \pm \sqrt{31}}{3}$</span>。判別式 $\Delta = 64 - 4(3)(-5) = 124$，$\sqrt{124} = 2\sqrt{31}$，約分後根號內為 $31$ 非 $21$。</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- TAB 3: 8大核心題型歸納 -->
+    <section id="tab-types" class="tab-pane">
+      <div class="sprint-card" style="margin-bottom:1.5rem;">
+        <div class="type-header">題型 1：和差角與倍半角之角度湊合與求值</div>
+        <p style="color:var(--text-secondary); line-height:1.7;">
+          <strong>核心思維：</strong>觀測特殊角的加減關係（如 $75^\circ = 45^\circ+30^\circ$, $15^\circ = 45^\circ-30^\circ$）或兩未知角之和與差（如 $\angle A = (\alpha+\beta) - \beta$）。正切和角公式 $\tan(\alpha+\beta) = \frac{\tan\alpha+\tan\beta}{1-\tan\alpha\tan\beta}$ 常考斜率與兩線夾角 $\tan\theta = |\frac{m_1-m_2}{1+m_1m_2}|$。
+        </p>
+      </div>
+
+      <div class="sprint-card" style="margin-bottom:1.5rem;">
+        <div class="type-header">題型 2：條件對稱式（平方和與聯立消元）</div>
+        <p style="color:var(--text-secondary); line-height:1.7;">
+          <strong>核心思維：</strong>若已知 $\sin\alpha \pm \sin\beta$ 與 $\cos\alpha \pm \cos\beta$，<strong>兩式分別平方後相加</strong>，即可利用 $\sin^2+\cos^2=1$ 迅速求出 $\cos(\alpha \mp \beta)$。
+        </p>
+      </div>
+
+      <div class="sprint-card" style="margin-bottom:1.5rem;">
+        <div class="type-header">題型 3：三角形形狀判定與幾何極值應用</div>
+        <p style="color:var(--text-secondary); line-height:1.7;">
+          <strong>核心思維：</strong>利用 $A+B+C = 180^\circ \implies \sin C = \sin(A+B)$，$\cos C = -\cos(A+B)$。若 $\sin 2A = \sin 2B \implies 2A=2B$ 或 $2A+2B=180^\circ$（即等腰或直角）。
+        </p>
+      </div>
+
+      <div class="sprint-card" style="margin-bottom:1.5rem;">
+        <div class="type-header">題型 4：三角函數圖形伸縮平移與參數逆推</div>
+        <p style="color:var(--text-secondary); line-height:1.7;">
+          <strong>核心公式：</strong>$y = a\sin(bx + c) + d$。振幅 $a = \frac{M-m}{2}$，中心線 $d = \frac{M+m}{2}$，週期 $T = \frac{2\pi}{|b|}$。平移量判定務必提取 $b$：$y = a\sin[b(x + \frac{c}{b})] + d$。
+        </p>
+      </div>
+
+      <div class="sprint-card" style="margin-bottom:1.5rem;">
+        <div class="type-header">題型 5：超越方程式實根個數（數形結合）</div>
+        <p style="color:var(--text-secondary); line-height:1.7;">
+          <strong>核心思維：</strong>將方程式拆為 $y = \sin x$ 與 $y = \frac{x}{k}$。抓住直線在邊界 $y = \pm 1$ 時的 $x$ 範圍，在該範圍內分析正弦波峰與直線的高度交叉次數。
+        </p>
+      </div>
+
+      <div class="sprint-card" style="margin-bottom:1.5rem;">
+        <div class="type-header">題型 6：正餘弦一次疊合（全域 vs. 閉區間極值）</div>
+        <p style="color:var(--text-secondary); line-height:1.7;">
+          <strong>核心公式：</strong>$a\sin x + b\cos x = \sqrt{a^2+b^2}\sin(x+\phi)$。若 $x \in [\alpha, \beta]$，務必先確定複合角 $x+\phi$ 的區間，找出正弦在該區間的真正最高點與最低點。
+        </p>
+      </div>
+
+      <div class="sprint-card" style="margin-bottom:1.5rem;">
+        <div class="type-header">題型 7：倍角降次型二次疊合</div>
+        <p style="color:var(--text-secondary); line-height:1.7;">
+          <strong>降次公式：</strong>$\sin^2 x = \frac{1-\cos 2x}{2}$, $\cos^2 x = \frac{1+\cos 2x}{2}$, $\sin x\cos x = \frac{\sin 2x}{2}$。將二次式降為 $2x$ 的一次疊合式求極值。
+        </p>
+      </div>
+
+      <div class="sprint-card" style="margin-bottom:1.5rem;">
+        <div class="type-header">題型 8：對稱換元型與分式斜率型極值</div>
+        <p style="color:var(--text-secondary); line-height:1.7;">
+          <strong>換元公式：</strong>令 $t = \sin x + \cos x \in [-\sqrt{2}, \sqrt{2}]$，則 $\sin x\cos x = \frac{t^2-1}{2}$，轉為 $t$ 的二次函數配方。<br>
+          <strong>分式型：</strong>$y = \frac{a\sin x + b}{\cos x + c}$，交叉相乘轉為 $a\sin x - y\cos x = cy - b$，疊合後利用 $|\sin(x-\phi)| \le 1$ 解 $y$ 的二次不等式。
+        </p>
+      </div>
+    </section>
+
+    <!-- TAB 4: 全真模擬段考卷 -->
+    <section id="tab-mock-exam" class="tab-pane">
+      <div class="exam-header-bar">
+        <div>
+          <h2 style="font-size:1.35rem; font-weight:800; margin:0 0 0.25rem 0;">📝 高二上數學段考全真模擬試卷</h2>
+          <span style="font-size:0.9rem; color:var(--text-secondary);">範圍：§9-1 和差角 ~ §9-3 正餘弦疊合 · 滿分 100 分 · 限時 70 分鐘</span>
+        </div>
+        <div style="display:flex; align-items:center; gap:0.75rem;">
+          <div class="timer-display" id="exam-timer">70:00</div>
+          <button class="pill-btn" id="timer-toggle-btn" style="background:#ef4444; color:#fff; border:none; padding:0.45rem 0.85rem; border-radius:var(--radius-sm); font-weight:700; cursor:pointer;">開始計時</button>
+        </div>
+      </div>
+
+      <!-- 壹、單選題 (共4題，每題5分，共20分) -->
+      <h3 style="font-size:1.2rem; font-weight:800; color:var(--primary-color); margin:1.5rem 0 1rem 0;">壹、單選題 (每題 5 分，共 20 分)</h3>
+
+      <!-- 題目 1 -->
+      <div class="q-item">
+        <div class="q-meta">
+          <span class="q-num">1. 角度換算與和差角</span>
+          <span class="q-score">5 分</span>
+        </div>
+        <div class="q-body">
+          求 $\sin 107^\circ \cos 47^\circ - \sin 313^\circ \cos 73^\circ$ 之值為何？
+        </div>
+        <div class="q-options">
+          <label class="q-option-label"><input type="radio" name="mq1" value="A"> (A) $-\frac{\sqrt{3}}{2}$</label>
+          <label class="q-option-label"><input type="radio" name="mq1" value="B"> (B) $-\frac{1}{2}$</label>
+          <label class="q-option-label"><input type="radio" name="mq1" value="C"> (C) $\frac{1}{2}$</label>
+          <label class="q-option-label"><input type="radio" name="mq1" value="D"> (D) $\frac{\sqrt{3}}{2}$</label>
+          <label class="q-option-label"><input type="radio" name="mq1" value="E"> (E) $1$</label>
+        </div>
+        <button class="toggle-solution-btn" onclick="toggleSolution('sol-mq1')">💡 查看解答與破題關鍵</button>
+        <div id="sol-mq1" class="solution-box">
+          <div class="sol-ans">【正解】：(D)</div>
+          <p style="margin:0; line-height:1.7;">
+            <strong>解析：</strong><br>
+            利用廣義角化簡：$\sin 107^\circ = \sin(180^\circ - 73^\circ) = \sin 73^\circ$；$\sin 313^\circ = \sin(360^\circ - 47^\circ) = -\sin 47^\circ$。<br>
+            原式 $= \sin 73^\circ\cos 47^\circ - (-\sin 47^\circ)\cos 73^\circ = \sin 73^\circ\cos 47^\circ + \cos 73^\circ\sin 47^\circ = \sin(73^\circ + 47^\circ) = \sin 120^\circ = \frac{\sqrt{3}}{2}$。
+          </p>
+        </div>
+      </div>
+
+      <!-- 題目 2 -->
+      <div class="q-item">
+        <div class="q-meta">
+          <span class="q-num">2. 圖形伸縮平移</span>
+          <span class="q-score">5 分</span>
+        </div>
+        <div class="q-body">
+          函數 $y = 4\cos(\frac{x}{2} - \frac{\pi}{6})$ 之圖形是由 $y = 4\cos\frac{x}{2}$ 之圖形沿 $x$ 軸正方向平移 $h$ 單位而得，則 $h$ 之最小正值為何？
+        </div>
+        <div class="q-options">
+          <label class="q-option-label"><input type="radio" name="mq2" value="A"> (A) $\frac{\pi}{6}$</label>
+          <label class="q-option-label"><input type="radio" name="mq2" value="B"> (B) $\frac{\pi}{3}$</label>
+          <label class="q-option-label"><input type="radio" name="mq2" value="C"> (C) $\frac{\pi}{2}$</label>
+          <label class="q-option-label"><input type="radio" name="mq2" value="D"> (D) $\frac{2\pi}{3}$</label>
+          <label class="q-option-label"><input type="radio" name="mq2" value="E"> (E) $\pi$</label>
+        </div>
+        <button class="toggle-solution-btn" onclick="toggleSolution('sol-mq2')">💡 查看解答與破題關鍵</button>
+        <div id="sol-mq2" class="solution-box">
+          <div class="sol-ans">【正解】：(B)</div>
+          <p style="margin:0; line-height:1.7;">
+            <strong>解析：</strong><br>
+            將自變數提取 $x$ 之係數 $\frac{1}{2}$：$y = 4\cos[\frac{1}{2}(x - \frac{\pi}{3})]$。<br>
+            故圖形是由 $y = 4\cos\frac{x}{2}$ 向右（$x$ 軸正方向）平移 $\frac{\pi}{3}$ 單位。
+          </p>
+        </div>
+      </div>
+
+      <!-- 題目 3 -->
+      <div class="q-item">
+        <div class="q-meta">
+          <span class="q-num">3. 閉區間疊合極值</span>
+          <span class="q-score">5 分</span>
+        </div>
+        <div class="q-body">
+          設 $-\frac{\pi}{6} \le x \le \frac{\pi}{3}$，則函數 $y = \sqrt{3}\sin x - \cos x$ 的最大值與最小值分別為何？
+        </div>
+        <div class="q-options">
+          <label class="q-option-label"><input type="radio" name="mq3" value="A"> (A) 最大值 $2$，最小值 $-2$</label>
+          <label class="q-option-label"><input type="radio" name="mq3" value="B"> (B) 最大值 $1$，最小值 $-\sqrt{3}$</label>
+          <label class="q-option-label"><input type="radio" name="mq3" value="C"> (C) 最大值 $0$，最小值 $-2$</label>
+          <label class="q-option-label"><input type="radio" name="mq3" value="D"> (D) 最大值 $\sqrt{3}$，最小值 $-1$</label>
+          <label class="q-option-label"><input type="radio" name="mq3" value="E"> (E) 最大值 $1$，最小值 $-2$</label>
+        </div>
+        <button class="toggle-solution-btn" onclick="toggleSolution('sol-mq3')">💡 查看解答與破題關鍵</button>
+        <div id="sol-mq3" class="solution-box">
+          <div class="sol-ans">【正解】：(B)</div>
+          <p style="margin:0; line-height:1.7;">
+            <strong>解析：</strong><br>
+            疊合：$y = 2\sin(x - \frac{\pi}{6})$。<br>
+            角度範圍：$-\frac{\pi}{3} \le x - \frac{\pi}{6} \le \frac{\pi}{6}$。正弦函數在此區間單調遞增：<br>
+            最大值在 $x = \frac{\pi}{3}$ 處：$2\sin(\frac{\pi}{6}) = 1$；最小值在 $x = -\frac{\pi}{6}$ 處：$2\sin(-\frac{\pi}{3}) = -\sqrt{3}$。
+          </p>
+        </div>
+      </div>
+
+      <!-- 題目 4 -->
+      <div class="q-item">
+        <div class="q-meta">
+          <span class="q-num">4. 超越方程實根個數</span>
+          <span class="q-score">5 分</span>
+        </div>
+        <div class="q-body">
+          方程式 $3\pi \sin x = x$ 在實數範圍內共有幾個實根？
+        </div>
+        <div class="q-options">
+          <label class="q-option-label"><input type="radio" name="mq4" value="A"> (A) 3 個</label>
+          <label class="q-option-label"><input type="radio" name="mq4" value="B"> (B) 5 個</label>
+          <label class="q-option-label"><input type="radio" name="mq4" value="C"> (C) 7 個</label>
+          <label class="q-option-label"><input type="radio" name="mq4" value="D"> (D) 9 個</label>
+          <label class="q-option-label"><input type="radio" name="mq4" value="E"> (E) 無限多個</label>
+        </div>
+        <button class="toggle-solution-btn" onclick="toggleSolution('sol-mq4')">💡 查看解答與破題關鍵</button>
+        <div id="sol-mq4" class="solution-box">
+          <div class="sol-ans">【正解】：(C)</div>
+          <p style="margin:0; line-height:1.7;">
+            <strong>解析：</strong><br>
+            改寫為 $\sin x = \frac{x}{3\pi}$，考慮直線 $y = \frac{x}{3\pi}$ 與正弦波的交點：<br>
+            當 $|x| > 3\pi$ 時，直線 $|y| > 1$ 不再相交。<br>
+            - 原點 $(0,0)$ 算 1 個。<br>
+            - 正半軸：在 $(0, \pi)$ 波峰交 1 個；在 $(2\pi, 3\pi)$ 波峰（最高點 $2.5\pi$ 處直線高度 $5/6 < 1$）交 2 個。正半軸共 3 個交點。<br>
+            - 負半軸：對稱亦有 3 個交點。<br>
+            總交點數 $= 3 + 1 + 3 = 7$ 個。
+          </p>
+        </div>
+      </div>
+
+      <!-- 貳、多選題 (共4題，每題6分，共24分) -->
+      <h3 style="font-size:1.2rem; font-weight:800; color:var(--primary-color); margin:2rem 0 1rem 0;">貳、多選題 (每題 6 分，共 24 分，錯一個選項得 3.6 分，錯兩個得 1.2 分，其餘不給分)</h3>
+
+      <!-- 題目 5 -->
+      <div class="q-item">
+        <div class="q-meta">
+          <span class="q-num">5. 正弦倍角與範圍判定</span>
+          <span class="q-score">6 分</span>
+        </div>
+        <div class="q-body">
+          設 $\frac{\pi}{4} < \theta < \frac{3\pi}{4}$，請選出所有正確的選項：
+        </div>
+        <div class="q-options" style="grid-template-columns:1fr;">
+          <label class="q-option-label"><input type="checkbox" name="mq5" value="A"> (A) $-\frac{\sqrt{2}}{2} < \sin\theta < \frac{\sqrt{2}}{2}$</label>
+          <label class="q-option-label"><input type="checkbox" name="mq5" value="B"> (B) $-\frac{\sqrt{2}}{2} < \cos(-\theta) < \frac{\sqrt{2}}{2}$</label>
+          <label class="q-option-label"><input type="checkbox" name="mq5" value="C"> (C) $-\frac{1}{2} < \sin\theta\cos\theta < \frac{1}{2}$</label>
+          <label class="q-option-label"><input type="checkbox" name="mq5" value="D"> (D) $-1 < \tan\theta < 1$</label>
+          <label class="q-option-label"><input type="checkbox" name="mq5" value="E"> (E) $\frac{1}{2} < \sin\frac{\theta}{2} < \frac{\sqrt{3}}{2}$</label>
+        </div>
+        <button class="toggle-solution-btn" onclick="toggleSolution('sol-mq5')">💡 查看解答與破題關鍵</button>
+        <div id="sol-mq5" class="solution-box">
+          <div class="sol-ans">【正解】：(B)(C)</div>
+          <p style="margin:0; line-height:1.7;">
+            <strong>解析：</strong><br>
+            當 $\theta \in (\frac{\pi}{4}, \frac{3\pi}{4})$ 時：<br>
+            - (A) $\sin\theta \in (\frac{\sqrt{2}}{2}, 1]$，錯誤。<br>
+            - (B) $\cos(-\theta) = \cos\theta \in (-\frac{\sqrt{2}}{2}, \frac{\sqrt{2}}{2})$，正確。<br>
+            - (C) $\sin\theta\cos\theta = \frac{1}{2}\sin 2\theta$。因 $2\theta \in (\frac{\pi}{2}, \frac{3\pi}{2}) \implies \sin 2\theta \in [-1, 1) \implies \frac{1}{2}\sin 2\theta \in [-\frac{1}{2}, \frac{1}{2})$，完全落在範圍內，正確。<br>
+            - (D) $\tan\theta > 1$ 或 $\tan\theta < -1$，錯誤。<br>
+            - (E) $\frac{\theta}{2} \in (\frac{\pi}{8}, \frac{3\pi}{8})$，$\sin\frac{\pi}{8} < \frac{1}{2}$，錯誤。
+          </p>
+        </div>
+      </div>
+
+      <!-- 題目 6 -->
+      <div class="q-item">
+        <div class="q-meta">
+          <span class="q-num">6. 圖形性質綜合分析</span>
+          <span class="q-score">6 分</span>
+        </div>
+        <div class="q-body">
+          考慮函數 $f(x) = 2\sin 3x$，請選出所有正確的選項：
+        </div>
+        <div class="q-options" style="grid-template-columns:1fr;">
+          <label class="q-option-label"><input type="checkbox" name="mq6" value="A"> (A) 對所有實數 $x$，$-2 \le f(x) \le 2$ 恆成立</label>
+          <label class="q-option-label"><input type="checkbox" name="mq6" value="B"> (B) $f(x)$ 在 $x = \frac{\pi}{6}$ 時有最大值</label>
+          <label class="q-option-label"><input type="checkbox" name="mq6" value="C"> (C) $f(x)$ 的最小正週期為 $\frac{2\pi}{3}$</label>
+          <label class="q-option-label"><input type="checkbox" name="mq6" value="D"> (D) 曲線 $y = f(x)$ 對稱於鉛直線 $x = \frac{\pi}{2}$</label>
+          <label class="q-option-label"><input type="checkbox" name="mq6" value="E"> (E) $f(2) > 0$</label>
+        </div>
+        <button class="toggle-solution-btn" onclick="toggleSolution('sol-mq6')">💡 查看解答與破題關鍵</button>
+        <div id="sol-mq6" class="solution-box">
+          <div class="sol-ans">【正解】：(A)(B)(C)(D)</div>
+          <p style="margin:0; line-height:1.7;">
+            <strong>解析：</strong><br>
+            - (A) 振幅為 2，值域 $[-2, 2]$，正確。<br>
+            - (B) $f(\frac{\pi}{6}) = 2\sin\frac{\pi}{2} = 2$，正確。<br>
+            - (C) 週期 $T = \frac{2\pi}{3}$，正確。<br>
+            - (D) $f(\frac{\pi}{2}) = 2\sin\frac{3\pi}{2} = -2$ 為波谷極小值點，故鉛直線 $x = \frac{\pi}{2}$ 為圖形對稱軸，正確。<br>
+            - (E) $f(2) = 2\sin(6 \text{ rad})$。$6 \text{ rad} \approx 343.8^\circ$ 位於第四象限，正弦值為負，錯誤。
+          </p>
+        </div>
+      </div>
+
+      <!-- 題目 7 -->
+      <div class="q-item">
+        <div class="q-meta">
+          <span class="q-num">7. 絕對值三角函數</span>
+          <span class="q-score">6 分</span>
+        </div>
+        <div class="q-body">
+          考慮函數 $f(x) = |\sin x| + |\cos x|$，請選出所有正確的選項：
+        </div>
+        <div class="q-options" style="grid-template-columns:1fr;">
+          <label class="q-option-label"><input type="checkbox" name="mq7" value="A"> (A) $f(-x) = f(x)$ 對所有實數 $x$ 均成立（偶函數）</label>
+          <label class="q-option-label"><input type="checkbox" name="mq7" value="B"> (B) $f(x)$ 的最大值為 $\sqrt{2}$</label>
+          <label class="q-option-label"><input type="checkbox" name="mq7" value="C"> (C) $f(x)$ 的最小值為 $0$</label>
+          <label class="q-option-label"><input type="checkbox" name="mq7" value="D"> (D) 函數 $f(x)$ 的最小正週期為 $\pi$</label>
+          <label class="q-option-label"><input type="checkbox" name="mq7" value="E"> (E) 函數 $f(x)$ 的最小正週期為 $\frac{\pi}{2}$</label>
+        </div>
+        <button class="toggle-solution-btn" onclick="toggleSolution('sol-mq7')">💡 查看解答與破題關鍵</button>
+        <div id="sol-mq7" class="solution-box">
+          <div class="sol-ans">【正解】：(A)(B)(E)</div>
+          <p style="margin:0; line-height:1.7;">
+            <strong>解析：</strong><br>
+            - (A) $f(-x) = |-\sin x| + |\cos x| = f(x)$，正確。<br>
+            - (B)(C) $f^2(x) = 1 + |\sin 2x|$。因 $0 \le |\sin 2x| \le 1 \implies 1 \le f^2(x) \le 2 \implies 1 \le f(x) \le \sqrt{2}$。最大值 $\sqrt{2}$，最小值 $1$，故 (B) 正確、(C) 錯誤。<br>
+            - (D)(E) $f(x+\frac{\pi}{2}) = |\cos x| + |-\sin x| = f(x)$，最小正週期為 $\frac{\pi}{2}$。故 (E) 正確、(D) 錯誤。
+          </p>
+        </div>
+      </div>
+
+      <!-- 題目 8 -->
+      <div class="q-item">
+        <div class="q-meta">
+          <span class="q-num">8. 幾何面積與週期性</span>
+          <span class="q-score">6 分</span>
+        </div>
+        <div class="q-body">
+          令 $A(a)$ 表示 $x$ 軸、$y$ 軸、直線 $x = a$（$a > 0$）與曲線 $y = 2 + \sin x$ 所圍成的面積。請選出所有正確的選項：
+        </div>
+        <div class="q-options" style="grid-template-columns:1fr;">
+          <label class="q-option-label"><input type="checkbox" name="mq8" value="A"> (A) $A(a + 2\pi) = A(a)$</label>
+          <label class="q-option-label"><input type="checkbox" name="mq8" value="B"> (B) $A(2\pi) = 2A(\pi)$</label>
+          <label class="q-option-label"><input type="checkbox" name="mq8" value="C"> (C) $A(4\pi) = 2A(2\pi)$</label>
+          <label class="q-option-label"><input type="checkbox" name="mq8" value="D"> (D) $A(3\pi) - A(2\pi) = A(2\pi) - A(\pi)$</label>
+          <label class="q-option-label"><input type="checkbox" name="mq8" value="E"> (E) $A(4\pi) - A(3\pi) = A(2\pi) - A(\pi)$</label>
+        </div>
+        <button class="toggle-solution-btn" onclick="toggleSolution('sol-mq8')">💡 查看解答與破題關鍵</button>
+        <div id="sol-mq8" class="solution-box">
+          <div class="sol-ans">【正解】：(C)(E)</div>
+          <p style="margin:0; line-height:1.7;">
+            <strong>解析：</strong><br>
+            正弦波以 $2\pi$ 為週期上下對稱起伏。在一個完整週期 $[0, 2\pi]$ 內，正半波增量與負半波減量剛好抵消，平均高度恆為 2。<br>
+            - $A(2\pi) = 2 \times 2\pi = 4\pi$；$A(4\pi) = 2 \times 4\pi = 8\pi = 2A(2\pi)$，(C) 正確。<br>
+            - 在 $[2\pi, 3\pi]$ 與 $[0, \pi]$ 為波峰區段，面積皆為 $2\pi + 2$；在 $[3\pi, 4\pi]$ 與 $[\pi, 2\pi]$ 為波谷區段，面積皆為 $2\pi - 2$。<br>
+            故 $A(4\pi) - A(3\pi) = A(2\pi) - A(\pi) = 2\pi - 2$，(E) 正確。
+          </p>
+        </div>
+      </div>
+
+      <!-- 參、選填題 (共6題，每題6分，共36分) -->
+      <h3 style="font-size:1.2rem; font-weight:800; color:var(--primary-color); margin:2rem 0 1rem 0;">參、選填題 (每題 6 分，共 36 分)</h3>
+
+      <!-- 題目 9 -->
+      <div class="q-item">
+        <div class="q-meta">
+          <span class="q-num">9. 條件對稱式求值</span>
+          <span class="q-score">6 分</span>
+        </div>
+        <div class="q-body">
+          已知 $\sin\alpha - \sin\beta = \frac{1}{2}$，$\cos\alpha + \cos\beta = \frac{1}{3}$，則 $\cos(\alpha+\beta) = $ <u>&emsp;&emsp;&emsp;</u>。
+        </div>
+        <button class="toggle-solution-btn" onclick="toggleSolution('sol-mq9')">💡 查看解答與破題關鍵</button>
+        <div id="sol-mq9" class="solution-box">
+          <div class="sol-ans">【正解】：$-\frac{59}{72}$</div>
+          <p style="margin:0; line-height:1.7;">
+            <strong>解析：</strong><br>
+            兩式分別平方：<br>
+            1. $\sin^2\alpha - 2\sin\alpha\sin\beta + \sin^2\beta = \frac{1}{4}$<br>
+            2. $\cos^2\alpha + 2\cos\alpha\cos\beta + \cos^2\beta = \frac{1}{9}$<br>
+            兩式相加：$2 + 2(\cos\alpha\cos\beta - \sin\alpha\sin\beta) = \frac{1}{4} + \frac{1}{9} = \frac{13}{36}$<br>
+            $2 + 2\cos(\alpha+\beta) = \frac{13}{36} \implies 2\cos(\alpha+\beta) = -\frac{59}{36} \implies \cos(\alpha+\beta) = -\frac{59}{72}$。
+          </p>
+        </div>
+      </div>
+
+      <!-- 題目 10 -->
+      <div class="q-item">
+        <div class="q-meta">
+          <span class="q-num">10. 圖形參數逆推</span>
+          <span class="q-score">6 分</span>
+        </div>
+        <div class="q-body">
+          某餘弦函數 $y = a\cos bx + c$（其中 $a, b, c$ 均為正數）的圖形波峰位於 $(0, 3)$，相鄰的波谷位於 $(\frac{\pi}{3}, -1)$，則數對序組 $(a, b, c) = $ <u>&emsp;&emsp;&emsp;</u>。
+        </div>
+        <button class="toggle-solution-btn" onclick="toggleSolution('sol-mq10')">💡 查看解答與破題關鍵</button>
+        <div id="sol-mq10" class="solution-box">
+          <div class="sol-ans">【正解】：$(2, 3, 1)$</div>
+          <p style="margin:0; line-height:1.7;">
+            <strong>解析：</strong><br>
+            - 振幅 $a = \frac{3 - (-1)}{2} = 2$。<br>
+            - 中心線 $c = \frac{3 + (-1)}{2} = 1$。<br>
+            - 波峰到相鄰波谷為半週期：$\frac{T}{2} = \frac{\pi}{3} \implies T = \frac{2\pi}{3}$。<br>
+            - 由 $\frac{2\pi}{b} = \frac{2\pi}{3} \implies b = 3$。<br>
+            故 $(a, b, c) = (2, 3, 1)$。
+          </p>
+        </div>
+      </div>
+
+      <!-- 題目 11 -->
+      <div class="q-item">
+        <div class="q-meta">
+          <span class="q-num">11. 觀賞壁畫最大視角應用</span>
+          <span class="q-score">6 分</span>
+        </div>
+        <div class="q-body">
+          博物館有一幅高 $9$ 公尺的壁畫垂直掛在牆上，其下緣距離地面 $4.7$ 公尺。某生眼睛距離地面 $1.7$ 公尺，若他站在離牆 $x$ 公尺處觀賞畫作可得最大視角 $\theta$，則數對 $(x, \tan\theta) = $ <u>&emsp;&emsp;&emsp;</u>。
+        </div>
+        <button class="toggle-solution-btn" onclick="toggleSolution('sol-mq11')">💡 查看解答與破題關鍵</button>
+        <div id="sol-mq11" class="solution-box">
+          <div class="sol-ans">【正解】：$(6, \frac{3}{4})$</div>
+          <p style="margin:0; line-height:1.7;">
+            <strong>解析：</strong><br>
+            視線相對於畫作下緣高差為 $4.7 - 1.7 = 3$ 公尺，上緣高差為 $3 + 9 = 12$ 公尺。<br>
+            $\tan\theta = \tan(\alpha - \beta) = \frac{\frac{12}{x} - \frac{3}{x}}{1 + \frac{36}{x^2}} = \frac{9}{x + \frac{36}{x}}$。<br>
+            利用算幾不等式：$x + \frac{36}{x} \ge 2\sqrt{36} = 12$，等號成立於 $x = \frac{36}{x} \implies x = 6$。<br>
+            此時 $\tan\theta = \frac{9}{12} = \frac{3}{4}$。數對為 $(6, \frac{3}{4})$。
+          </p>
+        </div>
+      </div>
+
+      <!-- 題目 12 -->
+      <div class="q-item">
+        <div class="q-meta">
+          <span class="q-num">12. 二次項降次與疊合極值</span>
+          <span class="q-score">6 分</span>
+        </div>
+        <div class="q-body">
+          求函數 $f(x) = 2\sin^2 x + 2\sqrt{3}\sin x\cos x$ 的最大值為 <u>&emsp;&emsp;&emsp;</u>，最小值為 <u>&emsp;&emsp;&emsp;</u>。
+        </div>
+        <button class="toggle-solution-btn" onclick="toggleSolution('sol-mq12')">💡 查看解答與破題關鍵</button>
+        <div id="sol-mq12" class="solution-box">
+          <div class="sol-ans">【正解】：最大值 $3$，最小值 $-1$</div>
+          <p style="margin:0; line-height:1.7;">
+            <strong>解析：</strong><br>
+            利用半角與倍角公式降次：<br>
+            $2\sin^2 x = 1 - \cos 2x$，$2\sqrt{3}\sin x\cos x = \sqrt{3}\sin 2x$。<br>
+            整理得 $f(x) = \sqrt{3}\sin 2x - \cos 2x + 1$。<br>
+            疊合：$\sqrt{3}\sin 2x - \cos 2x = 2\sin(2x - \frac{\pi}{6})$。<br>
+            故 $f(x) = 2\sin(2x - \frac{\pi}{6}) + 1$。<br>
+            最大值為 $2(1) + 1 = 3$，最小值為 $2(-1) + 1 = -1$。
+          </p>
+        </div>
+      </div>
+
+      <!-- 題目 13 -->
+      <div class="q-item">
+        <div class="q-meta">
+          <span class="q-num">13. 對稱換元型極值</span>
+          <span class="q-score">6 分</span>
+        </div>
+        <div class="q-body">
+          設 $f(x) = \sin x + \cos x + \sin x\cos x$，則 $f(x)$ 的最小值為 <u>&emsp;&emsp;&emsp;</u>。
+        </div>
+        <button class="toggle-solution-btn" onclick="toggleSolution('sol-mq13')">💡 查看解答與破題關鍵</button>
+        <div id="sol-mq13" class="solution-box">
+          <div class="sol-ans">【正解】：$-1$</div>
+          <p style="margin:0; line-height:1.7;">
+            <strong>解析：</strong><br>
+            令 $t = \sin x + \cos x = \sqrt{2}\sin(x+\frac{\pi}{4}) \implies t \in [-\sqrt{2}, \sqrt{2}]$。<br>
+            平方得 $t^2 = 1 + 2\sin x\cos x \implies \sin x\cos x = \frac{t^2-1}{2}$。<br>
+            原式代入配方：$f(t) = t + \frac{t^2-1}{2} = \frac{1}{2}(t+1)^2 - 1$。<br>
+            拋物線頂點對稱軸在 $t = -1$，因為 $-1 \in [-\sqrt{2}, \sqrt{2}]$，故當 $t = -1$（例如 $x = \pi$）時，取得最小值 $f(-1) = -1$。
+          </p>
+        </div>
+      </div>
+
+      <!-- 題目 14 -->
+      <div class="q-item">
+        <div class="q-meta">
+          <span class="q-num">14. 分式型疊合求極值</span>
+          <span class="q-score">6 分</span>
+        </div>
+        <div class="q-body">
+          求函數 $y = \frac{3\sin x + 2}{\cos x + 2}$ 的最大值為 <u>&emsp;&emsp;&emsp;</u>。
+        </div>
+        <button class="toggle-solution-btn" onclick="toggleSolution('sol-mq14')">💡 查看解答與破題關鍵</button>
+        <div id="sol-mq14" class="solution-box">
+          <div class="sol-ans">【正解】：$\frac{4+\sqrt{31}}{3}$</div>
+          <p style="margin:0; line-height:1.7;">
+            <strong>解析：</strong><br>
+            交叉相乘移項：$3\sin x - y\cos x = 2y - 2$。<br>
+            左式疊合為 $\sqrt{y^2+9}\sin(x-\phi)$。<br>
+            因為 $|\sin(x-\phi)| \le 1 \implies \frac{(2y-2)^2}{y^2+9} \le 1 \implies 4y^2 - 8y + 4 \le y^2 + 9$。<br>
+            整理得 $3y^2 - 8y - 5 \le 0$。公式解方程 $3y^2-8y-5=0 \implies y = \frac{8 \pm \sqrt{64-4(3)(-5)}}{6} = \frac{8 \pm 2\sqrt{31}}{6} = \frac{4 \pm \sqrt{31}}{3}$。<br>
+            故最大值為 $\frac{4+\sqrt{31}}{3}$。
+          </p>
+        </div>
+      </div>
+
+      <!-- 肆、綜合計算與應用題 (共2題，每題10分，共20分) -->
+      <h3 style="font-size:1.2rem; font-weight:800; color:var(--primary-color); margin:2rem 0 1rem 0;">肆、計算與綜合應用題 (每題 10 分，共 20 分)</h3>
+
+      <!-- 題目 15 -->
+      <div class="q-item">
+        <div class="q-meta">
+          <span class="q-num">15. 直角三角形幾何極值</span>
+          <span class="q-score">10 分</span>
+        </div>
+        <div class="q-body">
+          直角三角形 $ABC$ 中，$\angle C = 90^\circ$，斜邊長 $\overline{AB} = 4$。<br>
+          (1) 試求三角形 $ABC$ 周長的最大值。（5分）<br>
+          (2) 試求三角形 $ABC$ 面積的最大值。（5分）
+        </div>
+        <button class="toggle-solution-btn" onclick="toggleSolution('sol-mq15')">💡 查看解答與破題關鍵</button>
+        <div id="sol-mq15" class="solution-box">
+          <div class="sol-ans">【正解】：(1) $4 + 4\sqrt{2}$ ； (2) $4$</div>
+          <p style="margin:0; line-height:1.7;">
+            <strong>解析：</strong><br>
+            設 $\angle A = \theta$（$0 < \theta < \frac{\pi}{2}$），則兩股長分別為 $\overline{AC} = 4\cos\theta$，$\overline{BC} = 4\sin\theta$。<br><br>
+            <strong>(1) 周長 $P(\theta)$：</strong><br>
+            $P(\theta) = 4 + 4\sin\theta + 4\cos\theta = 4 + 4\sqrt{2}\sin(\theta + \frac{\pi}{4})$。<br>
+            當 $\theta = \frac{\pi}{4}$ 時，$\sin(\frac{\pi}{4}+\frac{\pi}{4}) = 1$，周長達最大值 $4 + 4\sqrt{2}$。<br><br>
+            <strong>(2) 面積 $A(\theta)$：</strong><br>
+            $A(\theta) = \frac{1}{2}(4\cos\theta)(4\sin\theta) = 8\sin\theta\cos\theta = 4\sin 2\theta$。<br>
+            當 $2\theta = \frac{\pi}{2} \implies \theta = \frac{\pi}{4}$ 時，$\sin 2\theta = 1$，面積達最大值 $4$。
+          </p>
+        </div>
+      </div>
+
+      <!-- 題目 16 -->
+      <div class="q-item">
+        <div class="q-meta">
+          <span class="q-num">16. 吊車懸臂與差角測量</span>
+          <span class="q-score">10 分</span>
+        </div>
+        <div class="q-body">
+          有一吊車垂直車身高 $\overline{AB} = 7$ 公尺（$A$ 在地面），懸吊臂長 $\overline{BC} = 25$ 公尺最初停放於水平地面上。<br>
+          當懸吊臂繞 $B$ 點旋轉舉高至 $D$ 點時（$A, B, C, D$ 在同一垂直平面上且臂長不變 $\overline{BD} = 25$ 公尺），量得懸吊臂末端移動直線距離 $\overline{CD} = 30$ 公尺。<br>
+          試求此時懸吊臂頂端 $D$ 點距離地面的垂直高度為多少公尺？
+        </div>
+        <button class="toggle-solution-btn" onclick="toggleSolution('sol-mq16')">💡 查看解答與破題關鍵</button>
+        <div id="sol-mq16" class="solution-box">
+          <div class="sol-ans">【正解】：$\frac{702}{25}$ 公尺（或 $28.08$ 公尺）</div>
+          <p style="margin:0; line-height:1.7;">
+            <strong>解析：</strong><br>
+            1. 在等腰 $\triangle BCD$ 中，$\overline{BC} = \overline{BD} = 25$，底邊 $\overline{CD} = 30$。<br>
+            過 $B$ 作垂線平分底邊，半角 $\angle DCB$ 滿足 $\cos\angle DCB = \frac{15}{25} = \frac{3}{5} \implies \sin\angle DCB = \frac{4}{5}$。<br>
+            2. 在直角 $\triangle ABC$ 中，$\overline{AB} = 7$，$\overline{BC} = 25 \implies \overline{AC} = \sqrt{25^2-7^2} = 24$。<br>
+            故 $\sin\angle ACB = \frac{7}{25}$，$\cos\angle ACB = \frac{24}{25}$。<br>
+            3. $D$ 點對地面的視線仰角為 $\angle DCA = \angle DCB + \angle ACB$。<br>
+            由正弦和角公式：<br>
+            $\sin\angle DCA = \sin\angle DCB \cos\angle ACB + \cos\angle DCB \sin\angle ACB = (\frac{4}{5})(\frac{24}{25}) + (\frac{3}{5})(\frac{7}{25}) = \frac{96+21}{125} = \frac{117}{125}$。<br>
+            4. $D$ 點垂直於地面的高度為 $h = \overline{CD} \times \sin\angle DCA = 30 \times \frac{117}{125} = \frac{702}{25} = 28.08$ 公尺。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 5: 單元講義速讀 -->
+    <section id="tab-handouts" class="tab-pane">
+      <div class="card-grid">
+        <div class="sprint-card">
+          <div class="card-title">📖 §9-1 差角公式精編講義</div>
+          <p style="color:var(--text-secondary); line-height:1.7; margin-bottom:1rem;">
+            完整包含 17 組經典例題與類題、習題 A、習題 B 共 40+ 題目，已完成勘誤校準。
+          </p>
+          <a href="9-1_trigonometry_exercises.md" target="_blank" class="pill-btn" style="text-decoration:none; display:inline-block; background:var(--primary-color); color:#fff; padding:0.4rem 0.85rem; border-radius:var(--radius-sm); font-weight:700;">開啟 9-1 Markdown 原文</a>
+        </div>
+
+        <div class="sprint-card">
+          <div class="card-title">📖 §9-2 三角函數圖形精編講義</div>
+          <p style="color:var(--text-secondary); line-height:1.7; margin-bottom:1rem;">
+            包含 7 組典型作圖與週期例題、習題 A、習題 B，附有詳細文字圖形幾何特徵描述。
+          </p>
+          <a href="9-2_trigonometry_exercises.md" target="_blank" class="pill-btn" style="text-decoration:none; display:inline-block; background:var(--primary-color); color:#fff; padding:0.4rem 0.85rem; border-radius:var(--radius-sm); font-weight:700;">開啟 9-2 Markdown 原文</a>
+        </div>
+
+        <div class="sprint-card">
+          <div class="card-title">📖 §9-3 正餘弦疊合精編講義</div>
+          <p style="color:var(--text-secondary); line-height:1.7; margin-bottom:1rem;">
+            包含 5 大核心疊合極值例題、幾何應用與習題 A、B，含全面校正之最新答案。
+          </p>
+          <a href="9-3_trigonometry_exercises.md" target="_blank" class="pill-btn" style="text-decoration:none; display:inline-block; background:var(--primary-color); color:#fff; padding:0.4rem 0.85rem; border-radius:var(--radius-sm); font-weight:700;">開啟 9-3 Markdown 原文</a>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <script>
+    // Tab 切換邏輯
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+        btn.classList.add('active');
+        const tabId = btn.getAttribute('data-tab');
+        document.getElementById(tabId).classList.add('active');
+      });
+    });
+
+    // 解答展開/隱藏切換
+    function toggleSolution(id) {
+      const el = document.getElementById(id);
+      if (el) {
+        el.classList.toggle('show');
+      }
+    }
+
+    // 計時器邏輯
+    let timerSeconds = 70 * 60;
+    let timerInterval = null;
+    const timerDisplay = document.getElementById('exam-timer');
+    const timerToggleBtn = document.getElementById('timer-toggle-btn');
+
+    function updateTimerText() {
+      const mins = Math.floor(timerSeconds / 60);
+      const secs = timerSeconds % 60;
+      timerDisplay.textContent = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+    }
+
+    if (timerToggleBtn) {
+      timerToggleBtn.addEventListener('click', () => {
+        if (timerInterval) {
+          clearInterval(timerInterval);
+          timerInterval = null;
+          timerToggleBtn.textContent = '繼續計時';
+          timerToggleBtn.style.background = '#10b981';
+        } else {
+          timerInterval = setInterval(() => {
+            if (timerSeconds > 0) {
+              timerSeconds--;
+              updateTimerText();
+            } else {
+              clearInterval(timerInterval);
+              timerInterval = null;
+              alert('⏰ 時間到！請停止作答，開始核對答案與自評。');
+            }
+          }, 1000);
+          timerToggleBtn.textContent = '暫停計時';
+          timerToggleBtn.style.background = '#f59e0b';
+        }
+      });
+    }
+
+    // 主題切換
+    const themeBtn = document.getElementById('theme-btn');
+    if (themeBtn) {
+      themeBtn.addEventListener('click', () => {
+        const cur = document.documentElement.getAttribute('data-theme') || 'light';
+        const next = cur === 'light' ? 'dark' : 'light';
+        document.documentElement.setAttribute('data-theme', next);
+      });
+    }
+
+    // 完整 KaTeX 公式渲染核心引擎 (支援 auto-render 與自適應樹狀遍歷後備)
+    function renderMathFormulas() {
+      if (window.renderMathInElement) {
+        try {
+          renderMathInElement(document.body, {
+            delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false}
+            ],
+            throwOnError: false
+          });
+          return true;
+        } catch (e) {
+          console.warn('Auto-render error:', e);
+        }
+      }
+
+      if (window.katex) {
+        const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false);
+        const textNodes = [];
+        let node;
+        while (node = walker.nextNode()) {
+          if (node.nodeValue.includes('$')) {
+            textNodes.push(node);
+          }
+        }
+
+        textNodes.forEach(textNode => {
+          const parent = textNode.parentNode;
+          if (!parent || parent.tagName === 'SCRIPT' || parent.tagName === 'STYLE' || parent.classList.contains('katex') || parent.closest('.katex')) return;
+
+          const raw = textNode.nodeValue;
+          const parts = raw.split(/(\$\$[\s\S]*?\$\$|\$[^\$]+?\$)/g);
+          if (parts.length <= 1) return;
+
+          const tempDiv = document.createElement('span');
+          let replaced = false;
+
+          parts.forEach(part => {
+            if (part.startsWith('$$') && part.endsWith('$$')) {
+              const math = part.slice(2, -2).trim();
+              const span = document.createElement('div');
+              span.className = 'katex-display-box';
+              try {
+                katex.render(math, span, { displayMode: true, throwOnError: false });
+                tempDiv.appendChild(span);
+                replaced = true;
+              } catch (e) {
+                tempDiv.appendChild(document.createTextNode(part));
+              }
+            } else if (part.startsWith('$') && part.endsWith('$')) {
+              const math = part.slice(1, -1).trim();
+              const span = document.createElement('span');
+              try {
+                katex.render(math, span, { displayMode: false, throwOnError: false });
+                tempDiv.appendChild(span);
+                replaced = true;
+              } catch (e) {
+                tempDiv.appendChild(document.createTextNode(part));
+              }
+            } else if (part) {
+              tempDiv.appendChild(document.createTextNode(part));
+            }
+          });
+
+          if (replaced) {
+            parent.replaceChild(tempDiv, textNode);
+          }
+        });
+        return true;
+      }
+      return false;
+    }
+
+    // 啟動與多輪等待保證 (避免 CDN 延遲導致顯示未排版代碼)
+    let tries = 0;
+    const mathTimer = setInterval(() => {
+      tries++;
+      const done = renderMathFormulas();
+      if (done || tries >= 25) {
+        clearInterval(mathTimer);
+      }
+    }, 120);
+
+    // 切換 Tab 或展開詳解時亦自動觸發補染
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => setTimeout(renderMathFormulas, 80));
+    });
+
+    const origToggleSolution = window.toggleSolution;
+    window.toggleSolution = function(id) {
+      if (typeof origToggleSolution === 'function') origToggleSolution(id);
+      setTimeout(renderMathFormulas, 50);
+    };
+  </script>
+</body>
+</html>

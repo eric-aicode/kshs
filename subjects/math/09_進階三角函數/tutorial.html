@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="zh-TW" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>【數學段考衝刺大師】進階三角函數完全自學指南 · 段考高分精解講義</title>
+  <meta name="description" content="高中數學108課綱高二進階三角函數段考衝刺專區：和差角與倍半角公式、三角函數圖形伸縮平移、超越方程實根個數、正餘弦疊合定理、受限區間極值、圓參數式幾何應用與全真模擬段考卷。">
+
+  <!-- Google Fonts: Plus Jakarta Sans & Noto Sans TC -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Noto+Sans+TC:wght@400;500;700;800;900&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- KaTeX for crisp LaTeX Math rendering -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" crossorigin="anonymous"></script>
+
+  <!-- Application Stylesheet -->
+  <link rel="stylesheet" href="../../../core/style.css">
+
+  <style>
+    /* ==========================================================================
+       數學段考衝刺大師專屬版面樣式
+       ========================================================================== */
+    :root {
+      --book-max-width: 1080px;
+    }
+
+    body {
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      font-family: 'Noto Sans TC', system-ui, -apple-system, sans-serif;
+      line-height: 1.85;
+      font-size: 1.05rem;
+    }
+
+    .book-layout {
+      max-width: var(--book-max-width);
+      margin: 0 auto;
+      padding: 2rem 1.5rem 6rem 1.5rem;
+      position: relative;
+    }
+
+    /* 頂部導航條 */
+    .book-top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border-light);
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .btn-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-size: 0.88rem;
+      font-weight: 750;
+      padding: 0.45rem 1rem;
+      border-radius: var(--radius-full);
+      text-decoration: none;
+      transition: all var(--transition-fast);
+      border: 1px solid var(--border-light);
+      background: var(--bg-card);
+      color: var(--text-secondary);
+    }
+
+    .btn-pill:hover {
+      color: #8b5cf6;
+      border-color: #8b5cf6;
+      transform: translateY(-1px);
+    }
+
+    /* 書本封面看板 */
+    .book-cover {
+      background: linear-gradient(135deg, rgba(139, 92, 246, 0.09) 0%, rgba(236, 72, 153, 0.09) 100%);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-xl);
+      padding: 3rem 2.5rem;
+      margin-bottom: 3rem;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .book-cover::after {
+      content: '📐';
+      position: absolute;
+      right: 2rem;
+      bottom: -1.5rem;
+      font-size: 9rem;
+      opacity: 0.12;
+      pointer-events: none;
+    }
+
+    .book-series-tag {
+      display: inline-block;
+      font-size: 0.82rem;
+      font-weight: 800;
+      color: #8b5cf6;
+      background: rgba(139, 92, 246, 0.12);
+      border: 1px solid rgba(139, 92, 246, 0.25);
+      padding: 0.3rem 0.85rem;
+      border-radius: var(--radius-full);
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .book-title {
+      font-size: 2.35rem;
+      font-weight: 900;
+      line-height: 1.3;
+      margin-bottom: 1rem;
+      color: var(--text-primary);
+      letter-spacing: -0.02em;
+    }
+
+    .book-subtitle {
+      font-size: 1.15rem;
+      color: var(--text-secondary);
+      max-width: 860px;
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+    }
+
+    .book-meta-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .meta-item {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      padding: 0.25rem 0.75rem;
+      border-radius: var(--radius-sm);
+    }
+
+    /* 快速閱讀目錄索引 */
+    .toc-container {
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem 2rem;
+      margin-bottom: 3.5rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .toc-title {
+      font-size: 1.15rem;
+      font-weight: 850;
+      color: var(--text-primary);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .toc-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 0.65rem 1.5rem;
+    }
+
+    .toc-link {
+      display: flex;
+      align-items: baseline;
+      gap: 0.6rem;
+      text-decoration: none;
+      color: var(--text-secondary);
+      font-size: 0.96rem;
+      font-weight: 600;
+      padding: 0.35rem 0.5rem;
+      border-radius: var(--radius-sm);
+      transition: all var(--transition-fast);
+    }
+
+    .toc-link:hover {
+      color: #8b5cf6;
+      transform: translateX(4px);
+    }
+
+    .toc-link span.num {
+      color: #8b5cf6;
+      font-weight: 800;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* 章節大區塊 */
+    .chapter-section {
+      margin-bottom: 4.5rem;
+      scroll-margin-top: 2rem;
+    }
+
+    .chapter-header {
+      border-bottom: 2px solid var(--border-light);
+      padding-bottom: 0.75rem;
+      margin-bottom: 1.75rem;
+      display: flex;
+      align-items: baseline;
+      gap: 0.85rem;
+      flex-wrap: wrap;
+    }
+
+    .chapter-num {
+      font-size: 1.25rem;
+      font-weight: 900;
+      font-family: 'JetBrains Mono', monospace;
+      color: #8b5cf6;
+      background: rgba(139, 92, 246, 0.1);
+      padding: 0.2rem 0.7rem;
+      border-radius: var(--radius-sm);
+    }
+
+    .chapter-title {
+      font-size: 1.75rem;
+      font-weight: 850;
+      color: var(--text-primary);
+    }
+
+    /* 觀念解說卡片 */
+    .concept-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .concept-card h3 {
+      font-size: 1.3rem;
+      font-weight: 800;
+      margin-bottom: 1.15rem;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .concept-card p {
+      margin-bottom: 1.15rem;
+      color: var(--text-secondary);
+    }
+
+    /* 強調註解框 (Callout Boxes) */
+    .callout-box {
+      border-left: 4px solid #8b5cf6;
+      background: rgba(139, 92, 246, 0.05);
+      border-radius: 0 var(--radius-md) var(--radius-md) 0;
+      padding: 1.2rem 1.4rem;
+      margin: 1.5rem 0;
+    }
+
+    .callout-tip {
+      border-left-color: var(--accent-emerald);
+      background: rgba(16, 185, 129, 0.05);
+    }
+
+    .callout-tip .callout-head {
+      color: #059669;
+    }
+
+    .callout-warning {
+      border-left-color: #f59e0b;
+      background: rgba(245, 158, 11, 0.06);
+    }
+
+    .callout-warning .callout-head {
+      color: #d97706;
+    }
+
+    .callout-danger {
+      border-left-color: #ef4444;
+      background: rgba(239, 68, 68, 0.06);
+    }
+
+    .callout-danger .callout-head {
+      color: #dc2626;
+    }
+
+    .callout-head {
+      font-weight: 800;
+      font-size: 0.98rem;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    /* 插圖與視覺圖表容器 (SVG Diagram Containers) */
+    .diagram-wrapper {
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      margin: 2rem 0;
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .diagram-wrapper svg {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+    }
+
+    .diagram-caption {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      margin-top: 0.85rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+    }
+
+    /* 比較與精解表格 */
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 1px solid var(--border-light);
+      font-size: 0.96rem;
+    }
+
+    .data-table th {
+      background: var(--bg-tertiary);
+      padding: 0.85rem 1rem;
+      text-align: left;
+      font-weight: 800;
+      color: var(--text-primary);
+      border-bottom: 2px solid var(--border-light);
+    }
+
+    .data-table td {
+      padding: 0.85rem 1rem;
+      border-bottom: 1px solid var(--border-light);
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .data-table tr:hover td {
+      background: rgba(139, 92, 246, 0.03);
+    }
+
+    /* 段考複習時程卡片 */
+    .sprint-timeline {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.25rem;
+      margin: 2rem 0;
+    }
+
+    .timeline-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      position: relative;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .timeline-day {
+      font-size: 0.8rem;
+      font-weight: 900;
+      color: #8b5cf6;
+      background: rgba(139, 92, 246, 0.1);
+      padding: 0.2rem 0.6rem;
+      border-radius: var(--radius-full);
+      display: inline-block;
+      margin-bottom: 0.6rem;
+    }
+
+    .timeline-title {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .timeline-card ul {
+      padding-left: 1.2rem;
+      color: var(--text-secondary);
+      font-size: 0.92rem;
+    }
+
+    .timeline-card li {
+      margin-bottom: 0.35rem;
+    }
+
+    /* 自學檢核清單 */
+    .checklist-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+
+    .checklist-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border-light);
+      padding: 0.85rem 1rem;
+      border-radius: var(--radius-md);
+      font-size: 0.96rem;
+    }
+
+    .check-icon {
+      color: var(--accent-emerald);
+      font-weight: 900;
+      font-size: 1.1rem;
+      line-height: 1.2;
+    }
+
+    /* 浮動目錄按鈕與置頂導航 */
+    .floating-back-top {
+      position: fixed;
+      right: 2rem;
+      bottom: 2rem;
+      width: 46px;
+      height: 46px;
+      border-radius: var(--radius-full);
+      background: #8b5cf6;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(139, 92, 246, 0.35);
+      cursor: pointer;
+      border: none;
+      transition: all var(--transition-fast);
+      z-index: 100;
+      text-decoration: none;
+    }
+
+    .floating-back-top:hover {
+      transform: translateY(-3px);
+      background: #7c3aed;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="book-layout">
+
+    <!-- 頂部操作按鈕列 -->
+    <header class="book-top-bar">
+      <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+        <a href="../../../index.html?subject=math&unit=09_advanced_trig" class="btn-pill" title="回到 09 進階三角函數 互動題庫中心">
+          <span>←</span> 回到數學題庫中心
+        </a>
+        <a href="guide.html" class="btn-pill" title="前往 Active Recall 遮蔽回想公式寶典">
+          <span>🧠</span> 公式回想自測寶典
+        </a>
+        <a href="guide_print.html" class="btn-pill" title="前往 A4 雙頁列印講義">
+          <span>🖨️</span> A4 列印講義
+        </a>
+        <a href="mock_exam.md" class="btn-pill" style="color:#8b5cf6; border-color:rgba(139,92,246,0.3); background:rgba(139,92,246,0.06);" title="下載或檢視全真模擬段考卷">
+          <span>📝</span> 全真段考模擬卷 (100分)
+        </a>
+      </div>
+
+      <button class="theme-toggle-btn" id="theme-btn" title="切換深淺模式" style="border:1px solid var(--border-light); background:var(--bg-card); width:38px; height:38px; border-radius:var(--radius-full); cursor:pointer;">
+        🌙
+      </button>
+    </header>
+
+    <!-- 書本封面看板 -->
+    <section class="book-cover">
+      <div class="book-series-tag">⚡ 高中數學段考衝刺大師 · 高二上進階三角專題</div>
+      <h1 class="book-title">進階三角函數完全自學指南<br><span style="font-size:1.6rem; font-weight:750; color:#8b5cf6;">從和差倍角、圖形伸縮平移到正餘弦疊合幾何極值</span></h1>
+      <p class="book-subtitle">
+        專為高二上學期第二次段考（108課綱 9-1～9-3）量身打造！拋棄死記硬背，以「公式幾何直覺」、「伸縮平移相位拆解」、「圖形交點實根定理」與「正餘弦疊合輔助角」四大核心，幫你在段考中取得頂標成績！
+      </p>
+      <div class="book-meta-pills">
+        <span class="meta-item">📐 完整涵蓋 65 道課堂與作業經典試題</span>
+        <span class="meta-item">🎨 原生高畫質 SVG 向量圖解輔助理解</span>
+        <span class="meta-item">⚡ 72 小時高效段考提分複習計畫</span>
+        <span class="meta-item">📝 附 100 分全真模擬段考卷與全解析</span>
+      </div>
+    </section>
+
+    <!-- 快速閱讀目錄索引 -->
+    <nav class="toc-container" aria-label="全書快速導航">
+      <div class="toc-title">
+        <span>📑</span> 衝刺目錄導覽 (段考快速通關路徑)
+      </div>
+      <div class="toc-grid">
+        <a href="#ch1" class="toc-link"><span class="num">01.</span> 和差角與倍角公式：結構對稱性與幾何推導</a>
+        <a href="#ch2" class="toc-link"><span class="num">02.</span> 三角函數圖形本質：四大參數 $A, b, c, d$ 變換奧祕</a>
+        <a href="#ch3" class="toc-link"><span class="num">03.</span> 實根個數判定：超越方程與代數直線交點四大準則</a>
+        <a href="#ch4" class="toc-link"><span class="num">04.</span> 正餘弦疊合定理：輔助角直角三角形與極值基礎</a>
+        <a href="#ch5" class="toc-link"><span class="num">05.</span> 受限區間極值求解：端點值 vs 波峰波谷判定法</a>
+        <a href="#ch6" class="toc-link"><span class="num">06.</span> 二次齊次式與對稱換元法：$t = \sin x \pm \cos x$</a>
+        <a href="#ch7" class="toc-link"><span class="num">07.</span> 圓參數式幾何應用：內接長方形與幾何極限</a>
+        <a href="#ch8" class="toc-link"><span class="num">08.</span> 段考 72 小時黃金衝刺計畫與題型決策樹</a>
+        <a href="#appendix" class="toc-link"><span class="num">附.</span> 全真模擬段考卷 (100分) 與自測評分表</a>
+      </div>
+    </nav>
+
+
+    <!-- =========================================================================
+         CHAPTER 1: 和差角與倍角公式
+         ========================================================================= -->
+    <section id="ch1" class="chapter-section">
+      <div class="chapter-header">
+        <span class="chapter-num">CHAPTER 01</span>
+        <h2 class="chapter-title">和差角與倍角公式：結構對稱性與幾何推導</h2>
+      </div>
+
+      <div class="concept-card">
+        <h3><span>💡</span> 正弦與餘弦的和差角口訣與結構特徵</h3>
+        <p>
+          許多同學在背和差角時容易正負號混淆。記住這兩大口訣與對稱性：
+        </p>
+
+        <div class="callout-box callout-tip">
+          <div class="callout-head"><span>🌟</span> 和差角記憶法寶</div>
+          <p>
+            <strong>正弦（Sin）友善包容：異性相吸，符號相同</strong>
+            $$\sin(\alpha \pm \beta) = \sin\alpha\cos\beta \pm \cos\alpha\sin\beta$$
+            <strong>餘弦（Cos）自私排他：同性相聚，符號相反</strong>
+            $$\cos(\alpha \pm \beta) = \cos\alpha\cos\beta \mp \sin\alpha\sin\beta$$
+          </p>
+        </div>
+
+        <!-- 圖解 1: 和差角單位圓幾何圖解 -->
+        <div class="diagram-wrapper">
+          <svg viewBox="0 0 720 320" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <marker id="arrMath" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                <path d="M 0 1 L 10 5 L 0 9 z" fill="#8b5cf6" />
+              </marker>
+            </defs>
+
+            <!-- 坐標軸 -->
+            <line x1="60" y1="260" x2="660" y2="260" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrMath)" />
+            <text x="670" y="265" font-size="13" font-weight="800" fill="#64748b">+x</text>
+            <line x1="360" y1="290" x2="360" y2="40" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrMath)" />
+            <text x="350" y="30" font-size="13" font-weight="800" fill="#64748b">+y</text>
+
+            <!-- 單位圓弧 (半徑 200) -->
+            <path d="M 560 260 A 200 200 0 0 0 160 260" fill="none" stroke="#cbd5e1" stroke-width="2.5" />
+
+            <!-- 角 alpha 射線 (alpha = 60度) -->
+            <line x1="360" y1="260" x2="460" y2="87" stroke="#8b5cf6" stroke-width="2.5" />
+            <circle cx="460" cy="87" r="5" fill="#8b5cf6" />
+            <text x="475" y="85" font-size="13" font-weight="800" fill="#8b5cf6">P(cos α, sin α)</text>
+
+            <!-- 角 beta 射線 (beta = 25度) -->
+            <line x1="360" y1="260" x2="541" y2="175" stroke="#059669" stroke-width="2.5" />
+            <circle cx="541" cy="175" r="5" fill="#059669" />
+            <text x="555" y="180" font-size="13" font-weight="800" fill="#059669">Q(cos β, sin β)</text>
+
+            <!-- 弦長 PQ (橘色) -->
+            <line x1="460" y1="87" x2="541" y2="175" stroke="#f59e0b" stroke-width="2.5" stroke-dasharray="3,3" />
+            <text x="515" y="125" font-size="12" font-weight="800" fill="#f59e0b">弦長 PQ</text>
+
+            <!-- 餘弦定理推導註記卡 -->
+            <rect x="80" y="60" width="240" height="90" rx="8" fill="rgba(255,255,255,0.92)" stroke="#8b5cf6" stroke-width="1.5" />
+            <text x="200" y="85" font-size="12" font-weight="800" fill="#1e293b" text-anchor="middle">【距離公式 vs 餘弦定理】</text>
+            <text x="200" y="110" font-size="11" font-weight="600" fill="#64748b" text-anchor="middle">PQ² = (cosα - cosβ)² + (sinα - sinβ)²</text>
+            <text x="200" y="130" font-size="11" font-weight="800" fill="#8b5cf6" text-anchor="middle">PQ² = 1 + 1 - 2cos(α - β)</text>
+          </svg>
+          <div class="diagram-caption">
+            <span>✨</span> 圖 1：單位圓距離公式推導餘弦差角公式 —— 幾何弦長平方展開直接給出 $\cos(\alpha - \beta) = \cos\alpha\cos\beta + \sin\alpha\sin\beta$
+          </div>
+        </div>
+
+        <h3><span>⚡</span> 二倍角與降次公式的「雙向互通」</h3>
+        <p>
+          二倍角公式中，餘弦二倍角有三種等價寫法：
+          $$\cos 2\theta = \cos^2\theta - \sin^2\theta = 2\cos^2\theta - 1 = 1 - 2\sin^2\theta$$
+          移項即為大考計算極值的最強利器——<strong>降次公式（Degree Reduction）</strong>：
+          $$\Large \cos^2\theta = \frac{1 + \cos 2\theta}{2}, \quad \sin^2\theta = \frac{1 - \cos 2\theta}{2}$$
+          凡是遇到 $\sin^2\theta$ 或 $\cos^2\theta$ 的題目，<strong>立刻降次化為 $2\theta$ 的一次式</strong>，即可銜接正餘弦疊合！
+        </p>
+      </div>
+    </section>
+
+
+    <!-- =========================================================================
+         CHAPTER 2: 三角函數圖形與參數變換
+         ========================================================================= -->
+    <section id="ch2" class="chapter-section">
+      <div class="chapter-header">
+        <span class="chapter-num">CHAPTER 02</span>
+        <h2 class="chapter-title">三角函數圖形本質：四大參數 $A, b, c, d$ 變換奧祕</h2>
+      </div>
+
+      <div class="concept-card">
+        <h3><span>🌊</span> $y = A\sin(bx + c) + d$ 的四大角色解構</h3>
+
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>參數</th>
+              <th>幾何影響</th>
+              <th>公式與計算規則</th>
+              <th>段考高頻易錯地雷</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>$A$</strong></td>
+              <td>鉛直伸縮（振幅）</td>
+              <td>振幅為 $|A|$，波峰與波谷距離為 $2|A|$</td>
+              <td>$A$ 若為負數，圖形會上下翻轉，但振幅永遠是正值 $|A|$！</td>
+            </tr>
+            <tr>
+              <td><strong>$b$</strong></td>
+              <td>水平伸縮（週期）</td>
+              <td>週期 $T = \frac{2\pi}{|b|}$</td>
+              <td>若 $b$ 變為 2 倍，圖形水平壓縮為 $\frac{1}{2}$，週期減半！</td>
+            </tr>
+            <tr>
+              <td><strong>$c$</strong></td>
+              <td>水平平移（相位）</td>
+              <td>向左/向右平移 $\frac{|c|}{|b|}$ 單位</td>
+              <td><strong>必考第一死穴！</strong>平移量是看 $x$ 前面的係數！必須改寫為 $A\sin[b(x - h)]$，平移量是 $h = -\frac{c}{b}$，絕不是 $c$！</td>
+            </tr>
+            <tr>
+              <td><strong>$d$</strong></td>
+              <td>鉛直平移（中軸線）</td>
+              <td>中軸線 $y = d$；最大值 $d + |A|$，最小值 $d - |A|$</td>
+              <td>中軸線即為上落極值的平均值：$d = \frac{M + m}{2}$。</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- 圖解 2: 函數圖形平移與伸縮對照 -->
+        <div class="diagram-wrapper">
+          <svg viewBox="0 0 720 300" xmlns="http://www.w3.org/2000/svg">
+            <!-- 坐標軸 -->
+            <line x1="60" y1="150" x2="680" y2="150" stroke="#94a3b8" stroke-width="2" />
+            <line x1="120" y1="280" x2="120" y2="30" stroke="#94a3b8" stroke-width="2" />
+            <text x="105" y="30" font-size="13" font-weight="800" fill="#64748b">y</text>
+            <text x="685" y="155" font-size="13" font-weight="800" fill="#64748b">x</text>
+
+            <!-- 基準正弦波 y = sin x (灰色虛線) -->
+            <path d="M 120 150 Q 180 50 240 150 T 360 150 T 480 150 T 600 150" fill="none" stroke="#cbd5e1" stroke-width="2" stroke-dasharray="4,4" />
+            <text x="360" y="135" font-size="11" font-weight="700" fill="#94a3b8">基準 y = sin x (T = 2π, A = 1)</text>
+
+            <!-- 變換後 y = 2sin(2x) + 1 (中軸在 y=1 (y=110), 振幅 2 (高 80), 週期 pi (120)) -->
+            <line x1="60" y1="110" x2="680" y2="110" stroke="#e2e8f0" stroke-width="1.5" stroke-dasharray="2,2" />
+            <text x="70" y="105" font-size="11" font-weight="700" fill="#8b5cf6">中軸線 y = 1</text>
+
+            <!-- 變換後波形 (紫色實線) -->
+            <path d="M 120 110 Q 150 30 180 110 T 240 110 T 300 110 T 360 110 T 420 110 T 480 110 T 540 110 T 600 110" fill="none" stroke="#8b5cf6" stroke-width="3" />
+            <circle cx="150" cy="30" r="5" fill="#8b5cf6" />
+            <text x="155" y="25" font-size="12" font-weight="800" fill="#8b5cf6">最大值 y = 3</text>
+            <circle cx="210" cy="190" r="5" fill="#8b5cf6" />
+            <text x="215" y="205" font-size="12" font-weight="800" fill="#8b5cf6">最小值 y = -1</text>
+          </svg>
+          <div class="diagram-caption">
+            <span>📊</span> 圖 2：函數圖形伸縮平移對照 —— 振幅擴大、週期減半、中軸線上移
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- =========================================================================
+         CHAPTER 3: 實根個數判定
+         ========================================================================= -->
+    <section id="ch3" class="chapter-section">
+      <div class="chapter-header">
+        <span class="chapter-num">CHAPTER 03</span>
+        <h2 class="chapter-title">實根個數判定：超越方程與代數直線交點四大準則</h2>
+      </div>
+
+      <div class="concept-card">
+        <h3><span>🔍</span> 「交點個數即實根個數」的作圖破解 SOP</h3>
+        <p>
+          當題目出現 $\cos x = \log_2 x$ 或 $x = 10\sin x$ 等「代數式與三角函數混合」的超越方程時，代數方法無法直接解出 $x$。唯一秒殺手段是<strong>拆成兩個圖形數交點</strong>！
+        </p>
+
+        <div class="callout-box callout-warning">
+          <div class="callout-head"><span>🎯</span> 作圖數根 4 大檢驗步驟</div>
+          <p>
+            1. <strong>鎖定三角函數值域邊界</strong>：$y = \sin x \in [-1, 1]$，直線或對數函數一旦超出 $[-1, 1]$ 就絕對不可能有交點！  
+            2. <strong>計算臨界邊界點</strong>：例如直線 $y = \frac{x}{10}$，當 $y = 1$ 時 $x = 10$。因為 $\pi \approx 3.14$，$10 \approx 3.18\pi$，這代表直線在 $3\pi$ 之後才會衝出上限！  
+            3. <strong>波段逐一清點</strong>：  
+               - 在 $[0, \pi]$ 正弦為正波，交 2 點。  
+               - 在 $[2\pi, 3\pi]$ 正弦又為正波，因 $3\pi \approx 9.42 < 10$，波峰在 $2.5\pi \approx 7.85$，交 1 點。  
+               - 正半軸共 $2 + 1 = 3$ 點。  
+            4. <strong>利用對稱性與原點</strong>：奇函數對稱於原點，負半軸亦有 3 點；加上原點 $(0, 0)$，總計 $3 + 3 + 1 = 7$ 點！
+          </p>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- =========================================================================
+         CHAPTER 4: 正餘弦疊合定理
+         ========================================================================= -->
+    <section id="ch4" class="chapter-section">
+      <div class="chapter-header">
+        <span class="chapter-num">CHAPTER 04</span>
+        <h2 class="chapter-title">正餘弦疊合定理：輔助角直角三角形與極值基礎</h2>
+      </div>
+
+      <div class="concept-card">
+        <h3><span>📐</span> 正餘弦疊合的核心幾何本質</h3>
+        <p>
+          任何同角頻率的線性組合 $a\sin x + b\cos x$ 都可以視為以 $(a, b)$ 為股長的直角三角形：
+          $$a\sin x + b\cos x = \sqrt{a^2 + b^2} \left(\frac{a}{\sqrt{a^2 + b^2}}\sin x + \frac{b}{\sqrt{a^2 + b^2}}\cos x\right)$$
+          令 $\cos\phi = \frac{a}{\sqrt{a^2+b^2}}$，$\sin\phi = \frac{b}{\sqrt{a^2+b^2}}$，則由正弦和角公式得：
+          $$\Large a\sin x + b\cos x = \sqrt{a^2 + b^2}\sin(x + \phi)$$
+        </p>
+
+        <!-- 圖解 3: 輔助角直角三角形 -->
+        <div class="diagram-wrapper">
+          <svg viewBox="0 0 600 240" xmlns="http://www.w3.org/2000/svg">
+            <!-- 直角三角形 -->
+            <polygon points="120,200 420,200 420,50" fill="rgba(139, 92, 246, 0.08)" stroke="#8b5cf6" stroke-width="2.5" />
+            
+            <!-- 直角符號 -->
+            <rect x="400" y="180" width="20" height="20" fill="none" stroke="#8b5cf6" stroke-width="1.5" />
+
+            <!-- 邊長標註 -->
+            <text x="270" y="225" font-size="14" font-weight="900" fill="#1e293b" text-anchor="middle">鄰邊 = a (sin 的係數)</text>
+            <text x="440" y="130" font-size="14" font-weight="900" fill="#1e293b">對邊 = b (cos 的係數)</text>
+            <text x="250" y="110" font-size="14" font-weight="900" fill="#8b5cf6" transform="rotate(-26.5, 250, 110)">斜邊 r = √(a² + b²)</text>
+
+            <!-- 輔助角 phi -->
+            <path d="M 180 200 A 60 60 0 0 0 173 173" fill="none" stroke="#ef4444" stroke-width="2" />
+            <text x="195" y="190" font-size="13" font-weight="900" fill="#ef4444">φ (輔助角)</text>
+          </svg>
+          <div class="diagram-caption">
+            <span>🔺</span> 圖 3：正餘弦疊合輔助角直角三角形 —— 振幅即斜邊，$\tan\phi = \frac{b}{a}$
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- =========================================================================
+         CHAPTER 5: 受限區間極值求解
+         ========================================================================= -->
+    <section id="ch5" class="chapter-section">
+      <div class="chapter-header">
+        <span class="chapter-num">CHAPTER 05</span>
+        <h2 class="chapter-title">受限區間極值求解：端點值 vs 波峰波谷判定法</h2>
+      </div>
+
+      <div class="concept-card">
+        <h3><span>⚠️</span> 為什麼不能直接寫最大值是 $\sqrt{a^2+b^2}$？</h3>
+        <p>
+          當題目給定 $x \in [\alpha, \beta]$ 時，合成後的角 $\theta = x + \phi$ 的範圍為 $[\alpha + \phi, \beta + \phi]$。
+          <strong>只有當此區間包含 $\frac{\pi}{2} + 2k\pi$ 時，正弦值才能取到最高點 $1$！</strong>
+        </p>
+
+        <div class="callout-box callout-danger">
+          <div class="callout-head"><span>💣</span> 段考經典例題：$-\frac{\pi}{6} \le x \le \frac{5\pi}{6}$ 求 $y = \sqrt{3}\cos x + \sin x$ 極值</div>
+          <p>
+            1. 疊合：$y = 2\left(\frac{1}{2}\sin x + \frac{\sqrt{3}}{2}\cos x\right) = 2\sin(x + \frac{\pi}{3})$。  
+            2. 確定範圍：令 $\theta = x + \frac{\pi}{3}$。  
+               因為 $-\frac{\pi}{6} \le x \le \frac{5\pi}{6}$，所以 $\frac{\pi}{6} \le \theta \le \frac{7\pi}{6}$。  
+            3. 檢驗極值點：  
+               - $\frac{\pi}{2} \in [\frac{\pi}{6}, \frac{7\pi}{6}]$，所以最大值出現在 $\theta = \frac{\pi}{2} \implies x = \frac{\pi}{6}$，最大值 $M = 2(1) = 2$。  
+               - 最低點 $\frac{3\pi}{2} \approx 1.5\pi$ **不在區間內**！故最小值必須由端點決定：  
+                 $\theta = \frac{\pi}{6} \implies \sin\frac{\pi}{6} = \frac{1}{2}$；  
+                 $\theta = \frac{7\pi}{6} \implies \sin\frac{7\pi}{6} = -\frac{1}{2}$。  
+                 因此最小值出現在 $\theta = \frac{7\pi}{6} \implies x = \frac{5\pi}{6}$，最小值 $m = 2(-\frac{1}{2}) = -1$！  
+            4. 數對 $(a, b, M, m) = (\frac{\pi}{6}, \frac{5\pi}{6}, 2, -1)$。
+          </p>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- =========================================================================
+         CHAPTER 6: 二次齊次式與對稱換元法
+         ========================================================================= -->
+    <section id="ch6" class="chapter-section">
+      <div class="chapter-header">
+        <span class="chapter-num">CHAPTER 06</span>
+        <h2 class="chapter-title">二次齊次式與對稱換元法：$t = \sin x \pm \cos x$</h2>
+      </div>
+
+      <div class="concept-card">
+        <h3><span>🔄</span> 對稱換元法的降維心法</h3>
+        <p>
+          當題目同時出現 $(\sin x + \cos x)$ 與乘積 $(\sin x\cos x)$ 時：
+          $$\text{令 } t = \sin x + \cos x = \sqrt{2}\sin(x + \frac{\pi}{4})$$
+          <strong>關鍵鐵律：$t$ 的範圍被緊緊鎖死在 $[-\sqrt{2}, \sqrt{2}]$！</strong>
+          兩邊平方得：
+          $$t^2 = 1 + 2\sin x\cos x \implies \sin x\cos x = \frac{t^2 - 1}{2}$$
+          原式立刻轉化為關於 $t$ 的一元二次函數，再用國中配方法即可秒殺極值！
+        </p>
+      </div>
+    </section>
+
+
+    <!-- =========================================================================
+         CHAPTER 7: 圓參數式幾何應用
+         ========================================================================= -->
+    <section id="ch7" class="chapter-section">
+      <div class="chapter-header">
+        <span class="chapter-num">CHAPTER 07</span>
+        <h2 class="chapter-title">圓參數式幾何應用：內接長方形與幾何極限</h2>
+      </div>
+
+      <div class="concept-card">
+        <h3><span>⭕</span> 圓上的動點坐標參數化</h3>
+        <p>
+          圓 $(x - h)^2 + (y - k)^2 = R^2$ 上的任意點皆可設為：
+          $$\begin{cases} x = h + R\cos\theta \\ y = k + R\sin\theta \end{cases}$$
+          求線性目標式 $Ax + By + C$ 的極值時，代入直接化為正餘弦疊合：
+          $$A(h + R\cos\theta) + B(k + R\sin\theta) + C = R(A\cos\theta + B\sin\theta) + (Ah + Bk + C)$$
+          最大值為 $(Ah + Bk + C) + R\sqrt{A^2 + B^2}$，幾何上即為點到直線距離的極值！
+        </p>
+      </div>
+    </section>
+
+
+    <!-- =========================================================================
+         CHAPTER 8: 段考衝刺計畫與題型決策樹
+         ========================================================================= -->
+    <section id="ch8" class="chapter-section">
+      <div class="chapter-header">
+        <span class="chapter-num">CHAPTER 08</span>
+        <h2 class="chapter-title">段考 72 小時黃金衝刺計畫與題型決策樹</h2>
+      </div>
+
+      <div class="sprint-timeline">
+        <div class="timeline-card">
+          <span class="timeline-day">DAY 1 · 打底排雷</span>
+          <div class="timeline-title">公式結構與圖形參數拆解</div>
+          <ul>
+            <li>徒手默寫正弦、餘弦和差角公式。</li>
+            <li>搞懂圖形平移向右 $h$ 的括號提取法則。</li>
+            <li>刷完 §9-1 與 §9-2 經典例題 1~15。</li>
+          </ul>
+        </div>
+
+        <div class="timeline-card">
+          <span class="timeline-day">DAY 2 · 題型反射</span>
+          <div class="timeline-title">正餘弦疊合與實根個數專攻</div>
+          <ul>
+            <li>熟練輔助角 $\phi$ 的象限與直角三角形。</li>
+            <li>掌握受限區間端點檢驗法。</li>
+            <li>刷完 §9-3 經典疊合例題 1~20。</li>
+          </ul>
+        </div>
+
+        <div class="timeline-card">
+          <span class="timeline-day">DAY 3 · 幾何壓軸</span>
+          <div class="timeline-title">圓參數式、幾何極值與難題衝刺</div>
+          <ul>
+            <li>練習對稱換元 $t = \sin x \pm \cos x$。</li>
+            <li>熟練扇形/圓內接長方形面積極限。</li>
+            <li>複習易錯地雷陣與錯題本。</li>
+          </ul>
+        </div>
+
+        <div class="timeline-card">
+          <span class="timeline-day">DAY 4 · 實戰模考</span>
+          <div class="timeline-title">70 分鐘全真段考限時刷卷</div>
+          <ul>
+            <li>計時 70 分鐘閉卷模擬考。</li>
+            <li>核對解答，找出漏洞即刻補強。</li>
+            <li>以滿分信心迎接段考！</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- =========================================================================
+         APPENDIX: 全真模擬段考卷與檢核表
+         ========================================================================= -->
+    <section id="appendix" class="chapter-section">
+      <div class="chapter-header">
+        <span class="chapter-num">APPENDIX</span>
+        <h2 class="chapter-title">全真模擬段考卷 (100分) 與自測評分表</h2>
+      </div>
+
+      <div class="concept-card">
+        <h3><span>📝</span> 100分 全真模擬試卷快速索引</h3>
+        <p>
+          試卷已完整編排並存放於：<a href="mock_exam.md" style="color:#8b5cf6; font-weight:800; text-decoration:underline;">mock_exam.md (點此開啟試卷與詳解)</a>。
+        </p>
+
+        <h3 style="margin-top:2rem;"><span>✅</span> 段考精熟自測清單 (Self-Mastery Checklist)</h3>
+        <div class="checklist-grid">
+          <div class="checklist-item">
+            <span class="check-icon">✓</span>
+            <div>你能不看講義寫出 $\cos(\alpha - \beta)$ 的距離公式推導嗎？</div>
+          </div>
+          <div class="checklist-item">
+            <span class="check-icon">✓</span>
+            <div>你能分辨 $y = \sin(2x - \frac{\pi}{2})$ 是向右平移 $\frac{\pi}{4}$ 還是 $\frac{\pi}{2}$ 嗎？</div>
+          </div>
+          <div class="checklist-item">
+            <span class="check-icon">✓</span>
+            <div>當遇到 $x = 10\sin x$ 時，你知道如何劃分象限計算實根個數嗎？</div>
+          </div>
+          <div class="checklist-item">
+            <span class="check-icon">✓</span>
+            <div>你能將 $\sin^2 x + 2\sin x\cos x + 3\cos^2 x$ 降次疊合求出最大值嗎？</div>
+          </div>
+          <div class="checklist-item">
+            <span class="check-icon">✓</span>
+            <div>當 $x \in [0, \frac{\pi}{4}]$ 時，你懂得如何正確求出疊合函數的極值嗎？</div>
+          </div>
+          <div class="checklist-item">
+            <span class="check-icon">✓</span>
+            <div>你能利用圓參數式將 $3x + 4y + 5$ 轉化為疊合求最大值嗎？</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 底部置頂按鈕 -->
+    <a href="#" class="floating-back-top" title="回到頁首">↑</a>
+
+  </div>
+
+  <!-- KaTeX 自動渲染腳本與主題切換 -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      // 1. 深淺主題切換邏輯
+      const themeBtn = document.getElementById('theme-btn');
+      const currentTheme = localStorage.getItem('phy_theme') || 'light';
+      document.documentElement.setAttribute('data-theme', currentTheme);
+      themeBtn.textContent = currentTheme === 'dark' ? '☀️' : '🌙';
+
+      themeBtn.addEventListener('click', function() {
+        const now = document.documentElement.getAttribute('data-theme');
+        const next = now === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', next);
+        themeBtn.textContent = next === 'dark' ? '☀️' : '🌙';
+        localStorage.setItem('phy_theme', next);
+      });
+
+      // 2. KaTeX 數學公式自動渲染
+      function renderKaTeX() {
+        if (!window.katex) return;
+        const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false);
+        const textNodes = [];
+        let node;
+        while (node = walker.nextNode()) {
+          if (node.nodeValue.includes('$')) {
+            textNodes.push(node);
+          }
+        }
+
+        textNodes.forEach(textNode => {
+          const parent = textNode.parentNode;
+          if (!parent || parent.tagName === 'SCRIPT' || parent.tagName === 'STYLE' || parent.classList.contains('katex') || parent.closest('.katex') || parent.closest('svg')) return;
+
+          let raw = textNode.nodeValue;
+          let replaced = false;
+          let tempDiv = document.createElement('span');
+
+          const parts = raw.split(/(\$\$[\s\S]*?\$\$|\$[^\$]+?\$)/g);
+          if (parts.length <= 1) return;
+
+          parts.forEach(part => {
+            if (part.startsWith('$$') && part.endsWith('$$')) {
+              const math = part.slice(2, -2).trim();
+              const span = document.createElement('div');
+              span.style.overflowX = 'auto';
+              span.style.padding = '0.5rem 0';
+              try {
+                katex.render(math, span, { displayMode: true, throwOnError: false });
+                tempDiv.appendChild(span);
+                replaced = true;
+              } catch (e) {
+                tempDiv.appendChild(document.createTextNode(part));
+              }
+            } else if (part.startsWith('$') && part.endsWith('$')) {
+              const math = part.slice(1, -1).trim();
+              const span = document.createElement('span');
+              try {
+                katex.render(math, span, { displayMode: false, throwOnError: false });
+                tempDiv.appendChild(span);
+                replaced = true;
+              } catch (e) {
+                tempDiv.appendChild(document.createTextNode(part));
+              }
+            } else if (part) {
+              tempDiv.appendChild(document.createTextNode(part));
+            }
+          });
+
+          if (replaced) {
+            parent.replaceChild(tempDiv, textNode);
+          }
+        });
+      }
+
+      let tries = 0;
+      const timer = setInterval(() => {
+        tries++;
+        if (window.katex) {
+          clearInterval(timer);
+          renderKaTeX();
+        } else if (tries > 30) {
+          clearInterval(timer);
+        }
+      }, 100);
+    });
+  </script>
+</body>
+</html>
