@@ -1000,7 +1000,8 @@ t_1 + t_2 = T = \\frac{2v_0\\sin\\theta}{g}, \\quad t_1 t_2 = \\frac{2h}{g} \\qu
         const firstLine = (q.question.split('\n')[0] || '').replace(/[#*]/g, '').trim();
         cleanTitle = `第 ${id} 題：${firstLine}`;
       }
-      const snippet = q.question.replace(/\$\$[\s\S]+?\$\$/g, ' [公式] ').replace(/\$[^\$]+?\$/g, ' [式] ').replace(/\n+/g, ' ').slice(0, 95);
+      const rawNoPrompt = q.question.replace(/>\s*🖼️[\s\S]*$/g, '').trim();
+      const snippet = rawNoPrompt.replace(/\$\$[\s\S]+?\$\$/g, ' [公式] ').replace(/\$[^\$]+?\$/g, ' [式] ').replace(/\n+/g, ' ').slice(0, 95);
 
       return `
         <div class="q-row-item ${isMastered ? 'mastered' : ''} ${allDetailsOpen ? 'open' : ''}" id="row-q-${id}">
@@ -1030,7 +1031,10 @@ t_1 + t_2 = T = \\frac{2v_0\\sin\\theta}{g}, \\quad t_1 t_2 = \\frac{2h}{g} \\qu
           <div class="q-row-drawer" id="drawer-q-${id}">
             <div class="detail-section">
               <div class="detail-section-title"><span>📝</span><span>完整題目內容</span></div>
-              <div class="detail-body math-text">${formatQuestionHtml(q.question)}</div>
+              <div class="detail-body math-text">
+                ${formatQuestionHtml(q.question)}
+                ${q.diagramSvg ? `<div style="margin-top:1rem; display:flex; justify-content:center;">${q.diagramSvg}</div>` : ''}
+              </div>
             </div>
             ${q.hint ? `
               <div class="detail-section">
@@ -1146,6 +1150,9 @@ t_1 + t_2 = T = \\frac{2v_0\\sin\\theta}{g}, \\quad t_1 t_2 = \\frac{2h}{g} \\qu
     function formatQuestionHtml(raw) {
       if (!raw) return '';
       let str = String(raw).trim();
+      str = str.replace(/>\s*🖼️\s*\*+【圖表說明】\*+[^\n\r]*/g, '');
+      str = str.replace(/>\s*\*+Prompt\*+:[^\n\r]*/g, '');
+      str = str.replace(/>\s*🖼️\s*[^\n\r]*/g, '');
       str = str.replace(/([。；;!?！？\$\)])\s*([（(][0-9一二三四五ABCDE][）\)])/g, '$1\n$2');
       const lines = str.split(/\r?\n/);
       return lines.map(line => {

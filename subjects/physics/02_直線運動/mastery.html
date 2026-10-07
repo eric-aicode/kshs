@@ -1019,7 +1019,8 @@ t_{\\min} = \\frac{L}{v_{\\max}} \\ \\text{(區間測速安全通行時間)}, \\
       
       // 提煉清晰標題與預覽文字
       const cleanTitle = q.title || `第 ${id} 題：${(q.question.split('\n')[0] || '').replace(/[*#]/g, '').trim()}`;
-      const snippet = q.question.replace(/\$\$[\s\S]+?\$\$/g, ' [公式] ').replace(/\$[^\$]+?\$/g, ' [式] ').slice(0, 95);
+      const rawNoPrompt = q.question.replace(/>\s*🖼️[\s\S]*$/g, '').trim();
+      const snippet = rawNoPrompt.replace(/\$\$[\s\S]+?\$\$/g, ' [公式] ').replace(/\$[^\$]+?\$/g, ' [式] ').slice(0, 95);
 
       return `
         <div class="q-row-item ${isMastered ? 'mastered' : ''} ${allDetailsOpen ? 'open' : ''}" id="row-q-${id}">
@@ -1049,7 +1050,10 @@ t_{\\min} = \\frac{L}{v_{\\max}} \\ \\text{(區間測速安全通行時間)}, \\
           <div class="q-row-drawer" id="drawer-q-${id}">
             <div class="detail-section">
               <div class="detail-section-title"><span>📝</span><span>完整題目內容</span></div>
-              <div class="detail-body math-text">${formatQuestionHtml(q.question)}</div>
+              <div class="detail-body math-text">
+                ${formatQuestionHtml(q.question)}
+                ${q.diagramSvg ? `<div style="margin-top:1rem; display:flex; justify-content:center;">${q.diagramSvg}</div>` : ''}
+              </div>
             </div>
             ${q.hint ? `
               <div class="detail-section">
@@ -1165,6 +1169,10 @@ t_{\\min} = \\frac{L}{v_{\\max}} \\ \\text{(區間測速安全通行時間)}, \\
     function formatQuestionHtml(raw) {
       if (!raw) return '';
       let str = String(raw).trim();
+      // 清除純文字 Prompt 提示（已由高畫質向量圖表取代）
+      str = str.replace(/>\s*🖼️\s*\*+【圖表說明】\*+[^\n\r]*/g, '');
+      str = str.replace(/>\s*\*+Prompt\*+:[^\n\r]*/g, '');
+      str = str.replace(/>\s*🖼️\s*[^\n\r]*/g, '');
       str = str.replace(/([。；;!?！？\$\)])\s*([（(][0-9一二三四五ABCDE][）\)])/g, '$1\n$2');
       const lines = str.split(/\r?\n/);
       return lines.map(line => {

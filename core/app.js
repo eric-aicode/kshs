@@ -352,6 +352,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       <div class="question-body">
         ${questionHtml}
+        ${q.diagramSvg ? `<div class="question-diagram-box" style="margin: 1.25rem 0; display:flex; justify-content:center;">${q.diagramSvg}</div>` : ''}
       </div>
 
       <div class="solution-controls">
