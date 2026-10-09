@@ -39,7 +39,7 @@ const LEARNING_CENTER_CONFIG = {
           masteryUrl: 'subjects/physics/01_拋體運動/mastery.html',
           guideUrl: 'guide.html',
           tutorialUrl: 'subjects/physics/01_拋體運動/tutorial.html',
-          printUrl: 'guide_print.html',
+          printUrl: 'subjects/physics/01_拋體運動/mastery_print.html',
           count: 72,
           categories: [
             { id: '1-27', name: '水平拋體運動 (1~27)', range: [1, 27] },

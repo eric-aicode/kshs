@@ -647,6 +647,62 @@
       font-weight: 850;
       font-size: 0.95rem;
     }
+
+    /* 變異標籤與第一步下手引導卡片 */
+    .q-variation-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      font-size: 0.78rem;
+      font-weight: 750;
+      color: #b45309;
+      background: rgba(245, 158, 11, 0.12);
+      border: 1px solid rgba(245, 158, 11, 0.28);
+      padding: 0.12rem 0.55rem;
+      border-radius: 4px;
+      margin-left: 0.5rem;
+    }
+    .first-action-card {
+      background: linear-gradient(135deg, rgba(2, 132, 199, 0.08) 0%, rgba(14, 165, 233, 0.04) 100%);
+      border-left: 4px solid #0284c7;
+      border-radius: var(--radius-sm);
+      padding: 0.75rem 1rem;
+      margin-bottom: 1rem;
+      font-size: 0.92rem;
+      line-height: 1.6;
+    }
+    .first-action-title {
+      font-weight: 850;
+      color: #0284c7;
+      margin-bottom: 0.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.86rem;
+    }
+    .checklist-card {
+      background: rgba(16, 185, 129, 0.04);
+      border: 1px dashed rgba(16, 185, 129, 0.35);
+      border-radius: var(--radius-sm);
+      padding: 0.75rem 1rem;
+      margin-top: 1rem;
+      font-size: 0.88rem;
+    }
+    .checklist-title {
+      font-weight: 850;
+      color: var(--accent-emerald);
+      margin-bottom: 0.35rem;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.85rem;
+    }
+    .checklist-items {
+      margin: 0;
+      padding-left: 1.25rem;
+      line-height: 1.7;
+      color: var(--text-primary);
+    }
   </style>
 </head>
 <body>
@@ -658,13 +714,16 @@
       <div style="display:flex; align-items:center; gap:0.75rem;">
         <span style="font-size:1.8rem;">🎯</span>
         <div>
-          <h1 style="font-size:1.25rem; font-weight:850; margin:0;">二維拋體運動 · 公式概念精熟題型分類庫</h1>
-          <p style="font-size:0.8rem; color:var(--text-muted); margin:0;">6 大核心公式模組 · 72 題典型拋體精解全歸納</p>
+          <h1 style="font-size:1.25rem; font-weight:850; margin:0;">二維拋體運動 · 核心概念精熟刻意練習本</h1>
+          <p style="font-size:0.8rem; color:var(--text-muted); margin:0;">7 大高純度專題 · 72 題典型拋體變異刻意練習與概念遷移</p>
         </div>
       </div>
       <div class="nav-actions">
         <a href="../../../index.html?subject=physics&unit=01_projectile" class="nav-btn primary" title="返回主練習庫">
           <span>📚</span><span>返回主題庫</span>
+        </a>
+        <a href="mastery_print.html" class="nav-btn" title="開啟專為 A4 紙張與 PDF 排版優化的題庫本" style="background:#0284c7; color:#ffffff; border-color:#0284c7;">
+          <span>🖨️</span><span>A4列印題庫本</span>
         </a>
         <a href="../02_直線運動/mastery.html" class="nav-btn" title="切換至直線運動精熟庫">
           <span>⚡</span><span>直線運動精熟庫</span>
@@ -684,18 +743,18 @@
     <!-- Hero 看板 -->
     <section class="hero-panel">
       <div class="hero-title">
-        <span>🏹 平拋、斜拋、斜面撞擊與相對運動 · 核心公式矩陣</span>
+        <span>🏹 單一概念刻意練習 · 掌握變異直覺 · 觸發學習遷移</span>
       </div>
       <p class="hero-desc">
-        將 72 道二維拋體題目徹底拆解為 6 大經典公式主題！從平拋二倍正切定理、斜面垂直撞擊，到互餘角等射程與空中相對直線運動，
-        讓你一眼看穿出題老師考的是哪個公式，精準高效刷題。
+        將 72 道二維拋體題目徹底純化為 7 大高純度專題！每一專題圍繞單一核心模型，透過「題目情境與問法之微小變異」，
+        訓練學生看見題目關鍵字能<strong>第一步直覺下筆</strong>，扎實建立無可撼動的解題肌肉記憶。
       </p>
 
       <!-- 統計儀表板 -->
       <div class="stats-dashboard">
         <div class="stat-card">
-          <span class="stat-label">公式模組總數</span>
-          <div class="stat-value">6 <span class="stat-sub">個主題</span></div>
+          <span class="stat-label">純度專題總數</span>
+          <div class="stat-value">7 <span class="stat-sub">大專題</span></div>
         </div>
         <div class="stat-card">
           <span class="stat-label">題目總收錄</span>
@@ -720,14 +779,14 @@
       <div class="controls-top">
         <div class="search-box">
           <span class="search-icon">🔍</span>
-          <input type="text" id="mastery-search" class="search-input" placeholder="搜尋題號 (如 25) 或關鍵字 (如 夾角、斜面、射程、軌跡、相對)...">
+          <input type="text" id="mastery-search" class="search-input" placeholder="搜尋題號 (如 25) 或變異關鍵字 (如 夾角、斜面、射程、同高度、相撞)...">
         </div>
         <div style="display:flex; align-items:center; gap:0.75rem; flex-wrap:wrap;">
           <label style="display:flex; align-items:center; gap:0.35rem; font-size:0.85rem; font-weight:700; cursor:pointer;">
             <input type="checkbox" id="filter-unmastered-only"> 只顯示尚未精熟題目
           </label>
           <button class="nav-btn" id="btn-toggle-all-details" style="font-size:0.82rem; padding:0.35rem 0.75rem;">
-            📖 全部展開詳解
+            📖 全部展開題目
           </button>
           <button class="nav-btn" id="btn-reset-progress" style="font-size:0.82rem; padding:0.35rem 0.75rem; color:var(--accent-crimson);">
             🔄 重設進度
@@ -737,13 +796,14 @@
 
       <!-- 模組快速導航 Pills -->
       <div class="filter-pills" id="module-tabs">
-        <button class="pill-tab active" data-mod="all">全部模組 (6)</button>
-        <button class="pill-tab" data-mod="pmod-1">模組 1 · 平拋基礎與飛行時間 (14)</button>
-        <button class="pill-tab" data-mod="pmod-2">模組 2 · 速度/位移正切二倍定理 (7)</button>
-        <button class="pill-tab" data-mod="pmod-3">模組 3 · 斜面落點與垂直撞擊 (6)</button>
-        <button class="pill-tab" data-mod="pmod-4">模組 4 · 斜拋三大公式與互補角 (16)</button>
-        <button class="pill-tab" data-mod="pmod-5">模組 5 · 軌跡幾何與高程比定理 (16)</button>
-        <button class="pill-tab" data-mod="pmod-6">模組 6 · 斜面拋射與相對運動 (13)</button>
+        <button class="pill-tab active" data-mod="all">全部專題 (7)</button>
+        <button class="pill-tab" data-mod="pmod-1">專題 1 · 平拋基礎與飛行時間 (14)</button>
+        <button class="pill-tab" data-mod="pmod-2">專題 2 · 速度/位移正切二倍金律 (7)</button>
+        <button class="pill-tab" data-mod="pmod-3">專題 3 · 平拋斜面約束與垂直撞擊 (6)</button>
+        <button class="pill-tab" data-mod="pmod-4">專題 4 · 斜拋三大公式與互補角 (16)</button>
+        <button class="pill-tab" data-mod="pmod-5">專題 5 · 高程比金律與軌跡方程式 (10)</button>
+        <button class="pill-tab" data-mod="pmod-6">專題 6 · 同高度時間對稱與兩時刻 (6)</button>
+        <button class="pill-tab" data-mod="pmod-7">專題 7 · 斜面斜拋與相對運動 (13)</button>
       </div>
     </div>
 
@@ -757,74 +817,186 @@
 
   <script>
     // ==========================================================================
-    // 拋體運動 6 大核心公式精熟模組 (1~72 題完全覆蓋)
+    // 拋體運動 7 大純度精熟專題 (1~72 題 100% 完整覆蓋)
     // ==========================================================================
     const PROJECTILE_MASTERY_MODULES = [
       {
         id: "pmod-1",
-        name: "模組 01 · 水平拋體基礎運動學與飛行時間",
+        name: "專題 01 · 水平拋體運動獨立性、飛行時間與切線/法線加速度",
         icon: "🌊",
-        formulaLatex: `t = \\sqrt{\\frac{2h}{g}}, \\quad x = v_0 t = v_0\\sqrt{\\frac{2h}{g}} \\\\
-v_x = v_0, \\quad v_y = gt, \\quad v = \\sqrt{v_0^2 + (gt)^2}`,
-        strategy: "平拋運動的核心是「運動獨立性」：水平等速、鉛直自由落體。只要已知高度 $h$，飛行時間 $t$ 便唯一確定，與水平初速 $v_0$ 完全無關！轟炸機投彈或空中相撞問題，水平方向直接用相對速率 $\\Delta v_x \\times t$ 即可秒殺。",
-        pitfalls: "⚠️ 注意鉛直高度與末速度的關係：末速度 $v = \\sqrt{v_0^2 + 2gh}$，切勿把水平速度誤當作末速度！",
+        formulaLatex: `t = \\sqrt{\\frac{2h}{g}}, \\quad \\tan\\theta = \\frac{gt}{v_0}, \\quad a_t = g\\sin\\theta = g\\frac{v_y}{v}, \\quad a_n = g\\cos\\theta = g\\frac{v_0}{v}, \\quad \\frac{a_t}{a_n} = \\tan\\theta \\ (a_t^2 + a_n^2 = g^2)`,
+        firstActionSummary: "① 鉛直自由落體求時間 t = √(2h/g)，水平等速 x = v0 t；② 求切線/法線加速度：先由 tanθ = gt/v0 或直角三角形求速度偏角 θ，將重力 g 投影至切向 at = g sinθ 與法向 an = g cosθ；③ 切法加速度比值 at/an 恆等於速度正切 tanθ！",
+        strategy: "平拋運動中，重力加速度 g 恆垂直向下。沿速度方向之分量稱為「切線加速度 at」（改變速度大小，隨時間遞增）；垂直速度方向之分量稱為「法線加速度 an」（改變運動方向，隨時間遞減），兩者合成為 g！",
+        pitfalls: "⚠️ 重力 g 恆垂直向下！切線加速度 at 與法線加速度 an 的平方和恆等於 g²！切勿將 at 誤認為重力本體。",
+        checklist: [
+          "我不看講義，能立刻寫出飛行時間與下落高度的唯一對應式嗎？",
+          "看到求切線加速度 at 與法線加速度 an，我能否第一時間畫出速度偏角直角三角形，並寫出 at = g sinθ 與 an = g cosθ？",
+          "我能否反射性反應：切法加速度比值 at/an 恆等於速度偏角之正切值 tanθ？"
+        ],
         questionIds: [1, 2, 8, 9, 10, 11, 12, 13, 14, 15, 24, 25, 26, 27]
       },
       {
         id: "pmod-2",
-        name: "模組 02 · 平拋之速度偏角與位移偏角正切二倍關係",
+        name: "專題 02 · 速度偏角與位移偏角正切二倍金律",
         icon: "📐",
-        formulaLatex: `\\tan\\theta = \\frac{v_y}{v_x} = \\frac{gt}{v_0} \\ \\text{(速度偏角)}, \\quad \\tan\\phi = \\frac{y}{x} = \\frac{\\frac{1}{2}gt^2}{v_0 t} = \\frac{gt}{2v_0} \\ \\text{(位移偏角)} \\\\
-\\tan\\theta = 2\\tan\\phi \\ \\text{(正切二倍金律)}`,
-        strategy: "高頻必考秒殺公式！平拋物體的瞬時速度傾角正切值，永遠是位移傾角正切值的 2 倍。幾何上，任意時刻速度切線的反向延長線必精準交於水平位移的中點 $x/2$ 處！",
-        pitfalls: "⚠️ 題目問「速度方向與水平成 $45^\\circ$」時 $\\tan\\theta = 1 \\implies t = v_0/g$；而問「位移與水平成 $45^\\circ$」時 $\\tan\\phi = 1 \\implies t = 2v_0/g$。時間相差整整 2 倍！",
+        formulaLatex: `\\tan\\theta = \\frac{gt}{v_0} \\ (\\text{速度偏角}), \\quad \\tan\\phi = \\frac{gt}{2v_0} \\ (\\text{位移偏角}) \\implies \\tan\\theta = 2\\tan\\phi`,
+        firstActionSummary: "題目出現「速度偏角」立刻寫 tanθ = gt/v0；出現「位移傾角」正切值必減半 tanφ = gt/(2v0)；兩者聯立秒用 tanθ = 2tanφ。",
+        strategy: "高頻必考秒殺定理！平拋物體任意瞬時速度傾角之正切，恰為位移傾角正切之 2 倍。幾何上，速度切線反向延長線必交於水平位移中點 x/2 處！",
+        pitfalls: "⚠️ 速度與水平成 45° 經歷時間為 v0/g；位移與水平成 45° 經歷時間為 2v0/g，時間相差整整 2 倍！",
+        checklist: [
+          "我能在幾何草圖上標出速度切線反向延長線交於水平中點 x/2 嗎？",
+          "我能否清楚區分「速度與水平夾角」與「位移與水平夾角」？"
+        ],
         questionIds: [3, 4, 5, 6, 7, 22, 23]
       },
       {
         id: "pmod-3",
-        name: "模組 03 · 水平拋體於斜面上之落點、最遠距與垂直撞擊",
+        name: "專題 03 · 水平拋體於斜面上之落點、最遠距與垂直撞擊",
         icon: "🏔️",
-        formulaLatex: `\\text{順斜面拋出落點}: \\ \\tan\\alpha = \\frac{y}{x} = \\frac{gt}{2v_0} \\implies t_{\\text{落}} = \\frac{2v_0\\tan\\alpha}{g} \\\\
-\\text{垂直撞擊斜面}: \\ \\tan\\theta = \\cot\\alpha \\implies \\frac{gt}{v_0} = \\cot\\alpha \\implies t_{\\text{垂}} = \\frac{v_0\\cot\\alpha}{g} \\\\
-\\text{離斜面最遠點}: \\ \\frac{v_y}{v_x} = \\tan\\alpha \\implies t_{\\text{max}} = \\frac{v_0\\tan\\alpha}{g} = \\frac{1}{2}t_{\\text{落}}`,
-        strategy: "斜面平拋三大切入點：(1) 落回斜面，幾何條件為位移角等於斜角 $\\tan\\alpha = y/x$；(2) 離斜面最遠處，速度方向必平行斜面，時間剛好是落點的一半；(3) 垂直撞擊斜面，速度偏角與斜角互餘，正切互為倒數！",
-        pitfalls: "⚠️ 注意垂直撞擊條件是速度與斜面垂直，故速度水平夾角 $\\theta = 90^\\circ - \\alpha$，切記是 $\\tan\\theta = \\cot\\alpha$！",
+        formulaLatex: `t_{\\text{落}} = \\frac{2v_0\\tan\\alpha}{g}, \\quad t_{\\text{max}} = \\frac{v_0\\tan\\alpha}{g} = \\frac{1}{2}t_{\\text{落}}, \\quad t_{\\text{垂}} = \\frac{v_0\\cot\\alpha}{g}`,
+        firstActionSummary: "① 落回斜面：第一步寫幾何約束 y/x = tanα；② 離斜面最遠：速度平行斜面 (時間為落點一半)；③ 垂直撞擊：速度偏角與斜角互餘 tanθ = cotα。",
+        strategy: "斜面平拋三大切入點：(1) 落回斜面，幾何條件為位移角等於斜角；(2) 離斜面最遠處，速度方向必平行斜面；(3) 垂直撞擊斜面，速度水平夾角與斜面夾角互餘，正切互為倒數！",
+        pitfalls: "⚠️ 垂直撞擊條件是速度與斜面垂直，切記速度與水平夾角為 90°-α，故 tanθ = cotα！",
+        checklist: [
+          "當題目說「垂直撞擊斜面」，我的第一反射是寫 tanθ = cotα 嗎？",
+          "當題目問「離斜面最遠」，我能直覺反應時間恰為落點時間的一半嗎？"
+        ],
         questionIds: [16, 17, 18, 19, 20, 21]
       },
       {
         id: "pmod-4",
-        name: "模組 04 · 斜向拋體標準三大公式與互補角射程相等定理",
+        name: "專題 04 · 斜向拋體標準三大公式與互補角射程相等",
         icon: "🎯",
-        formulaLatex: `T = \\frac{2v_0\\sin\\theta}{g}, \\quad H = \\frac{v_0^2\\sin^2\\theta}{2g}, \\quad R = \\frac{v_0^2\\sin 2\\theta}{g} \\\\
-\\text{互補角定理}: \\ R(\\theta) = R(90^\\circ - \\theta) \\\\
-\\frac{T_1}{T_2} = \\tan\\theta, \\quad \\frac{H_1}{H_2} = \\tan^2\\theta, \\quad R = \\frac{g}{2}T_1 T_2 = 4\\sqrt{H_1 H_2}`,
-        strategy: "斜拋標準三大公式是基礎功。當初速固定，仰角互餘（$\\theta_1 + \\theta_2 = 90^\\circ$）的兩次斜拋，水平射程完全相同！仰角較大者最大高度較高且滯空時間較長。射程可直接由兩次時間之乘積求得：$R = \\frac{1}{2}g T_1 T_2$。",
-        pitfalls: "⚠️ 當 $\\theta = 45^\\circ$ 時水平射程最大 $R_{\\max} = v_0^2/g$；此時最大高度剛好為射程的四分之一 $H = R/4$。",
+        formulaLatex: `T = \\frac{2v_0\\sin\\theta}{g}, \\quad H = \\frac{v_0^2\\sin^2\\theta}{2g}, \\quad R = \\frac{v_0^2\\sin 2\\theta}{g}, \\quad R = \\frac{g}{2}T_1 T_2 = 4\\sqrt{H_1 H_2}`,
+        firstActionSummary: "確認是地面出發落回地面（對稱問題），直接代入 T, H, R；看到兩次射程相等，第一步列出仰角互餘 θ1 + θ2 = 90°。",
+        strategy: "斜拋標準三大公式是基本功。初速固定下，仰角互餘（45°±α）的兩次斜拋射程完全相同，射程可直接由兩次時間乘積求出 R = 1/2 g T1 T2。",
+        pitfalls: "⚠️ θ = 45° 時射程最大 R_max = v0²/g；此時最大高度剛好為射程的四分之一 H = R/4。",
+        checklist: [
+          "我能在 10 秒內背出三大公式並驗證量綱（單位）正確嗎？",
+          "我知道為何互餘角兩次拋射時間乘積必正比於射程嗎？"
+        ],
         questionIds: [28, 29, 30, 31, 32, 33, 34, 35, 37, 38, 43, 44, 45, 46, 48, 52]
       },
       {
         id: "pmod-5",
-        name: "模組 05 · 斜拋軌跡幾何關係、高程比與特殊定理",
+        name: "專題 05 · 高程比金律與軌跡幾何方程式",
         icon: "🏹",
-        formulaLatex: `R = 4H\\cot\\theta \\iff \\tan\\theta = \\frac{4H}{R} \\quad (\\text{高程比金律}) \\\\
-y = x\\tan\\theta - \\frac{gx^2}{2v_0^2\\cos^2\\theta} = x\\tan\\theta\\left(1 - \\frac{x}{R}\\right) \\quad (\\text{軌跡方程式}) \\\\
-t_1 + t_2 = T = \\frac{2v_0\\sin\\theta}{g}, \\quad t_1 t_2 = \\frac{2h}{g} \\quad (\\text{同高度對稱性})`,
-        strategy: "高程比定理是秒殺大題的神器：$\\tan\\theta = 4H/R$。若題目說「水平射程等於最大高度 $R=H$」，直接得出 $\\tan\\theta = 4$！若已知軌跡為二次曲線 $y = Ax - Bx^2$，則拋射角正切即為 $A$，水平射程即為 $A/B$。",
-        pitfalls: "⚠️ 經過建築物邊緣或同一高度的兩次時間 $t_1, t_2$，其和必等於全程飛行時間 $T$，其積必等於 $2h/g$。",
-        questionIds: [36, 39, 40, 41, 42, 47, 49, 50, 51, 53, 54, 55, 56, 57, 58, 60]
+        formulaLatex: `\\tan\\theta = \\frac{4H}{R} \\iff R = 4H\\cot\\theta, \\quad y = x\\tan\\theta\\left(1 - \\frac{x}{R}\\right) = x\\tan\\theta - \\frac{gx^2}{2v_0^2\\cos^2\\theta}`,
+        firstActionSummary: "只要題目給定特定坐標 (x, y) 或過牆面障礙物，三大公式立刻作廢，第一步強制列出軌跡方程式；同時出現 H 與 R 必寫 tanθ = 4H/R。",
+        strategy: "高程比定理是秒殺神技：tanθ = 4H/R。若射程等於最大高度 R = H，秒得 tanθ = 4！二次曲線 y = Ax - Bx² 中，A 即為 tanθ，射程 R 即為 A/B。",
+        pitfalls: "⚠️ 非落回地面對稱問題（如籃球入框、越過圍牆），絕對不能代三大公式，必須使用軌跡方程式！",
+        checklist: [
+          "看到空間障礙物 (d, h)，我是否能立刻意識到三大公式失效並改寫軌跡方程？",
+          "遇到最大高度與水平射程之比，我能否第一秒想到 tanθ = 4H/R？"
+        ],
+        questionIds: [36, 39, 40, 41, 42, 47, 49, 50, 51, 60]
       },
       {
         id: "pmod-6",
-        name: "模組 06 · 斜面上拋射、曲率半徑與拋體相對運動",
+        name: "專題 06 · 同高度時間對稱與兩時刻定理",
+        icon: "⏳",
+        formulaLatex: `t_1 + t_2 = T = \\frac{2v_0\\sin\\theta}{g}, \\quad t_1 t_2 = \\frac{2h}{g}`,
+        firstActionSummary: "題目說「球經過離地高 h 處有兩時刻 t1, t2」，第一步立刻寫和 t1 + t2 = T，積 t1·t2 = 2h/g。",
+        strategy: "拋體通過同一高度 h 必經歷上升與下降兩次，由二次方程式韋達定理（根與係數關係），兩根之和必為全程滯空時間 T，兩根之積僅與高度 h 有關，與初速和仰角無關！",
+        pitfalls: "⚠️ 兩時刻之積 t1·t2 = 2h/g 具有高度普適性，不要傻傻去解一元二次方程式的判別式！",
+        checklist: [
+          "我能否用鉛直運動學 h = v0y t - 1/2 gt² 5秒推導出 t1+t2=T 與 t1*t2=2h/g？",
+          "遇到兩時刻相減 Δt = t2 - t1，我會用根號 (T² - 8h/g) 快速求解嗎？"
+        ],
+        questionIds: [53, 54, 55, 56, 57, 58]
+      },
+      {
+        id: "pmod-7",
+        name: "專題 07 · 斜面斜拋、旋轉坐標法與相對運動",
         icon: "🪐",
-        formulaLatex: `\\text{斜面上最大射程}: \\ R_{\\max} = \\frac{v_0^2}{g(1+\\sin\\beta)} \\\\
-\\text{頂點曲率半徑}: \\ \\rho_{\\text{頂}} = \\frac{v_0^2\\cos^2\\theta}{g} \\\\
-\\text{兩拋體相對運動}: \\ \\vec{a}_{\\text{相}} = \\vec{g} - \\vec{g} = 0 \\implies \\text{空中彼此作等速直線運動！}`,
-        strategy: "兩物體都在空中只受重力時，兩者的相對加速度恆為零！這意味著在其中一顆球看另一顆球，對方是在作「等速直線運動」。經典的「猴子與獵人」就是這個原理——子彈永遠瞄準猴子前進！在斜面上拋射時，法線加速度 $a_n = g\\cos\\theta$ 用於計算軌跡曲率半徑。",
-        pitfalls: "⚠️ 斜面坐標分解：若選取平行斜面與垂直斜面為座標軸，則兩方向均有重力加速度分量（$g\\sin\\beta$ 與 $g\\cos\\beta$），計算時切記符號。",
+        formulaLatex: `\\text{旋轉坐標系}: a_x = -g\\sin\\beta, a_y = -g\\cos\\beta \\quad | \\quad \\vec{a}_{\\text{相}} = 0 \\implies \\text{空中等速直線運動}`,
+        firstActionSummary: "① 斜面上斜拋：沿斜面與垂直斜面旋轉坐標系分解；② 空中兩物相遇/追擊：相對加速度為 0，在彼此眼中為等速直線運動，連線直接瞄準！",
+        pitfalls: "⚠️ 兩物體都在空中只受重力時，加速度相同，相對加速度為零！切勿在地面坐標系列兩組複雜二次方程。",
+        checklist: [
+          "在斜面上拋射時，我能否流暢寫出 ax = -g sinβ 與 ay = -g cosβ？",
+          "遇到猴子與獵人或空中兩球碰撞，我能否第一直覺使用相對等速運動？"
+        ],
         questionIds: [59, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72]
       }
     ];
+
+    // ==========================================================================
+    // 72 題變異焦點 (Variation Tags) 與第一步出手指導 (First Actions)
+    // ==========================================================================
+    const QUESTION_META_MAP = {
+      1: { variation: "母題：給高度求下落時間，水平等速求初速", action: "鉛直方向自由落體先求時間 t = √(2h/g)，再以 x = v0 t 求初速。" },
+      2: { variation: "變異：飛機投彈遇相向船隻，水平相對速率疊加", action: "先由高度 8000 m 求落海時間 40 s，投彈距離即為 (v機 + v船) × t。" },
+      3: { variation: "變異：兩點速度偏角 37° 與 53°，反推高度差", action: "由 tanθ = vy/v0 分別求兩點鉛直速度，再用 vyB² - vyA² = 2gh。" },
+      4: { variation: "變異：位移角 45° 經歷時間 vs 速度角 45° 時間比", action: "位移角 tanφ = gt/(2v0) = 1；速度角 tanθ = gt'/v0 = 1，時間比必為 2:1。" },
+      5: { variation: "變異：水平位移等於鉛直位移，求瞬時速度正切值", action: "x = y 意味著位移偏角 tanφ = 1，啟動二倍正切 tanθ = 2tanφ = 2。" },
+      6: { variation: "變異：給速度夾角 45°，反求此時位移夾角正切", action: "速度夾角 tanθ = 1，由正切二倍關係 tanφ = (tanθ)/2 = 1/2。" },
+      7: { variation: "變異：速度切線反向延長線交於水平中點之幾何應用", action: "利用平拋幾何中點定理：切線與 x 軸交點必在 x/2 處。" },
+      8: { variation: "變異：光滑斜面彈性碰撞轉平拋，兩階段高度與時間聯立", action: "先由 A 點平拋落地求初速 v0，再倒推自由落體段 P→A 的高度 h' 與時間。" },
+      9: { variation: "變異：求 t 秒末之切線加速度 (at = g sinθ)", action: "先算分速 vx, vy = gt 求速度偏角 tanθ = vy/vx，再投影重力求 at = g sinθ。" },
+      10: { variation: "變異：已知瞬時全速率求法線加速度 (an = g cosθ)", action: "由速度三角形 cosθ = vx/v = 3/5，重力垂直投影求法線加速度 an = g cosθ。" },
+      11: { variation: "變異：已知切線加速度量值，反推掉落時間", action: "由 at = g sinθ 求出夾角 θ = 45°，再由 tan45° = gt/v0 求解時間 t。" },
+      12: { variation: "變異：切線與法線加速度比值 (at/an = tanθ) 求全速率", action: "at/an 恆等於速度正切 tanθ = √3 ⟹ θ = 60°，再由 vx = 5 求合速度 v = 10 m/s。" },
+      13: { variation: "變異：切線加速度 0.8g 之全運動量 (時間、速度、位移、法線加速度) 聯立", action: "at = 0.8g ⟹ sinθ = 0.8 (3:4:5 三角形)，一次寫出時間、合速度、位移與 an = 0.6g。" },
+      14: { variation: "變異：平拋落於 37° 斜面，位移正切與末速度偏角正切 (tanθ = 2 tan37°)", action: "落點在斜面上列 y/x = tan37° = 3/4 求時間 t，末速度正切 tanθ = 2 tan37° = 1.5。" },
+      15: { variation: "變異：平拋垂直撞擊 30° 斜面之時間 (tanθ = cot30°)", action: "垂直撞擊意味速度水平夾角為 90°-30°=60°，由 tan60° = gt/v0 直接解時間 t = √3 s。" },
+      16: { variation: "母題：自斜面頂端平拋落回斜面之時間與射程", action: "落回斜面幾何約束：tanα = y/x = gt/(2v0)，時間 t = 2v0 tanα / g。" },
+      17: { variation: "變異：平拋離斜面最遠點之時間 (恰為落點一半)", action: "最遠時速度方向平行斜面：vy/v0 = tanα，時間恰為落點時間一半。" },
+      18: { variation: "變異：初速加倍對斜面落點距離之平方倍效應", action: "落回斜面時間 t ∝ v0，斜面射程 s ∝ v0·t ∝ v0²。" },
+      19: { variation: "變異：水平拋出垂直撞擊斜面之時間 (tanθ = cotα)", action: "垂直撞擊意味速度偏角與斜角互餘：tanθ = vy/v0 = cotα。" },
+      20: { variation: "變異：垂直撞擊斜面之落點深度與高度差", action: "由 t = v0 cotα / g 求時間，再算 y = 1/2 gt²。" },
+      21: { variation: "變異：雙斜面間水平拋出之落點判定", action: "根據兩側幾何斜率建立位移方程，比較時間先後。" },
+      22: { variation: "變異：兩不同時刻之速度偏角正切值比", action: "tanθ = gt/v0 隨時間 t 成正比，tanθ1 / tanθ2 = t1 / t2。" },
+      23: { variation: "變異：位移夾角隨時間變化的函數比例", action: "tanφ = gt/(2v0)，位移正切隨時間呈線性增長。" },
+      24: { variation: "變異：落地合速度方向與位移方向之正切二倍關係", action: "驗算落地時 tanθ_末 = 2 tanφ_末。" },
+      25: { variation: "變異：平拋過程中重力瞬時功率隨時間線性增長", action: "瞬時功率 P = mg·vy = mg(gt) = mg²t。" },
+      26: { variation: "變異：空中連續拋出多球所連成之瞬時空間直線", action: "以時間差 Δt 分析相鄰球的相對位置，相對運動為等速直線。" },
+      27: { variation: "變異：平拋落地動量變化量與重力衝量", action: "ΔP = J = mg·t，方向鉛直向下，與水平初速大小無關。" },
+      28: { variation: "母題：斜拋標準三大公式 T, H, R 直接代入", action: "先拆分 v0x = v0 cosθ, v0y = v0 sinθ，依序代 T, H, R 公式。" },
+      29: { variation: "變異：仰角 30° 與 60° 互補角射程相等驗證", action: "sin(2×30°) = sin(2×60°) = sin 60°，水平射程完全相同。" },
+      30: { variation: "變異：互餘角兩次拋射之飛行時間比 T1/T2 = tanθ", action: "T1/T2 = sinθ / sin(90°-θ) = sinθ/cosθ = tanθ。" },
+      31: { variation: "變異：互餘角兩次拋射之最大高度比 H1/H2 = tan²θ", action: "H1/H2 = sin²θ / cos²θ = tan²θ。" },
+      32: { variation: "變異：由兩次飛行時間乘積求射程 R = 1/2 g T1 T2", action: "T1·T2 = (2v0 sinθ/g)(2v0 cosθ/g) = 2R/g ⟹ R = g/2 T1 T2。" },
+      33: { variation: "變異：由兩次最大高度求射程 R = 4√(H1 H2)", action: "√(H1 H2) = v0² sinθ cosθ / (2g) = R/4 ⟹ R = 4√(H1 H2)。" },
+      34: { variation: "變異：斜拋最高點速度、動能與初動能之比例", action: "最高點速度為 v0 cosθ，動能 E_頂 = E0 cos²θ。" },
+      35: { variation: "變異：最高點法向加速度即為 g，求曲率半徑", action: "頂點處 a_n = g = v_頂² / ρ ⟹ ρ = (v0 cosθ)² / g。" },
+      36: { variation: "變異：水平射程等於最大高度 (R=H) 啟動高程比", action: "tanθ = 4H/R，當 R = H 時立刻得出 tanθ = 4。" },
+      37: { variation: "變異：微小角度變化對射程之影響與敏感度", action: "在 45° 附近射程取極值，對角度變化最不敏感。" },
+      38: { variation: "變異：斜拋上升階段與下降階段時間對稱性", action: "上升時間 = 下降時間 = T/2 = v0 sinθ / g。" },
+      39: { variation: "變異：二次曲線方程 y = Ax - Bx² 辨識拋射角與射程", action: "對照 y = x tanθ (1 - x/R)，拋射角 tanθ = A，射程 R = A/B。" },
+      40: { variation: "變異：越過固定高寬牆面障礙物所需之最小初速", action: "將牆角坐標 (d, h) 代入軌跡方程，以 tanθ 為變數求 v0 極值。" },
+      41: { variation: "變異：由空間兩點坐標求解拋射初速與仰角", action: "將兩組 (x, y) 代入軌跡方程式，聯立消去 v0 或 tanθ。" },
+      42: { variation: "變異：籃球投籃空心入網之特定坐標軌跡", action: "令籃框坐標 (d, h)，由 y = x tanθ - gd²/(2v0² cos²θ) 解初速。" },
+      43: { variation: "變異：斜拋空中總速度量值變化與鉛直分量關係", action: "瞬時速率 v = √(v0x² + vy²)，在最高點取最小值 v0 cosθ。" },
+      44: { variation: "變異：速度偏角由正轉負之對稱性與落地角", action: "落地速度偏角大小等於出發仰角，方向為水平斜下方。" },
+      45: { variation: "變異：固定初速下仰角 45° 達到最大射程 R_max", action: "sin 2θ = 1 ⟹ θ = 45°，此時 R_max = v0²/g，H = R/4。" },
+      46: { variation: "變異：給定最大高度反求初速鉛直分量與時間", action: "vy0 = √(2gH)，總飛行時間 T = 2vy0 / g = 2√(2H/g)。" },
+      47: { variation: "變異：排球過網且落於底線內之軌跡範圍不等式", action: "以網頂坐標列 y(d_網) > h_網，以底線列 y(d_底) ≤ 0。" },
+      48: { variation: "變異：斜拋全程之動量變化量 ΔP = mgT (向下)", action: "水平動量守恆，鉛直動量變化 ΔPy = -2m v0 sinθ = -mgT。" },
+      49: { variation: "變異：拋物線軌跡與割線幾何中點性質", action: "任一水平線所截拋物線弦，其頂點投影必在中點。" },
+      50: { variation: "變異：已知水平射程與中途某點高度求拋射角", action: "直接代入 y = x tanθ (1 - x/R)，一次式直接秒解 tanθ！" },
+      51: { variation: "變異：兩次不同角度拋射經過同一空間障礙點", action: "軌跡交點：兩次軌跡方程在相同 (x, y) 聯立。" },
+      52: { variation: "變異：斜拋兩次通過某一對稱速率之時間間隔", action: "速率相同即 |vy| 相同，Δt = 2|vy|/g。" },
+      53: { variation: "母題：球兩次通過高 h 處，兩時間和必為全程時間", action: "由 h = v0y t - 1/2 gt² 韋達定理：t1 + t2 = 2v0y/g = T。" },
+      54: { variation: "變異：兩次通過高 h 處，兩時間之積 t1·t2 = 2h/g", action: "由韋達定理：兩根乘積 t1·t2 = h / (g/2) = 2h/g ⟹ h = 1/2 g t1 t2。" },
+      55: { variation: "變異：經過同一障礙物高度之兩時刻差 Δt = t2 - t1", action: "Δt = √( (t1+t2)² - 4t1 t2 ) = √( T² - 8h/g )。" },
+      56: { variation: "變異：兩次通過高 h 處速度量值相同、鉛直速度反向", action: "力學能守恆保證速率相同；鉛直分速 vy1 = -vy2。" },
+      57: { variation: "變異：同一初速不同仰角通過同高度之時間關係", action: "兩角度分別建立二次方程對照係數。" },
+      58: { variation: "變異：同高度兩點間水平距離與該段飛行時間", action: "水平距離 Δx = v0x (t2 - t1)。" },
+      59: { variation: "變異：沿光滑斜面上衝至頂端後拋出之複合運動", action: "先算斜面等減速至頂端之速度 v，再以此速度作斜拋。" },
+      60: { variation: "變異：屋頂下滑離開屋簷斜拋落地距牆腳距離", action: "求滑至屋簷速度，再以俯角 30° 作斜拋飛行時間計算。" },
+      61: { variation: "變異：光滑斜面上二維斜拋，有效重力 g sinθ", action: "在斜面平面內運動，沿斜面方向加速度為 g sinθ，底邊等速。" },
+      62: { variation: "變異：雙斜面頂點滑出後的空中拋體飛越", action: "從頂點以俯角 30° 拋出，落點坐標 (√3 h, -h) 聯立求速度。" },
+      63: { variation: "變異：左斜面上滑過頂點後拋向右斜面底端", action: "以頂點為原點，右底端坐標為 (60, -45)，代入平拋運動學。" },
+      64: { variation: "變異：斜面下滑平拋飛越下方斜面之高度條件", action: "下滑求初速 vA = √(2gH)，落差 h 之水平射程需大於斜面底長。" },
+      65: { variation: "變異：垂直斜面初速拋出落回斜面之時間與射程", action: "初速與水平夾角 90°-37°=53°，落回斜面 y = -x tan 37° 解 t。" },
+      66: { variation: "變異：沿斜面斜拋落回斜面，大三角形正弦定理", action: "初速位移 v0 t、自由落體 1/2 gt² 與斜面長構成封閉三角形。" },
+      67: { variation: "變異：斜坡上仰角拋射飛行時間 (大三角形法)", action: "正弦定理：(v0 t)/sin 60° = (1/2 gt²)/sin 30° 秒解 t。" },
+      68: { variation: "變異：斜坡上仰角拋射落點距離 (正弦定理)", action: "位移三角形內角為 37°, 53°, 90°，由直角三角形邊長比秒解。" },
+      69: { variation: "變異：旋轉坐標法示範：落回斜面條件為 y=0", action: "建立沿斜面 x 與垂直斜面 y 軸，ay = -g cos 30°，由 y=0 解 t。" },
+      70: { variation: "變異：旋轉坐標法：垂直撞擊斜面條件為 vx=0", action: "垂直撞擊意味著沿斜面分速 vx = v0x + ax t = 0。" },
+      71: { variation: "變異：兩物體空中相遇 (P平拋 vs Q斜拋)，相對等速", action: "兩球相對加速度為 0，水平等速相遇且鉛直位置相同。" },
+      72: { variation: "變異：等速平板車上拋射，車內等速 vs 車外拋物線", action: "車內看鉛直上拋或拋物線；車外看水平速度疊加車速。" }
+    };
 
     // ==========================================================================
     // 狀態管理與 LocalStorage
@@ -861,7 +1033,6 @@ t_1 + t_2 = T = \\frac{2v_0\\sin\\theta}{g}, \\quad t_1 t_2 = \\frac{2h}{g} \\qu
         }
       });
 
-      // 同時替換正文內的 $...$ 和 $$...$$
       document.querySelectorAll('.math-text:not([data-rendered="true"])').forEach(el => {
         el.setAttribute('data-rendered', 'true');
         walkTextNodesForMath(el);
@@ -931,7 +1102,8 @@ t_1 + t_2 = T = \\frac{2v_0\\sin\\theta}{g}, \\quad t_1 t_2 = \\frac{2h}{g} \\qu
           if (!q) return false;
           if (showUnmasteredOnly && masteredSet.has(id)) return false;
           if (currentSearchText) {
-            const text = (q.id + ' ' + (q.title || '') + ' ' + q.question + ' ' + (q.hint || '')).toLowerCase();
+            const meta = QUESTION_META_MAP[id] || {};
+            const text = (q.id + ' ' + (q.title || '') + ' ' + q.question + ' ' + (q.hint || '') + ' ' + (meta.variation || '') + ' ' + (meta.action || '')).toLowerCase();
             if (!text.includes(currentSearchText.toLowerCase())) return false;
           }
           return true;
@@ -967,14 +1139,25 @@ t_1 + t_2 = T = \\frac{2v_0\\sin\\theta}{g}, \\quad t_1 t_2 = \\frac{2h}{g} \\qu
             <!-- 思維與易錯指南 -->
             <div class="concept-guide-grid">
               <div class="guide-box strategy">
-                <div class="guide-box-title" style="color:#0284c7;"><span>💡</span><span>破題心法與解題策略</span></div>
-                <div class="math-text">${escapeHtml(mod.strategy)}</div>
+                <div class="guide-box-title" style="color:#0284c7;"><span>💡</span><span>破題第一步心法</span></div>
+                <div class="math-text"><strong>${escapeHtml(mod.firstActionSummary)}</strong><br><span style="font-size:0.9rem; color:var(--text-secondary);">${escapeHtml(mod.strategy)}</span></div>
               </div>
               <div class="guide-box pitfalls">
                 <div class="guide-box-title" style="color:var(--accent-crimson);"><span>⚠️</span><span>常見盲點與易錯提醒</span></div>
                 <div class="math-text">${escapeHtml(mod.pitfalls)}</div>
               </div>
             </div>
+
+            <!-- 概念自我檢核清單 -->
+            ${mod.checklist ? `
+              <div class="checklist-card">
+                <div class="checklist-title"><span>✅</span><span>本專題概念精熟自我檢核 (Mastery Checklist)</span></div>
+                <ul class="checklist-items">
+                  ${mod.checklist.map(item => `<li>${escapeHtml(item)}</li>`).join('')}
+                </ul>
+              </div>
+              <div style="margin-bottom:1.25rem;"></div>
+            ` : ''}
 
             <!-- 題目單列折疊清單 -->
             <div class="questions-list" id="q-list-${mod.id}">
@@ -993,8 +1176,8 @@ t_1 + t_2 = T = \\frac{2v_0\\sin\\theta}{g}, \\quad t_1 t_2 = \\frac{2h}{g} \\qu
       const q = questionsMap.get(id);
       if (!q) return '';
       const isMastered = masteredSet.has(id);
+      const meta = QUESTION_META_MAP[id] || { variation: '拋體典型試題', action: '審查題目給定已知條件，建立正交運動方程式。' };
       
-      // 提煉清晰易讀的標題：若無特定題目標題，抽取題目首句核心敘述
       let cleanTitle = q.title;
       if (!cleanTitle || cleanTitle.includes('單元')) {
         const firstLine = (q.question.split('\n')[0] || '').replace(/[#*]/g, '').trim();
@@ -1005,12 +1188,15 @@ t_1 + t_2 = T = \\frac{2v_0\\sin\\theta}{g}, \\quad t_1 t_2 = \\frac{2h}{g} \\qu
 
       return `
         <div class="q-row-item ${isMastered ? 'mastered' : ''} ${allDetailsOpen ? 'open' : ''}" id="row-q-${id}">
-          <!-- 單列折疊標頭：一題一列，點擊展開完整題目與詳解 -->
+          <!-- 單列折疊標頭 -->
           <div class="q-row-header" onclick="toggleRowDrawer(${id})">
             <div class="q-row-left">
               <span class="q-row-id">Q${id.toString().padStart(2, '0')}</span>
               <div class="q-row-info">
-                <div class="q-row-title math-text">${escapeHtml(cleanTitle)}</div>
+                <div class="q-row-title">
+                  <span class="math-text">${escapeHtml(cleanTitle)}</span>
+                  <span class="q-variation-pill">🎯 ${escapeHtml(meta.variation)}</span>
+                </div>
                 <div class="q-row-preview math-text">${escapeHtml(snippet)}...</div>
               </div>
             </div>
@@ -1029,6 +1215,12 @@ t_1 + t_2 = T = \\frac{2v_0\\sin\\theta}{g}, \\quad t_1 t_2 = \\frac{2h}{g} \\qu
 
           <!-- 展開抽屜內容 -->
           <div class="q-row-drawer" id="drawer-q-${id}">
+            <!-- ⚡ 第一步出手直覺卡片 -->
+            <div class="first-action-card">
+              <div class="first-action-title"><span>⚡</span><span>審題訊號 ➔ 第一步出手直覺 (First Action)</span></div>
+              <div class="math-text"><strong>${escapeHtml(meta.action)}</strong></div>
+            </div>
+
             <div class="detail-section">
               <div class="detail-section-title"><span>📝</span><span>完整題目內容</span></div>
               <div class="detail-body math-text">
@@ -1070,7 +1262,6 @@ t_1 + t_2 = T = \\frac{2v_0\\sin\\theta}{g}, \\quad t_1 t_2 = \\frac{2h}{g} \\qu
       if (!raw) return '<div class="text-paragraph">詳解整理中</div>';
       let str = String(raw).trim();
 
-      // 1. 強迫不同小題或步驟換行（避免題目/詳解中不同小題黏在同一行）
       str = str.replace(/([。；;!?！？\$\)])\s*([（(][0-9一二三四五ABCDE][）\)])/g, '$1\n\n$2');
       str = str.replace(/([。；;!?！？\$\)])\s*(\d+\.\s+)/g, '$1\n\n$2');
 

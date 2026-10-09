@@ -1,0 +1,1273 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>【分冊列印題庫系統】二維拋體運動 · 7大專題 72 題概念精熟刻意練習本</title>
+  <meta name="description" content="高中物理二維拋體運動 72 題全集 A4 列印系統。支援【純試題測驗本 (極致省紙)】、【獨立超詳解手冊 (含第一步出手與思維建模)】、【左右對折自測本】與【簡答速查表】多模式切換。">
+
+  <!-- Google Fonts: Noto Sans TC & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Noto+Sans+TC:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- KaTeX for LaTeX Math rendering -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" crossorigin="anonymous"></script>
+
+  <style>
+    /* ==========================================================================
+       A4 分冊列印排版系統 (Multi-Mode Printable Workbook System)
+       ========================================================================== */
+    :root {
+      --text-main: #0f172a;
+      --text-sub: #334155;
+      --text-muted: #64748b;
+      --border-dark: #475569;
+      --border-light: #cbd5e1;
+      --border-dashed: #94a3b8;
+      --bg-box: #f8fafc;
+      --accent-color: #0284c7;
+      --accent-dark: #0369a1;
+      --accent-badge: #047857;
+      --accent-amber: #b45309;
+      --card-radius: 4px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Noto Sans TC', system-ui, -apple-system, sans-serif;
+      font-size: 8.8pt;
+      line-height: 1.48;
+      color: var(--text-main);
+      background-color: #f1f5f9;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    .print-sheet-container {
+      max-width: 216mm;
+      margin: 1.25rem auto 4rem auto;
+      padding: 0;
+    }
+
+    .print-page {
+      background: #ffffff;
+      padding: 12mm 14mm;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+      margin-bottom: 2rem;
+      border-radius: 4px;
+      position: relative;
+    }
+
+    /* 頂部浮動列印控制列 */
+    .screen-control-bar {
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      background: rgba(15, 23, 42, 0.95);
+      backdrop-filter: blur(8px);
+      color: #ffffff;
+      padding: 0.65rem 1.25rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+
+    .control-group {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .action-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.4rem 0.85rem;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 0.86rem;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.15s ease;
+      border: 1px solid transparent;
+    }
+
+    .btn-print {
+      background: #0284c7;
+      color: #ffffff;
+    }
+    .btn-print:hover {
+      background: #0369a1;
+      transform: translateY(-1px);
+    }
+
+    .btn-outline {
+      background: #1e293b;
+      color: #e2e8f0;
+      border-color: #475569;
+    }
+    .btn-outline:hover {
+      background: #334155;
+      color: #ffffff;
+    }
+
+    .mode-select {
+      background: #1e293b;
+      color: #ffffff;
+      border: 1px solid #475569;
+      padding: 0.4rem 0.7rem;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      outline: none;
+      cursor: pointer;
+    }
+
+    /* 講義表頭 */
+    .doc-header {
+      border-bottom: 2px solid var(--text-main);
+      padding-bottom: 0.5rem;
+      margin-bottom: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    .doc-title-main {
+      font-size: 14pt;
+      font-weight: 900;
+      color: var(--text-main);
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+    }
+
+    .doc-title-sub {
+      font-size: 8.5pt;
+      color: var(--text-muted);
+      margin-top: 0.15rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .student-info-box {
+      display: flex;
+      gap: 0.65rem;
+      font-size: 8.2pt;
+      color: var(--text-sub);
+    }
+    .student-field {
+      border-bottom: 1px solid var(--border-dark);
+      padding: 0 0.35rem;
+      min-width: 40px;
+      display: inline-block;
+    }
+
+    /* 專題章節標題條 */
+    .module-section {
+      margin-bottom: 1.5rem;
+    }
+    .module-section.break-before {
+      page-break-before: always;
+    }
+
+    .module-banner {
+      background: #f1f5f9;
+      border-left: 4.5px solid var(--accent-color);
+      padding: 0.45rem 0.75rem;
+      margin-bottom: 0.75rem;
+      border-radius: 0 var(--card-radius) var(--card-radius) 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      page-break-after: avoid;
+    }
+    .module-banner-title {
+      font-size: 10pt;
+      font-weight: 850;
+      color: var(--accent-dark);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .module-banner-meta {
+      font-size: 8pt;
+      font-weight: 700;
+      color: var(--text-muted);
+    }
+
+    /* 專題核心公式橫幅 (僅在詳解本與對折本顯示) */
+    .module-core-card {
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      border-radius: 6px;
+      padding: 0.6rem 0.85rem;
+      margin-bottom: 0.9rem;
+      page-break-after: avoid;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .core-formula-header {
+      width: 100%;
+    }
+    .core-formula-label {
+      font-size: 7.8pt;
+      font-weight: 850;
+      color: #0369a1;
+      text-transform: uppercase;
+      margin-bottom: 0.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    .core-formula-box {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 5px;
+      padding: 0.45rem 0.75rem;
+      text-align: center;
+      overflow-x: auto;
+    }
+    .core-tips-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.65rem;
+      width: 100%;
+    }
+    .core-tip-item {
+      background: #ffffff;
+      border-radius: 5px;
+      padding: 0.45rem 0.65rem;
+      font-size: 8.2pt;
+      line-height: 1.52;
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+    }
+    .core-tip-item.tip-action {
+      border: 1px solid #bae6fd;
+      border-left: 3.5px solid #0284c7;
+    }
+    .core-tip-item.tip-pitfall {
+      border: 1px solid #fde68a;
+      border-left: 3.5px solid #b45309;
+    }
+    .tip-tag-action {
+      font-weight: 850;
+      color: #0369a1;
+      font-size: 7.8pt;
+    }
+    .tip-tag-pitfall {
+      font-weight: 850;
+      color: #b45309;
+      font-size: 7.8pt;
+    }
+    .tip-content {
+      color: #334155;
+      font-size: 8.2pt;
+      line-height: 1.5;
+    }
+
+    /* ==========================================================================
+       模式 1：【純試題測驗卷】(A4 雙欄高密度排版，極致省紙，無答案)
+       ========================================================================== */
+    .exam-two-column-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      column-gap: 16px;
+      row-gap: 10px;
+    }
+
+    .exam-q-box {
+      border: 1px solid var(--border-light);
+      border-radius: var(--card-radius);
+      padding: 0.55rem 0.75rem;
+      background: #ffffff;
+      page-break-inside: avoid;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .exam-q-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.3rem;
+      gap: 0.3rem;
+    }
+
+    .q-id-badge {
+      display: inline-flex;
+      align-items: center;
+      font-weight: 850;
+      font-size: 8.4pt;
+      padding: 0.1rem 0.45rem;
+      border-radius: 3px;
+      background: #0284c7;
+      color: #ffffff;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .q-variation-tag {
+      font-size: 7.6pt;
+      font-weight: 750;
+      color: #b45309;
+      background: #fef3c7;
+      border: 1px solid #fde68a;
+      padding: 0.08rem 0.4rem;
+      border-radius: 3px;
+    }
+
+    .exam-q-body {
+      font-size: 10.2pt;
+      line-height: 1.58;
+      color: var(--text-main);
+      margin-bottom: 0.4rem;
+      letter-spacing: 0.01em;
+    }
+
+    .exam-answer-line {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      border-top: 1px dashed #e2e8f0;
+      padding-top: 0.25rem;
+      margin-top: 0.35rem;
+      font-size: 7.8pt;
+      color: #64748b;
+      font-weight: 700;
+    }
+
+    /* ==========================================================================
+       模式 2：【獨立超詳解手冊】(單欄全寬，步驟超詳盡，附破題思維與易錯提醒)
+       ========================================================================== */
+    .solution-book-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+    }
+
+    .solution-card-standalone {
+      border: 1px solid var(--border-light);
+      border-radius: var(--card-radius);
+      padding: 0.85rem 1.1rem;
+      background: #ffffff;
+      page-break-inside: avoid;
+    }
+
+    .sol-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.5rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .sol-q-title-preview {
+      font-size: 8.8pt;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+
+    .first-action-banner {
+      background: #f0f9ff;
+      border-left: 3.5px solid #0284c7;
+      border-radius: 0 4px 4px 0;
+      padding: 0.4rem 0.75rem;
+      margin-bottom: 0.55rem;
+      font-size: 8.5pt;
+      line-height: 1.5;
+      color: #0369a1;
+    }
+
+    .hint-model-box {
+      background: #fdfdfd;
+      border: 1px dashed #cbd5e1;
+      border-radius: 4px;
+      padding: 0.45rem 0.75rem;
+      margin-bottom: 0.6rem;
+      font-size: 8.4pt;
+      line-height: 1.55;
+      color: #334155;
+    }
+
+    .full-steps-content {
+      font-size: 8.7pt;
+      line-height: 1.65;
+      color: var(--text-main);
+      padding: 0.25rem 0;
+    }
+
+    .sol-footer-bar {
+      margin-top: 0.6rem;
+      padding-top: 0.45rem;
+      border-top: 1px dashed #cbd5e1;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .answer-tag-prominent {
+      display: inline-block;
+      padding: 0.2rem 0.65rem;
+      background: #ecfdf5;
+      color: #047857;
+      border: 1px solid #a7f3d0;
+      border-radius: 4px;
+      font-weight: 850;
+      font-size: 9pt;
+    }
+
+    /* ==========================================================================
+       模式 3：【A4 雙欄對折自測本】(左欄題目 / 右欄解析，中間對折虛線)
+       ========================================================================== */
+    .fold-guide-banner {
+      background: #f8fafc;
+      border: 1px dashed var(--border-dashed);
+      border-radius: var(--card-radius);
+      padding: 0.35rem 0.75rem;
+      margin-bottom: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 8pt;
+      color: var(--text-sub);
+    }
+    .fold-center-marker {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-weight: 800;
+      color: #0284c7;
+    }
+
+    .q-split-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      column-gap: 0;
+      border: 1px solid var(--border-light);
+      border-radius: var(--card-radius);
+      margin-bottom: 0.75rem;
+      background: #ffffff;
+      page-break-inside: avoid;
+      position: relative;
+    }
+
+    .q-split-row::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      width: 1px;
+      border-left: 1px dashed var(--border-dashed);
+      transform: translateX(-50%);
+      pointer-events: none;
+    }
+
+    .q-col-left {
+      padding: 0.65rem 0.85rem;
+      padding-right: 0.95rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+
+    .q-body-text {
+      font-size: 10.2pt;
+      line-height: 1.58;
+      color: var(--text-main);
+      letter-spacing: 0.01em;
+    }
+
+    .q-col-right {
+      padding: 0.65rem 0.85rem;
+      padding-left: 0.95rem;
+      background: #f8fafc;
+      border-top-right-radius: var(--card-radius);
+      border-bottom-right-radius: var(--card-radius);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      font-size: 8.2pt;
+    }
+
+    /* ==========================================================================
+       模式 4：【簡答速查矩陣】(Answer Key Grid)
+       ========================================================================== */
+    .answer-key-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+      font-size: 8.8pt;
+    }
+    .answer-key-table th, .answer-key-table td {
+      border: 1px solid #64748b;
+      padding: 0.4rem 0.5rem;
+      text-align: center;
+      vertical-align: middle;
+    }
+    .answer-key-table th {
+      background: #f8fafc;
+      color: #0f172a;
+      font-weight: 800;
+      font-size: 8.6pt;
+      letter-spacing: 0.02em;
+    }
+    .answer-key-table td {
+      background: #ffffff;
+    }
+    .key-ans-badge {
+      display: inline-block;
+      font-weight: 750;
+      color: #0f172a;
+      font-size: 8.8pt;
+      line-height: 1.35;
+    }
+
+    /* 頁面底標 */
+    .page-footer {
+      border-top: 1px solid var(--border-light);
+      padding-top: 0.4rem;
+      margin-top: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      font-size: 7.5pt;
+      color: var(--text-muted);
+    }
+
+    /* ==========================================================================
+       列印媒體查詢 (@media print)
+       ========================================================================== */
+    @media print {
+      @page {
+        size: A4 portrait;
+        margin: 10mm 12mm 10mm 12mm;
+      }
+
+      body {
+        background-color: #ffffff !important;
+        font-size: 8.5pt;
+      }
+
+      .screen-control-bar {
+        display: none !important;
+      }
+
+      .print-sheet-container {
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+      }
+
+      .print-page {
+        padding: 0 !important;
+        box-shadow: none !important;
+        margin: 0 !important;
+        border-radius: 0 !important;
+      }
+
+      .module-banner {
+        background: #f1f5f9 !important;
+        border-left: 4.5px solid #0284c7 !important;
+      }
+
+      .answer-key-table th {
+        background: #f8fafc !important;
+        color: #000000 !important;
+        border: 1px solid #334155 !important;
+      }
+      .answer-key-table td {
+        background: #ffffff !important;
+        color: #000000 !important;
+        border: 1px solid #334155 !important;
+      }
+
+      /* 列印時題目字體放大，解析維持精練省紙 */
+      .exam-q-body, .q-body-text {
+        font-size: 10.2pt !important;
+        line-height: 1.58 !important;
+      }
+      .full-steps-content, .q-col-right {
+        font-size: 8.2pt !important;
+        line-height: 1.5 !important;
+      }
+    }
+  </style>
+</head>
+<body class="mode-exam">
+
+  <!-- 頂部浮動列印控制列 -->
+  <div class="screen-control-bar">
+    <div class="control-group">
+      <span style="font-size:1.15rem;">🖨️</span>
+      <strong style="font-size:0.92rem;">二維拋體運動 · A4 分冊列印系統</strong>
+    </div>
+
+    <div class="control-group">
+      <!-- 模式切換 -->
+      <label style="font-size:0.83rem; font-weight:700;">列印冊別：</label>
+      <select id="select-print-mode" class="mode-select">
+        <option value="mode-exam" selected>📄 【試題本】純題目卷 (雙欄極致省紙，徹底防瞄答案)</option>
+        <option value="mode-solution">📖 【詳解手冊】超詳盡解析本 (完整分步推導+破題思維)</option>
+        <option value="mode-split">✂️ 【左右對折自測本】同頁排版 (左欄題目 · 右欄解析)</option>
+        <option value="mode-key">📋 【簡答速查表】快速對答案 (1~72題表格總表)</option>
+      </select>
+
+      <!-- 專題過濾 -->
+      <select id="select-module-filter" class="mode-select">
+        <option value="all">📚 全卷 72 題完整收錄</option>
+        <option value="mod-1">專題 1 · 平拋基礎與飛行時間 (14題)</option>
+        <option value="mod-2">專題 2 · 速度/位移正切二倍金律 (7題)</option>
+        <option value="mod-3">專題 3 · 平拋斜面約束與垂直撞擊 (6題)</option>
+        <option value="mod-4">專題 4 · 斜拋三大公式與互補角 (16題)</option>
+        <option value="mod-5">專題 5 · 高程比金律與軌跡方程 (10題)</option>
+        <option value="mod-6">專題 6 · 同高度時間對稱與兩時刻 (6題)</option>
+        <option value="mod-7">專題 7 · 斜面斜拋與相對運動 (13題)</option>
+      </select>
+
+      <button class="action-btn btn-print" onclick="window.print()">
+        <span>🖨️</span><span>列印 / 存為 PDF</span>
+      </button>
+
+      <a href="mastery.html" class="action-btn btn-outline">
+        <span>🔙</span><span>返回互動練習庫</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- A4 紙張主內容 -->
+  <div class="print-sheet-container">
+    <div class="print-page">
+      
+      <!-- 封面表頭 (隨模式動態更新) -->
+      <header class="doc-header" id="dynamic-doc-header"></header>
+
+      <!-- 對折提示 (僅在模式3左右對折時顯示) -->
+      <div class="fold-guide-banner" id="fold-guide-banner" style="display:none;">
+        <div>👈 <strong>左欄：審題與作答區</strong></div>
+        <div class="fold-center-marker">
+          <span>✂️</span>
+          <span>【沿中央虛線對折】折起遮蔽右欄先做題，翻開即時核對解析</span>
+          <span>✂️</span>
+        </div>
+        <div>👉 <strong>右欄：出手直覺與精解</strong></div>
+      </div>
+
+      <!-- 動態題目渲染容器 -->
+      <main id="print-modules-root"></main>
+
+      <!-- 頁底版權 -->
+      <footer class="page-footer">
+        <span id="footer-left-text">高中物理學習中心 · 二維拋體運動概念精熟系列</span>
+        <span id="footer-right-text">共 72 題 · 建議雙面列印裝訂</span>
+      </footer>
+
+    </div>
+  </div>
+
+  <!-- 載入題庫資料集 -->
+  <script src="data.js"></script>
+
+  <script>
+    // ==========================================================================
+    // 7 大高純度精熟專題定義
+    // ==========================================================================
+    const PRINT_MODULES = [
+      {
+        id: "mod-1",
+        name: "專題 01 · 水平拋體運動獨立性、飛行時間與切線/法線加速度",
+        countText: "共 14 題 (Q01, Q02, Q08~Q15, Q24~Q27)",
+        formulaLatex: `t = \\sqrt{\\frac{2h}{g}}, \\quad \\tan\\theta = \\frac{gt}{v_0}, \\quad a_t = g\\sin\\theta = g\\frac{v_y}{v}, \\quad a_n = g\\cos\\theta = g\\frac{v_0}{v}, \\quad \\frac{a_t}{a_n} = \\tan\\theta \\ (a_t^2 + a_n^2 = g^2)`,
+        firstActionSummary: "① 自由落體與水平等速獨立求解；② 求切線/法線加速度：先由 tanθ = gt/v0 或直角三角形求速度偏角 θ，將重力 g 投影至切向 at = g sinθ 與法向 an = g cosθ；③ 切法加速度比值 at/an 恆等於速度正切 tanθ！",
+        pitfalls: "⚠️ 重力 g 恆垂直向下！切線加速度 at 改變速率大小 (隨時間增加)，法線加速度 an 改變運動方向 (隨時間減少)，兩者平方和恆等於 g²！",
+        questionIds: [1, 2, 8, 9, 10, 11, 12, 13, 14, 15, 24, 25, 26, 27]
+      },
+      {
+        id: "mod-2",
+        name: "專題 02 · 速度偏角與位移偏角正切二倍金律",
+        countText: "共 7 題 (Q03~Q07, Q22, Q23)",
+        formulaLatex: `\\tan\\theta = \\frac{gt}{v_0} \\ (\\text{速度偏角}), \\quad \\tan\\phi = \\frac{gt}{2v_0} \\ (\\text{位移偏角}) \\implies \\tan\\theta = 2\\tan\\phi`,
+        firstActionSummary: "看到速度與水平夾角，立刻寫 tanθ = gt/v0；看到位移傾角，正切值必為速度正切的一半。",
+        pitfalls: "⚠️ 速度夾角 45° 經歷時間為 v0/g；位移夾角 45° 經歷時間為 2v0/g，兩者時間相差 2 倍！",
+        questionIds: [3, 4, 5, 6, 7, 22, 23]
+      },
+      {
+        id: "mod-3",
+        name: "專題 03 · 水平拋體於斜面上之落點、最遠距與垂直撞擊",
+        countText: "共 6 題 (Q16~Q21)",
+        formulaLatex: `t_{\\text{落}} = \\frac{2v_0\\tan\\alpha}{g}, \\quad t_{\\text{max}} = \\frac{v_0\\tan\\alpha}{g} = \\frac{1}{2}t_{\\text{落}}, \\quad t_{\\text{垂}} = \\frac{v_0\\cot\\alpha}{g}`,
+        firstActionSummary: "① 掉回斜面列 y/x = tanα；② 離斜面最遠處速度平行斜面 (時間為落點一半)；③ 垂直撞擊列 tanθ = cotα。",
+        pitfalls: "⚠️ 垂直撞擊是速度與斜面垂直，故速度水平夾角為 90°-α，正切值互為倒數 cotα。",
+        questionIds: [16, 17, 18, 19, 20, 21]
+      },
+      {
+        id: "mod-4",
+        name: "專題 04 · 斜向拋體標準三大公式與互補角射程相等",
+        countText: "共 16 題 (Q28~Q35, Q37, Q38, Q43~Q46, Q48, Q52)",
+        formulaLatex: `T = \\frac{2v_0\\sin\\theta}{g}, \\quad H = \\frac{v_0^2\\sin^2\\theta}{2g}, \\quad R = \\frac{v_0^2\\sin 2\\theta}{g}, \\quad R = \\frac{g}{2}T_1 T_2 = 4\\sqrt{H_1 H_2}`,
+        firstActionSummary: "確認是地面拋出落回地面，代三大公式；看到相同射程，立刻列仰角互餘 θ1 + θ2 = 90°。",
+        pitfalls: "⚠️ 仰角 45° 射程最大 R_max = v0²/g，此時最大高度恰好為射程的四分之一 H = R/4。",
+        questionIds: [28, 29, 30, 31, 32, 33, 34, 35, 37, 38, 43, 44, 45, 46, 48, 52]
+      },
+      {
+        id: "mod-5",
+        name: "專題 05 · 高程比金律與軌跡幾何方程式",
+        countText: "共 10 題 (Q36, Q39~Q42, Q47, Q49~Q51, Q60)",
+        formulaLatex: `\\tan\\theta = \\frac{4H}{R} \\ (\\text{高程比}), \\quad y = x\\tan\\theta - \\frac{gx^2}{2v_0^2\\cos^2\\theta} = x\\tan\\theta\\left(1 - \\frac{x}{R}\\right)`,
+        firstActionSummary: "給定特定坐標 (x,y) 或過障礙物，三大公式作廢，強制上軌跡方程式；出現 H 與 R 必寫 tanθ = 4H/R。",
+        pitfalls: "⚠️ y = Ax - Bx² 中，A 即為 tanθ，射程 R 即為 A/B。",
+        questionIds: [36, 39, 40, 41, 42, 47, 49, 50, 51, 60]
+      },
+      {
+        id: "mod-6",
+        name: "專題 06 · 同高度時間對稱與兩時刻定理",
+        countText: "共 6 題 (Q53~Q58)",
+        formulaLatex: `t_1 + t_2 = T = \\frac{2v_0\\sin\\theta}{g}, \\quad t_1 t_2 = \\frac{2h}{g}`,
+        firstActionSummary: "看到通過同一高度 h 的兩時刻 t1, t2，第一步寫和等於全程時間 T，積等於 2h/g。",
+        pitfalls: "⚠️ 兩時刻之積 t1·t2 完全由高度 h 決定，與拋射初速與仰角完全無關！",
+        questionIds: [53, 54, 55, 56, 57, 58]
+      },
+      {
+        id: "mod-7",
+        name: "專題 07 · 斜面斜拋、旋轉坐標法與相對運動",
+        countText: "共 13 題 (Q59, Q61~Q72)",
+        formulaLatex: `\\text{旋轉坐標系}: a_x = -g\\sin\\beta, a_y = -g\\cos\\beta \\quad | \\quad \\vec{a}_{\\text{相}} = 0 \\implies \\text{空中等速直線運動}`,
+        firstActionSummary: "① 斜面上斜拋：沿斜面與垂直斜面分解 (g sinβ, g cosβ)；② 空中兩物相撞：彼此眼裡作等速直線，瞄準即中！",
+        pitfalls: "⚠️ 兩拋體在空中只受重力時，相對加速度恆為零，千萬不要列兩套複雜二次方程式相撞！",
+        questionIds: [59, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72]
+      }
+    ];
+
+    // ==========================================================================
+    // 72 題變異焦點 (Variation Tags) 與第一步出手指導 (First Actions)
+    // ==========================================================================
+    const QUESTION_META_MAP = {
+      1: { variation: "母題：給高度求下落時間，水平等速求初速", action: "鉛直方向自由落體先求時間 t = √(2h/g)，再以 x = v0 t 求初速。" },
+      2: { variation: "變異：飛機投彈遇相向船隻，水平相對速率疊加", action: "先由高度 8000 m 求落海時間 40 s，投彈距離即為 (v機 + v船) × t。" },
+      3: { variation: "變異：兩點速度偏角 37° 與 53°，反推高度差", action: "由 tanθ = vy/v0 分別求兩點鉛直速度，再用 vyB² - vyA² = 2gh。" },
+      4: { variation: "變異：位移角 45° 經歷時間 vs 速度角 45° 時間比", action: "位移角 tanφ = gt/(2v0) = 1；速度角 tanθ = gt'/v0 = 1，時間比必為 2:1。" },
+      5: { variation: "變異：水平位移等於鉛直位移，求瞬時速度正切值", action: "x = y 意味著位移偏角 tanφ = 1，啟動二倍正切 tanθ = 2tanφ = 2。" },
+      6: { variation: "變異：給速度夾角 45°，反求此時位移夾角正切", action: "速度夾角 tanθ = 1，由正切二倍關係 tanφ = (tanθ)/2 = 1/2。" },
+      7: { variation: "變異：速度切線反向延長線交於水平中點之幾何應用", action: "利用平拋幾何中點定理：切線與 x 軸交點必在 x/2 處。" },
+      8: { variation: "變異：光滑斜面彈性碰撞轉平拋，兩階段高度與時間聯立", action: "先由 A 點平拋落地求初速 v0，再倒推自由落體段 P→A 的高度 h' 與時間。" },
+      9: { variation: "變異：求 t 秒末之切線加速度 (at = g sinθ)", action: "先算分速 vx, vy = gt 求速度偏角 tanθ = vy/vx，再投影重力求 at = g sinθ。" },
+      10: { variation: "變異：已知瞬時全速率求法線加速度 (an = g cosθ)", action: "由速度三角形 cosθ = vx/v = 3/5，重力垂直投影求法線加速度 an = g cosθ。" },
+      11: { variation: "變異：已知切線加速度量值，反推掉落時間", action: "由 at = g sinθ 求出夾角 θ = 45°，再由 tan45° = gt/v0 求解時間 t。" },
+      12: { variation: "變異：切線與法線加速度比值 (at/an = tanθ) 求全速率", action: "at/an 恆等於速度正切 tanθ = √3 ⟹ θ = 60°，再由 vx = 5 求合速度 v = 10 m/s。" },
+      13: { variation: "變異：切線加速度 0.8g 之全運動量 (時間、速度、位移、法線加速度) 聯立", action: "at = 0.8g ⟹ sinθ = 0.8 (3:4:5 三角形)，一次寫出時間、合速度、位移與 an = 0.6g。" },
+      14: { variation: "變異：平拋落於 37° 斜面，位移正切與末速度偏角正切 (tanθ = 2 tan37°)", action: "落點在斜面上列 y/x = tan37° = 3/4 求時間 t，末速度正切 tanθ = 2 tan37° = 1.5。" },
+      15: { variation: "變異：平拋垂直撞擊 30° 斜面之時間 (tanθ = cot30°)", action: "垂直撞擊意味速度水平夾角為 90°-30°=60°，由 tan60° = gt/v0 直接解時間 t = √3 s。" },
+      16: { variation: "母題：自斜面頂端平拋落回斜面之時間與射程", action: "落回斜面幾何約束：tanα = y/x = gt/(2v0)，時間 t = 2v0 tanα / g。" },
+      17: { variation: "變異：平拋離斜面最遠點之時間 (恰為落點一半)", action: "最遠時速度方向平行斜面：vy/v0 = tanα，時間恰為落點時間一半。" },
+      18: { variation: "變異：初速加倍對斜面落點距離之平方倍效應", action: "落回斜面時間 t ∝ v0，斜面射程 s ∝ v0·t ∝ v0²。" },
+      19: { variation: "變異：水平拋出垂直撞擊斜面之時間 (tanθ = cotα)", action: "垂直撞擊意味速度偏角與斜角互餘：tanθ = vy/v0 = cotα。" },
+      20: { variation: "變異：垂直撞擊斜面之落點深度與高度差", action: "由 t = v0 cotα / g 求時間，再算 y = 1/2 gt²。" },
+      21: { variation: "變異：雙斜面間水平拋出之落點判定", action: "根據兩側幾何斜率建立位移方程，比較時間先後。" },
+      22: { variation: "變異：兩不同時刻之速度偏角正切值比", action: "tanθ = gt/v0 隨時間 t 成正比，tanθ1 / tanθ2 = t1 / t2。" },
+      23: { variation: "變異：位移夾角隨時間變化的函數比例", action: "tanφ = gt/(2v0)，位移正切隨時間呈線性增長。" },
+      24: { variation: "變異：落地合速度方向與位移方向之正切二倍關係", action: "驗算落地時 tanθ_末 = 2 tanφ_末。" },
+      25: { variation: "變異：平拋過程中重力瞬時功率隨時間線性增長", action: "瞬時功率 P = mg·vy = mg(gt) = mg²t。" },
+      26: { variation: "變異：空中連續拋出多球所連成之瞬時空間直線", action: "以時間差 Δt 分析相鄰球的相對位置，相對運動為等速直線。" },
+      27: { variation: "變異：平拋落地動量變化量與重力衝量", action: "ΔP = J = mg·t，方向鉛直向下，與水平初速大小無關。" },
+      28: { variation: "母題：斜拋標準三大公式 T, H, R 直接代入", action: "先拆分 v0x = v0 cosθ, v0y = v0 sinθ，依序代 T, H, R 公式。" },
+      29: { variation: "變異：仰角 30° 與 60° 互補角射程相等驗證", action: "sin(2×30°) = sin(2×60°) = sin 60°，水平射程完全相同。" },
+      30: { variation: "變異：互餘角兩次拋射之飛行時間比 T1/T2 = tanθ", action: "T1/T2 = sinθ / sin(90°-θ) = sinθ/cosθ = tanθ。" },
+      31: { variation: "變異：互餘角兩次拋射之最大高度比 H1/H2 = tan²θ", action: "H1/H2 = sin²θ / cos²θ = tan²θ。" },
+      32: { variation: "變異：由兩次飛行時間乘積求射程 R = 1/2 g T1 T2", action: "T1·T2 = (2v0 sinθ/g)(2v0 cosθ/g) = 2R/g ⟹ R = g/2 T1 T2。" },
+      33: { variation: "變異：由兩次最大高度求射程 R = 4√(H1 H2)", action: "√(H1 H2) = v0² sinθ cosθ / (2g) = R/4 ⟹ R = 4√(H1 H2)。" },
+      34: { variation: "變異：斜拋最高點速度、動能與初動能之比例", action: "最高點速度為 v0 cosθ，動能 E_頂 = E0 cos²θ。" },
+      35: { variation: "變異：最高點法向加速度即為 g，求曲率半徑", action: "頂點處 a_n = g = v_頂² / ρ ⟹ ρ = (v0 cosθ)² / g。" },
+      36: { variation: "變異：水平射程等於最大高度 (R=H) 啟動高程比", action: "tanθ = 4H/R，當 R = H 時立刻得出 tanθ = 4。" },
+      37: { variation: "變異：微小角度變化對射程之影響與敏感度", action: "在 45° 附近射程取極值，對角度變化最不敏感。" },
+      38: { variation: "變異：斜拋上升階段與下降階段時間對稱性", action: "上升時間 = 下降時間 = T/2 = v0 sinθ / g。" },
+      39: { variation: "變異：二次曲線方程 y = Ax - Bx² 辨識拋射角與射程", action: "對照 y = x tanθ (1 - x/R)，拋射角 tanθ = A，射程 R = A/B。" },
+      40: { variation: "變異：越過固定高寬牆面障礙物所需之最小初速", action: "將牆角坐標 (d, h) 代入軌跡方程，以 tanθ 為變數求 v0 極值。" },
+      41: { variation: "變異：由空間兩點坐標求解拋射初速與仰角", action: "將兩組 (x, y) 代入軌跡方程式，聯立消去 v0 或 tanθ。" },
+      42: { variation: "變異：籃球投籃空心入網之特定坐標軌跡", action: "令籃框坐標 (d, h)，由 y = x tanθ - gd²/(2v0² cos²θ) 解初速。" },
+      43: { variation: "變異：斜拋空中總速度量值變化與鉛直分量關係", action: "瞬時速率 v = √(v0x² + vy²)，在最高點取最小值 v0 cosθ。" },
+      44: { variation: "變異：速度偏角由正轉負之對稱性與落地角", action: "落地速度偏角大小等於出發仰角，方向為水平斜下方。" },
+      45: { variation: "變異：固定初速下仰角 45° 達到最大射程 R_max", action: "sin 2θ = 1 ⟹ θ = 45°，此時 R_max = v0²/g，H = R/4。" },
+      46: { variation: "變異：給定最大高度反求初速鉛直分量與時間", action: "vy0 = √(2gH)，總飛行時間 T = 2vy0 / g = 2√(2H/g)。" },
+      47: { variation: "變異：排球過網且落於底線內之軌跡範圍不等式", action: "以網頂坐標列 y(d_網) > h_網，以底線列 y(d_底) ≤ 0。" },
+      48: { variation: "變異：斜拋全程之動量變化量 ΔP = mgT (向下)", action: "水平動量守恆，鉛直動量變化 ΔPy = -2m v0 sinθ = -mgT。" },
+      49: { variation: "變異：拋物線軌跡與割線幾何中點性質", action: "任一水平線所截拋物線弦，其頂點投影必在中點。" },
+      50: { variation: "變異：已知水平射程與中途某點高度求拋射角", action: "直接代入 y = x tanθ (1 - x/R)，一次式直接秒解 tanθ！" },
+      51: { variation: "變異：兩次不同角度拋射經過同一空間障礙點", action: "軌跡交點：兩次軌跡方程在相同 (x, y) 聯立。" },
+      52: { variation: "變異：斜拋兩次通過某一對稱速率之時間間隔", action: "速率相同即 |vy| 相同，Δt = 2|vy|/g。" },
+      53: { variation: "母題：球兩次通過高 h 處，兩時間和必為全程時間", action: "由 h = v0y t - 1/2 gt² 韋達定理：t1 + t2 = 2v0y/g = T。" },
+      54: { variation: "變異：兩次通過高 h 處，兩時間之積 t1·t2 = 2h/g", action: "由韋達定理：兩根乘積 t1·t2 = h / (g/2) = 2h/g ⟹ h = 1/2 g t1 t2。" },
+      55: { variation: "變異：經過同一障礙物高度之兩時刻差 Δt = t2 - t1", action: "Δt = √( (t1+t2)² - 4t1 t2 ) = √( T² - 8h/g )。" },
+      56: { variation: "變異：兩次通過高 h 處速度量值相同、鉛直速度反向", action: "力學能守恆保證速率相同；鉛直分速 vy1 = -vy2。" },
+      57: { variation: "變異：同一初速不同仰角通過同高度之時間關係", action: "兩角度分別建立二次方程對照係數。" },
+      58: { variation: "變異：同高度兩點間水平距離與該段飛行時間", action: "水平距離 Δx = v0x (t2 - t1)。" },
+      59: { variation: "變異：沿光滑斜面上衝至頂端後拋出之複合運動", action: "先算斜面等減速至頂端之速度 v，再以此速度作斜拋。" },
+      60: { variation: "變異：屋頂下滑離開屋簷斜拋落地距牆腳距離", action: "求滑至屋簷速度，再以俯角 30° 作斜拋飛行時間計算。" },
+      61: { variation: "變異：光滑斜面上二維斜拋，有效重力 g sinθ", action: "在斜面平面內運動，沿斜面方向加速度為 g sinθ，底邊等速。" },
+      62: { variation: "變異：雙斜面頂點滑出後的空中拋體飛越", action: "從頂點以俯角 30° 拋出，落點坐標 (√3 h, -h) 聯立求速度。" },
+      63: { variation: "變異：左斜面上滑過頂點後拋向右斜面底端", action: "以頂點為原點，右底端坐標為 (60, -45)，代入平拋運動學。" },
+      64: { variation: "變異：斜面下滑平拋飛越下方斜面之高度條件", action: "下滑求初速 vA = √(2gH)，落差 h 之水平射程需大於斜面底長。" },
+      65: { variation: "變異：垂直斜面初速拋出落回斜面之時間與射程", action: "初速與水平夾角 90°-37°=53°，落回斜面 y = -x tan 37° 解 t。" },
+      66: { variation: "變異：沿斜面斜拋落回斜面，大三角形正弦定理", action: "初速位移 v0 t、自由落體 1/2 gt² 與斜面長構成封閉三角形。" },
+      67: { variation: "變異：斜坡上仰角拋射飛行時間 (大三角形法)", action: "正弦定理：(v0 t)/sin 60° = (1/2 gt²)/sin 30° 秒解 t。" },
+      68: { variation: "變異：斜坡上仰角拋射落點距離 (正弦定理)", action: "位移三角形內角為 37°, 53°, 90°，由直角三角形邊長比秒解。" },
+      69: { variation: "變異：旋轉坐標法示範：落回斜面條件為 y=0", action: "建立沿斜面 x 與垂直斜面 y 軸，ay = -g cos 30°，由 y=0 解 t。" },
+      70: { variation: "變異：旋轉坐標法：垂直撞擊斜面條件為 vx=0", action: "垂直撞擊意味著沿斜面分速 vx = v0x + ax t = 0。" },
+      71: { variation: "變異：兩物體空中相遇 (P平拋 vs Q斜拋)，相對等速", action: "兩球相對加速度為 0，水平等速相遇且鉛直位置相同。" },
+      72: { variation: "變異：等速平板車上拋射，車內等速 vs 車外拋物線", action: "車內看鉛直上拋或拋物線；車外看水平速度疊加車速。" }
+    };
+
+    // 快取題目 Map
+    const questionsMap = new Map();
+    if (typeof PHYSICS_QUESTIONS !== 'undefined') {
+      PHYSICS_QUESTIONS.forEach(q => questionsMap.set(q.id, q));
+    }
+
+    // ==========================================================================
+    // 動態表頭設定
+    // ==========================================================================
+    function updateHeaderAndTitle(mode) {
+      const headerEl = document.getElementById('dynamic-doc-header');
+      const footerLeft = document.getElementById('footer-left-text');
+      const foldBanner = document.getElementById('fold-guide-banner');
+
+      if (mode === 'mode-exam') {
+        document.title = '【試題本】高中物理 · 二維拋體運動 72 題概念精熟測驗卷';
+        headerEl.innerHTML = `
+          <div>
+            <h1 class="doc-title-main">高中物理 · 二維拋體運動 72 題概念精熟試題本</h1>
+            <p class="doc-title-sub">
+              <span>7 大高純度專題</span>
+              <span>•</span>
+              <span>純題目雙欄高密度排版</span>
+              <span>•</span>
+              <span>無答案考場練習專用</span>
+            </p>
+          </div>
+          <div class="student-info-box">
+            <div>班級：<span class="student-field"></span></div>
+            <div>座號：<span class="student-field"></span></div>
+            <div>姓名：<span class="student-field" style="min-width:60px;"></span></div>
+            <div>得分：<span class="student-field"></span></div>
+          </div>
+        `;
+        foldBanner.style.display = 'none';
+        footerLeft.textContent = '高中物理學習中心 · 二維拋體運動【純試題測驗本】 · 72 題全集';
+      } else if (mode === 'mode-solution') {
+        document.title = '【精解手冊】高中物理 · 二維拋體運動 72 題詳細步驟與思維解析';
+        headerEl.innerHTML = `
+          <div>
+            <h1 class="doc-title-main">高中物理 · 二維拋體運動 72 題步驟精解與思維手冊</h1>
+            <p class="doc-title-sub">
+              <span>名師手把手家教式詳解</span>
+              <span>•</span>
+              <span>第一步出手直覺 ➔ 幾何建模 ➔ 分步算式 ➔ 易錯警語</span>
+            </p>
+          </div>
+          <div class="student-info-box">
+            <span style="font-weight:700; color:var(--accent-dark);">📘 教師備課 / 學生訂正專用詳解冊</span>
+          </div>
+        `;
+        foldBanner.style.display = 'none';
+        footerLeft.textContent = '高中物理學習中心 · 二維拋體運動【獨立精解手冊】 · 建議雙面列印';
+      } else if (mode === 'mode-split') {
+        document.title = '【雙欄對折自測本】高中物理 · 二維拋體運動 72 題概念精熟題本';
+        headerEl.innerHTML = `
+          <div>
+            <h1 class="doc-title-main">高中物理 · 二維拋體運動 72 題雙欄對折自測本</h1>
+            <p class="doc-title-sub">
+              <span>左欄題目 · 右欄解析</span>
+              <span>•</span>
+              <span>沿中央虛線對折盲測</span>
+              <span>•</span>
+              <span>節省 50% 列印頁數</span>
+            </p>
+          </div>
+          <div class="student-info-box">
+            <div>班級：<span class="student-field"></span></div>
+            <div>座號：<span class="student-field"></span></div>
+            <div>姓名：<span class="student-field" style="min-width:60px;"></span></div>
+            <div>得分：<span class="student-field"></span></div>
+          </div>
+        `;
+        foldBanner.style.display = 'flex';
+        footerLeft.textContent = '高中物理學習中心 · 二維拋體運動【左右對折自測本】';
+      } else if (mode === 'mode-key') {
+        document.title = '【簡答速查表】高中物理 · 二維拋體運動 72 題標準答案一覽表';
+        headerEl.innerHTML = `
+          <div>
+            <h1 class="doc-title-main">高中物理 · 二維拋體運動 72 題標準答案速查表</h1>
+            <p class="doc-title-sub">
+              <span>7 大專題標準答案矩陣一覽</span>
+              <span>•</span>
+              <span>快速批改專用</span>
+            </p>
+          </div>
+        `;
+        foldBanner.style.display = 'none';
+        footerLeft.textContent = '高中物理學習中心 · 二維拋體運動【簡答速查表】';
+      }
+    }
+
+    // ==========================================================================
+    // 渲染主流程
+    // ==========================================================================
+    function renderPrintWorkbook() {
+      const mode = document.getElementById('select-print-mode').value;
+      const filterVal = document.getElementById('select-module-filter').value;
+      const root = document.getElementById('print-modules-root');
+      root.innerHTML = '';
+
+      document.body.className = mode;
+      updateHeaderAndTitle(mode);
+
+      // 特殊模式：簡答速查表
+      if (mode === 'mode-key') {
+        renderAnswerKeyTable(root, filterVal);
+        setTimeout(renderLatexFormulas, 30);
+        return;
+      }
+
+      PRINT_MODULES.forEach((mod, index) => {
+        if (filterVal !== 'all' && filterVal !== mod.id) return;
+
+        const modSection = document.createElement('section');
+        modSection.className = `module-section ${index > 0 ? 'break-before' : ''}`;
+
+        // 專題標題條
+        const bannerHtml = `
+          <div class="module-banner">
+            <div class="module-banner-title">
+              <span>🎯</span>
+              <span>${escapeHtml(mod.name)}</span>
+            </div>
+            <div class="module-banner-meta">${mod.countText}</div>
+          </div>
+        `;
+
+        // 核心公式橫幅 (試題本模式不印出公式，強迫盲測記憶；詳解本與對折本印出)
+        const coreCardHtml = (mode === 'mode-exam') ? '' : `
+          <div class="module-core-card">
+            <div class="core-formula-header">
+              <div class="core-formula-label">📐 核心公式與幾何定理矩陣</div>
+              <div class="core-formula-box latex-render katex-block" data-formula="${escapeHtml(mod.formulaLatex)}"></div>
+            </div>
+            <div class="core-tips-grid">
+              <div class="core-tip-item tip-action">
+                <span class="tip-tag-action">💡 審題訊號 ➔ 第一步出手直覺</span>
+                <div class="tip-content">${escapeHtml(mod.firstActionSummary)}</div>
+              </div>
+              <div class="core-tip-item tip-pitfall">
+                <span class="tip-tag-pitfall">⚠️ 避坑指南 ➔ 命題易錯提醒</span>
+                <div class="tip-content">${escapeHtml(mod.pitfalls)}</div>
+              </div>
+            </div>
+          </div>
+        `;
+
+        let questionsHtml = '';
+        if (mode === 'mode-exam') {
+          // 模式 1：純試題本 (雙欄高密度排版，無答案)
+          questionsHtml = `
+            <div class="exam-two-column-grid">
+              ${mod.questionIds.map(id => renderExamQuestionCard(id)).join('')}
+            </div>
+          `;
+        } else if (mode === 'mode-solution') {
+          // 模式 2：獨立詳解手冊 (超詳盡推導本)
+          questionsHtml = `
+            <div class="solution-book-list">
+              ${mod.questionIds.map(id => renderStandaloneSolutionCard(id)).join('')}
+            </div>
+          `;
+        } else if (mode === 'mode-split') {
+          // 模式 3：左右對折自測本 (左題右解)
+          questionsHtml = `
+            <div class="module-questions-list">
+              ${mod.questionIds.map(id => renderSplitFoldCard(id)).join('')}
+            </div>
+          `;
+        }
+
+        modSection.innerHTML = bannerHtml + coreCardHtml + questionsHtml;
+        root.appendChild(modSection);
+      });
+
+      setTimeout(renderLatexFormulas, 40);
+    }
+
+    // --- 模式 1：純試題卡片 ---
+    function renderExamQuestionCard(id) {
+      const q = questionsMap.get(id);
+      if (!q) return '';
+      const meta = QUESTION_META_MAP[id] || { variation: '拋體概念試題' };
+      const cleanQ = cleanQuestionText(q.question);
+
+      return `
+        <article class="exam-q-box" id="exam-q-${id}">
+          <div>
+            <div class="exam-q-header">
+              <span class="q-id-badge">Q${id.toString().padStart(2, '0')}</span>
+              <span class="q-variation-tag">🎯 ${escapeHtml(meta.variation)}</span>
+            </div>
+            <div class="exam-q-body math-text">
+              ${formatLinesHtml(cleanQ)}
+              ${q.diagramSvg ? `<div style="margin:0.25rem 0; text-align:center;">${q.diagramSvg}</div>` : ''}
+            </div>
+          </div>
+          <div class="exam-answer-line">
+            <span>答：__________</span>
+          </div>
+        </article>
+      `;
+    }
+
+    // --- 模式 2：獨立詳解卡片 (步驟超詳盡) ---
+    function renderStandaloneSolutionCard(id) {
+      const q = questionsMap.get(id);
+      if (!q) return '';
+      const meta = QUESTION_META_MAP[id] || { variation: '拋體概念試題', action: '建立正交運動方程式求解。' };
+      const firstLine = (q.question.split('\n')[0] || '').replace(/[#*]/g, '').trim().slice(0, 45);
+
+      return `
+        <article class="solution-card-standalone" id="sol-card-${id}">
+          <div class="sol-card-header">
+            <div style="display:flex; align-items:center; gap:0.5rem;">
+              <span class="q-id-badge">Q${id.toString().padStart(2, '0')}</span>
+              <span class="sol-q-title-preview math-text">${escapeHtml(firstLine)}...</span>
+            </div>
+            <span class="q-variation-tag">🎯 ${escapeHtml(meta.variation)}</span>
+          </div>
+
+          <!-- ⚡ 審題訊號與第一步出手直覺 -->
+          <div class="first-action-banner">
+            <strong>⚡ 審題訊號 ➔ 第一步出手直覺：</strong>${escapeHtml(meta.action)}
+          </div>
+
+          <!-- 💡 核心思維與幾何拆解 (若有) -->
+          ${q.hint ? `
+            <div class="hint-model-box">
+              <div style="font-weight:800; color:#0369a1; font-size:8pt; margin-bottom:0.15rem;">💡 破題思維與物理建模：</div>
+              <div class="math-text">${formatLinesHtml(q.hint)}</div>
+            </div>
+          ` : ''}
+
+          <!-- 🎯 完整步驟詳解 -->
+          <div class="full-steps-content math-text">
+            <div style="font-weight:850; color:var(--accent-badge); font-size:8.2pt; margin-bottom:0.25rem;">📝 詳細算式推導與步驟：</div>
+            ${formatLinesHtml(q.solution)}
+          </div>
+
+          <!-- 🏁 標準答案標章 -->
+          <div class="sol-footer-bar">
+            <div style="font-size:7.8pt; color:var(--text-muted);">
+              【核心概念檢核：此題重點在於正交獨立性與幾何約束聯立】
+            </div>
+            ${q.answer ? `<div class="answer-tag-prominent math-text">標準答案：${escapeHtml(q.answer)}</div>` : ''}
+          </div>
+        </article>
+      `;
+    }
+
+    // --- 模式 3：左右對折自測卡片 ---
+    function renderSplitFoldCard(id) {
+      const q = questionsMap.get(id);
+      if (!q) return '';
+      const meta = QUESTION_META_MAP[id] || { variation: '拋體概念試題', action: '建立正交運動方程式求解。' };
+      const cleanQ = cleanQuestionText(q.question);
+
+      return `
+        <article class="q-split-row" id="q-split-${id}">
+          <!-- 左欄：題目區 (對折時露在外側) -->
+          <div class="q-col-left">
+            <div class="q-col-header">
+              <span class="q-id-badge">Q${id.toString().padStart(2, '0')}</span>
+              <span class="q-variation-tag">🎯 ${escapeHtml(meta.variation)}</span>
+            </div>
+            <div class="q-body-text math-text">
+              ${formatLinesHtml(cleanQ)}
+              ${q.diagramSvg ? `<div style="margin:0.25rem 0; text-align:center;">${q.diagramSvg}</div>` : ''}
+            </div>
+          </div>
+
+          <!-- 右欄：解析與出手直覺 (對折時藏在背面) -->
+          <div class="q-col-right">
+            <div>
+              <div style="font-size:7.8pt; color:#0369a1; background:#f0f9ff; border-left:2.5px solid #0284c7; padding:0.2rem 0.45rem; margin-bottom:0.4rem; border-radius:0 3px 3px 0;">
+                <strong>⚡ 出手直覺：</strong>${escapeHtml(meta.action)}
+              </div>
+              <div style="font-size:8.2pt; line-height:1.52;" class="math-text">
+                ${formatLinesHtml(q.solution)}
+              </div>
+            </div>
+            ${q.answer ? `<div style="display:inline-block; margin-top:0.35rem; padding:0.12rem 0.45rem; background:#ecfdf5; color:#047857; border:1px solid #a7f3d0; border-radius:3px; font-weight:850; font-size:8.3pt;" class="math-text">標準答案：${escapeHtml(q.answer)}</div>` : ''}
+          </div>
+        </article>
+      `;
+    }
+
+    // --- 模式 4：簡答速查表矩陣 ---
+    function renderAnswerKeyTable(root, filterVal) {
+      const tableWrapper = document.createElement('div');
+      tableWrapper.style.padding = '0.5rem 0';
+
+      let rowsHtml = '';
+      let filteredIds = [];
+
+      if (filterVal === 'all') {
+        // 全卷模式：嚴格依題號 1 ~ 72 升冪排列，方便快速定位查題
+        filteredIds = Array.from({ length: 72 }, (_, i) => i + 1);
+      } else {
+        const targetMod = PRINT_MODULES.find(m => m.id === filterVal);
+        if (targetMod) filteredIds = [...targetMod.questionIds];
+      }
+
+      // 每 6 題一列
+      for (let i = 0; i < filteredIds.length; i += 6) {
+        const slice = filteredIds.slice(i, i + 6);
+        const headers = slice.map(id => `<th>Q${id.toString().padStart(2, '0')}</th>`).join('');
+        const cells = slice.map(id => {
+          const q = questionsMap.get(id);
+          let ans = q ? (q.answer || '詳解見本') : '-';
+          ans = ans.replace(/正確選項為[：:]?\s*/g, '')
+                   .replace(/答案為[：:]?\s*/g, '')
+                   .replace(/[\n\r][\s\S]*/g, '')
+                   .replace(/\*\*/g, '')
+                   .trim();
+          return `<td class="math-text"><span class="key-ans-badge">${escapeHtml(ans)}</span></td>`;
+        }).join('');
+
+        rowsHtml += `<tr>${headers}</tr><tr>${cells}</tr>`;
+      }
+
+      tableWrapper.innerHTML = `
+        <table class="answer-key-table">
+          <tbody>${rowsHtml}</tbody>
+        </table>
+      `;
+
+      root.appendChild(tableWrapper);
+    }
+
+    // --- 工具輔助函式 ---
+    function cleanQuestionText(raw) {
+      if (!raw) return '';
+      let str = String(raw).trim();
+      str = str.replace(/>\s*🖼️\s*\*+【圖表說明】\*+[^\n\r]*/g, '');
+      str = str.replace(/>\s*\*+Prompt\*+:[^\n\r]*/g, '');
+      str = str.replace(/>\s*🖼️\s*[^\n\r]*/g, '');
+      return str;
+    }
+
+    function formatLinesHtml(text) {
+      if (!text) return '';
+      return text.split('\n')
+        .map(line => line.trim())
+        .filter(Boolean)
+        .map(line => `<div style="margin-bottom:0.18rem;">${escapeHtml(line).replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')}</div>`)
+        .join('');
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+    }
+
+    // ==========================================================================
+    // KaTeX 渲染引擎
+    // ==========================================================================
+    function renderLatexFormulas() {
+      if (!window.katex) return;
+      document.querySelectorAll('.latex-render:not([data-rendered="true"])').forEach(el => {
+        const formula = el.getAttribute('data-formula') || el.textContent;
+        try {
+          katex.render(formula, el, { displayMode: true, throwOnError: false });
+          el.setAttribute('data-rendered', 'true');
+        } catch (e) {}
+      });
+
+      document.querySelectorAll('.math-text:not([data-rendered="true"])').forEach(el => {
+        el.setAttribute('data-rendered', 'true');
+        walkTextNodes(el);
+      });
+    }
+
+    function walkTextNodes(container) {
+      const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT, null, false);
+      const nodes = [];
+      while (walker.nextNode()) nodes.push(walker.currentNode);
+
+      nodes.forEach(node => {
+        const text = node.nodeValue;
+        if (!text || (!text.includes('$') && !text.includes('$$'))) return;
+        const parent = node.parentNode;
+        if (parent && (parent.tagName === 'SCRIPT' || parent.tagName === 'STYLE' || parent.classList.contains('katex'))) return;
+
+        const parts = text.split(/(\$\$[\s\S]+?\$\$|\$[^\$\n\r]+?\$)/g);
+        if (parts.length <= 1) return;
+
+        const frag = document.createDocumentFragment();
+        parts.forEach(part => {
+          if (part.startsWith('$$') && part.endsWith('$$')) {
+            const math = part.slice(2, -2).trim();
+            const span = document.createElement('span');
+            try { katex.render(math, span, { displayMode: true, throwOnError: false }); frag.appendChild(span); }
+            catch (e) { frag.appendChild(document.createTextNode(part)); }
+          } else if (part.startsWith('$') && part.endsWith('$')) {
+            const math = part.slice(1, -1).trim();
+            const span = document.createElement('span');
+            try { katex.render(math, span, { displayMode: false, throwOnError: false }); frag.appendChild(span); }
+            catch (e) { frag.appendChild(document.createTextNode(part)); }
+          } else if (part) {
+            frag.appendChild(document.createTextNode(part));
+          }
+        });
+        parent.replaceChild(frag, node);
+      });
+    }
+
+    // ==========================================================================
+    // 控制列監聽事件
+    // ==========================================================================
+    document.getElementById('select-print-mode').addEventListener('change', () => {
+      renderPrintWorkbook();
+    });
+
+    document.getElementById('select-module-filter').addEventListener('change', () => {
+      renderPrintWorkbook();
+    });
+
+    // 初次載入渲染
+    renderPrintWorkbook();
+
+    let checkCount = 0;
+    const initTimer = setInterval(() => {
+      checkCount++;
+      if (window.katex) {
+        clearInterval(initTimer);
+        renderLatexFormulas();
+      } else if (checkCount > 30) {
+        clearInterval(initTimer);
+      }
+    }, 100);
+  </script>
+</body>
+</html>
